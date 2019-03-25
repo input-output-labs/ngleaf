@@ -6,6 +6,6 @@
     "@angular/core": "^7.2.0"
   },
   "publishConfig": {
-    "registry": "https://nexus.io-labs.fr/nexus/repository/npm-private/"
+    "registry": "https://nexus.io-labs.fr/nexus/repository/npm/"
   }
 }
