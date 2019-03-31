@@ -1,0 +1,20 @@
+<div class="register-popup">
+  <div class="register-popup-head">
+      <form class="form" [formGroup]="registerForm" (keyup.enter)="register()">
+        <mat-form-field  appearance="outline">
+        <mat-label>Email</mat-label>
+          <input matInput id="email" value="" formControlName="email" email="true">
+        </mat-form-field>
+        <mat-form-field  appearance="outline">
+        <mat-label>Pass</mat-label>
+          <input matInput id="password" type="password" value="" formControlName="password">
+        </mat-form-field>
+        <mat-form-field  appearance="outline">
+        <mat-label>Repeat Pass</mat-label>
+          <input matInput id="passwordValidation" type="password" value="" formControlName="passwordValidation">
+        </mat-form-field>
+      </form>
+
+    <button mat-stroked-button *ngIf="registerForm.valid" (click)="register()">ENREGISTRER</button>
+  </div>
+</div>

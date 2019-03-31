@@ -1,0 +1,47 @@
+.image-upload-wrap {
+  width: 100%;
+  height: 100%;
+  border: 4px dashed #1FB264;
+  position: relative;
+}
+
+.image-upload-wrap:hover {
+  background-color: #1FB264;
+  border: 4px dashed #ffffff;
+}
+
+.drag-text {
+  text-align: center;
+  height: calc(100% - 0.5em);
+  width: calc(100% - 0.5em);
+  padding: 0.25em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+
+  h3 {
+    flex: 1;
+    font-weight: 100;
+    text-transform: uppercase;
+    color: #15824B;
+  }
+}
+
+.file-upload-image {
+  max-height: calc(100% - 0.5em);
+  max-width: calc(100% - 0.5em);
+  margin: auto;
+  padding: 0.25em;
+}
+
+.file-upload-input {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  opacity: 0;
+  cursor: pointer;
+}

@@ -1,0 +1,72 @@
+:host {
+  .mat-card-title {
+    font-size: 1.3em;
+    font-weight: bold;
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+
+    * {
+      outline: none;
+    }
+
+    :before,
+    :after {
+      content: '';
+    }
+  }
+
+  label {
+    padding-right: 5px;
+  }
+
+  .input-container {
+    width: 100%;
+    display:flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .register-popup {
+    width: 100%;
+    text-align: center;
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: rgba(white,.3);
+
+    .register-popup-head {
+      width: 80%;
+      padding: 1em;
+      display:flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+
+      .avatar {
+        border: solid 1px grey;
+        border-radius: 50%;
+        height: 80px;
+        width: 80px;
+      }
+      .login {
+        font-weight: bolder;
+        font-size: 120%;
+      }
+    }
+
+    .register-popup-menu {
+      background-color: rgba(0,0,0,0.9);
+      padding: 1em;
+      height: 300px;
+
+      button {
+        background-color: #f5f5f5;
+        margin: 0.25em;
+      }
+    }
+  }
+
+}
+

@@ -1,0 +1,13 @@
+<div class="account-popup">
+  <div class="account-popup-head">
+    <div data-v-31254916="" class="v-avatar grey lighten-4">
+        <img data-v-31254916="" *ngIf="avatarUrl" [src]="avatarUrl" alt="avatar" class="avatar">
+        <img data-v-31254916="" *ngIf="!avatarUrl" src="https://png.pngtree.com/svg/20161013/dpi_user_default_avatar_116868.png" alt="avatar" class="avatar">
+    </div>
+    <div class="login">{{username}}</div>
+  </div>
+  <div class="account-popup-menu">
+    <button mat-stroked-button (click)="goToAccountSettingsPage()">Param&egrave;tres</button>
+    <button mat-stroked-button (click)="logout()">D&eacute;connexion</button>
+  </div>
+</div>

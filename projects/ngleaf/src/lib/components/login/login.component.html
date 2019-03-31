@@ -1,0 +1,12 @@
+<form class="form" [formGroup]="loginForm" (keyup.enter)="login()">
+  <mat-form-field color="primary" appearance="outline">
+    <mat-label>Email</mat-label>
+    <input matInput id="loginEmail" value="" formControlName="email">
+  </mat-form-field>
+
+  <mat-form-field color="primary" appearance="outline">
+    <mat-label>Password</mat-label>
+    <input matInput id="loginPassword" type="password" value="" formControlName="password">
+  </mat-form-field>
+</form>
+<button class="login-button" mat-stroked-button *ngIf="loginForm.valid" (click)="login()" color="primary" >LOG IN</button>
