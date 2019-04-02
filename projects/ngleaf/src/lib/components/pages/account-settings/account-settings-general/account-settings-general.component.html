@@ -1,0 +1,21 @@
+<div class="header-line">
+  <div class="title">
+    <h2 class="">GENERAL</h2>
+  </div>
+</div>
+
+<mat-divider></mat-divider>
+
+<div class="container-spacer">
+  <form class="form" [formGroup]="changeNameForm">
+    <h3 class="">PSEUDO</h3>
+    <div class="row">
+      <div class="input">
+        <mat-form-field>
+          <input matInput id="username" placeholder="Pseudo" value="" formControlName="username">
+        </mat-form-field>
+      </div>
+    </div>
+  </form>
+  <button mat-button (click)="changeName()" [disabled]="changeNameForm.invalid">CHANGER MON NOM</button>
+</div>

@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import { LeafUploadFileService } from '../../services/LeafUploadFile.service';
+import { LeafUploadFileService } from '../../../services/LeafUploadFile.service';
 
 @Component({
   selector: 'leaf-image-upload',

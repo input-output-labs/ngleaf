@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {Router} from "@angular/router";
-import { LeafSessionService } from '../../../services/LeafSession.service';
+import { LeafSessionService } from '../../../../services/LeafSession.service';
 
 @Component({
   selector: 'app-account-popover-content',

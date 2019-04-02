@@ -40,5 +40,5 @@ import { RegisterComponent } from './register/register.component';
     RegisterComponent
   ]
 })
-export class LeafComponentModule {
+export class LeafComponentCommonModule {
 }

@@ -1,0 +1,28 @@
+
+<div id="account-settings-page">
+  <div id="account-settings-page-container">
+      <div id="account-settings-left-column">
+          <div class="account-trailer-head">
+              <div data-v-31254916="" class="v-avatar grey lighten-4">
+                <img data-v-31254916="" *ngIf="(currentAccount$ | async)?.avatarUrl" [src]="(currentAccount$ | async)?.avatarUrl" alt="avatar" class="avatar">
+                <img data-v-31254916="" *ngIf="!(currentAccount$ | async)?.avatarUrl" src="https://png.pngtree.com/svg/20161013/dpi_user_default_avatar_116868.png" alt="avatar" class="avatar">
+              </div>
+              <div class="login">{{(currentAccount$ | async)?.username}}</div>
+          </div>
+          <div class="account-settings-menu">
+              <ul class="js-nav-links">
+                  <li *ngFor="let link of links">
+                    <a class="list-link js-nav"
+                      [routerLink]="['/settings/'+link.link]"
+                      routerLinkActive="active">
+                      {{link.name}} <span class="Icon Icon--caretRight"></span>
+                    </a>
+                  </li>
+                </ul>
+          </div>
+      </div>
+      <div id="account-settings-right-column">
+          <router-outlet></router-outlet>
+      </div>
+  </div>
+</div>
