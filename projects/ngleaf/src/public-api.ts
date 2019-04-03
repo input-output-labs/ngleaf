@@ -2,6 +2,6 @@
  * Public API Surface of ngleaf
  */
 
-export * from './lib/models';
-export * from './lib/services';
-export * from './lib/components';
+export * from './lib/models/index';
+export * from './lib/services/index';
+export * from './lib/components/index';

@@ -2,5 +2,5 @@
  * Public API Surface of ngleaf
  */
 
-export * from './common';
-export * from './pages';
+export * from './common/index';
+export * from './pages/index';
