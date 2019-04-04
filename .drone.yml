@@ -1,0 +1,11 @@
+kind: pipeline
+name: default
+
+steps:
+  - name: build-deploy
+    image: node
+    commands:
+      - npm install
+      - ng build ngleaf
+      - cd dist/ngleaf
+      - npm publish
