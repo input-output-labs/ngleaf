@@ -1,4 +1,4 @@
-import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 
@@ -10,10 +10,6 @@ export interface IRequestOptions {
   responseType?: 'json';
   withCredentials?: boolean;
   body?: any;
-}
-
-export function applicationHttpClientCreator(http: HttpClient) {
-  return new LeafAuthHttpClient(http);
 }
 
 @Injectable()
@@ -32,7 +28,7 @@ export class LeafAuthHttpClient {
   }
 
   public addHeaders(options?: IRequestOptions): IRequestOptions {
-    const authenticatedOptions = options || {headers : new HttpHeaders()};
+    const authenticatedOptions = options || {headers: new HttpHeaders()};
     authenticatedOptions.headers = authenticatedOptions.headers || new HttpHeaders();
     authenticatedOptions.headers = authenticatedOptions.headers.set('Cache-Control', 'no-cache');
     authenticatedOptions.headers = authenticatedOptions.headers.set('Pragma', 'no-cache');
@@ -48,19 +44,23 @@ export class LeafAuthHttpClient {
     return this.http.get<T>(endPoint, this.addHeaders(options));
   }
 
-  public post<T>(endPoint: string, params: Object, options?: IRequestOptions): Observable<T> {
+  public post<T>(endPoint: string, params: any, options?: IRequestOptions): Observable<T> {
     return this.http.post<T>(endPoint, params, this.addHeaders(options));
   }
 
-  public patch<T>(endPoint: string, params: Object, options?: IRequestOptions): Observable<T> {
+  public patch<T>(endPoint: string, params: any, options?: IRequestOptions): Observable<T> {
     return this.http.patch<T>(endPoint, params, this.addHeaders(options));
   }
 
-  public put<T>(endPoint: string, params: Object, options?: IRequestOptions): Observable<T> {
+  public put<T>(endPoint: string, params: any, options?: IRequestOptions): Observable<T> {
     return this.http.put<T>(endPoint, params, this.addHeaders(options));
   }
 
   public delete<T>(endPoint: string, options?: IRequestOptions): Observable<T> {
     return this.http.delete<T>(endPoint, this.addHeaders(options));
   }
+}
+
+export function applicationHttpClientCreator(http: HttpClient) {
+  return new LeafAuthHttpClient(http);
 }

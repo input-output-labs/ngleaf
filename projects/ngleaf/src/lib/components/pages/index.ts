@@ -3,3 +3,4 @@
  */
 
 export * from './public-api';
+export {AccountSettingsPageModule} from './account-settings';

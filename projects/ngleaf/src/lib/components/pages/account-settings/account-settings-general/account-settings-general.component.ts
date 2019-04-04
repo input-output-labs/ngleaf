@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { LeafSessionService } from '../../../../services/LeafSession.service';
+import {LeafSessionService} from '../../../../services/leaf-session.service';
 
 
 @Component({
@@ -15,7 +15,7 @@ export class AccountSettingsGeneralComponent implements OnInit {
   public members: string[] = [];
 
   constructor(public formBuilder: FormBuilder,
-    public sessionService: LeafSessionService) {
+              public sessionService: LeafSessionService) {
     this.changeNameForm = this.formBuilder.group({
       username: ['', Validators.required]
     });

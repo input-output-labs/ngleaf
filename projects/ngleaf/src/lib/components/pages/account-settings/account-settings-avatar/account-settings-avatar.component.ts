@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
-import { HttpEventType, HttpResponse } from '@angular/common/http';
-import { LeafSessionService } from '../../../../services/LeafSession.service';
+import { LeafSessionService } from '../../../../services/leaf-session.service';
 
 @Component({
   selector: 'leaf-account-settings-avatar',
@@ -14,7 +13,7 @@ export class AccountSettingsAvatarComponent implements OnInit {
   public changeAvatarForm: FormGroup;
 
   constructor(public formBuilder: FormBuilder,
-    public sessionService: LeafSessionService) {
+              public sessionService: LeafSessionService) {
     this.changeAvatarForm = this.formBuilder.group({
       avatarUrl: ['', Validators.required]
     });
@@ -23,7 +22,7 @@ export class AccountSettingsAvatarComponent implements OnInit {
   ngOnInit() {
   }
 
-  selectFile(avatarUrl:string) {
+  selectFile(avatarUrl: string) {
     this.changeAvatarForm.controls.avatarUrl.setValue(avatarUrl);
   }
 

@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import { LeafUploadFileService } from '../../../services/LeafUploadFile.service';
+import { LeafUploadFileService } from '../../../services/leaf-upload-file.service';
 
 @Component({
   selector: 'leaf-image-upload',
@@ -13,7 +13,7 @@ export class ImageUploadComponent implements OnInit {
   public imageUrl: string;
 
   @Output()
-  onSelectFile: EventEmitter<any> = new EventEmitter();
+  selectedFile: EventEmitter<any> = new EventEmitter(); // TODO: REMOVE ANY
 
   constructor(private uploadService: LeafUploadFileService) {
   }
@@ -31,9 +31,9 @@ export class ImageUploadComponent implements OnInit {
     this.uploadService.pushFileToStorage(this.currentFileUpload).subscribe(imageUrl => {
       this.imageUrl = imageUrl;
 
-      this.onSelectFile.emit(this.imageUrl);
+      this.selectedFile.emit(this.imageUrl);
     });
 
-    this.selectedFiles = undefined
+    this.selectedFiles = undefined;
   }
 }

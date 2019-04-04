@@ -2,10 +2,10 @@
  * Public API Surface of ngleaf
  */
 
-export * from './LeafAdmin.service';
-export * from './LeafAuthHttpClient.service';
-export * from './LeafNotification.service';
-export * from './LeafSession.service';
-export * from './LeafUploadFile.service';
+export * from './leaf-admin.service';
+export * from './leaf-auth-http-client.service';
+export * from './leaf-notification.service';
+export * from './leaf-session.service';
+export * from './leaf-upload-file.service';
 
-export * from './LeafService.module';
+export * from './leaf-service.module';

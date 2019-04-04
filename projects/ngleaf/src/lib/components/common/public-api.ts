@@ -8,4 +8,4 @@ export * from './imageUpload/imageUpload.component';
 export * from './login/login.component';
 export * from './register/register.component';
 
-export * from './LeafComponentCommon.module';
+export * from './leaf-components-common.module';

@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
-import { LeafSessionService } from '../../../services/LeafSession.service';
+import {LeafSessionService} from '../../../services/leaf-session.service';
 
 @Component({
-  selector: 'app-login',
+  selector: 'leaf-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })

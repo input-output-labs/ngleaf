@@ -5,16 +5,18 @@
   background-color: rgba(255, 255, 255, 0.7);
   text-align: right;
   padding: 0.5em;
-  border-bottom: solid 1px rgba(0,0,0,0.25);
+  border-bottom: solid 1px rgba(0, 0, 0, 0.25);
   z-index: 999;
 }
 
 .icon:hover {
-  color:black;
+  color: black;
 }
+
 .icon:not(:disabled) {
   cursor: pointer;
 }
+
 .app-header-content {
   width: 1244px;
   margin: auto;
@@ -32,6 +34,7 @@
     }
   }
 }
+
 .header-element {
   display: inline;
   margin-left: 0.5em;

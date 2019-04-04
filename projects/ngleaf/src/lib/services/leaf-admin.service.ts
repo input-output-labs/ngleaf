@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 
-import {LeafAccountModel} from '../models/LeafAccount.model';
+import {LeafAccountModel} from '../models/leaf-account.model';
 
-import {LeafAuthHttpClient} from './LeafAuthHttpClient.service';
+import {LeafAuthHttpClient} from './leaf-auth-http-client.service';
 
 @Injectable({
   providedIn: 'root'

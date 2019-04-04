@@ -1,11 +1,10 @@
 import {Injectable} from '@angular/core';
-import {Router} from '@angular/router';
 import {ReplaySubject} from 'rxjs';
 
-import {LeafAccountModel} from '../models/LeafAccount.model';
+import {LeafAccountModel} from '../models/leaf-account.model';
 
-import {LeafAuthHttpClient} from './LeafAuthHttpClient.service';
-import { LeafNotificationService } from './LeafNotification.service';
+import {LeafAuthHttpClient} from './leaf-auth-http-client.service';
+import {LeafNotificationService} from './leaf-notification.service';
 
 
 @Injectable({
@@ -19,7 +18,7 @@ export class LeafSessionService {
   public currentAccount = null;
   public jwtoken: string = null;
 
-  constructor(private router: Router, public authHttp: LeafAuthHttpClient, public notificationService: LeafNotificationService) {
+  constructor(public authHttp: LeafAuthHttpClient, public notificationService: LeafNotificationService) {
   }
 
   public init(serverUrl) {
@@ -28,7 +27,8 @@ export class LeafSessionService {
     this.jwtoken = localStorage.getItem('jwtoken');
     if (this.jwtoken) {
       this.authHttp.setJwtoken(this.jwtoken);
-      this.refreshAccount().then(() => {}).catch(() => {
+      this.refreshAccount().then(() => {
+      }).catch(() => {
         this.currentAccount$.next(null);
         this.authHttp.setJwtoken(null);
       });
@@ -60,9 +60,10 @@ export class LeafSessionService {
   public register(email, password) {
     return new Promise((resolve, reject) => {
       const account = {
-        email: email,
-        password: password
+        email,
+        password
       };
+      // TODO: REMOVE ANY
       this.authHttp.post<any>(this.url, account).subscribe((jwt) => {
         this.saveTokenAndGetAccount(jwt.token);
         resolve();
@@ -79,9 +80,10 @@ export class LeafSessionService {
   public login(email, password) {
     return new Promise((resolve) => {
       const credentials = {
-        email: email,
-        password: password
+        email,
+        password
       };
+      // TODO: REMOVE ANY
       this.authHttp.post<any>(this.url + '/login', credentials).subscribe((jwt) => {
         this.saveTokenAndGetAccount(jwt.token);
         resolve();
@@ -107,6 +109,7 @@ export class LeafSessionService {
 
   public changeUsername(username) {
     return new Promise(() => {
+      // TODO: REMOVE ANY
       this.authHttp.post<any>(this.url + '/me/username', username).subscribe(() => {
         this.refreshAccount();
         this.notificationService.emit({
@@ -126,6 +129,7 @@ export class LeafSessionService {
 
   public changeAvatar(avatar) {
     return new Promise(() => {
+      // TODO: REMOVE ANY
       this.authHttp.post<any>(this.url + '/me/avatar', avatar).subscribe(() => {
         this.refreshAccount();
         this.notificationService.emit({
@@ -146,9 +150,10 @@ export class LeafSessionService {
   public changePassword(oldPassword, newPassword) {
     return new Promise((resolve, reject) => {
       const passwordChanging = {
-        oldPassword: oldPassword,
-        newPassword: newPassword
+        oldPassword,
+        newPassword
       };
+      // TODO: REMOVE ANY
       this.authHttp.post<any>(this.url + '/me/password', passwordChanging).subscribe(() => {
         this.refreshAccount();
         this.notificationService.emit({
@@ -167,14 +172,16 @@ export class LeafSessionService {
   }
 
   public sendResetPasswordKey(email) {
+    // TODO: REMOVE ANY
     return this.authHttp.post<any>(this.url + '/sendresetpasswordkey', email).toPromise();
   }
 
   public resetPassword(key, password) {
     const passwordResetting = {
-      key: key,
-      password: password
+      key,
+      password
     };
+    // TODO: REMOVE ANY
     return this.authHttp.post<any>(this.url + '/resetPassword', passwordResetting).toPromise();
   }
 }

@@ -1,23 +1,23 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpRequest, HttpEvent} from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { LeafAuthHttpClient } from './LeafAuthHttpClient.service';
-import { map } from 'rxjs/operators';
-import { LeafFileModel } from '../models/LeafFile.model';
+import {Observable} from 'rxjs';
+import {LeafAuthHttpClient} from './leaf-auth-http-client.service';
+import {map} from 'rxjs/operators';
+import {LeafFileModel} from '../models/leaf-file.model';
 
 @Injectable()
 export class LeafUploadFileService {
 
   private url = '';
 
-  constructor(private http: LeafAuthHttpClient) {}
+  constructor(private http: LeafAuthHttpClient) {
+  }
 
   public init(serverUrl) {
     this.url = serverUrl + '/api/files';
   }
 
   pushFileToStorage(file: File): Observable<string> {
-    let formdata: FormData = new FormData();
+    const formdata: FormData = new FormData();
 
     formdata.append('file', file);
 
@@ -25,6 +25,6 @@ export class LeafUploadFileService {
       reportProgress: true
     }).pipe(
       map((body: LeafFileModel) => body.url
-    ));
+      ));
   }
 }

@@ -2,6 +2,6 @@
  * Public API Surface of ngleaf
  */
 
-export * from './LeafAccount.model';
-export * from './LeafFile.model';
-export * from './LeafNotification.model';
+export * from './leaf-account.model';
+export * from './leaf-file.model';
+export * from './leaf-notification.model';

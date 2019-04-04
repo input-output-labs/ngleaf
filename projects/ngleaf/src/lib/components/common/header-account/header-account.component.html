@@ -1,26 +1,31 @@
-<mat-icon *ngIf="(currentAccount$ | async)" class="icon" medium matTooltip="Mon compte" [mdePopoverTriggerFor]="accountPopover">account_circle</mat-icon>
+<mat-icon *ngIf="(currentAccount$ | async)" class="icon" medium matTooltip="Mon compte"
+          [mdePopoverTriggerFor]="accountPopover">account_circle
+</mat-icon>
 
 <app-login *ngIf="!(currentAccount$ | async)"></app-login>
-<button *ngIf="!(currentAccount$ | async)" mat-stroked-button [mdePopoverTriggerFor]="registerPopover" color="primary">REGISTER</button>
+<button *ngIf="!(currentAccount$ | async)" mat-stroked-button [mdePopoverTriggerFor]="registerPopover" color="primary">
+  REGISTER
+</button>
 
 <mde-popover #accountPopover="mdePopover"
-  [mdePopoverPositionY]="'below'"
-  [mdePopoverPositionX]="'after'"
-  [mdePopoverOverlapTrigger]="false"
-  [mdeFocusTrapEnabled]="false"
-  [mdePopoverTriggerOn]="'click'"
-  [mdePopoverArrowColor]="'rgba(0, 0, 0, 0.9)'">
-    <app-account-popover-content [username]="(currentAccount$ | async)?.username" [avatarUrl]="(currentAccount$ | async)?.avatarUrl"></app-account-popover-content>
+             [mdePopoverPositionY]="'below'"
+             [mdePopoverPositionX]="'after'"
+             [mdePopoverOverlapTrigger]="false"
+             [mdeFocusTrapEnabled]="false"
+             [mdePopoverTriggerOn]="'click'"
+             [mdePopoverArrowColor]="'rgba(0, 0, 0, 0.9)'">
+  <app-account-popover-content [username]="(currentAccount$ | async)?.username"
+                               [avatarUrl]="(currentAccount$ | async)?.avatarUrl"></app-account-popover-content>
 </mde-popover>
 <mde-popover #registerPopover="mdePopover"
-  [mdePopoverPositionY]="'below'"
-  [mdePopoverPositionX]="'after'"
-  [mdePopoverOverlapTrigger]="false"
-  [mdeFocusTrapEnabled]="false"
-  [mdePopoverTriggerOn]="'click'"
-  [mdePopoverArrowColor]="'rgba(0, 0, 0, 0.9)'"
-  [mdePopoverCloseOnClick]="false">
-    <app-register></app-register>
+             [mdePopoverPositionY]="'below'"
+             [mdePopoverPositionX]="'after'"
+             [mdePopoverOverlapTrigger]="false"
+             [mdeFocusTrapEnabled]="false"
+             [mdePopoverTriggerOn]="'click'"
+             [mdePopoverArrowColor]="'rgba(0, 0, 0, 0.9)'"
+             [mdePopoverCloseOnClick]="false">
+  <app-register></app-register>
 </mde-popover>
 
 

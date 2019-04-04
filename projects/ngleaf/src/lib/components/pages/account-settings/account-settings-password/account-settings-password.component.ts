@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { LeafSessionService } from '../../../../services/LeafSession.service';
+import {LeafSessionService} from '../../../../services/leaf-session.service';
 
 @Component({
   selector: 'leaf-account-settings-password',
@@ -14,7 +14,7 @@ export class AccountSettingsPasswordComponent implements OnInit {
   public members: string[] = [];
 
   constructor(public formBuilder: FormBuilder,
-    public sessionService: LeafSessionService) {
+              public sessionService: LeafSessionService) {
     this.changePasswordForm = this.formBuilder.group({
       oldPassword: ['', Validators.required],
       newPassword: ['', Validators.required],
@@ -26,7 +26,7 @@ export class AccountSettingsPasswordComponent implements OnInit {
   }
 
   changePassword() {
-    if (this.changePasswordForm.valid ) {
+    if (this.changePasswordForm.valid) {
       const {oldPassword, newPassword, newPasswordValidation} = this.changePasswordForm.getRawValue();
       if (newPassword === newPasswordValidation) {
         this.sessionService.changePassword(oldPassword, newPassword);

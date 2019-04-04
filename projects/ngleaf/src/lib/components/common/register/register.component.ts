@@ -1,11 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { Router } from '@angular/router';
 
-import { LeafSessionService } from '../../../services/LeafSession.service';
+import {LeafSessionService} from '../../../services/leaf-session.service';
 
 @Component({
-  selector: 'app-register',
+  selector: 'leaf-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
@@ -13,7 +12,7 @@ export class RegisterComponent implements OnInit {
 
   public registerForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private leafSessionService: LeafSessionService, private router: Router) {
+  constructor(private formBuilder: FormBuilder, private leafSessionService: LeafSessionService) {
   }
 
   ngOnInit() {

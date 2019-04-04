@@ -24,7 +24,7 @@
 
   .input-container {
     width: 100%;
-    display:flex;
+    display: flex;
     justify-content: space-between;
     align-items: flex-end;
   }
@@ -34,12 +34,12 @@
     text-align: center;
     border-radius: 5px;
     overflow: hidden;
-    background-color: rgba(white,.3);
+    background-color: rgba(white, .3);
 
     .register-popup-head {
       width: 80%;
       padding: 1em;
-      display:flex;
+      display: flex;
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
@@ -50,6 +50,7 @@
         height: 80px;
         width: 80px;
       }
+
       .login {
         font-weight: bolder;
         font-size: 120%;
@@ -57,7 +58,7 @@
     }
 
     .register-popup-menu {
-      background-color: rgba(0,0,0,0.9);
+      background-color: rgba(0, 0, 0, 0.9);
       padding: 1em;
       height: 300px;
 
