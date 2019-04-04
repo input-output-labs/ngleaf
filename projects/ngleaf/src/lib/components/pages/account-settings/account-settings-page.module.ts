@@ -10,9 +10,11 @@ import {AccountSettingsPageComponent} from './account-settings-page.component';
 import {AccountSettingsPasswordComponent} from './account-settings-password/account-settings-password.component';
 import {AccountSettingsGeneralComponent} from './account-settings-general/account-settings-general.component';
 import {AccountSettingsAvatarComponent} from './account-settings-avatar/account-settings-avatar.component';
+import {AppSettingsPageRouteModule} from './account-settings-page.route';
 
 import {LeafComponentsCommonModule} from '../../common';
 import {LeafServiceModule} from '../../../services';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,7 @@ import {LeafServiceModule} from '../../../services';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     CommonModule,
     RouterModule,
     ReactiveFormsModule,
@@ -33,6 +36,7 @@ import {LeafServiceModule} from '../../../services';
     /* Leaf Imports */
     LeafComponentsCommonModule,
     LeafServiceModule,
+    AppSettingsPageRouteModule,
   ],
   exports: [
     AccountSettingsPageComponent,

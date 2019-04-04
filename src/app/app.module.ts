@@ -4,7 +4,7 @@ import {NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
 
 import {AccountSettingsPageModule} from '../../projects/ngleaf/src/lib/components/pages';
-import {RouterModule} from '@angular/router';
+import {AppRouteModule} from './app.route';
 
 @NgModule({
   declarations: [
@@ -12,12 +12,8 @@ import {RouterModule} from '@angular/router';
   ],
   imports: [
     BrowserModule,
+    AppRouteModule,
     AccountSettingsPageModule,
-    RouterModule.forRoot(
-      [
-        {path: '', component: AppComponent}
-      ]
-    ),
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -2,7 +2,7 @@
           [mdePopoverTriggerFor]="accountPopover">account_circle
 </mat-icon>
 
-<app-login *ngIf="!(currentAccount$ | async)"></app-login>
+<leaf-login *ngIf="!(currentAccount$ | async)"></leaf-login>
 <button *ngIf="!(currentAccount$ | async)" mat-stroked-button [mdePopoverTriggerFor]="registerPopover" color="primary">
   REGISTER
 </button>
@@ -14,8 +14,8 @@
              [mdeFocusTrapEnabled]="false"
              [mdePopoverTriggerOn]="'click'"
              [mdePopoverArrowColor]="'rgba(0, 0, 0, 0.9)'">
-  <app-account-popover-content [username]="(currentAccount$ | async)?.username"
-                               [avatarUrl]="(currentAccount$ | async)?.avatarUrl"></app-account-popover-content>
+  <leaf-account-popover-content [username]="(currentAccount$ | async)?.username"
+                               [avatarUrl]="(currentAccount$ | async)?.avatarUrl"></leaf-account-popover-content>
 </mde-popover>
 <mde-popover #registerPopover="mdePopover"
              [mdePopoverPositionY]="'below'"
@@ -25,7 +25,7 @@
              [mdePopoverTriggerOn]="'click'"
              [mdePopoverArrowColor]="'rgba(0, 0, 0, 0.9)'"
              [mdePopoverCloseOnClick]="false">
-  <app-register></app-register>
+  <leaf-register></leaf-register>
 </mde-popover>
 
 
