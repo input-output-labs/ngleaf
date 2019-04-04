@@ -1,1 +1,1 @@
-export {AccountSettingsPageModule} from './account-settings-page.module';
+export { AccountSettingsPageModule } from './account-settings-page.module';

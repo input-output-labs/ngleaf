@@ -1,13 +1,9 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
-import {AccountSettingsPageModule} from './account-settings/account-settings-page.module';
+import { AccountSettingsPageModule } from './account-settings/account-settings-page.module';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    AccountSettingsPageModule
-  ],
+  imports: [CommonModule, AccountSettingsPageModule],
 })
-export class LeafComponentsPagesModule {
-}
+export class LeafComponentsPagesModule {}

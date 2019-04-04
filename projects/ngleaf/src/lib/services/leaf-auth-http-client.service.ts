@@ -1,6 +1,6 @@
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 export interface IRequestOptions {
   headers?: HttpHeaders;
@@ -14,7 +14,6 @@ export interface IRequestOptions {
 
 @Injectable()
 export class LeafAuthHttpClient {
-
   private jwtoken: string;
 
   // Extending the HttpClient through the Angular DI.
@@ -28,13 +27,26 @@ export class LeafAuthHttpClient {
   }
 
   public addHeaders(options?: IRequestOptions): IRequestOptions {
-    const authenticatedOptions = options || {headers: new HttpHeaders()};
-    authenticatedOptions.headers = authenticatedOptions.headers || new HttpHeaders();
-    authenticatedOptions.headers = authenticatedOptions.headers.set('Cache-Control', 'no-cache');
-    authenticatedOptions.headers = authenticatedOptions.headers.set('Pragma', 'no-cache');
-    authenticatedOptions.headers = authenticatedOptions.headers.set('Expires', 'Sat, 01 Jan 2000 00:00:00 GMT');
+    const authenticatedOptions = options || { headers: new HttpHeaders() };
+    authenticatedOptions.headers =
+      authenticatedOptions.headers || new HttpHeaders();
+    authenticatedOptions.headers = authenticatedOptions.headers.set(
+      'Cache-Control',
+      'no-cache'
+    );
+    authenticatedOptions.headers = authenticatedOptions.headers.set(
+      'Pragma',
+      'no-cache'
+    );
+    authenticatedOptions.headers = authenticatedOptions.headers.set(
+      'Expires',
+      'Sat, 01 Jan 2000 00:00:00 GMT'
+    );
     if (this.jwtoken) {
-      authenticatedOptions.headers = authenticatedOptions.headers.set('Authorization', this.jwtoken);
+      authenticatedOptions.headers = authenticatedOptions.headers.set(
+        'Authorization',
+        this.jwtoken
+      );
       return authenticatedOptions;
     }
     return options;
@@ -44,15 +56,27 @@ export class LeafAuthHttpClient {
     return this.http.get<T>(endPoint, this.addHeaders(options));
   }
 
-  public post<T>(endPoint: string, params: any, options?: IRequestOptions): Observable<T> {
+  public post<T>(
+    endPoint: string,
+    params: any,
+    options?: IRequestOptions
+  ): Observable<T> {
     return this.http.post<T>(endPoint, params, this.addHeaders(options));
   }
 
-  public patch<T>(endPoint: string, params: any, options?: IRequestOptions): Observable<T> {
+  public patch<T>(
+    endPoint: string,
+    params: any,
+    options?: IRequestOptions
+  ): Observable<T> {
     return this.http.patch<T>(endPoint, params, this.addHeaders(options));
   }
 
-  public put<T>(endPoint: string, params: any, options?: IRequestOptions): Observable<T> {
+  public put<T>(
+    endPoint: string,
+    params: any,
+    options?: IRequestOptions
+  ): Observable<T> {
     return this.http.put<T>(endPoint, params, this.addHeaders(options));
   }
 

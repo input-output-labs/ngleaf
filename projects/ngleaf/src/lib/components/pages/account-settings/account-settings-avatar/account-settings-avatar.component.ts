@@ -1,26 +1,26 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { LeafSessionService } from '../../../../services/leaf-session.service';
 
 @Component({
   selector: 'leaf-account-settings-avatar',
   templateUrl: './account-settings-avatar.component.html',
-  styleUrls: ['./account-settings-avatar.component.scss']
+  styleUrls: ['./account-settings-avatar.component.scss'],
 })
 export class AccountSettingsAvatarComponent implements OnInit {
-
   public changeAvatarForm: FormGroup;
 
-  constructor(public formBuilder: FormBuilder,
-              public sessionService: LeafSessionService) {
+  constructor(
+    public formBuilder: FormBuilder,
+    public sessionService: LeafSessionService
+  ) {
     this.changeAvatarForm = this.formBuilder.group({
-      avatarUrl: ['', Validators.required]
+      avatarUrl: ['', Validators.required],
     });
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   selectFile(avatarUrl: string) {
     this.changeAvatarForm.controls.avatarUrl.setValue(avatarUrl);
@@ -28,7 +28,7 @@ export class AccountSettingsAvatarComponent implements OnInit {
 
   changeAvatar() {
     if (this.changeAvatarForm.valid) {
-      const {avatarUrl} = this.changeAvatarForm.getRawValue();
+      const { avatarUrl } = this.changeAvatarForm.getRawValue();
       this.sessionService.changeAvatar(avatarUrl);
     }
   }

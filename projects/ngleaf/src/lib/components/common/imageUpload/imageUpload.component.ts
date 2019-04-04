@@ -1,13 +1,12 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { LeafUploadFileService } from '../../../services/leaf-upload-file.service';
 
 @Component({
   selector: 'leaf-image-upload',
   templateUrl: './imageUpload.component.html',
-  styleUrls: ['./imageUpload.component.scss']
+  styleUrls: ['./imageUpload.component.scss'],
 })
 export class ImageUploadComponent implements OnInit {
-
   selectedFiles: FileList;
   currentFileUpload: File;
   public imageUrl: string;
@@ -15,11 +14,9 @@ export class ImageUploadComponent implements OnInit {
   @Output()
   selectedFile: EventEmitter<any> = new EventEmitter(); // TODO: REMOVE ANY
 
-  constructor(private uploadService: LeafUploadFileService) {
-  }
+  constructor(private uploadService: LeafUploadFileService) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   public selectFile(event) {
     this.selectedFiles = event.target.files;
@@ -28,11 +25,13 @@ export class ImageUploadComponent implements OnInit {
 
   public upload() {
     this.currentFileUpload = this.selectedFiles.item(0);
-    this.uploadService.pushFileToStorage(this.currentFileUpload).subscribe(imageUrl => {
-      this.imageUrl = imageUrl;
+    this.uploadService
+      .pushFileToStorage(this.currentFileUpload)
+      .subscribe(imageUrl => {
+        this.imageUrl = imageUrl;
 
-      this.selectedFile.emit(this.imageUrl);
-    });
+        this.selectedFile.emit(this.imageUrl);
+      });
 
     this.selectedFiles = undefined;
   }

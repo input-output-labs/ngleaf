@@ -1,14 +1,12 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
-
-import {Subject} from 'rxjs';
-import {LeafNotificationModel} from '../models/leaf-notification.model';
+import { Subject } from 'rxjs';
+import { LeafNotificationModel } from '../models/leaf-notification.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LeafNotificationService {
-
   public notifications$: Subject<LeafNotificationModel>;
 
   constructor() {

@@ -1,36 +1,42 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
-import {LeafAccountModel} from '../models/leaf-account.model';
+import { LeafAccountModel } from '../models/leaf-account.model';
 
-import {LeafAuthHttpClient} from './leaf-auth-http-client.service';
+import { LeafAuthHttpClient } from './leaf-auth-http-client.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LeafAdminService {
-
   private url = '';
 
-  constructor(public authHttp: LeafAuthHttpClient) {
-  }
+  constructor(public authHttp: LeafAuthHttpClient) {}
 
   public init(serverUrl) {
     this.url = serverUrl + '/api/admin';
   }
 
   public addAuthorizedEmail(emails: string[]) {
-    return this.authHttp.post<LeafAccountModel>(this.url + '/authorizedemails', emails).toPromise();
+    return this.authHttp
+      .post<LeafAccountModel>(this.url + '/authorizedemails', emails)
+      .toPromise();
   }
 
   public removeAuthorizedEmail(emails: string[]) {
-    return this.authHttp.post<LeafAccountModel>(this.url + '/authorizedemails/remove', emails).toPromise();
+    return this.authHttp
+      .post<LeafAccountModel>(this.url + '/authorizedemails/remove', emails)
+      .toPromise();
   }
 
   public addAdmin(email: string) {
-    return this.authHttp.post<LeafAccountModel>(this.url + '/admin', email).toPromise();
+    return this.authHttp
+      .post<LeafAccountModel>(this.url + '/admin', email)
+      .toPromise();
   }
 
   public removeAdmin(email: string) {
-    return this.authHttp.delete<LeafAccountModel>(this.url + '/admin/' + email).toPromise();
+    return this.authHttp
+      .delete<LeafAccountModel>(this.url + '/admin/' + email)
+      .toPromise();
   }
 }
