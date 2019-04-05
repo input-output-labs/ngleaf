@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "prettier": "prettier --single-quote --trailing-comma es5 --write \"{src,projects}/**/*.ts\""
+    "prettier": "prettier --single-quote --trailing-comma es5 --write \"**/*.{js,json,css,scss,md}\""
   },
   "pre-commit": {
     "run": [
