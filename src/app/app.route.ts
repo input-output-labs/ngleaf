@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
 
-import { AccountSettingsPageComponent } from '@iolabs/ngleaf/components';
+import { AccountSettingsPageComponent } from '@iolabs/ngleaf';
 
 const routes: Route[] = [
   {

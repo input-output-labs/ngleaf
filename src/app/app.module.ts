@@ -6,17 +6,17 @@ import { AppComponent } from './app.component';
 
 import { AppRouteModule } from './app.route';
 
-import { AccountSettingsPageModule } from '@iolabs/ngleaf/components';
+import { AccountSettingsPageModule } from '@iolabs/ngleaf';
 import {
   TodoListModule,
   TableModule,
   NavigationModule,
   AddressFormModule,
   TreeModule
-} from '@iolabs/ngleaf/components';
+} from '@iolabs/ngleaf';
 
-import { LeafConfigServiceModule } from '@iolabs/ngleaf/services';
-import { LeafConfig } from '@iolabs/ngleaf/models';
+import { LeafConfigServiceModule } from '@iolabs/ngleaf';
+import { LeafConfig } from '@iolabs/ngleaf';
 
 const leafConfig: LeafConfig = {
   serverUrl: 'https://io-labs.fr/escape/api/'
