@@ -1,10 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 
 import { LeafAccountModel } from '../models/leaf-account.model';
 
 import { LeafAuthHttpClient } from './leaf-auth-http-client.service';
 import { LeafNotificationService } from './leaf-notification.service';
+import { LeafConfigServiceToken } from './leaf-config.module';
 
 @Injectable({
   providedIn: 'root',
@@ -19,12 +20,13 @@ export class LeafSessionService {
   public jwtoken: string = null;
 
   constructor(
+    @Inject(LeafConfigServiceToken) private config,
     public authHttp: LeafAuthHttpClient,
     public notificationService: LeafNotificationService
   ) {}
 
-  public init(serverUrl) {
-    this.url = serverUrl + '/api/account';
+  public init() {
+    this.url = this.config.serverUrl + '/api/account';
 
     this.jwtoken = localStorage.getItem('jwtoken');
     if (this.jwtoken) {
