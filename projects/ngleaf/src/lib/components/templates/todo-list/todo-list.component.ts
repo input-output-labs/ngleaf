@@ -14,9 +14,12 @@ export class TodoListComponent {
     'Fall asleep'
   ];
 
-  done = [
+  inProgress = [
     'Get up',
-    'Brush teeth',
+    'Brush teeth'
+  ];
+
+  done = [
     'Take a shower',
     'Check e-mail',
     'Walk dog'
