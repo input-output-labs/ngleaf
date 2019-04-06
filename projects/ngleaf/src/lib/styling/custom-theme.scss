@@ -1,7 +1,8 @@
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
 @import '~@angular/material/theming';
-// Plus imports for other components in your app.
+
+@import './custom-palette';
 
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
@@ -11,8 +12,8 @@
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$ngleaf-app-primary: mat-palette($mat-indigo);
-$ngleaf-app-accent: mat-palette($mat-pink, A200, A100, A400);
+$ngleaf-app-primary: mat-palette($leaf-green-palette);
+$ngleaf-app-accent: mat-palette($leaf-blue-palette, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
 $ngleaf-app-warn: mat-palette($mat-red);
