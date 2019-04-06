@@ -9,3 +9,4 @@ export * from './leaf-session.service';
 export * from './leaf-upload-file.service';
 
 export * from './leaf-service.module';
+export * from './leaf-config.module';

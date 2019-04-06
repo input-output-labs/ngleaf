@@ -5,10 +5,10 @@ import { LeafConfig } from '../models/leaf-config.model';
 export const LeafConfigServiceToken = new InjectionToken<LeafConfig>('LEAF_CONFIG');
 
 @NgModule()
-export class LeafConfigModule {
+export class LeafConfigServiceModule {
   static forRoot(config: LeafConfig): ModuleWithProviders {
     return {
-      ngModule: LeafConfigModule,
+      ngModule: LeafConfigServiceModule,
       providers: [
         {
           provide: LeafConfigServiceToken,

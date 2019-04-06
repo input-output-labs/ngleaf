@@ -26,7 +26,7 @@ export class LeafSessionService {
   ) {}
 
   public init() {
-    this.url = this.config.serverUrl + '/api/account';
+    this.url = this.config.serverUrl + '/account';
 
     this.jwtoken = localStorage.getItem('jwtoken');
     if (this.jwtoken) {
