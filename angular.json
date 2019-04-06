@@ -20,7 +20,7 @@
             "tsConfig": "src/tsconfig.app.json",
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
-              "projects/ngleaf/src/styling/custom-theme.scss",
+              "src/styling/custom-theme.scss",
               "src/styles.css"
             ],
             "scripts": [],
