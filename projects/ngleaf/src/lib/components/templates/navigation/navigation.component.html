@@ -1,5 +1,5 @@
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #drawer class="sidenav" fixedInViewport="true"
+  <mat-sidenav #sidenav class="sidenav" fixedInViewport="true"
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="!(isHandset$ | async)">
@@ -12,16 +12,10 @@
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar color="primary">
-      <button
-        type="button"
-        aria-label="Toggle sidenav"
-        mat-icon-button
-        (click)="drawer.toggle()"
-        *ngIf="isHandset$ | async">
-        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-      </button>
-      <span>ngleaf-app</span>
+      <button mat-icon-button (click)="sidenav.toggle()"><mat-icon aria-label="Menu">menu</mat-icon></button>
+      <span>ngleaf-aspp</span>
     </mat-toolbar>
+    <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
     <!-- Add Content Here -->
   </mat-sidenav-content>
 </mat-sidenav-container>

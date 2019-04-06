@@ -1,7 +1,8 @@
 <!--<router-outlet></router-outlet>-->
 
-<leaf-navigation></leaf-navigation>
-<div class="tmp-container">
+<leaf-navigation [contentTemplate]="content"></leaf-navigation>
+
+<ng-template #content>
   <leaf-todo-list></leaf-todo-list>
 
   <leaf-tree></leaf-tree>
@@ -9,5 +10,4 @@
   <leaf-address-form></leaf-address-form>
 
   <leaf-table></leaf-table>
-</div>
-
+</ng-template>
