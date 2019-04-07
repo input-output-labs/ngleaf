@@ -5,7 +5,7 @@
     "types": [],
     "baseUrl": ".",
     "paths": {
-      "@iolabs/ngleaf/*": ["../projects/ngleaf/src/*"]
+      "@iolabs/ngleaf": ["../projects/ngleaf/src"]
     }
   },
   "exclude": ["test.ts", "**/*.spec.ts"]
