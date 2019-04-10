@@ -2,15 +2,14 @@
   <mat-sidenav #sidenav class="sidenav" fixedInViewport="true">
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item href="#">Link 1</a>
-      <a mat-list-item href="#">Link 2</a>
-      <a mat-list-item href="#">Link 3</a>
+      <a mat-list-item [routerLink]="link" routerLinkActive="active-link" *ngFor="let link of links"> {{ link }} </a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar color="primary">
       <button mat-icon-button (click)="sidenav.toggle()"><mat-icon aria-label="Menu">menu</mat-icon></button>
       <span>ngleaf-aspp</span>
+      <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
     </mat-toolbar>
     <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
     <!-- Add Content Here -->

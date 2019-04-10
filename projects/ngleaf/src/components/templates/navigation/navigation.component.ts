@@ -7,7 +7,10 @@ import { Component, Input, TemplateRef } from '@angular/core';
 })
 export class NavigationComponent {
 
+  @Input() headerTemplate: TemplateRef<any>;
   @Input() contentTemplate: TemplateRef<any>;
+
+  @Input() links: any[];
 
   constructor() {
   }

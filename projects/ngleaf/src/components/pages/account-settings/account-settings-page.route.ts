@@ -33,6 +33,6 @@ const routes: Route[] = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+  exports: [],
 })
 export class AppSettingsPageRouteModule {}

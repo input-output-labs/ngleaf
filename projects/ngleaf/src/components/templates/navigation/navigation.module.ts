@@ -9,9 +9,10 @@ import {
 
 import { NavigationComponent } from './navigation.component';
 import { LayoutModule } from '@angular/cdk/layout';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
-  imports: [CommonModule, LayoutModule, MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule],
+  imports: [CommonModule, LayoutModule, MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, RouterModule],
   declarations: [NavigationComponent],
   exports: [NavigationComponent]
 })
