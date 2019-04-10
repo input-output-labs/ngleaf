@@ -1,7 +1,7 @@
 export interface LeafAccountModel {
-  teamId: string;
-  username: string;
+  username?: string;
   email: string;
+  teamId?: string; // TODO: TO REMOVE?
   password?: string;
   admin?: boolean;
 }

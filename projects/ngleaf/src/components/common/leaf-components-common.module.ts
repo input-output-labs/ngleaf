@@ -16,6 +16,7 @@ import { HeaderAccountComponent } from './header-account/header-account.componen
 import { ImageUploadComponent } from './imageUpload/imageUpload.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { LoginModule } from './login/login.module';
 
 @NgModule({
   imports: [
@@ -28,12 +29,12 @@ import { RegisterComponent } from './register/register.component';
     ReactiveFormsModule,
     FormsModule,
     MatInputModule,
+    LoginModule,
   ],
   declarations: [
     AccountPopoverContentComponent,
     HeaderAccountComponent,
     ImageUploadComponent,
-    LoginComponent,
     RegisterComponent,
   ],
   exports: [

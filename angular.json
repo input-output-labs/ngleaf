@@ -19,10 +19,7 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": [
-              "src/styling/custom-theme.scss",
-              "src/styles.css"
-            ],
+            "styles": ["src/styling/custom-theme.scss", "src/styles.css"],
             "scripts": [],
             "es5BrowserSupport": true
           },
