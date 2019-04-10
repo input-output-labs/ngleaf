@@ -2,12 +2,17 @@ import { NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
 
 import { AccountSettingsPageComponent } from '@iolabs/ngleaf';
+import { TemplatesComponent } from './templates/templates.component';
 
 const routes: Route[] = [
   {
     path: '',
     redirectTo: '/settings',
     pathMatch: 'full',
+  },
+  {
+    path: 'templates',
+    component: TemplatesComponent,
   },
   {
     path: 'settings',

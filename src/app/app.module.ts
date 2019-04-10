@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 
 import { AppRouteModule } from './app.route';
 
-import { AccountSettingsPageModule } from '@iolabs/ngleaf';
+import { AccountSettingsPageModule, LeafComponentsCommonModule } from '@iolabs/ngleaf';
 import {
   TodoListModule,
   TableModule,
@@ -17,17 +17,21 @@ import {
 
 import { LeafConfigServiceModule } from '@iolabs/ngleaf';
 import { LeafConfig } from '@iolabs/ngleaf';
+import { TemplatesComponent } from './templates/templates.component';
+import { MatDividerModule } from '@angular/material';
 
 const leafConfig: LeafConfig = {
   serverUrl: 'https://io-labs.fr/escape/api/'
 };
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, TemplatesComponent],
   imports: [BrowserModule, BrowserAnimationsModule,
     AppRouteModule,
+    MatDividerModule,
     /* Leaf library import */
     LeafConfigServiceModule.forRoot(leafConfig),
+    LeafComponentsCommonModule,
     AccountSettingsPageModule, TodoListModule, TreeModule, TableModule, NavigationModule, AddressFormModule
   ],
   providers: [],
