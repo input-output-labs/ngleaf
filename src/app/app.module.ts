@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 
 import { AppRouteModule } from './app.route';
 
+import { environment } from '../environments/environment';
+
 import { AccountSettingsPageModule, LeafComponentsCommonModule } from '@iolabs/ngleaf';
 import {
   TodoListModule,
@@ -21,7 +23,7 @@ import { TemplatesComponent } from './templates/templates.component';
 import { MatDividerModule } from '@angular/material';
 
 const leafConfig: LeafConfig = {
-  serverUrl: 'https://io-labs.fr/escape/api/'
+  serverUrl: environment.serverUrl
 };
 
 @NgModule({
