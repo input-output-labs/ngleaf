@@ -1,0 +1,27 @@
+<div class="header-line">
+  <div class="title">
+    <h2 class="">ADMINISTRATEURS</h2>
+  </div>
+</div>
+
+<mat-divider></mat-divider>
+
+<div class="container-spacer">
+  <mat-selection-list #admins>
+    <mat-list-option *ngFor="let admin of administrators">
+      {{admin}}
+    </mat-list-option>
+  </mat-selection-list>
+  <button mat-stroked-button (click)="removeAdmins()" [disabled]="!admins.selectedOptions.selected.length">RETIRER DROIT D'ADMINISTRATION</button>
+  <form class="form" [formGroup]="addAdminForm">
+    <h3 class="">AJOUTER ADMINISTRATEUR</h3>
+    <div class="row">
+      <div class="input">
+        <mat-form-field>
+          <input matInput id="email" placeholder="Pseudo" value="" formControlName="email">
+        </mat-form-field>
+      </div>
+    </div>
+  </form>
+  <button mat-stroked-button (click)="changeName()" [disabled]="addAdminForm.invalid">AJOUTER</button>
+</div>

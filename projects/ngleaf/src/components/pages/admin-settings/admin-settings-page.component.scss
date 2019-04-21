@@ -1,0 +1,51 @@
+#admin-settings-page {
+  width: 100%;
+  margin-top: 5%;
+
+  #admin-settings-page-container {
+    margin: auto;
+    width: 850px;
+    display: flex;
+
+    #admin-settings-left-column {
+      flex: 1;
+      margin: 0.5em;
+    }
+
+    #admin-settings-right-column {
+      flex: 2;
+      margin: 0.5em;
+      background-color: white;
+    }
+  }
+}
+
+.admin-settings-menu {
+  width: 100%;
+  background-color: white;
+}
+
+ul.js-nav-links {
+  margin: 0;
+  list-style: none;
+  padding: 0;
+  width: 100%;
+
+  li {
+    width: calc(100% - 1em);
+    padding: 0.5em;
+
+    a {
+      text-decoration: none;
+      color: black;
+
+      &.active {
+        font-weight: 900;
+      }
+    }
+  }
+
+  li:not(:first-child) {
+    border-top: solid 1px rgb(200, 200, 200);
+  }
+}

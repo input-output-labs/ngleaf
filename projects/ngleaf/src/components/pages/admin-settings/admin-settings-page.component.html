@@ -1,0 +1,20 @@
+<div id="admin-settings-page">
+  <div id="admin-settings-page-container">
+      <div id="admin-settings-left-column">
+          <div class="admin-settings-menu">
+              <ul class="js-nav-links">
+                  <li *ngFor="let link of links">
+                    <a class="list-link js-nav"
+                      [routerLink]="link.link"
+                      routerLinkActive="active">
+                      {{link.name}} <span class="Icon Icon--caretRight"></span>
+                    </a>
+                  </li>
+                </ul>
+          </div>
+      </div>
+      <div id="admin-settings-right-column">
+          <router-outlet></router-outlet>
+      </div>
+  </div>
+</div>

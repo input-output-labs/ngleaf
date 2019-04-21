@@ -11,21 +11,22 @@ const routes: Route[] = [
     path: 'settings',
     component: AccountSettingsPageComponent,
     children: [
-      { path: '', redirectTo: 'general', pathMatch: 'full' },
+      {
+        path: '',
+        redirectTo: '/general',
+        pathMatch: 'full',
+      },
       {
         path: 'general',
         component: AccountSettingsGeneralComponent,
-        outlet: 'account',
       },
       {
         path: 'avatar',
         component: AccountSettingsAvatarComponent,
-        outlet: 'account',
       },
       {
         path: 'password',
         component: AccountSettingsPasswordComponent,
-        outlet: 'account',
       },
     ],
   },

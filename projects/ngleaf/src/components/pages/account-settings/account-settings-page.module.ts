@@ -3,7 +3,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatDividerModule, MatInputModule } from '@angular/material';
+import { MatDividerModule, MatInputModule, MatButtonModule } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AccountSettingsPageComponent } from './account-settings-page.component';
@@ -33,6 +33,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     /* Material Imports */
     MatInputModule,
     MatDividerModule,
+    MatButtonModule,
     /* Leaf Imports */
     LeafComponentsCommonModule,
     LeafServiceModule,
