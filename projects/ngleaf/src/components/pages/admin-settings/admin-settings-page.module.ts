@@ -13,11 +13,13 @@ import { LeafComponentsCommonModule } from '../../common';
 import { LeafServiceModule } from '../../../services';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AdminSettingsAdministratorsComponent } from './admin-settings-administrators/admin-settings-administrators.component';
+import { AdminSettingsWhitelistComponent } from './admin-settings-whitelist/admin-settings-whitelist.component';
 
 @NgModule({
   declarations: [
     AdminSettingsPageComponent,
-    AdminSettingsAdministratorsComponent
+    AdminSettingsAdministratorsComponent,
+    AdminSettingsWhitelistComponent
   ],
   imports: [
     BrowserModule,
