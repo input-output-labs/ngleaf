@@ -11,6 +11,7 @@ export class NavigationComponent {
   @Input() contentTemplate: TemplateRef<any>;
 
   @Input() links: any[];
+  @Input() title = 'app';
 
   constructor() {
   }

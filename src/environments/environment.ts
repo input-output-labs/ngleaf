@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  serverUrl: 'https://io-labs.fr/blank'
+  serverUrl: 'https://io-labs.fr/blank/api'
 };
 
 /*

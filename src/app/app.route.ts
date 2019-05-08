@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
 
-import { AccountSettingsPageComponent, AdminSettingsPageComponent } from '@iolabs/ngleaf';
+import { AccountSettingsPageComponent, AdminSettingsPageComponent, LoginPageComponent } from '@iolabs/ngleaf';
 import { TemplatesComponent } from './templates/templates.component';
 
 const routes: Route[] = [
@@ -21,6 +21,10 @@ const routes: Route[] = [
   {
     path: 'admin',
     component: AdminSettingsPageComponent,
+  },
+  {
+    path: 'login',
+    component: LoginPageComponent,
   },
 ];
 

@@ -1,4 +1,10 @@
-<leaf-navigation [contentTemplate]="content" [links]="links"></leaf-navigation>
+<leaf-navigation [contentTemplate]="content" [headerTemplate]="header" [links]="links" title="ngleaf demo app"></leaf-navigation>
+
+<ng-template #header>
+  <span class="header">
+    <leaf-header-account></leaf-header-account>
+  </span>
+</ng-template>
 
 <ng-template #content>
   <router-outlet></router-outlet>

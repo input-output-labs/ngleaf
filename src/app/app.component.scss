@@ -1,0 +1,11 @@
+.tmp-container {
+  margin-left: 15em;
+}
+
+.header {
+  flex: 1;
+  
+  &>* {
+    float: right;
+  }
+}

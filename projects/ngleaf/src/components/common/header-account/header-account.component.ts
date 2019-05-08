@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { LeafSessionService } from '../../../services/leaf-session.service';
 import { LeafAccountModel } from '../../../models/leaf-account.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'leaf-header-account',
@@ -11,9 +12,17 @@ import { LeafAccountModel } from '../../../models/leaf-account.model';
 export class HeaderAccountComponent implements OnInit {
   public currentAccount$: ReplaySubject<LeafAccountModel>;
 
-  constructor(public sessionService: LeafSessionService) {}
+  constructor(public sessionService: LeafSessionService, private router: Router) {}
 
   ngOnInit() {
     this.currentAccount$ = this.sessionService.currentAccount$;
+  }
+
+  public goToLogin() {
+    this.router.navigateByUrl('/login');
+  }
+
+  public goToRegister() {
+    this.router.navigateByUrl('/register');
   }
 }

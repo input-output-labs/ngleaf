@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { LeafSessionService } from '../../../services/leaf-session.service';
 
 @Component({
@@ -14,7 +13,6 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private sessionService: LeafSessionService,
-    private router: Router
   ) {}
 
   ngOnInit() {
@@ -22,14 +20,6 @@ export class LoginComponent implements OnInit {
       email: ['', Validators.required],
       password: ['', Validators.required],
     });
-  }
-
-  goToRegister() {
-    this.router.navigate(['/register']);
-  }
-
-  goToResetPassword() {
-    this.router.navigate(['/resetpassword']);
   }
 
   login() {

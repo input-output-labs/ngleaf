@@ -8,14 +8,15 @@ import { AppRouteModule } from './app.route';
 
 import { environment } from '../environments/environment';
 
-import { AccountSettingsPageModule, AdminSettingsPageModule } from '@iolabs/ngleaf';
+import { AccountSettingsPageModule, AdminSettingsPageModule, LoginPageModule } from '@iolabs/ngleaf';
 
 import {
   TodoListModule,
   TableModule,
   NavigationModule,
   AddressFormModule,
-  TreeModule
+  TreeModule,
+  LeafComponentsCommonModule,
 } from '@iolabs/ngleaf';
 
 import { LeafConfigServiceModule } from '@iolabs/ngleaf';
@@ -34,7 +35,15 @@ const leafConfig: LeafConfig = {
     MatDividerModule,
     /* Leaf library import */
     LeafConfigServiceModule.forRoot(leafConfig),
-    AccountSettingsPageModule, AdminSettingsPageModule, TodoListModule, TreeModule, TableModule, NavigationModule, AddressFormModule
+    LeafComponentsCommonModule,
+    AccountSettingsPageModule,
+    AdminSettingsPageModule,
+    LoginPageModule,
+    TodoListModule,
+    TreeModule,
+    TableModule,
+    NavigationModule,
+    AddressFormModule
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,6 +1,6 @@
 <form class="form" [formGroup]="loginForm" (keyup.enter)="login()">
   <mat-form-field color="primary" appearance="outline">
-    <mat-label>Email</mat-label>
+    <mat-label>Login</mat-label>
     <input matInput id="loginEmail" value="" formControlName="email">
   </mat-form-field>
 
@@ -8,6 +8,5 @@
     <mat-label>Password</mat-label>
     <input matInput id="loginPassword" type="password" value="" formControlName="password">
   </mat-form-field>
+  <button class="login-button" mat-stroked-button (click)="login()" color="primary">LOG IN</button>
 </form>
-<button class="login-button" mat-stroked-button *ngIf="loginForm.valid" (click)="login()" color="primary">LOG IN
-</button>

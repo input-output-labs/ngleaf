@@ -11,4 +11,7 @@ export * from './account-settings/account-settings-password/account-settings-pas
 export * from './admin-settings/admin-settings-page.component';
 export * from './admin-settings/admin-settings-page.module';
 
+export * from './login/login-page.component';
+export * from './login/login-page.module';
+
 export * from './leaf-components-pages.module';

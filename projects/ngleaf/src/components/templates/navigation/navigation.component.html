@@ -8,7 +8,7 @@
   <mat-sidenav-content>
     <mat-toolbar color="primary">
       <button mat-icon-button (click)="sidenav.toggle()"><mat-icon aria-label="Menu">menu</mat-icon></button>
-      <span>ngleaf-aspp</span>
+      <span>{{title}}</span>
       <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
     </mat-toolbar>
     <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>

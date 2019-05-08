@@ -11,7 +11,6 @@ import { LeafConfigServiceToken } from './leaf-config.module';
   providedIn: 'root',
 })
 export class LeafSessionService {
-  private url = '';
 
   public currentAccount$: ReplaySubject<LeafAccountModel> = new ReplaySubject(
     1
@@ -26,7 +25,6 @@ export class LeafSessionService {
   ) {}
 
   public init() {
-    this.url = this.config.serverUrl + '/account';
 
     this.jwtoken = localStorage.getItem('jwtoken');
     if (this.jwtoken) {
@@ -45,7 +43,7 @@ export class LeafSessionService {
   public refreshAccount() {
     return new Promise((resolve, reject) => {
       this.authHttp
-        .get<LeafAccountModel>(this.url + '/me')
+        .get<LeafAccountModel>(this.config.serverUrl + '/account/me')
         .subscribe(currentAccount => {
           this.currentAccount$.next(currentAccount);
           this.currentAccount = currentAccount;
@@ -73,7 +71,7 @@ export class LeafSessionService {
         password,
       };
       // TODO: REMOVE ANY
-      this.authHttp.post<any>(this.url, account).subscribe(
+      this.authHttp.post<any>(this.config.serverUrl + '/account', account).subscribe(
         jwt => {
           this.saveTokenAndGetAccount(jwt.token);
           resolve();
@@ -96,7 +94,7 @@ export class LeafSessionService {
         password,
       };
       // TODO: REMOVE ANY
-      this.authHttp.post<any>(this.url + '/login', credentials).subscribe(
+      this.authHttp.post<any>(this.config.serverUrl + '/account/login', credentials).subscribe(
         jwt => {
           this.saveTokenAndGetAccount(jwt.token);
           resolve();
@@ -125,7 +123,7 @@ export class LeafSessionService {
   public changeUsername(username) {
     return new Promise(() => {
       // TODO: REMOVE ANY
-      this.authHttp.post<any>(this.url + '/me/username', username).subscribe(
+      this.authHttp.post<any>(this.config.serverUrl + '/account/me/username', username).subscribe(
         () => {
           this.refreshAccount();
           this.notificationService.emit({
@@ -148,7 +146,7 @@ export class LeafSessionService {
   public changeAvatar(avatar) {
     return new Promise(() => {
       // TODO: REMOVE ANY
-      this.authHttp.post<any>(this.url + '/me/avatar', avatar).subscribe(
+      this.authHttp.post<any>(this.config.serverUrl + '/accout/me/avatar', avatar).subscribe(
         () => {
           this.refreshAccount();
           this.notificationService.emit({
@@ -176,7 +174,7 @@ export class LeafSessionService {
       };
       // TODO: REMOVE ANY
       this.authHttp
-        .post<any>(this.url + '/me/password', passwordChanging)
+        .post<any>(this.config.serverUrl + '/account/me/password', passwordChanging)
         .subscribe(
           () => {
             this.refreshAccount();
@@ -200,7 +198,7 @@ export class LeafSessionService {
   public sendResetPasswordKey(email) {
     // TODO: REMOVE ANY
     return this.authHttp
-      .post<any>(this.url + '/sendresetpasswordkey', email)
+      .post<any>(this.config.serverUrl + '/account/sendresetpasswordkey', email)
       .toPromise();
   }
 
@@ -211,7 +209,7 @@ export class LeafSessionService {
     };
     // TODO: REMOVE ANY
     return this.authHttp
-      .post<any>(this.url + '/resetPassword', passwordResetting)
+      .post<any>(this.config.serverUrl + '/account/resetPassword', passwordResetting)
       .toPromise();
   }
 }
