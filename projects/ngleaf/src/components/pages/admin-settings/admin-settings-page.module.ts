@@ -39,7 +39,10 @@ import { AdminSettingsWhitelistComponent } from './admin-settings-whitelist/admi
     AppSettingsPageRouteModule,
   ],
   exports: [
-    AdminSettingsPageComponent
+    AdminSettingsPageComponent,
+    AdminSettingsAdministratorsComponent,
+    AdminSettingsWhitelistComponent,
+    LeafComponentsCommonModule
   ],
 })
 export class AdminSettingsPageModule {}

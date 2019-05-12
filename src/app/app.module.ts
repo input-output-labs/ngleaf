@@ -16,7 +16,6 @@ import {
   NavigationModule,
   AddressFormModule,
   TreeModule,
-  LeafComponentsCommonModule,
 } from '@iolabs/ngleaf';
 
 import { LeafConfigServiceModule } from '@iolabs/ngleaf';
@@ -35,7 +34,6 @@ const leafConfig: LeafConfig = {
     MatDividerModule,
     /* Leaf library import */
     LeafConfigServiceModule.forRoot(leafConfig),
-    LeafComponentsCommonModule,
     AccountSettingsPageModule,
     AdminSettingsPageModule,
     LoginPageModule,

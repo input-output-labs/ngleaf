@@ -44,6 +44,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AccountSettingsPasswordComponent,
     AccountSettingsGeneralComponent,
     AccountSettingsAvatarComponent,
+    LeafComponentsCommonModule
   ],
 })
 export class AccountSettingsPageModule {}

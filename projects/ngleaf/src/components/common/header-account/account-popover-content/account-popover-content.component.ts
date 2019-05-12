@@ -28,6 +28,6 @@ export class AccountPopoverContentComponent implements OnInit {
   }
 
   goToAccountSettingsPage() {
-    this.router.navigate(['settings//general']);
+    this.router.navigate(['settings/general']);
   }
 }
