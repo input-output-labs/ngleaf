@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { LeafAccountModel } from '../models/leaf-account.model';
 
-import { LeafAuthHttpClient } from './leaf-auth-http-client.service';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +10,7 @@ import { LeafAuthHttpClient } from './leaf-auth-http-client.service';
 export class LeafAdminService {
   private url = '';
 
-  constructor(public authHttp: LeafAuthHttpClient) {}
+  constructor(public authHttp: HttpClient) {}
 
   public init(serverUrl) {
     this.url = serverUrl + '/api/admin';

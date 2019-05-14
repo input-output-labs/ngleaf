@@ -8,7 +8,12 @@ import { AppRouteModule } from './app.route';
 
 import { environment } from '../environments/environment';
 
-import { AccountSettingsPageModule, AdminSettingsPageModule, LoginPageModule } from '@iolabs/ngleaf';
+import {
+  AccountSettingsPageModule,
+  AdminSettingsPageModule,
+  LoginPageModule,
+  RegisterPageModule,
+  LeafSessionService } from '@iolabs/ngleaf';
 
 import {
   TodoListModule,
@@ -18,7 +23,7 @@ import {
   TreeModule,
 } from '@iolabs/ngleaf';
 
-import { LeafConfigServiceModule } from '@iolabs/ngleaf';
+import { LeafConfigServiceModule, LeafServiceModule } from '@iolabs/ngleaf';
 import { LeafConfig } from '@iolabs/ngleaf';
 import { TemplatesComponent } from './templates/templates.component';
 import { MatDividerModule } from '@angular/material';
@@ -37,14 +42,19 @@ const leafConfig: LeafConfig = {
     AccountSettingsPageModule,
     AdminSettingsPageModule,
     LoginPageModule,
+    RegisterPageModule,
     TodoListModule,
     TreeModule,
     TableModule,
     NavigationModule,
-    AddressFormModule
+    AddressFormModule,
+    LeafServiceModule
   ],
   providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {
+  constructor(leafSession: LeafSessionService) {
+    leafSession.init();
+  }
 }
