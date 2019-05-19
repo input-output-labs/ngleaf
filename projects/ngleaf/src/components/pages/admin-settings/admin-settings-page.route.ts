@@ -31,4 +31,4 @@ const routes: Route[] = [
   imports: [RouterModule.forChild(routes)],
   exports: [],
 })
-export class AppSettingsPageRouteModule {}
+export class LeafAdminSettingsPageRouteModule {}

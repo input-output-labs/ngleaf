@@ -1,1 +1,1 @@
-export { TodoListModule } from './todo-list.module';
+export { TodoListComponent } from './todo-list.component';

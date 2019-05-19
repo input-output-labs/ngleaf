@@ -1,1 +1,1 @@
-export  {AddressFormModule} from './address-form.module';
+export  {AddressFormComponent} from './address-form.component';
