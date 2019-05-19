@@ -6,6 +6,7 @@ import { LeafAccountModel } from '../models/leaf-account.model';
 import { LeafAuthHttpClient } from './leaf-auth-http-client.service';
 import { LeafNotificationService } from './leaf-notification.service';
 import { LeafConfigServiceToken } from './leaf-config.module';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +22,8 @@ export class LeafSessionService {
   constructor(
     @Inject(LeafConfigServiceToken) private config,
     public authHttp: LeafAuthHttpClient,
-    public notificationService: LeafNotificationService
+    public notificationService: LeafNotificationService,
+    private router: Router
   ) {}
 
   public init() {
@@ -97,6 +99,7 @@ export class LeafSessionService {
       this.authHttp.post<any>(this.config.serverUrl + '/account/login', credentials).subscribe(
         jwt => {
           this.saveTokenAndGetAccount(jwt.token);
+          this.router.navigate(['/']);
           resolve();
         },
         () => {
