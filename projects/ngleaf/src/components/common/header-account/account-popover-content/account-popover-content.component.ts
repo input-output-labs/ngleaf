@@ -24,7 +24,6 @@ export class AccountPopoverContentComponent implements OnInit {
 
   logout() {
     this.sessionService.logout();
-    this.router.navigate(['/home']);
   }
 
   goToAccountSettingsPage() {

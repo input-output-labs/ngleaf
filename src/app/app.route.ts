@@ -1,7 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
 
-import { AccountSettingsPageComponent, AdminSettingsPageComponent, LoginPageComponent, RegisterPageComponent } from '@iolabs/ngleaf';
+import {
+  AccountSettingsPageComponent,
+  AdminSettingsPageComponent,
+  LoginPageComponent,
+  RegisterPageComponent,
+  LeafAuthGuardService } from '@iolabs/ngleaf';
 import { TemplatesComponent } from './templates/templates.component';
 
 const routes: Route[] = [
@@ -16,6 +21,7 @@ const routes: Route[] = [
   },
   {
     path: 'settings',
+    canActivate: [LeafAuthGuardService],
     component: AccountSettingsPageComponent,
   },
   {

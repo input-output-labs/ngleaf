@@ -6,7 +6,7 @@ import { LeafAccountModel } from '../models/leaf-account.model';
 import { LeafAuthHttpClient } from './leaf-auth-http-client.service';
 import { LeafNotificationService } from './leaf-notification.service';
 import { LeafConfigServiceToken } from './leaf-config.module';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -23,7 +23,8 @@ export class LeafSessionService {
     @Inject(LeafConfigServiceToken) private config,
     public authHttp: LeafAuthHttpClient,
     public notificationService: LeafNotificationService,
-    private router: Router
+    private router: Router,
+    private activeRoute: ActivatedRoute
   ) {}
 
   public init() {
@@ -96,10 +97,12 @@ export class LeafSessionService {
         password,
       };
       // TODO: REMOVE ANY
+
       this.authHttp.post<any>(this.config.serverUrl + '/account/login', credentials).subscribe(
         jwt => {
           this.saveTokenAndGetAccount(jwt.token);
-          this.router.navigate(['/']);
+          const returnTo = this.activeRoute.snapshot.queryParams.return || '/';
+          this.router.navigate([returnTo]);
           resolve();
         },
         () => {
@@ -119,6 +122,7 @@ export class LeafSessionService {
       this.authHttp.setJwtoken(null);
       this.currentAccount$.next(null);
       this.currentAccount = null;
+      this.router.navigate(['/']);
       resolve();
     });
   }
