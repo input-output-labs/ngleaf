@@ -6,6 +6,7 @@ import { AccountPopoverContentComponent,
   LoginComponent,
   RegisterComponent,
   AccountSettingsAvatarComponent,
+  AccountSettingsAccessTokensComponent,
   AccountSettingsGeneralComponent,
   AccountSettingsPasswordComponent,
   AccountSettingsPageComponent,
@@ -39,7 +40,9 @@ import { MatIconModule,
   MatPaginatorModule,
   MatTableModule,
   MatSortModule,
-  MatTreeModule} from '@angular/material';
+  MatTreeModule,
+  MatDatepickerModule,
+  MatNativeDateModule} from '@angular/material';
 import { MdePopoverModule } from '@material-extended/mde';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -55,6 +58,7 @@ import { LeafAdminSettingsPageRouteModule } from './components/pages/admin-setti
     LoginComponent,
     RegisterComponent,
     AccountSettingsAvatarComponent,
+    AccountSettingsAccessTokensComponent,
     AccountSettingsGeneralComponent,
     AccountSettingsPasswordComponent,
     AccountSettingsPageComponent,
@@ -109,6 +113,8 @@ import { LeafAdminSettingsPageRouteModule } from './components/pages/admin-setti
     MatTableModule,
     MatSortModule,
     MatTreeModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     /* Routes */
     LeafAccountSettingsPageRouteModule,
     LeafAdminSettingsPageRouteModule,

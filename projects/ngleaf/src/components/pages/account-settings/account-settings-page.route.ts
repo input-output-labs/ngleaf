@@ -5,6 +5,7 @@ import { AccountSettingsGeneralComponent } from './account-settings-general/acco
 import { AccountSettingsAvatarComponent } from './account-settings-avatar/account-settings-avatar.component';
 import { AccountSettingsPasswordComponent } from './account-settings-password/account-settings-password.component';
 import { AccountSettingsPageComponent } from './account-settings-page.component';
+import { AccountSettingsAccessTokensComponent } from './account-settings-access-tokens/account-settings-access-tokens.component';
 
 const routes: Route[] = [
   {
@@ -27,6 +28,10 @@ const routes: Route[] = [
       {
         path: 'password',
         component: AccountSettingsPasswordComponent,
+      },
+      {
+        path: 'accesstokens',
+        component: AccountSettingsAccessTokensComponent,
       },
     ],
   },

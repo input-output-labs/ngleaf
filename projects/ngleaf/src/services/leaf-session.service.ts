@@ -9,10 +9,9 @@ import { LeafConfigServiceToken } from './leaf-config.module';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class LeafSessionService {
-
   public currentAccount$: ReplaySubject<LeafAccountModel> = new ReplaySubject(
     1
   );
@@ -28,7 +27,6 @@ export class LeafSessionService {
   ) {}
 
   public init() {
-
     this.jwtoken = localStorage.getItem('jwtoken');
     if (this.jwtoken) {
       this.authHttp.setJwtoken(this.jwtoken);
@@ -71,22 +69,24 @@ export class LeafSessionService {
     return new Promise((resolve, reject) => {
       const account = {
         email,
-        password,
+        password
       };
       // TODO: REMOVE ANY
-      this.authHttp.post<any>(this.config.serverUrl + '/account', account).subscribe(
-        jwt => {
-          this.saveTokenAndGetAccount(jwt.token);
-          resolve();
-        },
-        () => {
-          this.notificationService.emit({
-            id: 'registerFailed',
-            category: 'session',
-            message: 'register failed',
-          });
-        }
-      );
+      this.authHttp
+        .post<any>(this.config.serverUrl + '/account', account)
+        .subscribe(
+          jwt => {
+            this.saveTokenAndGetAccount(jwt.token);
+            resolve();
+          },
+          () => {
+            this.notificationService.emit({
+              id: 'registerFailed',
+              category: 'session',
+              message: 'register failed'
+            });
+          }
+        );
     });
   }
 
@@ -94,25 +94,28 @@ export class LeafSessionService {
     return new Promise(resolve => {
       const credentials = {
         email,
-        password,
+        password
       };
       // TODO: REMOVE ANY
 
-      this.authHttp.post<any>(this.config.serverUrl + '/account/login', credentials).subscribe(
-        jwt => {
-          this.saveTokenAndGetAccount(jwt.token);
-          const returnTo = this.activeRoute.snapshot.queryParams.return || '/';
-          this.router.navigate([returnTo]);
-          resolve();
-        },
-        () => {
-          this.notificationService.emit({
-            id: 'loginFailed',
-            category: 'session',
-            message: 'login failed',
-          });
-        }
-      );
+      this.authHttp
+        .post<any>(this.config.serverUrl + '/account/login', credentials)
+        .subscribe(
+          jwt => {
+            this.saveTokenAndGetAccount(jwt.token);
+            const returnTo =
+              this.activeRoute.snapshot.queryParams.return || '/';
+            this.router.navigate([returnTo]);
+            resolve();
+          },
+          () => {
+            this.notificationService.emit({
+              id: 'loginFailed',
+              category: 'session',
+              message: 'login failed'
+            });
+          }
+        );
     });
   }
 
@@ -130,46 +133,103 @@ export class LeafSessionService {
   public changeUsername(username) {
     return new Promise(() => {
       // TODO: REMOVE ANY
-      this.authHttp.post<any>(this.config.serverUrl + '/account/me/username', username).subscribe(
+      this.authHttp
+        .post<any>(this.config.serverUrl + '/account/me/username', username)
+        .subscribe(
+          () => {
+            this.refreshAccount();
+            this.notificationService.emit({
+              id: 'successChangeUsername',
+              category: 'session',
+              message: 'name changed'
+            });
+          },
+          () => {
+            this.notificationService.emit({
+              id: 'failureChangeUsername',
+              category: 'session',
+              message: 'name changed failed'
+            });
+          }
+        );
+    });
+  }
+
+  public addPrivateToken(name, expiration) {
+    const privateToken = { name, expiration };
+    return new Promise<string>((resolve) => {
+      this.authHttp
+        .post<any>(
+          this.config.serverUrl + '/account/me/privatetokens',
+          privateToken
+        )
+        .subscribe(
+          (jwt) => {
+            this.refreshAccount();
+            this.notificationService.emit({
+              id: 'successAddPrivateToken',
+              category: 'session',
+              message: 'private token added'
+            });
+            resolve(jwt.token);
+          },
+          () => {
+            this.notificationService.emit({
+              id: 'failureAddPrivateToken',
+              category: 'session',
+              message: 'private token addition failed'
+            });
+          }
+        );
+    });
+  }
+
+  public revokePrivateToken(name) {
+    this.authHttp
+      .delete<any>(
+        this.config.serverUrl + '/account/me/privatetokens/' + name
+      )
+      .subscribe(
         () => {
           this.refreshAccount();
           this.notificationService.emit({
-            id: 'successChangeUsername',
+            id: 'successRevokePrivateToken',
             category: 'session',
-            message: 'name changed',
+            message: 'private token revoked'
           });
         },
         () => {
           this.notificationService.emit({
-            id: 'failureChangeUsername',
+            id: 'failureRevokePrivateToken',
             category: 'session',
-            message: 'name changed failed',
+            message: 'private token revokation failed'
           });
         }
       );
-    });
   }
 
   public changeAvatar(avatar) {
     return new Promise(() => {
       // TODO: REMOVE ANY
-      this.authHttp.post<any>(this.config.serverUrl + '/accout/me/avatar', avatar).subscribe(
-        () => {
-          this.refreshAccount();
-          this.notificationService.emit({
-            id: 'successChangeAvatar',
-            category: 'session',
-            message: 'avatar changed',
-          });
-        },
-        () => {
-          this.notificationService.emit({
-            id: 'failureChangeAvatar',
-            category: 'session',
-            message: 'avatar changed failed',
-          });
-        }
-      );
+      this.authHttp
+        .post<any>(this.config.serverUrl + '/accout/me/avatar', avatar)
+        .subscribe(
+          () => {
+            this.refreshAccount();
+            this.notificationService.emit({
+              id: 'successChangeAvatar',
+              category: 'session',
+              message: 'avatar changed'
+            });
+          },
+          () => {
+            this.notificationService.emit({
+              id: 'failureChangeAvatar',
+              category: 'session',
+              message: 'avatar changed failed'
+            });
+          }
+        );
     });
   }
 
@@ -177,25 +237,28 @@ export class LeafSessionService {
     return new Promise((resolve, reject) => {
       const passwordChanging = {
         oldPassword,
-        newPassword,
+        newPassword
       };
       // TODO: REMOVE ANY
       this.authHttp
-        .post<any>(this.config.serverUrl + '/account/me/password', passwordChanging)
+        .post<any>(
+          this.config.serverUrl + '/account/me/password',
+          passwordChanging
+        )
         .subscribe(
           () => {
             this.refreshAccount();
             this.notificationService.emit({
               id: 'successChangePassword',
               category: 'session',
-              message: 'password changed',
+              message: 'password changed'
             });
           },
           () => {
             this.notificationService.emit({
               id: 'failureChangePassword',
               category: 'session',
-              message: 'password changed failed',
+              message: 'password changed failed'
             });
           }
         );
@@ -212,11 +275,14 @@ export class LeafSessionService {
   public resetPassword(key, password) {
     const passwordResetting = {
       key,
-      password,
+      password
     };
     // TODO: REMOVE ANY
     return this.authHttp
-      .post<any>(this.config.serverUrl + '/account/resetPassword', passwordResetting)
+      .post<any>(
+        this.config.serverUrl + '/account/resetPassword',
+        passwordResetting
+      )
       .toPromise();
   }
 }

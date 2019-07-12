@@ -21,7 +21,11 @@ export class AccountSettingsPageComponent implements OnInit {
     },
     {
       link: 'password',
-      name: 'Mot de passe',
+      name: 'Password',
+    },
+    {
+      link: 'accesstokens',
+      name: 'Access Tokens',
     },
   ];
 
