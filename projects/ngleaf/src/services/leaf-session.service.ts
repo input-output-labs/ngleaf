@@ -12,11 +12,10 @@ import { Router, ActivatedRoute } from '@angular/router';
   providedIn: 'root'
 })
 export class LeafSessionService {
-  public currentAccount$: ReplaySubject<LeafAccountModel> = new ReplaySubject(
-    1
-  );
+  public currentAccount$: ReplaySubject<LeafAccountModel> = new ReplaySubject(1);
   public currentAccount = null;
   public jwtoken: string = null;
+  public currentSessionToken$: ReplaySubject<string> = new ReplaySubject(1);
 
   constructor(
     @Inject(LeafConfigServiceToken) private config,
@@ -31,13 +30,17 @@ export class LeafSessionService {
     if (this.jwtoken) {
       this.authHttp.setJwtoken(this.jwtoken);
       this.refreshAccount()
-        .then(() => {})
+        .then(() => {
+          this.currentSessionToken$.next(this.jwtoken);
+        })
         .catch(() => {
           this.currentAccount$.next(null);
+          this.currentSessionToken$.next(null);
           this.authHttp.setJwtoken(null);
         });
     } else {
       this.currentAccount$.next(null);
+      this.currentSessionToken$.next(null);
     }
   }
 
@@ -54,7 +57,10 @@ export class LeafSessionService {
   }
 
   private saveTokenAndGetAccount(jwtoken: string) {
+    this.jwtoken = jwtoken;
+    this.currentSessionToken$.next(jwtoken);
     this.authHttp.setJwtoken(jwtoken);
+
     this.refreshAccount()
       .then(() => {
         localStorage.setItem('jwtoken', jwtoken);
@@ -122,6 +128,8 @@ export class LeafSessionService {
   public logout() {
     return new Promise(resolve => {
       localStorage.setItem('jwtoken', null);
+      this.jwtoken = null;
+      this.currentSessionToken$.next(null);
       this.authHttp.setJwtoken(null);
       this.currentAccount$.next(null);
       this.currentAccount = null;
