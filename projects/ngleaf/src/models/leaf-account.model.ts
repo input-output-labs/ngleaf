@@ -6,9 +6,9 @@ export interface LeafPrivateTokenModel {
 }
 
 export interface LeafAccountModel {
+  id?: string;
   username?: string;
   email: string;
-  teamId?: string; // TODO: TO REMOVE?
   password?: string;
   admin?: boolean;
   privateTokens?: LeafPrivateTokenModel[];
