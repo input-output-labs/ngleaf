@@ -3,3 +3,4 @@ export * from './leaf-account.model';
 export * from './leaf-file.model';
 export * from './leaf-notification.model';
 export * from './leaf-config.model';
+export * from './leaf-authorized-email.model';

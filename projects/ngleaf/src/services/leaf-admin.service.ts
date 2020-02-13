@@ -1,42 +1,58 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
+import { ReplaySubject } from 'rxjs';
 
-import { LeafAccountModel } from '../models/leaf-account.model';
-
-import { HttpClient } from '@angular/common/http';
+import { LeafAccountModel, LeafAuthorizedEmailModel } from '../models';
+import { LeafConfigServiceToken } from './leaf-config.module';
+import { LeafAuthHttpClient } from './leaf-auth-http-client.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LeafAdminService {
-  private url = '';
+  public authorizedEmails$: ReplaySubject<LeafAuthorizedEmailModel[]> = new ReplaySubject(1);
 
-  constructor(public authHttp: HttpClient) {}
+  constructor(
+    @Inject(LeafConfigServiceToken) private config,
+    public authHttp: LeafAuthHttpClient
+  ) {}
 
-  public init(serverUrl) {
-    this.url = serverUrl + '/api/admin';
+  public fetchAuthorizedEmail() {
+    this.authHttp
+      .get<LeafAuthorizedEmailModel[]>(this.config.serverUrl + '/admin/authorizedemails')
+      .subscribe((emails: LeafAuthorizedEmailModel[]) => {
+        this.authorizedEmails$.next(emails);
+      });
   }
 
   public addAuthorizedEmail(emails: string[]) {
-    return this.authHttp
-      .post<LeafAccountModel>(this.url + '/authorizedemails', emails)
-      .toPromise();
+    this.authHttp
+      .post<LeafAuthorizedEmailModel>(this.config.serverUrl + '/admin/authorizedemails', emails)
+      .subscribe(() => this.fetchAuthorizedEmail());
   }
 
   public removeAuthorizedEmail(emails: string[]) {
-    return this.authHttp
-      .post<LeafAccountModel>(this.url + '/authorizedemails/remove', emails)
-      .toPromise();
+    this.authHttp
+      .post<LeafAccountModel>(this.config.serverUrl + '/admin/authorizedemails/remove', emails)
+      .subscribe(() => this.fetchAuthorizedEmail());
+  }
+
+  public fetchAdmins() {
+    this.authHttp
+      .get<LeafAuthorizedEmailModel[]>(this.config.serverUrl + '/admin/admins')
+      .subscribe((emails: LeafAuthorizedEmailModel[]) => {
+        this.authorizedEmails$.next(emails);
+      });
   }
 
   public addAdmin(email: string) {
-    return this.authHttp
-      .post<LeafAccountModel>(this.url + '/admin', email)
+    this.authHttp
+      .post<LeafAccountModel>(this.config.serverUrl + '/admin/admins', email)
       .toPromise();
   }
 
   public removeAdmin(email: string) {
-    return this.authHttp
-      .delete<LeafAccountModel>(this.url + '/admin/' + email)
+    this.authHttp
+      .delete<LeafAccountModel>(this.config.serverUrl + '/admin/admins/' + email)
       .toPromise();
   }
 }

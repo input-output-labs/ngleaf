@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  serverUrl: 'https://blank.io-labs.fr/api'
+//  serverUrl: 'https://blank.io-labs.fr/api'
+  serverUrl: 'http://localhost:8080/api'
 };
 
 /*

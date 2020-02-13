@@ -8,7 +8,20 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'ngleaf-app';
 
-  public links = ['settings', 'admin', 'templates'];
+  public links = [
+    {
+      label: 'My Settings',
+      link: 'settings/general'
+    },
+    {
+      label: 'Admin panel',
+      link: 'admin/administrators'
+    },
+    {
+      label: 'Common templates',
+      link: 'templates'
+    }
+  ];
 
   constructor() {}
 }

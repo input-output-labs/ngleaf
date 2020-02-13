@@ -5,7 +5,7 @@
 <button *ngIf="!(currentAccount$ | async)" mat-stroked-button (click)="goToLogin()">
   LOGIN
 </button>
-<button *ngIf="!(currentAccount$ | async)" mat-stroked-button (click)="goToRegister()">
+<button class="register-button" *ngIf="!(currentAccount$ | async)" mat-stroked-button (click)="goToRegister()">
   REGISTER
 </button>
 

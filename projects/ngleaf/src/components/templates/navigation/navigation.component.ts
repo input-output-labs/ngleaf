@@ -1,5 +1,10 @@
 import { Component, Input, TemplateRef } from '@angular/core';
 
+export interface NavigationItem {
+  link: string;
+  label: string;
+}
+
 @Component({
   selector: 'leaf-navigation',
   templateUrl: './navigation.component.html',
@@ -10,7 +15,7 @@ export class NavigationComponent {
   @Input() headerTemplate: TemplateRef<any>;
   @Input() contentTemplate: TemplateRef<any>;
 
-  @Input() links: any[];
+  @Input() links: NavigationItem[];
   @Input() title = 'app';
 
   constructor() {
