@@ -84,12 +84,17 @@ export class LeafSessionService {
           jwt => {
             this.saveTokenAndGetAccount(jwt.token);
             resolve();
+            this.notificationService.emit({
+              id: 'registerSuccess',
+              category: 'session',
+              message: 'Registration was successful.'
+            });
           },
           () => {
             this.notificationService.emit({
               id: 'registerFailed',
               category: 'session',
-              message: 'register failed'
+              message: 'Register failed.'
             });
           }
         );
@@ -113,12 +118,17 @@ export class LeafSessionService {
               this.activeRoute.snapshot.queryParams.return || '/';
             this.router.navigate([returnTo]);
             resolve();
+            this.notificationService.emit({
+              id: 'loginSuccess',
+              category: 'session',
+              message: 'Login was successful.'
+            });
           },
           () => {
             this.notificationService.emit({
               id: 'loginFailed',
               category: 'session',
-              message: 'login failed'
+              message: 'Login failed.'
             });
           }
         );
@@ -149,14 +159,14 @@ export class LeafSessionService {
             this.notificationService.emit({
               id: 'successChangeUsername',
               category: 'session',
-              message: 'name changed'
+              message: 'Name changed'
             });
           },
           () => {
             this.notificationService.emit({
               id: 'failureChangeUsername',
               category: 'session',
-              message: 'name changed failed'
+              message: 'Name changed failed'
             });
           }
         );
@@ -177,7 +187,7 @@ export class LeafSessionService {
             this.notificationService.emit({
               id: 'successAddPrivateToken',
               category: 'session',
-              message: 'private token added'
+              message: 'Private token added'
             });
             resolve(jwt.token);
           },
@@ -185,7 +195,7 @@ export class LeafSessionService {
             this.notificationService.emit({
               id: 'failureAddPrivateToken',
               category: 'session',
-              message: 'private token addition failed'
+              message: 'Private token addition failed'
             });
           }
         );
