@@ -10,6 +10,7 @@ import { LeafAuthHttpClient } from './leaf-auth-http-client.service';
 })
 export class LeafAdminService {
   public authorizedEmails$: ReplaySubject<LeafAuthorizedEmailModel[]> = new ReplaySubject(1);
+  public administrators$: ReplaySubject<string[]> = new ReplaySubject(1);
 
   constructor(
     @Inject(LeafConfigServiceToken) private config,
@@ -38,21 +39,21 @@ export class LeafAdminService {
 
   public fetchAdmins() {
     this.authHttp
-      .get<LeafAuthorizedEmailModel[]>(this.config.serverUrl + '/admin/admins')
-      .subscribe((emails: LeafAuthorizedEmailModel[]) => {
-        this.authorizedEmails$.next(emails);
+      .get<string[]>(this.config.serverUrl + '/admin/admins')
+      .subscribe((emails: string[]) => {
+        this.administrators$.next(emails);
       });
   }
 
   public addAdmin(email: string) {
     this.authHttp
       .post<LeafAccountModel>(this.config.serverUrl + '/admin/admins', email)
-      .toPromise();
+      .subscribe(() => this.fetchAdmins());
   }
 
   public removeAdmin(email: string) {
     this.authHttp
       .delete<LeafAccountModel>(this.config.serverUrl + '/admin/admins/' + email)
-      .toPromise();
+      .subscribe(() => this.fetchAdmins());
   }
 }

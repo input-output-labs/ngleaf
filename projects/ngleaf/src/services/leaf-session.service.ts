@@ -137,7 +137,7 @@ export class LeafSessionService {
 
   public logout() {
     return new Promise(resolve => {
-      localStorage.setItem('jwtoken', null);
+      localStorage.removeItem('jwtoken');
       this.jwtoken = null;
       this.currentSessionToken$.next(null);
       this.authHttp.setJwtoken(null);

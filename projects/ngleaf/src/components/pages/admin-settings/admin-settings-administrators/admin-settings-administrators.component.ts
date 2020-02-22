@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LeafSessionService } from '../../../../services/leaf-session.service';
+import { LeafAdminService } from '../../../../services/leaf-admin.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'leaf-admin-settings-administrators',
@@ -10,28 +12,33 @@ import { LeafSessionService } from '../../../../services/leaf-session.service';
 export class AdminSettingsAdministratorsComponent implements OnInit {
   public addAdminForm: FormGroup;
 
-  public administrators: string[];
+  public administrators$: Observable<string[]>;
+  selectedEmails: string[] = [];
 
   constructor(
     public formBuilder: FormBuilder,
+    private adminService: LeafAdminService,
     public sessionService: LeafSessionService
   ) {
-    this.administrators = ['remi@bogoss.fr', 'jeanpol@noobs.com'];
     this.addAdminForm = this.formBuilder.group({
       email: ['', Validators.required],
     });
+    adminService.fetchAdmins();
+    this.administrators$ = adminService.administrators$;
   }
 
   ngOnInit() {}
 
-  changeName() {
+  addAmin() {
     if (this.addAdminForm.valid) {
       const { email } = this.addAdminForm.getRawValue();
-      this.sessionService.changeUsername(email);
+      this.adminService.addAdmin(email);
     }
   }
 
   removeAdmins() {
-    // TODO
+    if (this.selectedEmails.length) {
+      this.selectedEmails.forEach((email) => this.adminService.removeAdmin(email));
+    }
   }
 }
