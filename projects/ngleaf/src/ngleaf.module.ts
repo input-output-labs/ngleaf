@@ -49,6 +49,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { LeafAccountSettingsPageRouteModule } from './components/pages/account-settings/account-settings-page.route';
 import { LeafAdminSettingsPageRouteModule } from './components/pages/admin-settings/admin-settings-page.route';
+import { ForbiddenComponent } from './components/pages/forbidden/forbidden.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,8 @@ import { LeafAdminSettingsPageRouteModule } from './components/pages/admin-setti
     NavigationComponent,
     TableComponent,
     TodoListComponent,
-    TreeComponent
+    TreeComponent,
+    ForbiddenComponent
   ],
   providers: [
     LeafNotificationService,
@@ -133,7 +135,8 @@ import { LeafAdminSettingsPageRouteModule } from './components/pages/admin-setti
     NavigationComponent,
     TableComponent,
     TodoListComponent,
-    TreeComponent
+    TreeComponent,
+    ForbiddenComponent
   ]
 })
 export class NgleafModule { }

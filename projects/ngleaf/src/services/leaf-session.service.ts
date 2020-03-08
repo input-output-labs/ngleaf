@@ -7,6 +7,7 @@ import { LeafAuthHttpClient } from './leaf-auth-http-client.service';
 import { LeafNotificationService } from './leaf-notification.service';
 import { LeafConfigServiceToken } from './leaf-config.module';
 import { Router, ActivatedRoute } from '@angular/router';
+import { LeafConfig } from '../models';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class LeafSessionService {
   public currentSessionToken$: ReplaySubject<string> = new ReplaySubject(1);
 
   constructor(
-    @Inject(LeafConfigServiceToken) private config,
+    @Inject(LeafConfigServiceToken) public config: LeafConfig,
     public authHttp: LeafAuthHttpClient,
     public notificationService: LeafNotificationService,
     private router: Router,
@@ -83,6 +84,9 @@ export class LeafSessionService {
         .subscribe(
           jwt => {
             this.saveTokenAndGetAccount(jwt.token);
+            const returnTo =
+              this.activeRoute.snapshot.queryParams.return || this.config.navigation.registerSuccessRedirect || '/';
+            this.router.navigate([returnTo]);
             resolve();
             this.notificationService.emit({
               id: 'registerSuccess',
@@ -115,7 +119,7 @@ export class LeafSessionService {
           jwt => {
             this.saveTokenAndGetAccount(jwt.token);
             const returnTo =
-              this.activeRoute.snapshot.queryParams.return || '/';
+              this.activeRoute.snapshot.queryParams.return || this.config.navigation.loginSuccessRedirect || '/';
             this.router.navigate([returnTo]);
             resolve();
             this.notificationService.emit({

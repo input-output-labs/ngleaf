@@ -6,15 +6,17 @@ import { AccountSettingsAvatarComponent } from './account-settings-avatar/accoun
 import { AccountSettingsPasswordComponent } from './account-settings-password/account-settings-password.component';
 import { AccountSettingsPageComponent } from './account-settings-page.component';
 import { AccountSettingsAccessTokensComponent } from './account-settings-access-tokens/account-settings-access-tokens.component';
+import { LeafAuthGuardService } from '../../../guards';
 
 const routes: Route[] = [
   {
     path: 'settings',
+    canActivate: [LeafAuthGuardService],
     component: AccountSettingsPageComponent,
     children: [
       {
         path: '',
-        redirectTo: '/general',
+        redirectTo: '/settings/general',
         pathMatch: 'full',
       },
       {

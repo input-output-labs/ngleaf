@@ -12,7 +12,13 @@ import { TemplatesComponent } from './templates/templates.component';
 import { MatDividerModule } from '@angular/material';
 
 const leafConfig: LeafConfig = {
-  serverUrl: environment.serverUrl
+  serverUrl: environment.serverUrl,
+  navigation: {
+    authGuardErrorRedirect: '/login',
+    adminGuardErrorRedirect: '/forbidden',
+    loginSuccessRedirect: '',
+    registerSuccessRedirect: ''
+  }
 };
 
 @NgModule({

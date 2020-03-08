@@ -4,15 +4,17 @@ import { Route, RouterModule } from '@angular/router';
 import { AdminSettingsPageComponent } from './admin-settings-page.component';
 import { AdminSettingsAdministratorsComponent } from './admin-settings-administrators/admin-settings-administrators.component';
 import { AdminSettingsWhitelistComponent } from './admin-settings-whitelist/admin-settings-whitelist.component';
+import { LeafAdminGuardService } from '../../..//guards';
 
 const routes: Route[] = [
   {
     path: 'admin',
+    canActivate: [LeafAdminGuardService],
     component: AdminSettingsPageComponent,
     children: [
       {
         path: '',
-        redirectTo: '/administrators',
+        redirectTo: '/admin/administrators',
         pathMatch: 'full',
       },
       {
