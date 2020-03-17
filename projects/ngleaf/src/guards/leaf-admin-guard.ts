@@ -2,11 +2,9 @@ import { Injectable } from '@angular/core';
 import { Router, ActivatedRouteSnapshot, RouterStateSnapshot, CanActivate } from '@angular/router';
 import { take, mergeMap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
-import { LeafSessionService } from '../services';
+import { LeafSessionService } from '../services/index';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class LeafAdminGuardService implements CanActivate {
 
   constructor(

@@ -1,1 +1,1 @@
-export { TableComponent} from './table.component';
+export * from './public-api';

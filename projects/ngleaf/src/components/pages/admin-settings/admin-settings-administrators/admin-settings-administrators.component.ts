@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { LeafSessionService } from '../../../../services/leaf-session.service';
-import { LeafAdminService } from '../../../../services/leaf-admin.service';
 import { Observable } from 'rxjs';
+
+import { LeafAdminService, LeafSessionService } from '../../../../services/index';
 
 @Component({
   selector: 'leaf-admin-settings-administrators',

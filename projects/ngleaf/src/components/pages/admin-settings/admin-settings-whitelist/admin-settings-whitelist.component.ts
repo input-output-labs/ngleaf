@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { LeafAdminService } from '../../../../services/leaf-admin.service';
 import { Observable } from 'rxjs';
-import { LeafAuthorizedEmailModel } from '../../../../models/leaf-authorized-email.model';
+
+import { LeafAdminService } from '../../../../services/index';
+import { LeafAuthorizedEmailModel } from '../../../../models/index';
 
 @Component({
   selector: 'leaf-admin-settings-whitelist',

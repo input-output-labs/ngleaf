@@ -1,8 +1,7 @@
 /*
  * Public API Surface of ngleaf
  */
-export * from './header-account/account-popover-content/account-popover-content.component';
-export * from './header-account/header-account.component';
-export * from './imageUpload/imageUpload.component';
-export * from './login/login.component';
-export * from './register/register.component';
+export * from './header-account/index';
+export * from './imageUpload/index';
+export * from './login/index';
+export * from './register/index';

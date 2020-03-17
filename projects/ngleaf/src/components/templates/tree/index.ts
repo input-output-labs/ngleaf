@@ -1,1 +1,1 @@
-export { TreeComponent } from './tree.component';
+export * from './public-api';

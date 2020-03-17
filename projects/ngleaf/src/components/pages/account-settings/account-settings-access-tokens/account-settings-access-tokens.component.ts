@@ -1,8 +1,9 @@
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { LeafSessionService } from '../../../../services/leaf-session.service';
 import { Observable } from 'rxjs';
-import { LeafAccountModel } from '../../../../models/leaf-account.model';
+
+import { LeafSessionService } from '../../../../services/index';
+import { LeafAccountModel } from '../../../../models/index';
 
 @Component({
   selector: 'leaf-account-settings-access-tokens',

@@ -1,17 +1,13 @@
 import { Inject, Injectable } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ReplaySubject } from 'rxjs';
 
-import { LeafAccountModel } from '../models/leaf-account.model';
-
+import { LeafAccountModel, LeafConfig } from '../models/index';
 import { LeafAuthHttpClient } from './leaf-auth-http-client.service';
 import { LeafNotificationService } from './leaf-notification.service';
 import { LeafConfigServiceToken } from './leaf-config.module';
-import { Router, ActivatedRoute } from '@angular/router';
-import { LeafConfig } from '../models';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class LeafSessionService {
   public currentAccount$: ReplaySubject<LeafAccountModel> = new ReplaySubject(1);
   public currentAccount = null;

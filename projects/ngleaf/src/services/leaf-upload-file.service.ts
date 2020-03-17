@@ -1,7 +1,8 @@
 import { Injectable, Inject } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
+
+import { LeafFileModel } from '../models/index';
 import { LeafAuthHttpClient } from './leaf-auth-http-client.service';
-import { LeafFileModel } from '../models/leaf-file.model';
 import { LeafConfigServiceToken } from './leaf-config.module';
 import { LeafNotificationService } from './leaf-notification.service';
 

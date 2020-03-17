@@ -1,1 +1,1 @@
-export { TodoListComponent } from './todo-list.component';
+export * from './public-api';

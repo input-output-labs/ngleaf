@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
-import { LeafSessionService } from '../../../services/leaf-session.service';
-import { LeafAccountModel } from '../../../models/leaf-account.model';
 import { Router } from '@angular/router';
+
+import { LeafSessionService } from '../../../services/index';
+import { LeafAccountModel } from '../../../models/index';
 
 @Component({
   selector: 'leaf-header-account',

@@ -4,7 +4,9 @@ import { Route, RouterModule } from '@angular/router';
 import {
   LoginPageComponent,
   RegisterPageComponent,
-  ForbiddenComponent
+  ForbiddenComponent,
+  accountSettingsPageRoutes,
+  adminSettingsPageRoutes
 } from '@iolabs/ngleaf';
 import { TemplatesComponent } from './templates/templates.component';
 
@@ -30,6 +32,8 @@ const routes: Route[] = [
     path: 'register',
     component: RegisterPageComponent,
   },
+  ...accountSettingsPageRoutes,
+  ...adminSettingsPageRoutes
 ];
 
 @NgModule({

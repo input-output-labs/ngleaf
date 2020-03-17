@@ -1,12 +1,12 @@
-import { NgModule } from '@angular/core';
-import { Route, RouterModule } from '@angular/router';
+import { Route } from '@angular/router';
+
+import { LeafAdminGuardService } from '../../../guards/index';
 
 import { AdminSettingsPageComponent } from './admin-settings-page.component';
 import { AdminSettingsAdministratorsComponent } from './admin-settings-administrators/admin-settings-administrators.component';
 import { AdminSettingsWhitelistComponent } from './admin-settings-whitelist/admin-settings-whitelist.component';
-import { LeafAdminGuardService } from '../../..//guards';
 
-const routes: Route[] = [
+export const adminSettingsPageRoutes: Route[] = [
   {
     path: 'admin',
     canActivate: [LeafAdminGuardService],
@@ -28,9 +28,3 @@ const routes: Route[] = [
     ],
   },
 ];
-
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [],
-})
-export class LeafAdminSettingsPageRouteModule {}

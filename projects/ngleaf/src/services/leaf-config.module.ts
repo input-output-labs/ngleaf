@@ -1,5 +1,5 @@
 import { InjectionToken, ModuleWithProviders, NgModule } from '@angular/core';
-import { LeafConfig } from '../models/leaf-config.model';
+import { LeafConfig } from '../models/index';
 
 // Injection token
 export const LeafConfigServiceToken = new InjectionToken<LeafConfig>('LEAF_CONFIG');

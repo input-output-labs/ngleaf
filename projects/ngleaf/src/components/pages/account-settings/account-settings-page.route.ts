@@ -1,14 +1,14 @@
-import { NgModule } from '@angular/core';
-import { Route, RouterModule } from '@angular/router';
+import { Route } from '@angular/router';
+
+import { LeafAuthGuardService } from '../../../guards/index';
 
 import { AccountSettingsGeneralComponent } from './account-settings-general/account-settings-general.component';
 import { AccountSettingsAvatarComponent } from './account-settings-avatar/account-settings-avatar.component';
 import { AccountSettingsPasswordComponent } from './account-settings-password/account-settings-password.component';
 import { AccountSettingsPageComponent } from './account-settings-page.component';
 import { AccountSettingsAccessTokensComponent } from './account-settings-access-tokens/account-settings-access-tokens.component';
-import { LeafAuthGuardService } from '../../../guards';
 
-const routes: Route[] = [
+export const accountSettingsPageRoutes: Route[] = [
   {
     path: 'settings',
     canActivate: [LeafAuthGuardService],
@@ -38,9 +38,3 @@ const routes: Route[] = [
     ],
   },
 ];
-
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [],
-})
-export class LeafAccountSettingsPageRouteModule {}

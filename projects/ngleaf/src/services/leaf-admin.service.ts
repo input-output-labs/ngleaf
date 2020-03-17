@@ -1,13 +1,11 @@
 import { Injectable, Inject } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 
-import { LeafAccountModel, LeafAuthorizedEmailModel } from '../models';
+import { LeafAccountModel, LeafAuthorizedEmailModel } from '../models/index';
 import { LeafConfigServiceToken } from './leaf-config.module';
 import { LeafAuthHttpClient } from './leaf-auth-http-client.service';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class LeafAdminService {
   public authorizedEmails$: ReplaySubject<LeafAuthorizedEmailModel[]> = new ReplaySubject(1);
   public administrators$: ReplaySubject<string[]> = new ReplaySubject(1);

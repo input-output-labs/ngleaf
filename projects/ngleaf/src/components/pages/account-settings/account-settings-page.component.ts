@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { LeafAccountModel } from '../../../models/leaf-account.model';
-import { LeafSessionService } from '../../../services/leaf-session.service';
+
+import { LeafAccountModel } from '../../../models/index';
+import { LeafSessionService } from '../../../services/index';
 
 @Component({
   selector: 'leaf-account-settings-page',

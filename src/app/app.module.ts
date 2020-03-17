@@ -7,9 +7,20 @@ import { AppComponent } from './app.component';
 import { AppRouteModule } from './app.route';
 
 import { environment } from '../environments/environment';
-import { LeafConfig, NgleafModule, LeafConfigServiceModule, LeafSessionService } from '@iolabs/ngleaf';
+import {
+  LeafConfig,
+  NgleafModule,
+  LeafConfigServiceModule,
+  LeafSessionService,
+  LeafNotificationService,
+  LeafAdminService,
+  LeafUploadFileService,
+  LeafAuthHttpClient,
+  applicationHttpClientCreator
+} from '@iolabs/ngleaf';
 import { TemplatesComponent } from './templates/templates.component';
 import { MatDividerModule } from '@angular/material';
+import { HttpClient } from '@angular/common/http';
 
 const leafConfig: LeafConfig = {
   serverUrl: environment.serverUrl,
@@ -30,7 +41,17 @@ const leafConfig: LeafConfig = {
     LeafConfigServiceModule.forRoot(leafConfig),
     NgleafModule
   ],
-  providers: [],
+  providers: [
+    LeafNotificationService,
+    LeafSessionService,
+    LeafAdminService,
+    LeafUploadFileService,
+    {
+      provide: LeafAuthHttpClient,
+      useFactory: applicationHttpClientCreator,
+      deps: [HttpClient],
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {
