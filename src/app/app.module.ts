@@ -16,10 +16,12 @@ import {
   LeafAdminService,
   LeafUploadFileService,
   LeafAuthHttpClient,
-  applicationHttpClientCreator
+  applicationHttpClientCreator,
+  LeafAdminGuardService,
+  LeafAuthGuardService
 } from '@iolabs/ngleaf';
 import { TemplatesComponent } from './templates/templates.component';
-import { MatDividerModule } from '@angular/material';
+import { MatDividerModule } from '@angular/material/divider';
 import { HttpClient } from '@angular/common/http';
 
 const leafConfig: LeafConfig = {
@@ -42,6 +44,8 @@ const leafConfig: LeafConfig = {
     NgleafModule
   ],
   providers: [
+    LeafAdminGuardService,
+    LeafAuthGuardService,
     LeafNotificationService,
     LeafSessionService,
     LeafAdminService,
