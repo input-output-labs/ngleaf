@@ -21,7 +21,7 @@ import {
   LeafAuthGuardService
 } from '@iolabs/ngleaf';
 import { TemplatesComponent } from './templates/templates.component';
-import { MatDividerModule } from '@angular/material';
+import { MatDividerModule } from '@angular/material/divider';
 import { HttpClient } from '@angular/common/http';
 
 const leafConfig: LeafConfig = {
