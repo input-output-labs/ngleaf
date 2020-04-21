@@ -6,7 +6,7 @@ export const LeafConfigServiceToken = new InjectionToken<LeafConfig>('LEAF_CONFI
 
 @NgModule()
 export class LeafConfigServiceModule {
-  static forRoot(config: LeafConfig): ModuleWithProviders {
+  static forRoot(config: LeafConfig): ModuleWithProviders<LeafConfigServiceModule> {
     return {
       ngModule: LeafConfigServiceModule,
       providers: [
