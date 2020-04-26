@@ -7,9 +7,9 @@
 <mat-divider></mat-divider>
 
 <div class="container-spacer">
-  <div class="uploader">
-    <leaf-image-upload (onSelectFile)="selectFile($event)"></leaf-image-upload>
-  </div>
+  <form class="uploader" [formGroup]="changeAvatarForm">
+    <leaf-image-upload formControlName="avatarUrl"></leaf-image-upload>
+  </form>
   <button class="uploader-button" mat-button (click)="changeAvatar()" [disabled]="changeAvatarForm.invalid">ENREGISTRER
     CET AVATAR
   </button>

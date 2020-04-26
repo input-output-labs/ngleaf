@@ -22,10 +22,6 @@ export class AccountSettingsAvatarComponent implements OnInit {
 
   ngOnInit() {}
 
-  selectFile(avatarUrl: string) {
-    this.changeAvatarForm.controls.avatarUrl.setValue(avatarUrl);
-  }
-
   changeAvatar() {
     if (this.changeAvatarForm.valid) {
       const { avatarUrl } = this.changeAvatarForm.getRawValue();
