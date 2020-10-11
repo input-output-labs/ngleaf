@@ -6,8 +6,10 @@ import {
   RegisterPageComponent,
   ForbiddenComponent,
   accountSettingsPageRoutes,
-  adminSettingsPageRoutes
-} from '@iolabs/ngleaf';
+  adminSettingsPageRoutes,
+  LeafAdminGuardService,
+  LeafAuthGuardService
+} from '@input-output-labs/ngleaf';
 import { TemplatesComponent } from './templates/templates.component';
 
 const routes: Route[] = [
@@ -38,6 +40,10 @@ const routes: Route[] = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)], // add { enableTracing: true } after routes in forRoot to debug the router
+  providers: [
+    LeafAdminGuardService,
+    LeafAuthGuardService
+  ],
   exports: [RouterModule],
 })
 export class AppRouteModule {}

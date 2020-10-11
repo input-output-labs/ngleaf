@@ -15,8 +15,8 @@ import {
   LeafNotificationModule,
   LeafSessionModule,
   LeafSessionService,
-  LeafUploadFileModule,
-} from '@iolabs/ngleaf';
+  LeafUploadFileModule
+} from '@input-output-labs/ngleaf';
 import { TemplatesComponent } from './templates/templates.component';
 import { MatDividerModule } from '@angular/material/divider';
 

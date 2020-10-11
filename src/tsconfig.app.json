@@ -5,8 +5,8 @@
     "types": [],
     "baseUrl": ".",
     "paths": {
-      "@iolabs/ngleaf": ["../projects/ngleaf/src/public-api.ts"],
-      "@iolabs/ngleaf/*": ["../projects/ngleaf/src/*"]
+      "@input-output-labs/ngleaf": ["../projects/ngleaf/src/public-api.ts"],
+      "@input-output-labs/ngleaf/*": ["../projects/ngleaf/src/*"]
     }
   },
   "files": [
