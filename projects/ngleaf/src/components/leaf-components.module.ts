@@ -41,11 +41,7 @@ import {
   AdminSettingsPageComponent,
   LoginPageComponent,
   RegisterPageComponent,
-  AddressFormComponent,
   NavigationComponent,
-  TableComponent,
-  TodoListComponent,
-  TreeComponent,
   ForbiddenComponent
 } from './index';
 
@@ -66,11 +62,7 @@ import {
     AdminSettingsPageComponent,
     LoginPageComponent,
     RegisterPageComponent,
-    AddressFormComponent,
     NavigationComponent,
-    TableComponent,
-    TodoListComponent,
-    TreeComponent,
     ForbiddenComponent
   ],
   imports: [
@@ -117,11 +109,7 @@ import {
     AccountSettingsAccessTokensComponent,
     LoginPageComponent,
     RegisterPageComponent,
-    AddressFormComponent,
     NavigationComponent,
-    TableComponent,
-    TodoListComponent,
-    TreeComponent,
     ForbiddenComponent
   ]
 })

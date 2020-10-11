@@ -1,3 +1,3 @@
 // public-api.ts
-export * from './leaf-admin-guard';
-export * from './leaf-auth-guard';
+export * from './admin/index';
+export * from './auth/index';

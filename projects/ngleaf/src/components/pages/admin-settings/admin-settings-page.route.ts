@@ -1,6 +1,6 @@
 import { Route } from '@angular/router';
 
-import { LeafAdminGuardService } from '../../../guards/index';
+import { LeafAdminGuardService, LeafAuthGuardService } from '../../../guards/index';
 
 import { AdminSettingsPageComponent } from './admin-settings-page.component';
 import { AdminSettingsAdministratorsComponent } from './admin-settings-administrators/admin-settings-administrators.component';
@@ -9,7 +9,7 @@ import { AdminSettingsWhitelistComponent } from './admin-settings-whitelist/admi
 export const adminSettingsPageRoutes: Route[] = [
   {
     path: 'admin',
-    canActivate: [LeafAdminGuardService],
+    canActivate: [LeafAdminGuardService, LeafAuthGuardService],
     component: AdminSettingsPageComponent,
     children: [
       {
