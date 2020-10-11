@@ -12,7 +12,11 @@ export interface IRequestOptions {
   body?: any;
 }
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+  useFactory: applicationHttpClientCreator,
+  deps: [HttpClient],
+})
 export class LeafAuthHttpClient {
   private jwtoken: string;
 

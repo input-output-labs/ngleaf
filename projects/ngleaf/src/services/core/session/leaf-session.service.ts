@@ -2,10 +2,10 @@ import { Inject, Injectable } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ReplaySubject } from 'rxjs';
 
-import { LeafAccountModel, LeafConfig } from '../models/index';
-import { LeafAuthHttpClient } from './leaf-auth-http-client.service';
-import { LeafNotificationService } from './leaf-notification.service';
-import { LeafConfigServiceToken } from './leaf-config.module';
+import { LeafAccountModel, LeafConfig } from '../../../models/index';
+import { LeafAuthHttpClient } from '../auth-http-client/leaf-auth-http-client.service';
+import { LeafNotificationService } from '../notification/leaf-notification.service';
+import { LeafConfigServiceToken } from '../../leaf-config.module';
 
 @Injectable()
 export class LeafSessionService {

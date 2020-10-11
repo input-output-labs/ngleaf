@@ -47,7 +47,7 @@ import {
   TodoListComponent,
   TreeComponent,
   ForbiddenComponent
-} from './components/index';
+} from './index';
 
 @NgModule({
   declarations: [
@@ -125,4 +125,4 @@ import {
     ForbiddenComponent
   ]
 })
-export class NgleafModule { }
+export class LeafComponentsModule { }

@@ -9,20 +9,16 @@ import { AppRouteModule } from './app.route';
 import { environment } from '../environments/environment';
 import {
   LeafConfig,
-  NgleafModule,
+  LeafAdminModule,
+  LeafComponentsModule,
   LeafConfigServiceModule,
+  LeafNotificationModule,
+  LeafSessionModule,
   LeafSessionService,
-  LeafNotificationService,
-  LeafAdminService,
-  LeafUploadFileService,
-  LeafAuthHttpClient,
-  applicationHttpClientCreator,
-  LeafAdminGuardService,
-  LeafAuthGuardService
+  LeafUploadFileModule,
 } from '@iolabs/ngleaf';
 import { TemplatesComponent } from './templates/templates.component';
 import { MatDividerModule } from '@angular/material/divider';
-import { HttpClient } from '@angular/common/http';
 
 const leafConfig: LeafConfig = {
   serverUrl: environment.serverUrl,
@@ -36,26 +32,20 @@ const leafConfig: LeafConfig = {
 
 @NgModule({
   declarations: [AppComponent, TemplatesComponent],
-  imports: [BrowserModule, BrowserAnimationsModule,
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
     AppRouteModule,
     MatDividerModule,
     /* Leaf library import */
     LeafConfigServiceModule.forRoot(leafConfig),
-    NgleafModule
+    LeafComponentsModule,
+    LeafAdminModule,
+    LeafNotificationModule,
+    LeafSessionModule,
+    LeafUploadFileModule,
   ],
-  providers: [
-    LeafAdminGuardService,
-    LeafAuthGuardService,
-    LeafNotificationService,
-    LeafSessionService,
-    LeafAdminService,
-    LeafUploadFileService,
-    {
-      provide: LeafAuthHttpClient,
-      useFactory: applicationHttpClientCreator,
-      deps: [HttpClient],
-    },
-  ],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {

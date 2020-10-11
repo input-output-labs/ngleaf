@@ -1,5 +1,4 @@
 // public-api.ts
-export * from './ngleaf.module';
 export * from './components/index';
 export * from './configs/index';
 export * from './models/index';

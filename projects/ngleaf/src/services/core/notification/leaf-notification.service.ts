@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { Subject } from 'rxjs';
-import { LeafNotificationModel } from '../models/index';
+import { LeafNotificationModel } from '../../../models/index';
 
 @Injectable()
 export class LeafNotificationService {

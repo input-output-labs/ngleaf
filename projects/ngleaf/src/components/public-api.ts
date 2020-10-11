@@ -5,3 +5,5 @@
 export * from './common/index';
 export * from './pages/index';
 export * from './templates/index';
+
+export * from './leaf-components.module';

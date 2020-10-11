@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { LeafAccountModel } from '../../../models/leaf-account.model';
-import { LeafSessionService } from '../../../services/leaf-session.service';
+import { LeafSessionService } from '../../../services/core/session/leaf-session.service';
 
 @Component({
   selector: 'leaf-admin-settings-page',
