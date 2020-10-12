@@ -6,6 +6,8 @@ import { LeafAccountModel, LeafConfig } from '../../../models/index';
 import { LeafAuthHttpClient } from '../auth-http-client/leaf-auth-http-client.service';
 import { LeafNotificationService } from '../notification/leaf-notification.service';
 import { LeafConfigServiceToken } from '../../leaf-config.module';
+import { Store } from '@ngrx/store';
+import { setCurrentAccount } from '../../../store/core/session/session.actions';
 
 @Injectable()
 export class LeafSessionService {
@@ -16,6 +18,7 @@ export class LeafSessionService {
 
   constructor(
     @Inject(LeafConfigServiceToken) public config: LeafConfig,
+    private store: Store,
     public authHttp: LeafAuthHttpClient,
     public notificationService: LeafNotificationService,
     private router: Router,
@@ -31,11 +34,13 @@ export class LeafSessionService {
           this.currentSessionToken$.next(this.jwtoken);
         })
         .catch(() => {
+          this.store.dispatch(setCurrentAccount({account: null}));
           this.currentAccount$.next(null);
           this.currentSessionToken$.next(null);
           this.authHttp.setJwtoken(null);
         });
     } else {
+      this.store.dispatch(setCurrentAccount({account: null}));
       this.currentAccount$.next(null);
       this.currentSessionToken$.next(null);
     }
@@ -46,6 +51,7 @@ export class LeafSessionService {
       this.authHttp
         .get<LeafAccountModel>(this.config.serverUrl + '/account/me')
         .subscribe(currentAccount => {
+          this.store.dispatch(setCurrentAccount({account: currentAccount}));
           this.currentAccount$.next(currentAccount);
           this.currentAccount = currentAccount;
           resolve();
@@ -63,6 +69,7 @@ export class LeafSessionService {
         localStorage.setItem('jwtoken', jwtoken);
       })
       .catch(() => {
+        this.store.dispatch(setCurrentAccount({account: null}));
         this.currentAccount$.next(null);
         this.authHttp.setJwtoken(null);
       });
@@ -141,6 +148,7 @@ export class LeafSessionService {
       this.jwtoken = null;
       this.currentSessionToken$.next(null);
       this.authHttp.setJwtoken(null);
+      this.store.dispatch(setCurrentAccount({account: null}));
       this.currentAccount$.next(null);
       this.currentAccount = null;
       this.router.navigate(['/']);
