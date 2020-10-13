@@ -2,7 +2,7 @@ import { createReducer, on } from '@ngrx/store';
 import { setCurrentAccount} from './session.actions';
 import { SessionState } from './session.state';
 
-export const initialState: SessionState = {
+const initialState: SessionState = {
     currentAccount: null
 };
 

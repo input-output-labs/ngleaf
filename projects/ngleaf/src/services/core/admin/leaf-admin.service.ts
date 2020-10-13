@@ -1,16 +1,16 @@
 import { Injectable, Inject } from '@angular/core';
-import { ReplaySubject } from 'rxjs';
+import { Store } from '@ngrx/store';
 
 import { LeafAccountModel, LeafAuthorizedEmailModel } from '../../../models/index';
 import { LeafConfigServiceToken } from '../../leaf-config.module';
 import { LeafAuthHttpClient } from '../auth-http-client/leaf-auth-http-client.service';
+import { setAdministrators, setAuthorizedEmails } from '../../../store/core/administration/administration.actions';
 
 @Injectable()
 export class LeafAdminService {
-  public authorizedEmails$: ReplaySubject<LeafAuthorizedEmailModel[]> = new ReplaySubject(1);
-  public administrators$: ReplaySubject<string[]> = new ReplaySubject(1);
 
   constructor(
+    private store: Store,
     @Inject(LeafConfigServiceToken) private config,
     public authHttp: LeafAuthHttpClient
   ) {}
@@ -19,7 +19,7 @@ export class LeafAdminService {
     this.authHttp
       .get<LeafAuthorizedEmailModel[]>(this.config.serverUrl + '/admin/authorizedemails')
       .subscribe((emails: LeafAuthorizedEmailModel[]) => {
-        this.authorizedEmails$.next(emails);
+        this.store.dispatch(setAuthorizedEmails({authorizedEmails: emails}));
       });
   }
 
@@ -38,8 +38,8 @@ export class LeafAdminService {
   public fetchAdmins() {
     this.authHttp
       .get<string[]>(this.config.serverUrl + '/admin/admins')
-      .subscribe((emails: string[]) => {
-        this.administrators$.next(emails);
+      .subscribe((administrators: string[]) => {
+        this.store.dispatch(setAdministrators({administrators}));
       });
   }
 

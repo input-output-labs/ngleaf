@@ -47,9 +47,11 @@ const leafConfig: LeafConfig = {
     LeafNotificationModule,
     LeafSessionModule,
     LeafUploadFileModule,
-    StoreModule.forRoot({
-      ...leafCoreStore
-    }),
+    StoreModule.forRoot(
+      {
+        ...leafCoreStore
+      }
+    ),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
       logOnly: environment.production, // Restrict extension to log-only mode
