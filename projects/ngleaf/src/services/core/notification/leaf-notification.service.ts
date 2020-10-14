@@ -1,17 +1,15 @@
 import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
 
-import { Subject } from 'rxjs';
+import { emitNotification } from '../../../store/core/notification/notification.actions';
 import { LeafNotificationModel } from '../../../models/index';
 
 @Injectable()
 export class LeafNotificationService {
-  public notifications$: Subject<LeafNotificationModel>;
 
-  constructor() {
-    this.notifications$ = new Subject();
-  }
+  constructor(private store: Store) {}
 
-  public emit(error: LeafNotificationModel): void {
-    this.notifications$.next(error);
+  public emit(notification: LeafNotificationModel): void {
+    this.store.dispatch(emitNotification({notification}));
   }
 }

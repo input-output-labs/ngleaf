@@ -1,7 +1,9 @@
-import { administrationReducer } from './administration';
+import { administrationReducer } from './administration/administration.reducers';
+import { notificationReducer } from './notification/notification.reducers';
 import { sessionReducer } from './session/session.reducers';
 
 export const leafCoreStore = {
-    session: sessionReducer,
-    administration: administrationReducer
+    administration: administrationReducer,
+    notification: notificationReducer,
+    session: sessionReducer
 };
