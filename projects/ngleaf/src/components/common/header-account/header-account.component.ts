@@ -1,22 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { ReplaySubject } from 'rxjs';
+import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 
-import { LeafSessionService } from '../../../services/index';
 import { LeafAccountModel } from '../../../models/index';
+import { selectCurrentAccount } from '../../../store/core/session/session.selectors';
 
 @Component({
   selector: 'leaf-header-account',
   templateUrl: './header-account.component.html',
   styleUrls: ['./header-account.component.scss'],
 })
-export class HeaderAccountComponent implements OnInit {
-  public currentAccount$: ReplaySubject<LeafAccountModel>;
+export class HeaderAccountComponent {
+  public currentAccount$: Observable<LeafAccountModel>;
 
-  constructor(public sessionService: LeafSessionService, private router: Router) {}
-
-  ngOnInit() {
-    this.currentAccount$ = this.sessionService.currentAccount$;
+  constructor(private store: Store, private router: Router) {
+    this.currentAccount$ = this.store.select(selectCurrentAccount);
   }
 
   public goToLogin() {

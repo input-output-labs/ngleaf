@@ -15,10 +15,13 @@ import {
   LeafNotificationModule,
   LeafSessionModule,
   LeafSessionService,
-  LeafUploadFileModule
+  LeafUploadFileModule,
+  leafCoreStore
 } from '@input-output-labs/ngleaf';
 import { TemplatesComponent } from './templates/templates.component';
 import { MatDividerModule } from '@angular/material/divider';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 const leafConfig: LeafConfig = {
   serverUrl: environment.serverUrl,
@@ -44,6 +47,15 @@ const leafConfig: LeafConfig = {
     LeafNotificationModule,
     LeafSessionModule,
     LeafUploadFileModule,
+    StoreModule.forRoot(
+      {
+        ...leafCoreStore
+      }
+    ),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+      logOnly: environment.production, // Restrict extension to log-only mode
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],

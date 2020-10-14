@@ -1,21 +1,22 @@
 import { Inject, Injectable } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { ReplaySubject } from 'rxjs';
 
 import { LeafAccountModel, LeafConfig } from '../../../models/index';
 import { LeafAuthHttpClient } from '../auth-http-client/leaf-auth-http-client.service';
 import { LeafNotificationService } from '../notification/leaf-notification.service';
 import { LeafConfigServiceToken } from '../../leaf-config.module';
+import { setCurrentAccount } from '../../../store/core/session/session.actions';
 
 @Injectable()
 export class LeafSessionService {
-  public currentAccount$: ReplaySubject<LeafAccountModel> = new ReplaySubject(1);
-  public currentAccount = null;
   public jwtoken: string = null;
   public currentSessionToken$: ReplaySubject<string> = new ReplaySubject(1);
 
   constructor(
     @Inject(LeafConfigServiceToken) public config: LeafConfig,
+    private store: Store,
     public authHttp: LeafAuthHttpClient,
     public notificationService: LeafNotificationService,
     private router: Router,
@@ -31,12 +32,12 @@ export class LeafSessionService {
           this.currentSessionToken$.next(this.jwtoken);
         })
         .catch(() => {
-          this.currentAccount$.next(null);
+          this.store.dispatch(setCurrentAccount({account: null}));
           this.currentSessionToken$.next(null);
           this.authHttp.setJwtoken(null);
         });
     } else {
-      this.currentAccount$.next(null);
+      this.store.dispatch(setCurrentAccount({account: null}));
       this.currentSessionToken$.next(null);
     }
   }
@@ -46,8 +47,7 @@ export class LeafSessionService {
       this.authHttp
         .get<LeafAccountModel>(this.config.serverUrl + '/account/me')
         .subscribe(currentAccount => {
-          this.currentAccount$.next(currentAccount);
-          this.currentAccount = currentAccount;
+          this.store.dispatch(setCurrentAccount({account: currentAccount}));
           resolve();
         }, reject);
     });
@@ -63,7 +63,7 @@ export class LeafSessionService {
         localStorage.setItem('jwtoken', jwtoken);
       })
       .catch(() => {
-        this.currentAccount$.next(null);
+        this.store.dispatch(setCurrentAccount({account: null}));
         this.authHttp.setJwtoken(null);
       });
   }
@@ -141,8 +141,7 @@ export class LeafSessionService {
       this.jwtoken = null;
       this.currentSessionToken$.next(null);
       this.authHttp.setJwtoken(null);
-      this.currentAccount$.next(null);
-      this.currentAccount = null;
+      this.store.dispatch(setCurrentAccount({account: null}));
       this.router.navigate(['/']);
       resolve();
     });

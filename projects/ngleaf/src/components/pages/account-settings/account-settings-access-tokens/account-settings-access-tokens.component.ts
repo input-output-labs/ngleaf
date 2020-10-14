@@ -1,16 +1,18 @@
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { LeafSessionService } from '../../../../services/index';
 import { LeafAccountModel } from '../../../../models/index';
+import { selectCurrentAccount } from '../../../../store/core/session/session.selectors';
 
 @Component({
   selector: 'leaf-account-settings-access-tokens',
   templateUrl: './account-settings-access-tokens.component.html',
   styleUrls: ['./account-settings-access-tokens.component.scss']
 })
-export class AccountSettingsAccessTokensComponent implements OnInit {
+export class AccountSettingsAccessTokensComponent {
   public displayedColumns: string[] = ['name', 'creation', 'expiration', 'action'];
   public privateTokenCreationForm: FormGroup;
 
@@ -19,17 +21,15 @@ export class AccountSettingsAccessTokensComponent implements OnInit {
   public createdToken: string = null;
 
   constructor(
+    private store: Store,
     public formBuilder: FormBuilder,
     private sessionService: LeafSessionService
   ) {
+    this.currentAccount$ = this.store.select(selectCurrentAccount);
     this.privateTokenCreationForm = this.formBuilder.group({
       name: ['', Validators.required],
       expiration: [''],
     });
-  }
-
-  ngOnInit() {
-    this.currentAccount$ = this.sessionService.currentAccount$;
   }
 
   public addPrivateToken() {

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { LeafAccountModel } from '../../../models/index';
-import { LeafSessionService } from '../../../services/index';
+import { selectCurrentAccount } from '../../../store/core/session/session.selectors';
 
 @Component({
   selector: 'leaf-account-settings-page',
@@ -35,12 +36,13 @@ export class AccountSettingsPageComponent implements OnInit {
   public currentAccount$: Observable<LeafAccountModel>;
 
   constructor(
-    private router: Router,
-    private sessionService: LeafSessionService
-  ) {}
+    private store: Store,
+    private router: Router
+  ) {
+    this.currentAccount$ = this.store.select(selectCurrentAccount);
+  }
 
   ngOnInit() {
     this.currentRoute = this.router.url;
-    this.currentAccount$ = this.sessionService.currentAccount$;
   }
 }

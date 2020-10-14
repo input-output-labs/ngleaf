@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { LeafAdminService } from '../../../../services/index';
 import { LeafAuthorizedEmailModel } from '../../../../models/index';
+import { selectAuthorizedEmails } from '../../../../store/core/administration/administration.selectors';
 
 @Component({
   selector: 'leaf-admin-settings-whitelist',
@@ -17,6 +19,7 @@ export class AdminSettingsWhitelistComponent implements OnInit {
   selectedEmails: string[] = [];
 
   constructor(
+    private store: Store,
     private adminService: LeafAdminService,
     public formBuilder: FormBuilder
   ) {
@@ -24,7 +27,7 @@ export class AdminSettingsWhitelistComponent implements OnInit {
       emails: ['', Validators.required],
     });
     adminService.fetchAuthorizedEmail();
-    this.authorizedEmails$ = adminService.authorizedEmails$;
+    this.authorizedEmails$ = this.store.select(selectAuthorizedEmails);
   }
 
   ngOnInit() {}

@@ -31,6 +31,8 @@
     "@angular/platform-browser-dynamic": "~9.1.2",
     "@angular/router": "~9.1.2",
     "@material-extended/mde": "^2.1.1",
+    "@ngrx/store": "^10.0.1",
+    "@ngrx/store-devtools": "^10.0.1",
     "core-js": "^2.5.4",
     "pre-commit": "^1.2.2",
     "prettier": "^1.16.4",
