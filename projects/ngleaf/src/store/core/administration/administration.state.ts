@@ -1,4 +1,4 @@
-import { LeafAuthorizedEmailModel } from '../../../models';
+import { LeafAuthorizedEmailModel } from '../../../models/leaf-authorized-email.model';
 
 export interface AdmininistrationState {
   authorizedEmails: LeafAuthorizedEmailModel[];

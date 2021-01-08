@@ -6,7 +6,7 @@ import { Observable, of } from 'rxjs';
 
 import { selectCurrentAccount } from '../../store/core/session/session.selectors';
 import { LeafConfigServiceToken } from '../../services/leaf-config.module';
-import { LeafConfig } from '../../models';
+import { LeafConfig } from '../../models/leaf-config.model';
 
 @Injectable()
 export class LeafAuthGuardService implements CanActivate {

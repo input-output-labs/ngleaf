@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { LeafSessionModule } from '../../services';
+import { LeafSessionModule } from '../../services/core/session/leaf-session.module';
 import { LeafAdminGuardService } from './leaf-admin.guard';
 
 @NgModule({

@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { take, mergeMap } from 'rxjs/operators';
 import { LeafConfigServiceToken, LeafSessionService } from '../../services/index';
-import { LeafConfig } from '../../models';
+import { LeafConfig } from '../../models/leaf-config.model';
 import { selectCurrentAccount } from '../../store/core/session/session.selectors';
 
 @Injectable()
