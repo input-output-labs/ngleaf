@@ -5,14 +5,14 @@ interface AppState {
   administration: AdmininistrationState;
 }
 
-export const selectSession = (state: AppState) => state.administration;
+const selectAdministrationSession = (state: AppState) => state.administration;
 
 export const selectAuthorizedEmails = createSelector(
-   selectSession,
+  selectAdministrationSession,
   (state: AdmininistrationState) => state.authorizedEmails
 );
 
 export const selectAdministrators = createSelector(
-  selectSession,
+  selectAdministrationSession,
  (state: AdmininistrationState) => state.administrators
 );

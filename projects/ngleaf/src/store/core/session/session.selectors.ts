@@ -5,7 +5,7 @@ interface AppState {
   session: SessionState;
 }
 
-export const selectSession = (state: AppState) => state.session;
+const selectSession = (state: AppState) => state.session;
 
 export const selectCurrentAccount = createSelector(
    selectSession,

@@ -5,9 +5,9 @@ interface AppState {
   notification: NotificationState;
 }
 
-export const notificationSession = (state: AppState) => state.notification;
+const selectNotification = (state: AppState) => state.notification;
 
 export const selectNotifications = createSelector(
-  notificationSession,
+  selectNotification,
   (state: NotificationState) => state.notifications
 );
