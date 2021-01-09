@@ -23,7 +23,7 @@ export class AdminSettingsAdministratorsComponent implements OnInit {
     private adminService: LeafAdminService
   ) {
     this.addAdminForm = this.formBuilder.group({
-      email: ['', Validators.required],
+      user: [null, Validators.required],
     });
     adminService.fetchAdmins();
     this.administrators$ = this.store.select(selectAdministrators);
@@ -33,8 +33,8 @@ export class AdminSettingsAdministratorsComponent implements OnInit {
 
   addAmin() {
     if (this.addAdminForm.valid) {
-      const { email } = this.addAdminForm.getRawValue();
-      this.adminService.addAdmin(email);
+      const { user } = this.addAdminForm.getRawValue();
+      this.adminService.addAdmin(user.id);
     }
   }
 

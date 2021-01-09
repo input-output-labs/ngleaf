@@ -43,9 +43,9 @@ export class LeafAdminService {
       });
   }
 
-  public addAdmin(email: string) {
+  public addAdmin(newAdminId: string) {
     this.authHttp
-      .post<LeafAccountModel>(this.config.serverUrl + '/admin/admins', email)
+      .post<LeafAccountModel>(this.config.serverUrl + '/admin/admins', newAdminId)
       .subscribe(() => this.fetchAdmins());
   }
 

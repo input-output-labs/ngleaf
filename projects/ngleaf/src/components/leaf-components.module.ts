@@ -30,7 +30,10 @@ import {
   HeaderAccountComponent,
   ImageUploadComponent,
   LoginComponent,
-  RegisterComponent,
+  RegisterComponent
+} from './common/index';
+
+import {
   AccountSettingsAvatarComponent,
   AccountSettingsAccessTokensComponent,
   AccountSettingsGeneralComponent,
@@ -41,9 +44,12 @@ import {
   AdminSettingsPageComponent,
   LoginPageComponent,
   RegisterPageComponent,
-  NavigationComponent,
   ForbiddenComponent
-} from './index';
+} from './pages/index';
+
+import { NavigationComponent } from './templates/index';
+
+import { UserSelectorModule } from './common/user-selector/user-selector.module';
 
 @NgModule({
   declarations: [
@@ -95,7 +101,9 @@ import {
     MatSortModule,
     MatTreeModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    /* Leaf component modules*/
+    UserSelectorModule
   ],
   providers: [],
   exports: [

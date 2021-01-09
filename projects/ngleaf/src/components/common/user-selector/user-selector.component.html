@@ -1,0 +1,15 @@
+<form>
+  <mat-form-field class="full-width">
+    <input type="text"
+           placeholder="Username"
+           matInput
+           [disabled]="disabled"
+           [formControl]="inputControler"
+           [matAutocomplete]="auto">
+    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayProperty">
+      <mat-option *ngFor="let user of proposedUsers | async" [value]="user">
+        {{user.username}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</form>
