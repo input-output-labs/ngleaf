@@ -229,7 +229,7 @@ export class LeafSessionService {
     return new Promise(() => {
       // TODO: REMOVE ANY
       this.authHttp
-        .post<any>(this.config.serverUrl + '/accout/me/avatar', avatar)
+        .post<any>(this.config.serverUrl + '/account/me/avatar', avatar)
         .subscribe(
           () => {
             this.refreshAccount();
