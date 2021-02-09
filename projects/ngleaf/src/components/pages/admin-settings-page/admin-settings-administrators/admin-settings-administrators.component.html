@@ -7,6 +7,7 @@
 <mat-divider></mat-divider>
 
 <div class="container-spacer">
+  <h3>ADMINISTRATEURS ACTUELS</h3>
   <mat-selection-list #admins [(ngModel)]="selectedEmails">
     <mat-list-option *ngFor="let admin of (administrators$ | async)" [value]="admin">
       {{admin}}
