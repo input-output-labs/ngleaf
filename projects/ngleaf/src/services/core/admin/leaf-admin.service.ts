@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { LeafAccountModel, LeafAuthorizedEmailModel } from '../../../models/index';
 import { LeafConfigServiceToken } from '../../leaf-config.module';
 import { LeafAuthHttpClient } from '../auth-http-client/leaf-auth-http-client.service';
-import { setAdministrators, setAuthorizedEmails } from '../../../store/core/administration/administration.actions';
+import { setAdministrators, setAuthorizedEmails, setUsers } from '../../../store/core/administration/administration.actions';
 
 @Injectable()
 export class LeafAdminService {
@@ -40,6 +40,14 @@ export class LeafAdminService {
       .get<string[]>(this.config.serverUrl + '/admin/admins')
       .subscribe((administrators: string[]) => {
         this.store.dispatch(setAdministrators({administrators}));
+      });
+  }
+
+  public fetchUsers() {
+    this.authHttp
+      .get<LeafAccountModel[]>(this.config.serverUrl + '/account/all')
+      .subscribe((users: LeafAccountModel[]) => {
+        this.store.dispatch(setUsers({users}));
       });
   }
 

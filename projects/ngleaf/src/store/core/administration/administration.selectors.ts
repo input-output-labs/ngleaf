@@ -16,3 +16,8 @@ export const selectAdministrators = createSelector(
   selectAdministrationSession,
  (state: AdmininistrationState) => state.administrators
 );
+
+export const selectUsers = createSelector(
+  selectAdministrationSession,
+ (state: AdmininistrationState) => state.users
+);

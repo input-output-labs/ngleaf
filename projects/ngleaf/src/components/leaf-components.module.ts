@@ -42,6 +42,7 @@ import {
   AdminSettingsAdministratorsComponent,
   AdminSettingsWhitelistComponent,
   AdminSettingsPageComponent,
+  AdminSettingsUsersComponent,
   LoginPageComponent,
   RegisterPageComponent,
   ForbiddenComponent
@@ -66,6 +67,7 @@ import { UserSelectorModule } from './common/user-selector/user-selector.module'
     AdminSettingsAdministratorsComponent,
     AdminSettingsWhitelistComponent,
     AdminSettingsPageComponent,
+    AdminSettingsUsersComponent,
     LoginPageComponent,
     RegisterPageComponent,
     NavigationComponent,

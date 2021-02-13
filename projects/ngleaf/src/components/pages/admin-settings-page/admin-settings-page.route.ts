@@ -5,6 +5,7 @@ import { LeafAdminGuardService, LeafAuthGuardService } from '../../../guards/ind
 import { AdminSettingsPageComponent } from './admin-settings-page.component';
 import { AdminSettingsAdministratorsComponent } from './admin-settings-administrators/admin-settings-administrators.component';
 import { AdminSettingsWhitelistComponent } from './admin-settings-whitelist/admin-settings-whitelist.component';
+import { AdminSettingsUsersComponent } from './admin-settings-users/admin-settings-users.component';
 
 export const adminSettingsPageRoutes: Route[] = [
   {
@@ -14,8 +15,12 @@ export const adminSettingsPageRoutes: Route[] = [
     children: [
       {
         path: '',
-        redirectTo: '/admin/administrators',
+        redirectTo: '/admin/users',
         pathMatch: 'full',
+      },
+      {
+        path: 'users',
+        component: AdminSettingsUsersComponent,
       },
       {
         path: 'administrators',
@@ -26,5 +31,5 @@ export const adminSettingsPageRoutes: Route[] = [
         component: AdminSettingsWhitelistComponent,
       }
     ],
-  },
+  }
 ];

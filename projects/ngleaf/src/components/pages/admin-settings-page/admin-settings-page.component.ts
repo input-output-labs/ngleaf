@@ -13,6 +13,10 @@ import { selectCurrentAccount } from '../../../store/core/session/session.select
 export class AdminSettingsPageComponent implements OnInit {
   public links = [
     {
+      link: 'users',
+      name: 'Utilisateurs',
+    },
+    {
       link: 'administrators',
       name: 'Administrateurs',
     },

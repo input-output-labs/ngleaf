@@ -1,0 +1,66 @@
+table {
+  width: 100%;
+
+  th {
+    width: 25%;
+  }
+}
+
+.title {
+    margin: 16px;
+  }
+  
+  .container {
+    .card {
+      width: 95%;
+    }
+  
+    .description-error {
+      margin-bottom: 0.5em;
+    }
+  }
+  
+  .container-spacer {
+    padding: 1em;
+  }
+  
+  .float-right {
+    float: right;
+  }
+  
+  .addMember:hover {
+    cursor: pointer;
+  }
+  
+  .form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .information {
+    display: flex;
+    align-items: center;
+  
+    .mat-icon {
+      margin-right: 0.3em;
+    }
+  
+    .description {
+      font-weight: bold;
+    }
+  }
+  
+  .row {
+    width: 100%;
+    display: flex;
+  
+    .input {
+      padding: 0.25em;
+      flex: 1;
+  
+      .mat-form-field {
+        width: 100%;
+      }
+    }
+  }
+  
