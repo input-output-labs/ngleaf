@@ -1,4 +1,4 @@
-import { Component, forwardRef, OnInit } from '@angular/core';
+import { Component, forwardRef, Input, OnInit } from '@angular/core';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import { startWith, switchMap } from 'rxjs/operators';
@@ -22,6 +22,9 @@ export class UserSelectorComponent implements OnInit, ControlValueAccessor {
   public inputControler = new FormControl();
   public proposedUsers: Observable<LeafUserModel[]>;
   public disabled: boolean;
+
+  @Input()
+  public placeholder = 'Username';
 
   constructor(private userAutocomplete: UserAutocompleteService) {}
 
