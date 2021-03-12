@@ -3,6 +3,7 @@ export interface LeafNavigationConfig {
   adminGuardErrorRedirect?: string;
   loginSuccessRedirect?: string;
   registerSuccessRedirect?: string;
+  logoutRedirect?: string;
 }
 
 export interface LeafConfig {

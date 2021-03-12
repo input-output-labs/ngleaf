@@ -7,6 +7,10 @@ interface AppState {
 
 const selectSession = (state: AppState) => state.session;
 
+export const selectSessionState = createSelector(
+  selectSession,
+ (state: SessionState) => state
+);
 export const selectCurrentAccount = createSelector(
    selectSession,
   (state: SessionState) => state.currentAccount

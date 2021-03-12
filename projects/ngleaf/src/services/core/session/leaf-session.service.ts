@@ -7,7 +7,7 @@ import { LeafAccountModel, LeafConfig } from '../../../models/index';
 import { LeafAuthHttpClient } from '../auth-http-client/leaf-auth-http-client.service';
 import { LeafNotificationService } from '../notification/leaf-notification.service';
 import { LeafConfigServiceToken } from '../../leaf-config.module';
-import { setCurrentAccount } from '../../../store/core/session/session.actions';
+import { setCurrentAccount, setSessionLoading } from '../../../store/core/session/session.actions';
 
 @Injectable()
 export class LeafSessionService {
@@ -43,11 +43,13 @@ export class LeafSessionService {
   }
 
   public refreshAccount() {
+    this.store.dispatch(setSessionLoading({isLoading: true}));
     return new Promise((resolve, reject) => {
       this.authHttp
         .get<LeafAccountModel>(this.config.serverUrl + '/account/me')
         .subscribe(currentAccount => {
           this.store.dispatch(setCurrentAccount({account: currentAccount}));
+          this.store.dispatch(setSessionLoading({isLoading: false}));
           resolve();
         }, reject);
     });
@@ -142,7 +144,8 @@ export class LeafSessionService {
       this.currentSessionToken$.next(null);
       this.authHttp.setJwtoken(null);
       this.store.dispatch(setCurrentAccount({account: null}));
-      this.router.navigate(['/']);
+      const navigateTo = this.config.navigation.logoutRedirect || '/';
+      this.router.navigate([navigateTo]);
       resolve();
     });
   }
