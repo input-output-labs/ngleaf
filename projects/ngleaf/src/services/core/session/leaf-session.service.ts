@@ -37,6 +37,7 @@ export class LeafSessionService {
           this.authHttp.setJwtoken(null);
         });
     } else {
+      this.store.dispatch(setSessionLoading({isLoading: false}));
       this.store.dispatch(setCurrentAccount({account: null}));
       this.currentSessionToken$.next(null);
     }

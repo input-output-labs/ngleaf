@@ -4,7 +4,7 @@ import { SessionState } from './session.state';
 
 const initialState: SessionState = {
     currentAccount: null,
-    sessionLoading: false
+    sessionLoading: true
 };
 
 export function sessionReducer(reducerState, action): SessionState {
