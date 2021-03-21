@@ -43,7 +43,7 @@ export class LeafSessionService {
     }
   }
 
-  public refreshAccount() {
+  public refreshAccount(): Promise<void> {
     this.store.dispatch(setSessionLoading({isLoading: true}));
     return new Promise((resolve, reject) => {
       this.authHttp
@@ -71,7 +71,7 @@ export class LeafSessionService {
       });
   }
 
-  public register(email, password) {
+  public register(email, password): Promise<void> {
     return new Promise((resolve, reject) => {
       const account = {
         email,
@@ -104,7 +104,7 @@ export class LeafSessionService {
     });
   }
 
-  public login(email, password) {
+  public login(email, password): Promise<void> {
     return new Promise(resolve => {
       const credentials = {
         email,
@@ -138,7 +138,7 @@ export class LeafSessionService {
     });
   }
 
-  public logout() {
+  public logout(): Promise<void> {
     return new Promise(resolve => {
       localStorage.removeItem('jwtoken');
       this.jwtoken = null;
@@ -151,8 +151,8 @@ export class LeafSessionService {
     });
   }
 
-  public changeUsername(username) {
-    return new Promise(() => {
+  public changeUsername(username): Promise<void> {
+    return new Promise((resolve, reject) => {
       // TODO: REMOVE ANY
       this.authHttp
         .post<any>(this.config.serverUrl + '/account/me/username', username)
@@ -164,6 +164,7 @@ export class LeafSessionService {
               category: 'session',
               message: 'Name changed'
             });
+            resolve();
           },
           () => {
             this.notificationService.emit({
@@ -171,12 +172,13 @@ export class LeafSessionService {
               category: 'session',
               message: 'Name changed failed'
             });
+            reject();
           }
         );
     });
   }
 
-  public addPrivateToken(name, expiration) {
+  public addPrivateToken(name, expiration): Promise<string> {
     const privateToken = { name, expiration };
     return new Promise<string>((resolve) => {
       this.authHttp
@@ -229,8 +231,8 @@ export class LeafSessionService {
       );
   }
 
-  public changeAvatar(avatar) {
-    return new Promise(() => {
+  public changeAvatar(avatar): Promise<void> {
+    return new Promise((resolve, reject) => {
       // TODO: REMOVE ANY
       this.authHttp
         .post<any>(this.config.serverUrl + '/account/me/avatar', avatar)
@@ -242,6 +244,7 @@ export class LeafSessionService {
               category: 'session',
               message: 'avatar changed'
             });
+            resolve();
           },
           () => {
             this.notificationService.emit({
@@ -249,12 +252,13 @@ export class LeafSessionService {
               category: 'session',
               message: 'avatar changed failed'
             });
+            reject();
           }
         );
     });
   }
 
-  public changePassword(oldPassword, newPassword) {
+  public changePassword(oldPassword, newPassword): Promise<void> {
     return new Promise((resolve, reject) => {
       const passwordChanging = {
         oldPassword,
@@ -274,6 +278,7 @@ export class LeafSessionService {
               category: 'session',
               message: 'password changed'
             });
+            resolve();
           },
           () => {
             this.notificationService.emit({
@@ -281,13 +286,13 @@ export class LeafSessionService {
               category: 'session',
               message: 'password changed failed'
             });
+            reject();
           }
         );
     });
   }
 
   public sendResetPasswordKey(email) {
-    // TODO: REMOVE ANY
     return this.authHttp
       .post<any>(this.config.serverUrl + '/account/sendresetpasswordkey', email)
       .toPromise();
