@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-//  serverUrl: 'https://blank.io-labs.fr/api'
-  serverUrl: 'http://localhost:8080/api'
+  serverUrl: 'http://localhost:8080/api',
+  API_KEY_PIXABAY: '21558043-ea93c1b6a6e88758325a9fcb2'
 };
 
 /*

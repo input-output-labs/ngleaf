@@ -1,0 +1,32 @@
+<mat-form-field class="example-form-field" mat-dialog-title>
+    <mat-label>What are you searching ?</mat-label>
+    <input matInput type="text" [formControl]="inputFormControl" />
+    <button
+      mat-button
+      *ngIf="inputFormControl.value"
+      matSuffix
+      mat-icon-button
+      (click)="inputFormControl.setValue('')"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+  <div mat-dialog-content>
+    <div class="image-picker">
+      <div
+        class="image-selection"
+        [ngClass]="{'selected': index === selectedImageIndex}"
+        *ngFor="let result of (results$ | async); let index = index"
+        (click)="selectImage(index)"
+      >
+        <img [src]="result.url" />
+      </div>
+    </div>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="cancel()">No Thanks</button>
+    <button mat-button (click)="validate()" [disabled]="selectedImageIndex === -1">
+      Pick this image
+    </button>
+  </div>
+  

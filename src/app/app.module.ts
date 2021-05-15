@@ -16,12 +16,19 @@ import {
   LeafSessionModule,
   LeafSessionService,
   LeafUploadFileModule,
+  LeafWebImagesSeekerModule,
   leafCoreStore
 } from '@input-output-labs/ngleaf';
 import { TemplatesComponent } from './templates/templates.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCommonModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 const leafConfig: LeafConfig = {
   serverUrl: environment.serverUrl,
@@ -30,15 +37,25 @@ const leafConfig: LeafConfig = {
     adminGuardErrorRedirect: '/forbidden',
     loginSuccessRedirect: '',
     registerSuccessRedirect: ''
+  },
+  apis: {
+    pixabay_api_key: environment.API_KEY_PIXABAY
   }
 };
 
 @NgModule({
   declarations: [AppComponent, TemplatesComponent],
   imports: [
+    CommonModule,
     BrowserModule,
     BrowserAnimationsModule,
     AppRouteModule,
+    /* Material design library import */
+    FormsModule,
+    MatButtonModule,
+    MatCommonModule,
+    MatFormFieldModule,
+    MatInputModule,
     MatDividerModule,
     /* Leaf library import */
     LeafConfigServiceModule.forRoot(leafConfig),
@@ -46,6 +63,7 @@ const leafConfig: LeafConfig = {
     LeafAdminModule,
     LeafNotificationModule,
     LeafSessionModule,
+    LeafWebImagesSeekerModule,
     LeafUploadFileModule,
     StoreModule.forRoot(
       {

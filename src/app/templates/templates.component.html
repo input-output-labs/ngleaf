@@ -1,1 +1,17 @@
 <h1>Templates</h1>
+<h2>Web image seeker</h2>
+<ol>
+    <li>
+      <mat-form-field>
+        <input matInput [(ngModel)]="name" placeholder="Search Prefill" />
+      </mat-form-field>
+    </li>
+    <li>
+      <button mat-raised-button (click)="openDialog()">Pick one</button>
+    </li>
+    <li *ngIf="selectedImageUrl">
+      You chose:<br />
+      <img *ngIf="selectedImageUrl" [src]="selectedImageUrl" />
+    </li>
+  </ol>
+  

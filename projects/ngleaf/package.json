@@ -1,9 +1,12 @@
 {
   "name": "@input-output-labs/ngleaf",
-  "version": "2.0.13",
+  "version": "2.0.14",
   "peerDependencies": {
     "@angular/common": "^7.2.0",
     "@angular/core": "^7.2.0"
   },
-  "publishConfig": { "registry": "https://nexus.io-labs.fr/repository/npm-public/" }
+  "publishConfig": { "registry": "https://nexus.io-labs.fr/repository/npm-public/" },
+  "scripts": {
+    "publish": "npm publish --access public"
+  }
 }
