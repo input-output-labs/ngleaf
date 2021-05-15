@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
+    "clean": "rm -rf dist node_modules",
     "start": "ng serve",
     "build": "ng lint && ng build",
     "build:lib": "ng lint && ng build ngleaf --prod",
