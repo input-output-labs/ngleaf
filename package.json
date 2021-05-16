@@ -5,6 +5,7 @@
     "ng": "ng",
     "clean": "rm -rf dist node_modules",
     "start": "ng serve",
+    "start:prod": "ng serve --prod",
     "build": "ng lint && ng build",
     "build:lib": "ng lint && ng build ngleaf --prod",
     "build:prod": "ng build --configuration=prod",
@@ -12,7 +13,9 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "prettier": "prettier --single-quote --trailing-comma es5 --write \"**/*.{js,json,css,scss,md}\""
+    "prettier": "prettier --single-quote --trailing-comma es5 --write \"**/*.{js,json,css,scss,md}\"",
+    "publish": "npm publish --access public",
+    "login": "npm login --registry=https://nexus.io-labs.fr/repository/npm-public/ --scope=@input-output-labs"
   },
   "pre-commit": {
     "run": [

@@ -1,4 +1,4 @@
-<mat-form-field class="example-form-field" mat-dialog-title>
+<mat-form-field class="full-width" mat-dialog-title>
     <mat-label>What are you searching ?</mat-label>
     <input matInput type="text" [formControl]="inputFormControl" />
     <button
@@ -19,7 +19,7 @@
         *ngFor="let result of (results$ | async); let index = index"
         (click)="selectImage(index)"
       >
-        <img [src]="result.url" />
+        <img [src]="result" />
       </div>
     </div>
   </div>

@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { LeafWebImagesSeekerService, FoundImage } from '../leaf-web-images-seeker.service';
+import { LeafWebImagesSeekerService } from '../leaf-web-images-seeker.service';
 
 interface Data {
   prefill: string;
@@ -15,7 +15,7 @@ interface Data {
 })
 export class LeafWebImagesSeekerDialogComponent {
 
-  public results$: Observable<FoundImage[]>;
+  public results$: Observable<string[]>;
   public selectedImageIndex = -1;
   public inputFormControl: FormControl = new FormControl('');
 
@@ -39,7 +39,7 @@ export class LeafWebImagesSeekerDialogComponent {
 
   validate(): void {
     this.results$.pipe(take(1)).subscribe(results => {
-      this.dialogRef.close(results[this.selectedImageIndex].url);
+      this.dialogRef.close(results[this.selectedImageIndex]);
     });
   }
 

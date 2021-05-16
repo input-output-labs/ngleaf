@@ -13,5 +13,5 @@ export interface ApisConfig {
 export interface LeafConfig {
   serverUrl: string;
   navigation: LeafNavigationConfig;
-  apis: ApisConfig;
+  apis?: ApisConfig;
 }

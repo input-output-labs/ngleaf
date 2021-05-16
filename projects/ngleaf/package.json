@@ -7,6 +7,7 @@
   },
   "publishConfig": { "registry": "https://nexus.io-labs.fr/repository/npm-public/" },
   "scripts": {
-    "publish": "npm publish --access public"
+    "publish": "npm publish --access public",
+    "login": "npm login --registry=https://nexus.io-labs.fr/repository/npm-public/ --scope=@input-output-labs"
   }
 }

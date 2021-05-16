@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { LeafWebImagesSeekerService } from '@input-output-labs/ngleaf';
+import { MatDialog } from '@angular/material/dialog';
+import { LeafWebImagesSeekerDialogComponent } from '@input-output-labs/ngleaf';
 
 @Component({
   selector: 'app-templates',
@@ -10,10 +11,13 @@ export class TemplatesComponent {
   selectedImageUrl: string;
   name: string;
 
-  constructor(private webImagesSeekerService: LeafWebImagesSeekerService) {}
+  constructor(private dialog: MatDialog) {}
 
   openDialog(): void {
-    this.webImagesSeekerService.openDialog(this.name).subscribe(result => {
+    this.dialog.open(LeafWebImagesSeekerDialogComponent, {
+      width: '450px',
+      data: { prefill: this.name }
+    }).afterClosed().subscribe(result => {
       console.log('you picked: ', result);
       this.selectedImageUrl = result;
     });
