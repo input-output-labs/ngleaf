@@ -5,7 +5,12 @@
     "@angular/common": "^7.2.0",
     "@angular/core": "^7.2.0"
   },
-  "publishConfig": { "registry": "https://nexus.io-labs.fr/repository/npm-public/" },
+  "publishConfig": {
+    "registry": "https://nexus.io-labs.fr/repository/npm-public/"
+  },
+  "dependencies": {
+    "tslib": "^2.0.0"
+  },
   "scripts": {
     "publish": "npm publish --access public",
     "login": "npm login --registry=https://nexus.io-labs.fr/repository/npm-public/ --scope=@input-output-labs"
