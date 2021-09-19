@@ -43,3 +43,9 @@
 .register-button {
   margin-left: 0.5em;
 }
+
+::ng-deep .account-menu {
+  .mat-menu-content:not(:empty) {
+    padding: 0;
+  }
+}

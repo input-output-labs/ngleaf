@@ -1,5 +1,10 @@
+<mat-menu #menu="matMenu" class="account-menu">
+  <leaf-account-popover-content [username]="(currentAccount$ | async)?.username"
+                               [avatarUrl]="(currentAccount$ | async)?.avatarUrl"></leaf-account-popover-content>
+</mat-menu>
+
 <mat-icon *ngIf="(currentAccount$ | async)" class="icon" medium matTooltip="Mon compte"
-          [mdePopoverTriggerFor]="accountPopover">account_circle
+          [matMenuTriggerFor]="menu">account_circle
 </mat-icon>
 
 <button *ngIf="!(currentAccount$ | async)" mat-stroked-button (click)="goToLogin()">
@@ -8,16 +13,5 @@
 <button class="register-button" *ngIf="!(currentAccount$ | async)" mat-stroked-button (click)="goToRegister()">
   REGISTER
 </button>
-
-<mde-popover #accountPopover="mdePopover"
-             [mdePopoverPositionY]="'below'"
-             [mdePopoverPositionX]="'after'"
-             [mdePopoverOverlapTrigger]="false"
-             [mdeFocusTrapEnabled]="false"
-             [mdePopoverTriggerOn]="'click'"
-             [mdePopoverArrowColor]="'rgba(0, 0, 0, 0.9)'">
-  <leaf-account-popover-content [username]="(currentAccount$ | async)?.username"
-                               [avatarUrl]="(currentAccount$ | async)?.avatarUrl"></leaf-account-popover-content>
-</mde-popover>
 
 

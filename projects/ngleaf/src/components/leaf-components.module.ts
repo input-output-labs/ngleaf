@@ -12,6 +12,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
@@ -20,7 +21,6 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTreeModule } from '@angular/material/tree';
-import { MdePopoverModule } from '@material-extended/mde';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { DragDropModule } from '@angular/cdk/drag-drop';
@@ -84,12 +84,12 @@ import { UserSelectorModule } from './common/user-selector/user-selector.module'
     DragDropModule,
     /* Material Imports */
     MatIconModule,
-    MdePopoverModule,
     MatDividerModule,
     MatButtonModule,
     MatInputModule,
     MatListModule,
     MatDividerModule,
+    MatMenuModule,
     MatCardModule,
     MatFormFieldModule,
     MatOptionModule,
