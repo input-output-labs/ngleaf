@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { LeafSessionService } from '../../../../services/index';
-import { LeafAccountModel } from '../../../../models/index';
+import { LeafAccountModel } from '../../../../api/models/index';
 import { selectCurrentAccount } from '../../../../store/core/session/session.selectors';
 
 @Component({

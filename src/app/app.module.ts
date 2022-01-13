@@ -17,7 +17,9 @@ import {
   LeafSessionService,
   LeafUploadFileModule,
   LeafWebImagesSeekerModule,
-  leafCoreStore
+  leafCoreStore,
+  LeafApiClientConfig,
+  LeafApiClientConfigServiceModule
 } from '@input-output-labs/ngleaf';
 import { TemplatesComponent } from './templates/templates.component';
 import { MatDividerModule } from '@angular/material/divider';
@@ -29,6 +31,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCommonModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatDialogModule } from '@angular/material/dialog';
 
 const leafConfig: LeafConfig = {
   serverUrl: environment.serverUrl,
@@ -41,6 +44,10 @@ const leafConfig: LeafConfig = {
   apis: {
     pixabay_api_key: environment.API_KEY_PIXABAY
   }
+};
+
+const leafApiClientConfig: LeafApiClientConfig = {
+  serverUrl: environment.serverUrl
 };
 
 @NgModule({
@@ -57,7 +64,9 @@ const leafConfig: LeafConfig = {
     MatFormFieldModule,
     MatInputModule,
     MatDividerModule,
+    MatDialogModule,
     /* Leaf library import */
+    LeafApiClientConfigServiceModule.forRoot(leafApiClientConfig),
     LeafConfigServiceModule.forRoot(leafConfig),
     LeafComponentsModule,
     LeafAdminModule,

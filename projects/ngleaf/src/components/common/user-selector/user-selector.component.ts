@@ -3,7 +3,7 @@ import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/f
 import { Observable, of } from 'rxjs';
 import { startWith, switchMap } from 'rxjs/operators';
 
-import { LeafUserModel } from '../../../models/leaf-account.model';
+import { LeafUserModel } from '../../../api/models/index';
 import { UserAutocompleteService } from './user-autocomplete.service';
 
 @Component({

@@ -1,6 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { LeafAccountModel } from '../../../models/leaf-account.model';
-import { LeafAuthorizedEmailModel } from '../../../models/leaf-authorized-email.model';
+import { LeafAccountModel, LeafAuthorizedEmailModel } from '../../../api/models/index';
 
 export const setAuthorizedEmails = createAction(
     '[Administration store] Set authorized emails',

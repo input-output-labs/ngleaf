@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { LeafAccountModel } from '../../../models/leaf-account.model';
+import { LeafAccountModel } from '../../../api/models/index';
 import { selectCurrentAccount } from '../../../store/core/session/session.selectors';
 
 @Component({

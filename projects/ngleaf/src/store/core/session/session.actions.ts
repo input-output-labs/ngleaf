@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { LeafAccountModel } from '../../../models/leaf-account.model';
+import { LeafAccountModel } from '../../../api/models/index';
 
 export const setCurrentAccount = createAction(
     '[Session store] Set current account',

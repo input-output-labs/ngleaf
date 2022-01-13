@@ -3,8 +3,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { ReplaySubject } from 'rxjs';
 
-import { LeafAccountModel, LeafConfig } from '../../../models/index';
-import { LeafAuthHttpClient } from '../auth-http-client/leaf-auth-http-client.service';
+import { LeafAuthHttpClient, AccountApiClient } from '../../../api/clients/index';
+
+import { LeafConfig } from '../../../models/index';
 import { LeafNotificationService } from '../notification/leaf-notification.service';
 import { LeafConfigServiceToken } from '../../leaf-config.module';
 import { setCurrentAccount, setSessionLoading } from '../../../store/core/session/session.actions';
@@ -16,6 +17,7 @@ export class LeafSessionService {
 
   constructor(
     @Inject(LeafConfigServiceToken) public config: LeafConfig,
+    private accountApiClient: AccountApiClient,
     private store: Store,
     public authHttp: LeafAuthHttpClient,
     public notificationService: LeafNotificationService,
@@ -46,8 +48,7 @@ export class LeafSessionService {
   public refreshAccount(): Promise<void> {
     this.store.dispatch(setSessionLoading({isLoading: true}));
     return new Promise((resolve, reject) => {
-      this.authHttp
-        .get<LeafAccountModel>(this.config.serverUrl + '/account/me')
+      this.accountApiClient.me()
         .subscribe(currentAccount => {
           this.store.dispatch(setCurrentAccount({account: currentAccount}));
           this.store.dispatch(setSessionLoading({isLoading: false}));
@@ -77,9 +78,7 @@ export class LeafSessionService {
         email,
         password
       };
-      // TODO: REMOVE ANY
-      this.authHttp
-        .post<any>(this.config.serverUrl + '/account', account)
+      this.accountApiClient.register(account)
         .subscribe(
           jwt => {
             this.saveTokenAndGetAccount(jwt.token);
@@ -112,8 +111,7 @@ export class LeafSessionService {
       };
       // TODO: REMOVE ANY
 
-      this.authHttp
-        .post<any>(this.config.serverUrl + '/account/login', credentials)
+      this.accountApiClient.login(credentials)
         .subscribe(
           jwt => {
             this.saveTokenAndGetAccount(jwt.token);
@@ -154,8 +152,7 @@ export class LeafSessionService {
   public changeUsername(username): Promise<void> {
     return new Promise((resolve, reject) => {
       // TODO: REMOVE ANY
-      this.authHttp
-        .post<any>(this.config.serverUrl + '/account/me/username', username)
+      this.accountApiClient.changeUsername(username)
         .subscribe(
           () => {
             this.refreshAccount();
@@ -234,8 +231,7 @@ export class LeafSessionService {
   public changeAvatar(avatar): Promise<void> {
     return new Promise((resolve, reject) => {
       // TODO: REMOVE ANY
-      this.authHttp
-        .post<any>(this.config.serverUrl + '/account/me/avatar', avatar)
+      this.accountApiClient.changeAvatar(avatar)
         .subscribe(
           () => {
             this.refreshAccount();
@@ -265,11 +261,7 @@ export class LeafSessionService {
         newPassword
       };
       // TODO: REMOVE ANY
-      this.authHttp
-        .post<any>(
-          this.config.serverUrl + '/account/me/password',
-          passwordChanging
-        )
+      this.accountApiClient.changePassword(passwordChanging)
         .subscribe(
           () => {
             this.refreshAccount();
@@ -293,8 +285,7 @@ export class LeafSessionService {
   }
 
   public sendResetPasswordKey(email) {
-    return this.authHttp
-      .post<any>(this.config.serverUrl + '/account/sendresetpasswordkey', email)
+    return this.accountApiClient.sendPasswordKey(email)
       .toPromise();
   }
 
@@ -304,11 +295,6 @@ export class LeafSessionService {
       password
     };
     // TODO: REMOVE ANY
-    return this.authHttp
-      .post<any>(
-        this.config.serverUrl + '/account/resetPassword',
-        passwordResetting
-      )
-      .toPromise();
+    return this.accountApiClient.resetPassword(passwordResetting).toPromise();
   }
 }

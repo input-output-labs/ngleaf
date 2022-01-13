@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { LeafAdminService } from '../../../../services/index';
-import { LeafAuthorizedEmailModel } from '../../../../models/index';
+import { LeafAuthorizedEmailModel } from '../../../../api/models/index';
 import { selectAuthorizedEmails } from '../../../../store/core/administration/administration.selectors';
 
 @Component({

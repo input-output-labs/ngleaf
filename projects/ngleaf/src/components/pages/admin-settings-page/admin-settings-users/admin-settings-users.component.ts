@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import { LeafAdminService } from '../../../../services/core/admin/leaf-admin.service';
-import { LeafAccountModel } from '../../../../models/leaf-account.model';
+import { LeafAccountModel } from '../../../../api/models/index';
 import { selectUsers } from '../../../../store/core/administration/administration.selectors';
 import { Observable } from 'rxjs';
 

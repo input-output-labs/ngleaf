@@ -1,4 +1,4 @@
-import { LeafNotificationModel } from '../../../models/leaf-notification.model';
+import { LeafNotificationModel } from '../../../models/index';
 
 export interface NotificationState {
   notifications: LeafNotificationModel;

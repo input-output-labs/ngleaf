@@ -1,9 +1,10 @@
 import { Injectable, Inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { LeafAccountModel, LeafAuthorizedEmailModel } from '../../../models/index';
+// import { LeafAccountModel, LeafAuthorizedEmailModel } from '../../../models/index';
+import { LeafAccountModel, LeafAuthorizedEmailModel } from '../../../api/models/index';
+import { LeafAuthHttpClient } from '../../../api/clients/index';
 import { LeafConfigServiceToken } from '../../leaf-config.module';
-import { LeafAuthHttpClient } from '../auth-http-client/leaf-auth-http-client.service';
 import { setAdministrators, setAuthorizedEmails, setUsers } from '../../../store/core/administration/administration.actions';
 
 @Injectable()

@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { LeafNotificationModel } from '../../../models/leaf-notification.model';
+import { LeafNotificationModel } from '../../../models/index';
 
 export const emitNotification = createAction(
     '[Nofitication store] Emit notification',

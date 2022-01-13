@@ -6,7 +6,9 @@
     "baseUrl": ".",
     "paths": {
       "@input-output-labs/ngleaf": ["../projects/ngleaf/src/public-api.ts"],
-      "@input-output-labs/ngleaf/*": ["../projects/ngleaf/src/*"]
+      "@input-output-labs/ngleaf/*": ["../projects/ngleaf/src/*"],
+      "@api*": ["../projects/ngleaf/src/api/public-api.ts"],
+      "@api/*": ["../projects/ngleaf/src/api/*"]
     }
   },
   "files": [

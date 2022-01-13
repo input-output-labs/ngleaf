@@ -1,4 +1,4 @@
-import { LeafAccountModel } from '../../../models/leaf-account.model';
+import { LeafAccountModel } from '../../../api/models/index';
 
 export interface SessionState {
   currentAccount: LeafAccountModel | null;

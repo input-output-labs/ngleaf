@@ -1,9 +1,10 @@
 import { HttpParams } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { LeafUserModel } from '../../../models/leaf-account.model';
+import { LeafUserModel } from '../../../api/models/index';
 import { LeafConfig } from '../../../models/leaf-config.model';
-import { LeafAuthHttpClient, LeafConfigServiceToken } from '../../../services/index';
+import { LeafConfigServiceToken } from '../../../services/index';
+import { LeafAuthHttpClient } from '../../../api/clients/index';
 
 @Injectable()
 export class UserAutocompleteService {
