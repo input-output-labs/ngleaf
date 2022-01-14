@@ -19,7 +19,9 @@ import {
   LeafWebImagesSeekerModule,
   leafCoreStore,
   LeafApiClientConfig,
-  LeafApiClientConfigServiceModule
+  LeafApiClientConfigServiceModule,
+  LeafLoginVanillaModule,
+  LeafRegisterVanillaModule,
 } from '@input-output-labs/ngleaf';
 import { TemplatesComponent } from './templates/templates.component';
 import { MatDividerModule } from '@angular/material/divider';
@@ -74,6 +76,8 @@ const leafApiClientConfig: LeafApiClientConfig = {
     LeafSessionModule,
     LeafWebImagesSeekerModule,
     LeafUploadFileModule,
+    LeafLoginVanillaModule,
+    LeafRegisterVanillaModule,
     StoreModule.forRoot(
       {
         ...leafCoreStore

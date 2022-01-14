@@ -1,6 +1,6 @@
 {
   "name": "@input-output-labs/ngleaf",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "peerDependencies": {
     "@angular/common": "^13.1.0",
     "@angular/core": "^13.1.0"
