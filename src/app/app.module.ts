@@ -28,12 +28,15 @@ import { MatDividerModule } from '@angular/material/divider';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCommonModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 const leafConfig: LeafConfig = {
   serverUrl: environment.serverUrl,
@@ -52,6 +55,10 @@ const leafApiClientConfig: LeafApiClientConfig = {
   serverUrl: environment.serverUrl
 };
 
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
+
 @NgModule({
   declarations: [AppComponent, TemplatesComponent],
   imports: [
@@ -59,6 +66,15 @@ const leafApiClientConfig: LeafApiClientConfig = {
     BrowserModule,
     BrowserAnimationsModule,
     AppRouteModule,
+    /* Translation module */
+    TranslateModule.forRoot({
+      defaultLanguage: 'en',
+      loader: {
+          provide: TranslateLoader,
+          useFactory: HttpLoaderFactory,
+          deps: [HttpClient]
+      }
+    }),
     /* Material design library import */
     FormsModule,
     MatButtonModule,
@@ -92,7 +108,10 @@ const leafApiClientConfig: LeafApiClientConfig = {
   bootstrap: [AppComponent],
 })
 export class AppModule {
-  constructor(leafSession: LeafSessionService) {
+  constructor(leafSession: LeafSessionService, translate: TranslateService) {
+    translate.setDefaultLang('en');
+    translate.use('en');
+
     leafSession.init();
   }
 }
