@@ -18,9 +18,7 @@
     "login": "npm login --registry=https://nexus.io-labs.fr/repository/npm-public/ --scope=@input-output-labs"
   },
   "pre-commit": {
-    "run": [
-      "lint"
-    ]
+    "run": []
   },
   "private": true,
   "dependencies": {

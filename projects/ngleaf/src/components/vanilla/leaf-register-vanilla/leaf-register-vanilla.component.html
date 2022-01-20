@@ -1,6 +1,6 @@
 <form [formGroup]="registerForm" (keyup.enter)="register()">
-  <input class="login" formControlName="login">
-  <input class="password" type="password" formControlName="password">
-  <input class="passwordValidation" type="password" formControlName="passwordValidation">
-  <button (click)="register()">REGISTER</button>
+  <input class="login" formControlName="login" [attr.placeholder]="'leaf.login.vanilla.loginPlaceholder' | translate" />
+  <input class="password" type="password" formControlName="password" [attr.placeholder]="'leaf.login.vanilla.passwordPlaceholder' | translate" />
+  <input class="passwordValidation" type="password" formControlName="passwordValidation" [attr.placeholder]="'leaf.login.vanilla.passwordValidationPlaceholder' | translate" />
+  <button (click)="register()">{{ 'leaf.register.vanilla.buttonLabel' | translate }}</button>
 </form>

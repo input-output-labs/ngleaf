@@ -3,12 +3,14 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LeafRegisterVanillaComponent } from './leaf-register-vanilla.component';
 import { LeafSessionModule } from '../../../services/index';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    LeafSessionModule
+    LeafSessionModule,
+    TranslateModule
   ],
   declarations: [LeafRegisterVanillaComponent],
   exports: [LeafRegisterVanillaComponent]

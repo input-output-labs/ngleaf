@@ -3,5 +3,22 @@
         "content": {
             "welcome": "Welcome in leaf !"
         }
+    },
+    "leaf": {
+      "login": {
+        "vanilla": {
+          "buttonLabel": "Login",
+          "loginPlaceholder": "Enter email or login",
+          "passwordPlaceholder": "Enter password"
+        }
+      },
+      "register": {
+        "vanilla": {
+          "buttonLabel": "Register",
+          "loginPlaceholder": "Enter email or login",
+          "passwordPlaceholder": "Enter password",
+          "passwordValidationPlaceholder": "Confirm password"
+        }
+      }
     }
 }
