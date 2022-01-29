@@ -22,5 +22,9 @@ export class TemplatesComponent {
       this.selectedImageUrl = result;
     });
   }
+
+  onDone() {
+    console.log('password forgotten done');
+  }
 }
 

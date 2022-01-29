@@ -284,12 +284,12 @@ export class LeafSessionService {
     });
   }
 
-  public sendResetPasswordKey(email) {
+  public sendResetPasswordKey(email): Promise<void> {
     return this.accountApiClient.sendPasswordKey(email)
       .toPromise();
   }
 
-  public resetPassword(key, password) {
+  public resetPassword(key, password): Promise<void> {
     const passwordResetting = {
       key,
       password

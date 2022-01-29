@@ -26,11 +26,11 @@ export class AccountApiClient {
   }
 
   public changeUsername(newUsername: string): Observable<LeafAccountModel> {
-    return this.authHttp.post<LeafAccountModel>(this.config.serverUrl + '/account/username', newUsername);
+    return this.authHttp.post<LeafAccountModel>(this.config.serverUrl + '/account/me/username', newUsername);
   }
 
   public changePassword(passwordChange: PasswordChangingModel): Observable<LeafAccountModel> {
-    return this.authHttp.post<LeafAccountModel>(this.config.serverUrl + '/account/password', passwordChange);
+    return this.authHttp.post<LeafAccountModel>(this.config.serverUrl + '/account/me/password', passwordChange);
   }
 
   public sendPasswordKey(emailOfAccountToReset: string): Observable<void> {
@@ -42,6 +42,6 @@ export class AccountApiClient {
   }
 
   public changeAvatar(newAvatarUrl: string): Observable<LeafAccountModel> {
-    return this.authHttp.post<LeafAccountModel>(this.config.serverUrl + '/account/avatar', newAvatarUrl);
+    return this.authHttp.post<LeafAccountModel>(this.config.serverUrl + '/account/me/avatar', newAvatarUrl);
   }
 }

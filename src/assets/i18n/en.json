@@ -19,6 +19,18 @@
           "passwordPlaceholder": "Enter password",
           "passwordValidationPlaceholder": "Confirm password"
         }
+      },
+      "password-forgotten": {
+        "vanilla": {
+          "passwordChangeKeyDisclaimerLabel": "In order to change your password, you will need a password change key. Enter your account email address and then click on the button bellow to receive it in your mailbox.",
+          "emailPlaceholder": "Enter email",
+          "sendPasswordChangeKeyButtonLabel": "Send password change key",
+          "changePasswordButtonLabel": "Change password",
+          "passwordChangeKeyPlaceholder": "Enter password change key",
+          "passwordPlaceholder": "Enter new password",
+          "passwordValidationPlaceholder": "Confirm new password",
+          "resendLinkLabel": "Resend email"
+        }
       }
     }
 }
