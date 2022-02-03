@@ -10,7 +10,7 @@ import { TranslateModule } from '@ngx-translate/core';
     CommonModule,
     ReactiveFormsModule,
     LeafSessionModule,
-    TranslateModule
+    TranslateModule,
   ],
   declarations: [LeafRegisterVanillaComponent],
   exports: [LeafRegisterVanillaComponent]
