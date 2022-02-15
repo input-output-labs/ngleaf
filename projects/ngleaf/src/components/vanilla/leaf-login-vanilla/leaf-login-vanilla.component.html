@@ -1,4 +1,4 @@
-<form [formGroup]="loginForm" (keyup.enter)="login()">
+<form [formGroup]="loginForm" (keypressed.enter)="login()">
   <input class="login" formControlName="login" [attr.placeholder]="'leaf.login.vanilla.loginPlaceholder' | translate" />
   <input class="password" type="password" formControlName="password" [attr.placeholder]="'leaf.login.vanilla.passwordPlaceholder' | translate">
   <button class="login-button" (click)="login()">{{ 'leaf.login.vanilla.buttonLabel' | translate }}</button>

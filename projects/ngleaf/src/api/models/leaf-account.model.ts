@@ -16,4 +16,5 @@ export interface LeafAccountModel extends LeafUserModel {
   password?: string;
   admin?: boolean;
   privateTokens?: LeafPrivateTokenModel[];
+  modules?: {[moduleName: string]: any};
 }

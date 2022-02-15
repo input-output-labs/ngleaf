@@ -1,4 +1,4 @@
-<form [formGroup]="registerForm" (keyup.enter)="register()">
+<form [formGroup]="registerForm" (keypressed.enter)="register()">
   <input class="login" formControlName="login" [attr.placeholder]="'leaf.register.vanilla.loginPlaceholder' | translate" />
   <input class="password" type="password" formControlName="password" [attr.placeholder]="'leaf.register.vanilla.passwordPlaceholder' | translate" />
   <input class="passwordValidation" type="password" formControlName="passwordValidation" [attr.placeholder]="'leaf.register.vanilla.passwordValidationPlaceholder' | translate" />

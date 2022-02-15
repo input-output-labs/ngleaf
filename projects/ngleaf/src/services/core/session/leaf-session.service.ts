@@ -115,8 +115,7 @@ export class LeafSessionService {
         .subscribe(
           jwt => {
             this.saveTokenAndGetAccount(jwt.token);
-            const returnTo =
-              this.activeRoute.snapshot.queryParams.return || this.config.navigation.loginSuccessRedirect || '/';
+            const returnTo = this.activeRoute.snapshot.queryParams.return || this.config.navigation.loginSuccessRedirect || '/';
             this.router.navigate([returnTo]);
             resolve();
             this.notificationService.emit({

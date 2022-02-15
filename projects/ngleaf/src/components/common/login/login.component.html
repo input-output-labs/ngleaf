@@ -1,4 +1,4 @@
-<form class="form" [formGroup]="loginForm" (keyup.enter)="login()">
+<form class="form" [formGroup]="loginForm" (keypressed.enter)="login()">
   <mat-form-field color="primary" appearance="outline">
     <mat-label>Login</mat-label>
     <input matInput id="loginEmail" value="" formControlName="email">
