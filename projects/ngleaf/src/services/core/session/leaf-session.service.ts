@@ -73,6 +73,7 @@ export class LeafSessionService {
   }
 
   public register(email, password): Promise<void> {
+    this.store.dispatch(setSessionLoading({isLoading: true}));
     return new Promise((resolve, reject) => {
       const account = {
         email,
@@ -91,6 +92,7 @@ export class LeafSessionService {
               category: 'session',
               message: 'Registration was successful.'
             });
+            this.store.dispatch(setSessionLoading({isLoading: false}));
           },
           () => {
             this.notificationService.emit({
@@ -98,12 +100,14 @@ export class LeafSessionService {
               category: 'session',
               message: 'Register failed.'
             });
+            this.store.dispatch(setSessionLoading({isLoading: false}));
           }
         );
     });
   }
 
   public login(email, password): Promise<void> {
+    this.store.dispatch(setSessionLoading({isLoading: true}));
     return new Promise(resolve => {
       const credentials = {
         email,
@@ -123,6 +127,7 @@ export class LeafSessionService {
               category: 'session',
               message: 'Login was successful.'
             });
+            this.store.dispatch(setSessionLoading({isLoading: false}));
           },
           () => {
             this.notificationService.emit({
@@ -130,6 +135,7 @@ export class LeafSessionService {
               category: 'session',
               message: 'Login failed.'
             });
+            this.store.dispatch(setSessionLoading({isLoading: false}));
           }
         );
     });
