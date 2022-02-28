@@ -1,14 +1,14 @@
 import { Inject, Injectable } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { ReplaySubject } from 'rxjs';
+import { select, Store } from '@ngrx/store';
+import { filter, ReplaySubject, take } from 'rxjs';
 
 import { LeafAuthHttpClient, AccountApiClient } from '../../../api/clients/index';
 
 import { LeafConfig } from '../../../models/index';
 import { LeafNotificationService } from '../notification/leaf-notification.service';
 import { LeafConfigServiceToken } from '../../leaf-config.module';
-import { setCurrentAccount, setSessionLoading } from '../../../store/core/session/session.actions';
+import { selectSessionState, SessionState, setCurrentAccount, setSessionLoading } from '../../../store/core/session/index';
 
 @Injectable()
 export class LeafSessionService {
@@ -34,9 +34,14 @@ export class LeafSessionService {
           this.currentSessionToken$.next(this.jwtoken);
         })
         .catch(() => {
+          console.log('refreshAccount rejection catched in init()');
           this.store.dispatch(setCurrentAccount({account: null}));
           this.currentSessionToken$.next(null);
           this.authHttp.setJwtoken(null);
+          localStorage.removeItem('jwtoken');
+          if (this.config.navigation.authGuardErrorRedirect) {
+            this.router.navigate([this.config.navigation.authGuardErrorRedirect]);
+          }
         });
     } else {
       this.store.dispatch(setSessionLoading({isLoading: false}));
@@ -119,8 +124,6 @@ export class LeafSessionService {
         .subscribe(
           jwt => {
             this.saveTokenAndGetAccount(jwt.token);
-            const returnTo = this.activeRoute.snapshot.queryParams.return || this.config.navigation.loginSuccessRedirect || '/';
-            this.router.navigate([returnTo]);
             resolve();
             this.notificationService.emit({
               id: 'loginSuccess',
@@ -128,6 +131,16 @@ export class LeafSessionService {
               message: 'Login was successful.'
             });
             this.store.dispatch(setSessionLoading({isLoading: false}));
+
+            this.store.pipe(
+              select(selectSessionState),
+              filter((sessionState: SessionState) => !sessionState.sessionLoading && !!sessionState.currentAccount),
+              take(1)
+            ).subscribe(() => {
+              const returnTo = this.activeRoute.snapshot.queryParams.return || this.config.navigation.loginSuccessRedirect || '/';
+              console.log('returnTo: ', returnTo);
+              this.router.navigate([returnTo]);
+            });
           },
           () => {
             this.notificationService.emit({
