@@ -27,3 +27,22 @@
 <h2>Password forgotten component</h2>
 
 <leaf-password-forgotten-vanilla (onDone)="onDone()"></leaf-password-forgotten-vanilla>
+
+<div *leafAdaptiveView="'only-mobile'">
+  ONLY MOBILE
+</div>
+<div *leafAdaptiveView="'only-tablet'">
+  ONLY TABLET
+</div>
+<div *leafAdaptiveView="'only-desktop'">
+  ONLY DESKTOP
+</div>
+<div *leafAdaptiveView="'except-mobile'">
+  EXCEPT MOBILE
+</div>
+<div *leafAdaptiveView="'except-tablet'">
+  EXCEPT TABLET
+</div>
+<div *leafAdaptiveView="'except-desktop'">
+  EXCEPT DESKTOP
+</div>
