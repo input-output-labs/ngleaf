@@ -8,6 +8,7 @@ import { LeafWebImagesSeekerDialogComponent } from '@input-output-labs/ngleaf';
   styleUrls: ['./templates.component.css'],
 })
 export class TemplatesComponent {
+  public passwordCheckClasses = {show: ['show-class'], hide: ['hide-class']};
   selectedImageUrl: string;
   name: string;
 

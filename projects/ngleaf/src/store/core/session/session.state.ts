@@ -1,6 +1,9 @@
-import { LeafAccountModel } from '../../../api/models/index';
+import { JWTModel, LeafAccountModel } from '../../../api/models/index';
+import { AsyncType } from '../../common/index';
 
 export interface SessionState {
-  currentAccount: LeafAccountModel | null;
-  sessionLoading: boolean;
+  currentAccount: AsyncType<LeafAccountModel>;
+  sessionToken: AsyncType<JWTModel>;
+  sendResetPasswordKey: AsyncType<void>;
+  resetPassword: AsyncType<void>;
 }

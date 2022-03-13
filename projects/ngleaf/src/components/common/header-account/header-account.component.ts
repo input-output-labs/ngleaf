@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import { LeafAccountModel } from '../../../api/models/index';
-import { selectCurrentAccount } from '../../../store/core/session/session.selectors';
+import { selectCurrentAccountData } from '../../../store/core/session/session.selectors';
 
 @Component({
   selector: 'leaf-header-account',
@@ -15,7 +15,7 @@ export class HeaderAccountComponent {
   public currentAccount$: Observable<LeafAccountModel>;
 
   constructor(private store: Store, private router: Router) {
-    this.currentAccount$ = this.store.select(selectCurrentAccount);
+    this.currentAccount$ = this.store.select(selectCurrentAccountData);
   }
 
   public goToLogin() {

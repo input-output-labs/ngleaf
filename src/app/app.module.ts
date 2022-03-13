@@ -23,6 +23,7 @@ import {
   LeafLoginVanillaModule,
   LeafRegisterVanillaModule,
   LeafPasswordForgottenVanillaModule,
+  SessionEffects,
 } from '@input-output-labs/ngleaf';
 import { TemplatesComponent } from './templates/templates.component';
 import { MatDividerModule } from '@angular/material/divider';
@@ -38,6 +39,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { EffectsModule } from '@ngrx/effects';
 
 const leafConfig: LeafConfig = {
   serverUrl: environment.serverUrl,
@@ -86,6 +88,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatDialogModule,
     /* Leaf library import */
     LeafApiClientConfigServiceModule.forRoot(leafApiClientConfig),
+    EffectsModule.forRoot([SessionEffects]),
     LeafConfigServiceModule.forRoot(leafConfig),
     LeafComponentsModule,
     LeafAdminModule,

@@ -6,3 +6,13 @@
   margin-top: 1em;
   margin-bottom: 1em;
 }
+
+/deep/ .show-class {
+  background-color: green;
+  width: 21px;
+}
+
+/deep/ .hide-class {
+  background-color: red;
+  width: 21px;
+}

@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { filter, map, take } from 'rxjs';
 
 import { LeafNotificationService, LeafSessionService } from '../../../services/index';
-import { setSessionLoading } from '../../../store/core/session/session.actions';
+import { AsyncType, selectResetPassword, selectSendResetPasswordKey } from '../../../store/index';
 
 export type LeafPasswordForgottenVanillaState = 'SendPassword' | 'PasswordChange';
 
@@ -94,24 +94,17 @@ export class LeafPasswordForgottenVanillaComponent implements OnInit {
         passwordValidation,
       } = this.passwordChangeForm.getRawValue();
       if (password === passwordValidation) {
-        this.store.dispatch(setSessionLoading({isLoading: true}));
-        this.leafSessionService.resetPassword(passwordChangeKey, password).then(
-          () => { 
+        this.leafSessionService.resetPassword(passwordChangeKey, password);
+
+        this.store.pipe(
+          select(selectResetPassword),
+          filter<AsyncType<void>>((resetPassword) => !resetPassword.status.pending),
+          map((resetPassword) => resetPassword.status.success),
+          take(1)
+        ).subscribe((success) => {
+          if (success) {
             this.onDone.emit();
-            this.store.dispatch(setSessionLoading({isLoading: false}));
-            this.notificationService.emit({
-              id: 'changePasswordSuccess',
-              category: 'session',
-              message: 'Password changed successfully.'
-            });
           }
-        ).catch(() => {
-          this.store.dispatch(setSessionLoading({isLoading: false}));
-          this.notificationService.emit({
-            id: 'changePasswordFailed',
-            category: 'session',
-            message: 'An error occurred while trying to change the password.'
-          });
         });
       }
     } else {
@@ -129,19 +122,17 @@ export class LeafPasswordForgottenVanillaComponent implements OnInit {
   }
 
   public sendEmail() {
-    this.store.dispatch(setSessionLoading({isLoading: true}));
-    this.leafSessionService.sendResetPasswordKey(this.emailToResendTo).then(
-      () => { 
+    this.leafSessionService.sendResetPasswordKey(this.emailToResendTo);
+
+    this.store.pipe(
+      select(selectSendResetPasswordKey),
+      filter<AsyncType<void>>((sendResetPasswordKey) => !sendResetPasswordKey.status.pending),
+      map((sendResetPasswordKey) => sendResetPasswordKey.status.success),
+      take(1)
+    ).subscribe((success) => {
+      if (success) {
         this.state = 'PasswordChange';
-        this.store.dispatch(setSessionLoading({isLoading: false})); 
       }
-    ).catch(() => {
-      this.notificationService.emit({
-        id: 'sendResetPasswordFailed',
-        category: 'session',
-        message: 'An error occurred while trying to reset the password. No change key sent.'
-      });
-      this.store.dispatch(setSessionLoading({isLoading: false}));
     });
   }
 }

@@ -18,13 +18,9 @@ export interface IRequestOptions {
   deps: [HttpClient],
 })
 export class LeafAuthHttpClient {
-  private jwtoken: string;
+  public jwtoken: string;
 
-  // Extending the HttpClient through the Angular DI.
-  public constructor(public http: HttpClient) {
-    // If you don't want to use the extended versions in some cases you can access the public property and use the original one.
-    // for ex. this.httpClient.http.get(...)
-  }
+  public constructor(public http: HttpClient) {}
 
   public setJwtoken(jwtoken: string): void {
     this.jwtoken = jwtoken;

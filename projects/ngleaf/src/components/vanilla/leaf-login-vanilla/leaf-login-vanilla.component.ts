@@ -8,12 +8,21 @@ export type LeafLoginVanillaError = {
   password: ValidationErrors
 };
 
+export type LeafLoginPasswordCheckClasses = {
+  show: string[],
+  hide: string[]
+};
+
 @Component({
   selector: 'leaf-login-vanilla',
   templateUrl: './leaf-login-vanilla.component.html',
   styleUrls: ['./leaf-login-vanilla.component.scss'],
 })
 export class LeafLoginVanillaComponent implements OnInit {
+  @Input()
+  public enablePasswordCheck: boolean = false;
+  @Input()
+  public passwordCheckClasses?: LeafLoginPasswordCheckClasses;
   @Input()
   public loginValidators: ValidatorFn[] = [Validators.required];
   @Input()
@@ -23,6 +32,8 @@ export class LeafLoginVanillaComponent implements OnInit {
   public onError: EventEmitter<LeafLoginVanillaError> = new EventEmitter<LeafLoginVanillaError>();
 
   public loginForm: FormGroup;
+
+  public showPassword: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,

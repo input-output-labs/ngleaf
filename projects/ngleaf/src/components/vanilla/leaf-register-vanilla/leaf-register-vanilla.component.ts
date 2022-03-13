@@ -1,11 +1,17 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { StoreRootModule } from '@ngrx/store';
 
 import { LeafSessionService } from '../../../services/index';
 
 export type LeafRegisterVanillaError = {
   login: ValidationErrors,
   password: ValidationErrors
+};
+
+export type LeafRegisterPasswordCheckClasses = {
+  show: string[],
+  hide: string[]
 };
 
 @Component({
@@ -15,6 +21,10 @@ export type LeafRegisterVanillaError = {
 })
 export class LeafRegisterVanillaComponent implements OnInit {
   @Input()
+  public enablePasswordCheck: boolean = false;
+  @Input()
+  public passwordCheckClasses?: LeafRegisterPasswordCheckClasses;
+  @Input()
   public loginValidators: ValidatorFn[] = [Validators.required];
   @Input()
   public passwordValidators: ValidatorFn[] = [Validators.required];
@@ -23,6 +33,8 @@ export class LeafRegisterVanillaComponent implements OnInit {
   public onError: EventEmitter<LeafRegisterVanillaError> = new EventEmitter<LeafRegisterVanillaError>();
 
   public registerForm: FormGroup;
+
+  public showPassword: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,

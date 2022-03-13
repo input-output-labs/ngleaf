@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { LeafAccountModel } from '../../../api/models/index';
-import { selectCurrentAccount } from '../../../store/core/session/session.selectors';
+import { selectCurrentAccountData } from '../../../store/core/session/session.selectors';
 
 @Component({
   selector: 'leaf-account-settings-page',
@@ -39,7 +39,7 @@ export class AccountSettingsPageComponent implements OnInit {
     private store: Store,
     private router: Router
   ) {
-    this.currentAccount$ = this.store.select(selectCurrentAccount);
+    this.currentAccount$ = this.store.select(selectCurrentAccountData);
   }
 
   ngOnInit() {

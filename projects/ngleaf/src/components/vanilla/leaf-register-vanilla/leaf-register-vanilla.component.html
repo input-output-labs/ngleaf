@@ -1,6 +1,36 @@
 <form [formGroup]="registerForm" (keypressed.enter)="register()">
-  <input class="login" formControlName="login" [attr.placeholder]="'leaf.register.vanilla.loginPlaceholder' | translate" />
-  <input class="password" type="password" formControlName="password" [attr.placeholder]="'leaf.register.vanilla.passwordPlaceholder' | translate" />
-  <input class="passwordValidation" type="password" formControlName="passwordValidation" [attr.placeholder]="'leaf.register.vanilla.passwordValidationPlaceholder' | translate" />
+  <div class="field-wrapper login-wrapper">
+    <input class="field login" formControlName="login" [attr.placeholder]="'leaf.register.vanilla.loginPlaceholder' | translate" />
+  </div>
+  <div class="field-wrapper login-wrapper">
+    <input class="field password" [type]="showPassword ? 'text' : 'password'" formControlName="password" [attr.placeholder]="'leaf.register.vanilla.passwordPlaceholder' | translate" />
+    <i
+      *ngIf="enablePasswordCheck && passwordCheckClasses && showPassword"
+      class="hide-icon"
+      [ngClass]="passwordCheckClasses.show"
+      (click)="showPassword = false"
+      ></i>
+    <i
+      *ngIf="enablePasswordCheck && passwordCheckClasses && !showPassword"
+      class="show-icon"
+      [ngClass]="passwordCheckClasses.hide"
+      (click)="showPassword = true"
+      ></i>
+  </div>
+  <div class="field-wrapper login-wrapper">
+    <input class="field passwordValidation" [type]="showPassword ? 'text' : 'password'" formControlName="passwordValidation" [attr.placeholder]="'leaf.register.vanilla.passwordValidationPlaceholder' | translate" />
+    <i
+    *ngIf="enablePasswordCheck && passwordCheckClasses && showPassword"
+    class="hide-icon"
+    [ngClass]="passwordCheckClasses.show"
+    (click)="showPassword = false"
+    ></i>
+  <i
+    *ngIf="enablePasswordCheck && passwordCheckClasses && !showPassword"
+    class="show-icon"
+    [ngClass]="passwordCheckClasses.hide"
+    (click)="showPassword = true"
+    ></i>
+  </div>
   <button (click)="register()">{{ 'leaf.register.vanilla.buttonLabel' | translate }}</button>
 </form>

@@ -1,19 +1,19 @@
 import { Inject, Injectable } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { filter, ReplaySubject, take } from 'rxjs';
+import { filter, map, take } from 'rxjs';
 
 import { LeafAuthHttpClient, AccountApiClient } from '../../../api/clients/index';
 
 import { LeafConfig } from '../../../models/index';
 import { LeafNotificationService } from '../notification/leaf-notification.service';
 import { LeafConfigServiceToken } from '../../leaf-config.module';
-import { selectSessionState, SessionState, setCurrentAccount, setSessionLoading } from '../../../store/core/session/index';
+import { resetCurrentAccount, resetSessionToken, selectCurrentAccount, selectSessionToken, setCurrentAccountCall, setResetPasswordCall, setSendResetPasswordKeyCall, setSessionToken, setSessionTokenCall } from '../../../store/core/session/index';
+import { AsyncType } from '../../../store/common/index';
+import { JWTModel, LeafAccountModel } from '../../../api/models/index';
 
 @Injectable()
 export class LeafSessionService {
-  public jwtoken: string = null;
-  public currentSessionToken$: ReplaySubject<string> = new ReplaySubject(1);
 
   constructor(
     @Inject(LeafConfigServiceToken) public config: LeafConfig,
@@ -26,141 +26,145 @@ export class LeafSessionService {
   ) {}
 
   public init() {
-    this.jwtoken = localStorage.getItem('jwtoken');
-    if (this.jwtoken) {
-      this.authHttp.setJwtoken(this.jwtoken);
-      this.refreshAccount()
-        .then(() => {
-          this.currentSessionToken$.next(this.jwtoken);
-        })
+    const jwtoken = localStorage.getItem('jwtoken');
+    if (jwtoken) {
+      this.store.dispatch(setSessionToken({sessionToken: {token: jwtoken}}));
+    } else {
+      this.store.dispatch(resetSessionToken());
+    }
+
+    this.store.pipe(
+      select(selectSessionToken),
+      filter<AsyncType<JWTModel>>((sessionToken) => !sessionToken.status.pending),
+      map((sessionToken) => {
+        if (sessionToken.status.success) {
+          return sessionToken.data;
+        } else {
+          return null;
+        }
+      })
+    ).subscribe((jwtoken) => {
+      if (jwtoken) {
+        localStorage.setItem('jwtoken', jwtoken.token);
+        this.authHttp.setJwtoken(jwtoken.token);
+
+        this.refreshAccount()
+        .then(() => {})
         .catch(() => {
-          console.log('refreshAccount rejection catched in init()');
-          this.store.dispatch(setCurrentAccount({account: null}));
-          this.currentSessionToken$.next(null);
-          this.authHttp.setJwtoken(null);
-          localStorage.removeItem('jwtoken');
+          this.store.dispatch(resetSessionToken());
+          this.store.dispatch(resetCurrentAccount());
           if (this.config.navigation.authGuardErrorRedirect) {
             this.router.navigate([this.config.navigation.authGuardErrorRedirect]);
           }
         });
-    } else {
-      this.store.dispatch(setSessionLoading({isLoading: false}));
-      this.store.dispatch(setCurrentAccount({account: null}));
-      this.currentSessionToken$.next(null);
-    }
-  }
 
-  public refreshAccount(): Promise<void> {
-    this.store.dispatch(setSessionLoading({isLoading: true}));
-    return new Promise((resolve, reject) => {
-      this.accountApiClient.me()
-        .subscribe(currentAccount => {
-          this.store.dispatch(setCurrentAccount({account: currentAccount}));
-          this.store.dispatch(setSessionLoading({isLoading: false}));
-          resolve();
-        }, reject);
+      } else {
+        localStorage.removeItem('jwtoken');
+        this.authHttp.setJwtoken(null);
+      }
     });
   }
 
-  private saveTokenAndGetAccount(jwtoken: string) {
-    this.jwtoken = jwtoken;
-    this.currentSessionToken$.next(jwtoken);
-    this.authHttp.setJwtoken(jwtoken);
-
-    this.refreshAccount()
-      .then(() => {
-        localStorage.setItem('jwtoken', jwtoken);
-      })
-      .catch(() => {
-        this.store.dispatch(setCurrentAccount({account: null}));
-        this.authHttp.setJwtoken(null);
+  public refreshAccount(): Promise<void> {
+    const call = this.accountApiClient.me();
+    this.store.dispatch(setCurrentAccountCall({call}));
+    return new Promise((resolve, reject) => {
+      call.subscribe({
+        next: () => resolve(),
+        error: () => reject()
       });
+    });
   }
 
   public register(email, password): Promise<void> {
-    this.store.dispatch(setSessionLoading({isLoading: true}));
+    const account = {
+      email,
+      password
+    };
+
+    const call = this.accountApiClient.register(account);
+    this.store.dispatch(setSessionTokenCall({call}));
+
+    this.store.pipe(
+      select(selectCurrentAccount),
+      filter((currentAccount: AsyncType<LeafAccountModel>) => !currentAccount.status.pending && !!currentAccount.data),
+      take(1)
+    ).subscribe(() => {
+      const returnTo = this.activeRoute.snapshot.queryParams.return || this.config.navigation.registerSuccessRedirect || '/';
+      this.router.navigate([returnTo]);
+    });
+
     return new Promise((resolve, reject) => {
-      const account = {
-        email,
-        password
-      };
-      this.accountApiClient.register(account)
-        .subscribe(
-          jwt => {
-            this.saveTokenAndGetAccount(jwt.token);
-            const returnTo =
-              this.activeRoute.snapshot.queryParams.return || this.config.navigation.registerSuccessRedirect || '/';
-            this.router.navigate([returnTo]);
-            resolve();
-            this.notificationService.emit({
-              id: 'registerSuccess',
-              category: 'session',
-              message: 'Registration was successful.'
-            });
-            this.store.dispatch(setSessionLoading({isLoading: false}));
-          },
-          () => {
-            this.notificationService.emit({
-              id: 'registerFailed',
-              category: 'session',
-              message: 'Register failed.'
-            });
-            this.store.dispatch(setSessionLoading({isLoading: false}));
-          }
-        );
+      call.subscribe({
+        next: (jwt) => {
+          // this.saveTokenAndGetAccount(jwt.token);
+          this.notificationService.emit({
+            id: 'registerSuccess',
+            category: 'session',
+            message: 'Registration was successful.'
+          });
+          resolve();
+        },
+        error: () => {
+          this.notificationService.emit({
+            id: 'registerFailed',
+            category: 'session',
+            message: 'Register failed.'
+          });
+          reject();
+        }
+      });
     });
   }
 
   public login(email, password): Promise<void> {
-    this.store.dispatch(setSessionLoading({isLoading: true}));
-    return new Promise(resolve => {
-      const credentials = {
-        email,
-        password
-      };
-      // TODO: REMOVE ANY
+    const credentials = {
+      email,
+      password
+    };
 
-      this.accountApiClient.login(credentials)
-        .subscribe(
-          jwt => {
-            this.saveTokenAndGetAccount(jwt.token);
-            resolve();
+    const call = this.accountApiClient.login(credentials);
+    this.store.dispatch(setSessionTokenCall({call}));
+
+    this.store.pipe(
+      select(selectCurrentAccount),
+      filter((currentAccount: AsyncType<LeafAccountModel>) => !currentAccount.status.pending && !!currentAccount.data),
+      take(1)
+    ).subscribe(() => {
+      const returnTo = this.activeRoute.snapshot.queryParams.return || this.config.navigation.loginSuccessRedirect || '/';
+      this.router.navigate([returnTo]);
+    });
+
+    return new Promise((resolve, reject) => {
+      call.subscribe({
+        next: (jwt) => {
+          // this.saveTokenAndGetAccount(jwt.token);
+
             this.notificationService.emit({
               id: 'loginSuccess',
               category: 'session',
               message: 'Login was successful.'
             });
-            this.store.dispatch(setSessionLoading({isLoading: false}));
-
-            this.store.pipe(
-              select(selectSessionState),
-              filter((sessionState: SessionState) => !sessionState.sessionLoading && !!sessionState.currentAccount),
-              take(1)
-            ).subscribe(() => {
-              const returnTo = this.activeRoute.snapshot.queryParams.return || this.config.navigation.loginSuccessRedirect || '/';
-              console.log('returnTo: ', returnTo);
-              this.router.navigate([returnTo]);
-            });
-          },
+            resolve();
+        },
+        error: () => {
           () => {
             this.notificationService.emit({
               id: 'loginFailed',
               category: 'session',
               message: 'Login failed.'
             });
-            this.store.dispatch(setSessionLoading({isLoading: false}));
+            reject();
           }
-        );
+        },
+      });
     });
   }
 
   public logout(): Promise<void> {
     return new Promise(resolve => {
-      localStorage.removeItem('jwtoken');
-      this.jwtoken = null;
-      this.currentSessionToken$.next(null);
-      this.authHttp.setJwtoken(null);
-      this.store.dispatch(setCurrentAccount({account: null}));
+      this.store.dispatch(resetCurrentAccount());
+      this.store.dispatch(resetSessionToken());
       const navigateTo = this.config.navigation.logoutRedirect || '/';
       this.router.navigate([navigateTo]);
       resolve();
@@ -302,17 +306,51 @@ export class LeafSessionService {
     });
   }
 
-  public sendResetPasswordKey(email): Promise<void> {
-    return this.accountApiClient.sendPasswordKey(email)
-      .toPromise();
+  public sendResetPasswordKey(email) {
+    const call = this.accountApiClient.sendPasswordKey(email);
+    this.store.dispatch(setSendResetPasswordKeyCall({call}));
+
+    call.subscribe({
+      next: () => {
+        this.notificationService.emit({
+          id: 'sendResetPasswordSucceed',
+          category: 'session',
+          message: 'Sending the password reset was successful.'
+        });
+      },
+      error: () => {
+        this.notificationService.emit({
+          id: 'sendResetPasswordFailed',
+          category: 'session',
+          message: 'An error occurred while trying to reset the password. No change key sent.'
+        });
+      }
+    });
   }
 
-  public resetPassword(key, password): Promise<void> {
+  public resetPassword(key, password) {
     const passwordResetting = {
       key,
       password
     };
-    // TODO: REMOVE ANY
-    return this.accountApiClient.resetPassword(passwordResetting).toPromise();
+    const call = this.accountApiClient.resetPassword(passwordResetting);
+    this.store.dispatch(setResetPasswordCall({call}));
+
+    call.subscribe({
+      next: () => {
+        this.notificationService.emit({
+          id: 'changePasswordSuccess',
+          category: 'session',
+          message: 'Password changed successfully.'
+        });
+      },
+      error: () => {
+        this.notificationService.emit({
+          id: 'changePasswordFailed',
+          category: 'session',
+          message: 'An error occurred while trying to change the password.'
+        });
+      }
+    });
   }
 }

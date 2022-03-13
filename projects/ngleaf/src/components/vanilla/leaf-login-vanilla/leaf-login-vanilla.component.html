@@ -1,5 +1,24 @@
 <form [formGroup]="loginForm" (keypressed.enter)="login()">
-  <input class="login" formControlName="login" [attr.placeholder]="'leaf.login.vanilla.loginPlaceholder' | translate" />
-  <input class="password" type="password" formControlName="password" [attr.placeholder]="'leaf.login.vanilla.passwordPlaceholder' | translate">
+
+  <div class="field-wrapper login-wrapper">
+    <input class="field login" formControlName="login" [attr.placeholder]="'leaf.login.vanilla.loginPlaceholder' | translate" />
+  </div>
+
+  <div class="field-wrapper login-wrapper">
+    <input class="field password" [type]="showPassword ? 'text' : 'password'" formControlName="password" [attr.placeholder]="'leaf.login.vanilla.passwordPlaceholder' | translate">
+    <i
+      *ngIf="enablePasswordCheck && passwordCheckClasses && showPassword"
+      class="hide-icon"
+      [ngClass]="passwordCheckClasses.show"
+      (click)="showPassword = false"
+      ></i>
+    <i
+      *ngIf="enablePasswordCheck && passwordCheckClasses && !showPassword"
+      class="show-icon"
+      [ngClass]="passwordCheckClasses.hide"
+      (click)="showPassword = true"
+      ></i>
+  </div>
+
   <button class="login-button" (click)="login()">{{ 'leaf.login.vanilla.buttonLabel' | translate }}</button>
 </form>

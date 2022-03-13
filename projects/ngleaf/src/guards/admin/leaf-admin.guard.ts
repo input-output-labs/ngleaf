@@ -1,11 +1,11 @@
 import { Inject, Injectable } from '@angular/core';
 import { Router, ActivatedRouteSnapshot, RouterStateSnapshot, CanActivate } from '@angular/router';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
-import { take, mergeMap, filter, map } from 'rxjs/operators';
+import { take, mergeMap, filter, map, withLatestFrom } from 'rxjs/operators';
 import { LeafConfigServiceToken, LeafSessionService } from '../../services/index';
 import { LeafConfig } from '../../models/leaf-config.model';
-import { selectSessionState } from '../../store/core/session/session.selectors';
+import { selectCurrentAccount, selectIsPending } from '../../store/core/session/session.selectors';
 
 @Injectable()
 export class LeafAdminGuardService implements CanActivate {
@@ -18,15 +18,17 @@ export class LeafAdminGuardService implements CanActivate {
   ) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-    return this.store.select(selectSessionState).pipe(
-      filter(sessionState => !sessionState.sessionLoading),
+    return this.store.pipe(
+      select(selectIsPending),
+      filter(isPending => !isPending),
       take(1),
-      map(sessionState => sessionState.currentAccount),
-      mergeMap(account => {
-        if (!!account && account.admin) {
+      withLatestFrom(this.store.select(selectCurrentAccount)),
+      map(([_pending, currentAccount]) => currentAccount.data),
+      mergeMap(currentAccount => {
+        if (!!currentAccount && currentAccount.admin) {
           return of(true);
         } else {
-          this.router.navigate([this.sessionService.config.navigation.adminGuardErrorRedirect || ''], {
+          this.router.navigate([this.config.navigation.authGuardErrorRedirect || '/login'], {
             queryParams: {
               return: state.url
             }
