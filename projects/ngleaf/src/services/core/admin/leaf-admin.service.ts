@@ -52,6 +52,14 @@ export class LeafAdminService {
       });
   }
 
+  public deleteAccount(id: any) {
+    this.authHttp
+      .delete<void>(this.config.serverUrl + '/account/' + id)
+      .subscribe(() => {
+        this.fetchUsers();
+      });
+  }
+
   public addAdmin(newAdminId: string) {
     this.authHttp
       .post<LeafAccountModel>(this.config.serverUrl + '/admin/admins', newAdminId)

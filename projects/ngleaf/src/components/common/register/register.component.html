@@ -1,4 +1,4 @@
-<form class="form" [formGroup]="registerForm" (keyup.enter)="register()">
+<form class="form" [formGroup]="registerForm" (keyup.enter)="register($event)">
   <mat-form-field appearance="outline">
     <mat-label>Email or login</mat-label>
     <input matInput id="email" value="" formControlName="email">
@@ -11,5 +11,5 @@
     <mat-label>Repeat Password</mat-label>
     <input matInput id="passwordValidation" type="password" value="" formControlName="passwordValidation">
   </mat-form-field>
-  <button mat-stroked-button (click)="register()">REGISTER</button>
+  <button mat-stroked-button (click)="register($event)">REGISTER</button>
 </form>

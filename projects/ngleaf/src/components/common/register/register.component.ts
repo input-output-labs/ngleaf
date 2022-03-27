@@ -33,7 +33,9 @@ export class RegisterComponent implements OnInit {
     );
   }
 
-  register() {
+  register(event) {
+    event.stopPropagation();
+    event.preventDefault();
     if (this.registerForm.valid) {
       const {
         email,

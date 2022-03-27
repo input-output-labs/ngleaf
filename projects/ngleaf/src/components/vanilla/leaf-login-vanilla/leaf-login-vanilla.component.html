@@ -6,18 +6,18 @@
 
   <div class="field-wrapper login-wrapper">
     <input class="field password" [type]="showPassword ? 'text' : 'password'" formControlName="password" [attr.placeholder]="'leaf.login.vanilla.passwordPlaceholder' | translate">
-    <i
+    <div
       *ngIf="enablePasswordCheck && passwordCheckClasses && showPassword"
       class="hide-icon"
-      [ngClass]="passwordCheckClasses.show"
-      (click)="showPassword = false"
-      ></i>
-    <i
+      (click)="showPassword = false">
+      <i [ngClass]="passwordCheckClasses.hide"></i>
+    </div>
+    <div
       *ngIf="enablePasswordCheck && passwordCheckClasses && !showPassword"
       class="show-icon"
-      [ngClass]="passwordCheckClasses.hide"
-      (click)="showPassword = true"
-      ></i>
+      (click)="showPassword = true">
+      <i [ngClass]="passwordCheckClasses.show"></i>
+    </div>
   </div>
 
   <button class="login-button" (click)="login()">{{ 'leaf.login.vanilla.buttonLabel' | translate }}</button>

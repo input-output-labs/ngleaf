@@ -8,7 +8,9 @@ import {
   accountSettingsPageRoutes,
   adminSettingsPageRoutes,
   LeafAdminGuardModule,
-  LeafAuthGuardModule
+  LeafAuthGuardModule,
+  StatisticsPageComponent,
+  StatisticsPageModule
 } from '@input-output-labs/ngleaf';
 import { TemplatesComponent } from './templates/templates.component';
 
@@ -21,6 +23,10 @@ const routes: Route[] = [
   {
     path: 'templates',
     component: TemplatesComponent,
+  },
+  {
+    path: 'statistics',
+    component: StatisticsPageComponent,
   },
   {
     path: 'forbidden',
@@ -42,7 +48,8 @@ const routes: Route[] = [
   imports: [
     RouterModule.forRoot(routes),
     LeafAdminGuardModule,
-    LeafAuthGuardModule
+    LeafAuthGuardModule,
+    StatisticsPageModule
   ], // add { enableTracing: true } after routes in forRoot to debug the router
   exports: [RouterModule],
 })

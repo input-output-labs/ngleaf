@@ -76,7 +76,8 @@ export class LeafSessionService {
     });
   }
 
-  public register(email, password): Promise<void> {
+  public register(email, password) {
+    console.log('register called in service');
     const account = {
       email,
       password
@@ -94,30 +95,30 @@ export class LeafSessionService {
       this.router.navigate([returnTo]);
     });
 
-    return new Promise((resolve, reject) => {
-      call.subscribe({
-        next: (jwt) => {
-          // this.saveTokenAndGetAccount(jwt.token);
-          this.notificationService.emit({
-            id: 'registerSuccess',
-            category: 'session',
-            message: 'Registration was successful.'
-          });
-          resolve();
-        },
-        error: () => {
-          this.notificationService.emit({
-            id: 'registerFailed',
-            category: 'session',
-            message: 'Register failed.'
-          });
-          reject();
-        }
-      });
+    this.store.pipe(
+      select(selectCurrentAccount),
+      filter((currentAccount: AsyncType<LeafAccountModel>) => !currentAccount.status.pending && !!currentAccount.data),
+      map((currentAccount: AsyncType<LeafAccountModel>) => currentAccount.status),
+      take(1)
+    ).subscribe((status) => {
+      if(status.success) {
+        this.notificationService.emit({
+          id: 'registerSuccess',
+          category: 'session',
+          message: 'Registration was successful.'
+        });
+      }
+      if(status.failure) {
+        this.notificationService.emit({
+          id: 'registerFailed',
+          category: 'session',
+          message: 'Register failed.'
+        });
+      }
     });
   }
 
-  public login(email, password): Promise<void> {
+  public login(email, password) {
     const credentials = {
       email,
       password
@@ -135,29 +136,26 @@ export class LeafSessionService {
       this.router.navigate([returnTo]);
     });
 
-    return new Promise((resolve, reject) => {
-      call.subscribe({
-        next: (jwt) => {
-          // this.saveTokenAndGetAccount(jwt.token);
-
-            this.notificationService.emit({
-              id: 'loginSuccess',
-              category: 'session',
-              message: 'Login was successful.'
-            });
-            resolve();
-        },
-        error: () => {
-          () => {
-            this.notificationService.emit({
-              id: 'loginFailed',
-              category: 'session',
-              message: 'Login failed.'
-            });
-            reject();
-          }
-        },
-      });
+    this.store.pipe(
+      select(selectCurrentAccount),
+      filter((currentAccount: AsyncType<LeafAccountModel>) => !currentAccount.status.pending && !!currentAccount.data),
+      map((currentAccount: AsyncType<LeafAccountModel>) => currentAccount.status),
+      take(1)
+    ).subscribe((status) => {
+      if(status.success) {
+        this.notificationService.emit({
+          id: 'loginSuccess',
+          category: 'session',
+          message: 'Login was successful.'
+        });
+      }
+      if(status.failure) {
+        this.notificationService.emit({
+          id: 'loginFailed',
+          category: 'session',
+          message: 'Login failed.'
+        });
+      }
     });
   }
 

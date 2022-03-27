@@ -25,6 +25,7 @@ import {
   LeafPasswordForgottenVanillaModule,
   SessionEffects,
   AdaptiveViewModule,
+  StatisticsEffects,
 } from '@input-output-labs/ngleaf';
 import { TemplatesComponent } from './templates/templates.component';
 import { MatDividerModule } from '@angular/material/divider';
@@ -89,7 +90,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatDialogModule,
     /* Leaf library import */
     LeafApiClientConfigServiceModule.forRoot(leafApiClientConfig),
-    EffectsModule.forRoot([SessionEffects]),
+    EffectsModule.forRoot([SessionEffects, StatisticsEffects]),
     LeafConfigServiceModule.forRoot(leafConfig),
     LeafComponentsModule,
     LeafAdminModule,

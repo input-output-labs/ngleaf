@@ -30,7 +30,8 @@ import {
   HeaderAccountComponent,
   ImageUploadComponent,
   LoginComponent,
-  RegisterComponent
+  RegisterComponent,
+  ConfirmDialogComponent,
 } from './common/index';
 
 import {
@@ -51,6 +52,7 @@ import {
 import { NavigationComponent } from './templates/index';
 
 import { UserSelectorModule } from './common/user-selector/user-selector.module';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -71,7 +73,8 @@ import { UserSelectorModule } from './common/user-selector/user-selector.module'
     LoginPageComponent,
     RegisterPageComponent,
     NavigationComponent,
-    ForbiddenComponent
+    ForbiddenComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     CommonModule,
@@ -104,9 +107,11 @@ import { UserSelectorModule } from './common/user-selector/user-selector.module'
     MatTreeModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatDialogModule,
     /* Leaf component modules*/
     UserSelectorModule
   ],
+  entryComponents: [ConfirmDialogComponent],
   providers: [],
   exports: [
     AccountPopoverContentComponent,
@@ -120,7 +125,8 @@ import { UserSelectorModule } from './common/user-selector/user-selector.module'
     LoginPageComponent,
     RegisterPageComponent,
     NavigationComponent,
-    ForbiddenComponent
+    ForbiddenComponent,
+    ConfirmDialogComponent
   ]
 })
 export class LeafComponentsModule { }

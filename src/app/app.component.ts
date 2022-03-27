@@ -20,6 +20,10 @@ export class AppComponent {
     {
       label: 'Common templates',
       link: 'templates'
+    },
+    {
+      label: 'Statistics demo',
+      link: 'statistics'
     }
   ];
 

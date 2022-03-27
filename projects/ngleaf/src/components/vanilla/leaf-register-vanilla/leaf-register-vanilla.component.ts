@@ -58,7 +58,9 @@ export class LeafRegisterVanillaComponent implements OnInit {
     );
   }
 
-  register() {
+  register(event) {
+    event.stopPropagation();
+    event.preventDefault();
     if (this.registerForm.valid) {
       const {
         login,
