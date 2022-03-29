@@ -9,33 +9,10 @@ import { LeafSessionService } from '../../../../services/index';
   styleUrls: ['./account-settings-password.component.scss'],
 })
 export class AccountSettingsPasswordComponent implements OnInit {
-  public changePasswordForm: FormGroup;
 
   public members: string[] = [];
 
-  constructor(
-    public formBuilder: FormBuilder,
-    public sessionService: LeafSessionService
-  ) {
-    this.changePasswordForm = this.formBuilder.group({
-      oldPassword: ['', Validators.required],
-      newPassword: ['', Validators.required],
-      newPasswordValidation: ['', Validators.required],
-    });
-  }
+  constructor() {}
 
   ngOnInit() {}
-
-  changePassword() {
-    if (this.changePasswordForm.valid) {
-      const {
-        oldPassword,
-        newPassword,
-        newPasswordValidation,
-      } = this.changePasswordForm.getRawValue();
-      if (newPassword === newPasswordValidation) {
-        this.sessionService.changePassword(oldPassword, newPassword);
-      }
-    }
-  }
 }

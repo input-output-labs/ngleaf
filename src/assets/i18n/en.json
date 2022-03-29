@@ -5,6 +5,14 @@
         }
     },
     "leaf": {
+      "updatePassword": {
+        "currentPasswordPlaceholder": "Mot de passe actuel",
+        "newPassword": "Nouveau mot de passe",
+        "newPasswordVerify": "Vérification mot de passe",
+        "buttonLabel": "Changer de mot de passe",
+        "requiredError": "Vous devez remplir ce champ",
+        "differentPasswordError": "Les deux mots de passe de correspondent pas"
+      },
       "login": {
         "vanilla": {
           "buttonLabel": "Login",

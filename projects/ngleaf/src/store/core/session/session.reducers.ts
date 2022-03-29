@@ -1,13 +1,14 @@
 import { createReducer, on } from '@ngrx/store';
 import { asyncTypeFailure, asyncTypeSuccess, createAsyncTypeFromCall, createEmptyAsyncType } from '../../common/index';
-import { resetCurrentAccount, setCurrentAccountCall, setCurrentAccountSuccess, setCurrentAccountFailure, setSessionTokenCall, setSessionTokenSuccess, setSessionTokenFailure, resetSessionToken, resetSendResetPasswordKey, setSendResetPasswordKeyCall, setSendResetPasswordKeySuccess, setSendResetPasswordKeyFailure, resetResetPassword, setResetPasswordCall, setResetPasswordSuccess, setResetPasswordFailure, setSessionToken} from './session.actions';
+import { resetCurrentAccount, setCurrentAccountCall, setCurrentAccountSuccess, setCurrentAccountFailure, setSessionTokenCall, setSessionTokenSuccess, setSessionTokenFailure, resetSessionToken, resetSendResetPasswordKey, setSendResetPasswordKeyCall, setSendResetPasswordKeySuccess, setSendResetPasswordKeyFailure, resetResetPassword, setResetPasswordCall, setResetPasswordSuccess, setResetPasswordFailure, setSessionToken, resetUpdatePassword, setUpdatePasswordCall, setUpdatePasswordSuccess, setUpdatePasswordFailure} from './session.actions';
 import { SessionState } from './session.state';
 
 const initialState: SessionState = {
     currentAccount: createEmptyAsyncType(),
     sessionToken: createEmptyAsyncType(),
     sendResetPasswordKey: createEmptyAsyncType(),
-    resetPassword: createEmptyAsyncType()
+    resetPassword: createEmptyAsyncType(),
+    updatePassword: createEmptyAsyncType()
 };
 
 export function sessionReducer(reducerState, action): SessionState {
@@ -33,6 +34,16 @@ export function sessionReducer(reducerState, action): SessionState {
     on(resetResetPassword, (state: SessionState) => ({...state, resetPassword: createEmptyAsyncType()})),
     on(setResetPasswordCall, (state: SessionState, {call}) => ({...state, resetPassword: createAsyncTypeFromCall(call)})),
     on(setResetPasswordSuccess, (state: SessionState) => ({...state, resetPassword: asyncTypeSuccess(state.resetPassword)})),
-    on(setResetPasswordFailure, (state: SessionState, {error}) => ({...state, resetPassword: asyncTypeFailure(state.resetPassword, error)}))
+    on(setResetPasswordFailure, (state: SessionState, {error}) => ({...state, resetPassword: asyncTypeFailure(state.resetPassword, error)})),
+    /** UpdatePassword */
+    on(resetUpdatePassword, (state: SessionState) => ({...state, updatePassword: createEmptyAsyncType()})),
+    on(setUpdatePasswordCall, (state: SessionState, {call}) => ({...state, updatePassword: createAsyncTypeFromCall(call)})),
+    on(setUpdatePasswordSuccess, (state: SessionState, {data}) => (
+      {
+        ...state,
+        updatePassword: asyncTypeSuccess(state.updatePassword, data),
+        currentAccount: asyncTypeSuccess(state.currentAccount, data)
+      })),
+    on(setUpdatePasswordFailure, (state: SessionState, {error}) => ({...state, updatePassword: asyncTypeFailure(state.updatePassword, error)}))
   )(reducerState, action);
 }

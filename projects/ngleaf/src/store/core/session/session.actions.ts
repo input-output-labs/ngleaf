@@ -68,4 +68,20 @@ export const setResetPasswordFailure = createAction(
   props<{error: any}>()
 );
 
+export const resetUpdatePassword = createAction(
+  '[Session store] Reset UpdatePassword'
+);
+export const setUpdatePasswordCall = createAction(
+  '[Session store] Set UpdatePassword call',
+  props<{call: Observable<LeafAccountModel>}>()
+);
+export const setUpdatePasswordSuccess = createAction(
+  '[Session store] Set UpdatePassword success',
+  props<{data: LeafAccountModel}>()
+);
+export const setUpdatePasswordFailure = createAction(
+  '[Session store] Set UpdatePassword failure',
+  props<{error: any}>()
+);
+
 

@@ -32,6 +32,8 @@ import {
   LoginComponent,
   RegisterComponent,
   ConfirmDialogComponent,
+  UserSelectorModule,
+  PasswordUpdateModule
 } from './common/index';
 
 import {
@@ -51,7 +53,6 @@ import {
 
 import { NavigationComponent } from './templates/index';
 
-import { UserSelectorModule } from './common/user-selector/user-selector.module';
 import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
@@ -109,7 +110,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatNativeDateModule,
     MatDialogModule,
     /* Leaf component modules*/
-    UserSelectorModule
+    UserSelectorModule,
+    PasswordUpdateModule
   ],
   entryComponents: [ConfirmDialogComponent],
   providers: [],

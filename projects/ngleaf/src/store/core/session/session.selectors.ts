@@ -33,15 +33,21 @@ export const selectResetPassword = createSelector(
    selectSession,
   (state: SessionState) => state.resetPassword
 );
+export const selectUpdatePassword = createSelector(
+   selectSession,
+  (state: SessionState) => state.updatePassword
+);
 export const selectIsPending = createSelector(
   selectCurrentAccount,
   selectSessionToken,
   selectSendResetPasswordKey,
   selectResetPassword,
+  selectUpdatePassword,
  (
    currentAccount: AsyncType<LeafAccountModel>,
    sessionToken: AsyncType<JWTModel>,
    sendResetPasswordKey: AsyncType<void>,
-   resetPassword: AsyncType<void>
- ) => currentAccount.status.pending || sessionToken.status.pending || sendResetPasswordKey.status.pending || resetPassword.status.pending
+   resetPassword: AsyncType<void>,
+   updatePassword: AsyncType<LeafAccountModel>
+ ) => currentAccount.status.pending || sessionToken.status.pending || sendResetPasswordKey.status.pending || resetPassword.status.pending || updatePassword.status.pending
 );

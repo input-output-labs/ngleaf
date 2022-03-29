@@ -8,7 +8,7 @@ import { LeafAuthHttpClient, AccountApiClient } from '../../../api/clients/index
 import { LeafConfig } from '../../../models/index';
 import { LeafNotificationService } from '../notification/leaf-notification.service';
 import { LeafConfigServiceToken } from '../../leaf-config.module';
-import { resetCurrentAccount, resetSessionToken, selectCurrentAccount, selectSessionToken, setCurrentAccountCall, setResetPasswordCall, setSendResetPasswordKeyCall, setSessionToken, setSessionTokenCall } from '../../../store/core/session/index';
+import { resetCurrentAccount, resetSessionToken, selectCurrentAccount, selectSessionToken, selectUpdatePassword, setCurrentAccountCall, setResetPasswordCall, setSendResetPasswordKeyCall, setSessionToken, setSessionTokenCall, setUpdatePasswordCall } from '../../../store/core/session/index';
 import { AsyncType } from '../../../store/common/index';
 import { JWTModel, LeafAccountModel } from '../../../api/models/index';
 
@@ -68,16 +68,28 @@ export class LeafSessionService {
   public refreshAccount(): Promise<void> {
     const call = this.accountApiClient.me();
     this.store.dispatch(setCurrentAccountCall({call}));
+
+
+
     return new Promise((resolve, reject) => {
-      call.subscribe({
-        next: () => resolve(),
-        error: () => reject()
+      this.store.pipe(
+        select(selectCurrentAccount),
+        filter((currentAccount: AsyncType<LeafAccountModel>) => !currentAccount.status.pending && !!currentAccount.data),
+        map((currentAccount: AsyncType<LeafAccountModel>) => currentAccount.status),
+        take(1)
+      ).subscribe((status) => {
+        if(status.success) {
+          resolve();
+        }
+        if(status.failure) {
+          reject();
+        }
       });
     });
+
   }
 
   public register(email, password) {
-    console.log('register called in service');
     const account = {
       email,
       password
@@ -124,8 +136,9 @@ export class LeafSessionService {
       password
     };
 
-    const call = this.accountApiClient.login(credentials);
-    this.store.dispatch(setSessionTokenCall({call}));
+    this.store.dispatch(setSessionTokenCall({
+      call: this.accountApiClient.login(credentials)
+    }));
 
     this.store.pipe(
       select(selectCurrentAccount),
@@ -274,33 +287,36 @@ export class LeafSessionService {
     });
   }
 
-  public changePassword(oldPassword, newPassword): Promise<void> {
-    return new Promise((resolve, reject) => {
-      const passwordChanging = {
-        oldPassword,
-        newPassword
-      };
-      // TODO: REMOVE ANY
-      this.accountApiClient.changePassword(passwordChanging)
-        .subscribe(
-          () => {
-            this.refreshAccount();
-            this.notificationService.emit({
-              id: 'successChangePassword',
-              category: 'session',
-              message: 'password changed'
-            });
-            resolve();
-          },
-          () => {
-            this.notificationService.emit({
-              id: 'failureChangePassword',
-              category: 'session',
-              message: 'password changed failed'
-            });
-            reject();
-          }
-        );
+  public changePassword(oldPassword, newPassword) {
+    const passwordChanging = {
+      oldPassword,
+      newPassword
+    };
+
+    this.store.dispatch(setUpdatePasswordCall({
+      call: this.accountApiClient.changePassword(passwordChanging)
+    }));
+
+    this.store.pipe(
+      select(selectUpdatePassword),
+      filter((updatePassword: AsyncType<LeafAccountModel>) => !updatePassword.status.pending && !!updatePassword.data),
+      map((updatePassword: AsyncType<LeafAccountModel>) => updatePassword.status),
+      take(1)
+    ).subscribe((status) => {
+      if(status.success) {
+        this.notificationService.emit({
+          id: 'successChangePassword',
+          category: 'session',
+          message: 'password changed'
+        });
+      }
+      if(status.failure) {
+        this.notificationService.emit({
+          id: 'failureChangePassword',
+          category: 'session',
+          message: 'password changed failed'
+        });
+      }
     });
   }
 
