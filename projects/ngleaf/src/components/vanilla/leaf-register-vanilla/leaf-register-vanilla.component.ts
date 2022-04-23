@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { StoreRootModule } from '@ngrx/store';
+import { Store } from '@ngrx/store';
+import { emitNotification } from '../../../store/index';
 
 import { LeafSessionService } from '../../../services/index';
 
@@ -38,7 +39,8 @@ export class LeafRegisterVanillaComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private leafSessionService: LeafSessionService
+    private leafSessionService: LeafSessionService,
+    private store: Store
   ) {}
 
   ngOnInit() {
@@ -68,6 +70,7 @@ export class LeafRegisterVanillaComponent implements OnInit {
         passwordValidation,
       } = this.registerForm.getRawValue();
       if (password === passwordValidation) {
+        this.store.dispatch(emitNotification(null));
         this.leafSessionService.register(login, password);
       }
     } else {

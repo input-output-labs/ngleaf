@@ -5,7 +5,7 @@ import { select, Store } from '@ngrx/store';
 import { filter, map, take } from 'rxjs';
 
 import { LeafNotificationService, LeafSessionService } from '../../../services/index';
-import { AsyncType, selectResetPassword, selectSendResetPasswordKey } from '../../../store/index';
+import { AsyncType, emitNotification, selectResetPassword, selectSendResetPasswordKey } from '../../../store/index';
 
 export type LeafPasswordForgottenVanillaState = 'SendPassword' | 'PasswordChange';
 
@@ -76,6 +76,7 @@ export class LeafPasswordForgottenVanillaComponent implements OnInit {
 
   public sendPasswordChangeKey() {
     if (this.sendPasswordChangeForm.valid) {
+      this.store.dispatch(emitNotification(null));
       this.emailToResendTo = this.sendPasswordChangeForm.getRawValue().email;
       this.sendEmail();
     } else {

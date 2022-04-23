@@ -1,7 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { emitNotification} from '../../../store/index';
 
 import { LeafSessionService } from '../../../services/index';
+import { Store } from '@ngrx/store';
 
 export type LeafLoginVanillaError = {
   login: ValidationErrors,
@@ -37,7 +39,8 @@ export class LeafLoginVanillaComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private sessionService: LeafSessionService
+    private sessionService: LeafSessionService,
+    private store: Store
   ) {}
 
   ngOnInit() {
@@ -50,6 +53,7 @@ export class LeafLoginVanillaComponent implements OnInit {
   login() {
     if (this.loginForm.valid) {
       const { login, password } = this.loginForm.getRawValue();
+      this.store.dispatch(emitNotification(null));
       this.sessionService.login(login, password);
     } else {
       this.onError.emit({
