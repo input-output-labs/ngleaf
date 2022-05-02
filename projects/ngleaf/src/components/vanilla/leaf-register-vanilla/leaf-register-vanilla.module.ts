@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { LeafRegisterVanillaComponent } from './leaf-register-vanilla.component';
 import { LeafSessionModule } from '../../../services/index';
 import { TranslateModule } from '@ngx-translate/core';
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
   imports: [
@@ -11,6 +12,7 @@ import { TranslateModule } from '@ngx-translate/core';
     ReactiveFormsModule,
     LeafSessionModule,
     TranslateModule,
+    StoreModule
   ],
   declarations: [LeafRegisterVanillaComponent],
   exports: [LeafRegisterVanillaComponent]
