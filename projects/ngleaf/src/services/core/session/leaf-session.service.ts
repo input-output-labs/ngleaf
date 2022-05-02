@@ -109,7 +109,7 @@ export class LeafSessionService {
 
     this.store.pipe(
       select(selectCurrentAccount),
-      filter((currentAccount: AsyncType<LeafAccountModel>) => !currentAccount.status.pending && !!currentAccount.data),
+      filter((currentAccount: AsyncType<LeafAccountModel>) => !currentAccount.status.pending && (!!currentAccount.data || !!currentAccount.error)),
       map((currentAccount: AsyncType<LeafAccountModel>) => currentAccount.status),
       take(1)
     ).subscribe((status) => {
@@ -151,7 +151,7 @@ export class LeafSessionService {
 
     this.store.pipe(
       select(selectCurrentAccount),
-      filter((currentAccount: AsyncType<LeafAccountModel>) => !currentAccount.status.pending && !!currentAccount.data),
+      filter((currentAccount: AsyncType<LeafAccountModel>) => !currentAccount.status.pending && (!!currentAccount.data || !!currentAccount.error)),
       map((currentAccount: AsyncType<LeafAccountModel>) => currentAccount.status),
       take(1)
     ).subscribe((status) => {

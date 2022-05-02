@@ -6,7 +6,8 @@ import { LeafSessionService } from '../../../services/index';
 
 export type LeafRegisterVanillaError = {
   login: ValidationErrors,
-  password: ValidationErrors
+  password: ValidationErrors,
+  passwordValidation: ValidationErrors
 };
 
 export type LeafRegisterPasswordCheckClasses = {
@@ -69,11 +70,21 @@ export class LeafRegisterVanillaComponent implements OnInit {
       } = this.registerForm.getRawValue();
       if (password === passwordValidation) {
         this.leafSessionService.register(login, password);
+      } else {
+        this.onError.emit({
+          login: this.registerForm.controls.login.errors,
+          password: {
+            ...this.registerForm.controls.password.errors,
+            identical: true
+          },
+          passwordValidation: this.registerForm.controls.passwordValidation.errors
+        });
       }
     } else {
       this.onError.emit({
         login: this.registerForm.controls.login.errors,
-        password: this.registerForm.controls.password.errors
+        password: this.registerForm.controls.password.errors,
+        passwordValidation: this.registerForm.controls.passwordValidation.errors
       });
     }
   }
