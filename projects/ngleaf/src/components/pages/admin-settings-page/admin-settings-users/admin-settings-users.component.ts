@@ -38,8 +38,10 @@ export class AdminSettingsUsersComponent implements OnInit {
       data: dialogData
     });
 
-    dialogRef.afterClosed().subscribe(dialogResult => {
-      this.adminService.deleteAccount(account.id);
+    dialogRef.afterClosed().subscribe(confirmed => {
+      if (confirmed) {
+        this.adminService.deleteAccount(account.id);
+      }
     });
   }
 }
