@@ -5,10 +5,18 @@
     "types": [],
     "baseUrl": ".",
     "paths": {
-      "@input-output-labs/ngleaf": ["../projects/ngleaf/src/public-api.ts"],
-      "@input-output-labs/ngleaf/*": ["../projects/ngleaf/src/*"],
-      "@api*": ["../projects/ngleaf/src/api/public-api.ts"],
-      "@api/*": ["../projects/ngleaf/src/api/*"]
+      "@input-output-labs/ngleaf": [
+        "../projects/ngleaf/src/public-api.ts"
+      ],
+      "@input-output-labs/ngleaf/*": [
+        "../projects/ngleaf/src/*"
+      ],
+      "@api*": [
+        "../projects/ngleaf/src/api/public-api.ts"
+      ],
+      "@api/*": [
+        "../projects/ngleaf/src/api/*"
+      ]
     }
   },
   "files": [
@@ -17,5 +25,8 @@
   ],
   "include": [
     "src/**/*.d.ts"
+  ],
+  "exclude": [
+    "**/*.stories.*"
   ]
 }
