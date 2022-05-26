@@ -1,0 +1,75 @@
+<form class="leaf-generic-form" [formGroup]="formGroup">
+  <div
+    *ngIf="config.titleKey"
+    class="title"
+    [innerHtml]="config.titleKey | translate | titlecase"></div>
+  <div class="inputs">
+    <mat-grid-list [cols]="config.grid?.cols || 1" [rowHeight]="config.grid?.rowHeight || '65px'" [gutterSize]="config.grid?.gutterSize">
+      <ng-container *ngFor="let input of config.inputs">
+          <mat-grid-tile [colspan]="input.colspan || 1" [rowspan]="input.rowspan || 1">
+            <ng-container [ngSwitch]="input.type">
+
+              <ng-container *ngSwitchCase="'text'">
+                <div [innerHtml]="input.labelKey | translate"></div>
+              </ng-container>
+
+              <ng-container *ngSwitchCase="'input'">
+                <mat-form-field [appearance]="input.appearance" class="fit-parent">
+                  <mat-label *ngIf="input.labelKey" [innerHtml]="input.labelKey | translate"></mat-label>
+                  <input matInput [placeholder]="input.placeholderKey | translate" [formControlName]="input.id">
+                </mat-form-field>
+              </ng-container>
+
+              <ng-container *ngSwitchCase="'textarea'">
+                <mat-form-field [appearance]="input.appearance" class="fit-parent">
+                  <mat-label *ngIf="input.labelKey" [innerHtml]="input.labelKey | translate"></mat-label>
+                  <textarea matInput [placeholder]="input.placeholderKey | translate" [formControlName]="input.id"></textarea>
+                </mat-form-field>
+              </ng-container>
+
+              <ng-container *ngSwitchCase="'radios'">
+                <mat-radio-group class="fit-parent" [formControlName]="input.id">
+                  <mat-radio-button *ngFor="let radio of input.radios" [value]="radio.value">
+                    {{radio.labelKey | translate}}
+                  </mat-radio-button>
+                </mat-radio-group>
+              </ng-container>
+
+              <ng-container *ngSwitchCase="'checkbox'">
+                <mat-checkbox class="fit-parent" [formControlName]="input.id">{{input.labelKey | translate}}</mat-checkbox>
+              </ng-container>
+
+              <ng-container *ngSwitchCase="'slider'">
+                <mat-slider
+                  class="fit-parent"
+                  [min]="input.min || 0"
+                  [max]="input.max || 10"
+                  [step]="input.step || 1"
+                  [invert]="!!input.invert"
+                  [thumbLabel]="!!input.thumbLabel"
+                  [color]="input.color"
+                  [formControlName]="input.id"
+                  ></mat-slider>
+              </ng-container>
+
+              <ng-container *ngSwitchDefault>
+                Unsuported type {{input.type}}
+              </ng-container>
+            </ng-container>
+          </mat-grid-tile>
+      </ng-container>
+    </mat-grid-list>
+  </div>
+  <div
+    *ngIf="config.actions"
+    class="actions">
+    <button
+      *ngFor="let action of config.actions"
+      mat-flat-button
+      [color]="action.color"
+      [innerHtml]="action.labelKey | translate"
+      (click)="actionClicked(action.id)"
+      ></button>
+  </div>
+</form>
+<br/>

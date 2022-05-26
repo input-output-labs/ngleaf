@@ -1,0 +1,15 @@
+.leaf-generic-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .title {}
+
+  .inputs {
+    .fit-parent {
+      width: 100%;
+    }
+  }
+
+  .actions {}
+}

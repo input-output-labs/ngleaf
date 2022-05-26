@@ -26,6 +26,7 @@ import {
   SessionEffects,
   AdaptiveViewModule,
   StatisticsEffects,
+  GenericFormModule,
 } from '@input-output-labs/ngleaf';
 import { TemplatesComponent } from './templates/templates.component';
 import { MatDividerModule } from '@angular/material/divider';
@@ -102,6 +103,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     LeafRegisterVanillaModule,
     LeafPasswordForgottenVanillaModule,
     AdaptiveViewModule,
+    GenericFormModule,
     StoreModule.forRoot(
       {
         ...leafCoreStore
