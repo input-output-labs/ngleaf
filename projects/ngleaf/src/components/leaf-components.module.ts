@@ -26,26 +26,22 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import {
+  PasswordUpdateModule
+} from './accounts/index';
+
+import {
   AccountPopoverContentComponent,
   HeaderAccountComponent,
   ImageUploadComponent,
   ConfirmDialogComponent,
   UserSelectorModule,
-  PasswordUpdateModule
 } from './common/index';
 
 import {
-  AccountSettingsAvatarComponent,
-  AccountSettingsAccessTokensComponent,
-  AccountSettingsGeneralComponent,
-  AccountSettingsPasswordComponent,
-  AccountSettingsPageComponent,
   AdminSettingsAdministratorsComponent,
   AdminSettingsWhitelistComponent,
   AdminSettingsPageComponent,
   AdminSettingsUsersComponent,
-  LoginPageComponent,
-  RegisterPageComponent,
   ForbiddenComponent
 } from './pages/index';
 
@@ -58,17 +54,10 @@ import { MatDialogModule } from '@angular/material/dialog';
     AccountPopoverContentComponent,
     HeaderAccountComponent,
     ImageUploadComponent,
-    AccountSettingsAvatarComponent,
-    AccountSettingsAccessTokensComponent,
-    AccountSettingsGeneralComponent,
-    AccountSettingsPasswordComponent,
-    AccountSettingsPageComponent,
     AdminSettingsAdministratorsComponent,
     AdminSettingsWhitelistComponent,
     AdminSettingsPageComponent,
     AdminSettingsUsersComponent,
-    LoginPageComponent,
-    RegisterPageComponent,
     NavigationComponent,
     ForbiddenComponent,
     ConfirmDialogComponent
@@ -113,13 +102,9 @@ import { MatDialogModule } from '@angular/material/dialog';
   providers: [],
   exports: [
     AccountPopoverContentComponent,
+    AdminSettingsPageComponent,
     HeaderAccountComponent,
     ImageUploadComponent,
-    AccountSettingsPageComponent,
-    AdminSettingsPageComponent,
-    AccountSettingsAccessTokensComponent,
-    LoginPageComponent,
-    RegisterPageComponent,
     NavigationComponent,
     ForbiddenComponent,
     ConfirmDialogComponent
