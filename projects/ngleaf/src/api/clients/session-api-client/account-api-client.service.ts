@@ -2,9 +2,10 @@ import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { LeafAuthHttpClient } from '../auth-http-client/leaf-auth-http-client.service';
-import { JWTModel, LeafAccountModel, LoginModel, PasswordChangingModel, PasswordResettingModel, RegistrationModel } from '../../models/index';
+import { JWTModel, LeafAccountModel, LeafUserModel, LoginModel, PasswordChangingModel, PasswordResettingModel, RegistrationModel } from '../../models/index';
 
 import { LeafApiClientConfig, LeafApiClientConfigServiceToken } from '../api-client-config.module';
+import { HttpParams } from '@angular/common/http';
 
 @Injectable()
 export class AccountApiClient {
@@ -43,5 +44,13 @@ export class AccountApiClient {
 
   public changeAvatar(newAvatarUrl: string): Observable<LeafAccountModel> {
     return this.authHttp.post<LeafAccountModel>(this.config.serverUrl + '/account/me/avatar', newAvatarUrl);
+  }
+
+  public autocomplete(input: string): Observable<LeafUserModel[]> {
+      const params = new HttpParams().set('input', input);
+      return this.authHttp.get<LeafUserModel[]>(
+          this.config.serverUrl + '/account/autocomplete',
+          { params }
+      );
   }
 }

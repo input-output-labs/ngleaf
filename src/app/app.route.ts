@@ -4,13 +4,14 @@ import { Route, RouterModule } from '@angular/router';
 import {
   LoginPageComponent,
   RegisterPageComponent,
-  ForbiddenComponent,
+  LeafForbiddenComponent,
+  LeafForbiddenModule,
   accountSettingsPageRoutes,
   adminSettingsPageRoutes,
   LeafAdminGuardModule,
   LeafAuthGuardModule,
   StatisticsPageComponent,
-  StatisticsPageModule
+  StatisticsPageModule,
 } from '@input-output-labs/ngleaf';
 import { TemplatesComponent } from './templates/templates.component';
 
@@ -30,7 +31,7 @@ const routes: Route[] = [
   },
   {
     path: 'forbidden',
-    component: ForbiddenComponent,
+    component: LeafForbiddenComponent,
   },
   {
     path: 'login',
@@ -49,7 +50,8 @@ const routes: Route[] = [
     RouterModule.forRoot(routes),
     LeafAdminGuardModule,
     LeafAuthGuardModule,
-    StatisticsPageModule
+    StatisticsPageModule,
+    LeafForbiddenModule,
   ], // add { enableTracing: true } after routes in forRoot to debug the router
   exports: [RouterModule],
 })

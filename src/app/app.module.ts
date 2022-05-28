@@ -10,7 +10,6 @@ import { environment } from '../environments/environment';
 import {
   LeafConfig,
   LeafAdminModule,
-  LeafComponentsModule,
   LeafConfigServiceModule,
   LeafNotificationModule,
   LeafSessionModule,
@@ -23,10 +22,13 @@ import {
   LeafLoginVanillaModule,
   LeafRegisterVanillaModule,
   LeafPasswordForgottenVanillaModule,
+  LeafNavigationModule,
   SessionEffects,
   AdaptiveViewModule,
   StatisticsEffects,
   GenericFormModule,
+  LeafHeaderAccountModule,
+  AdminSettingsPageModule,
 } from '@input-output-labs/ngleaf';
 import { TemplatesComponent } from './templates/templates.component';
 import { MatDividerModule } from '@angular/material/divider';
@@ -34,12 +36,6 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCommonModule } from '@angular/material/core';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatDialogModule } from '@angular/material/dialog';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { EffectsModule } from '@ngrx/effects';
@@ -82,28 +78,12 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     }),
     /* Material design library import */
-    FormsModule,
-    MatButtonModule,
-    MatCommonModule,
-    MatFormFieldModule,
-    MatInputModule,
     MatDividerModule,
-    MatDialogModule,
     /* Leaf library import */
+    // Stores
+    LeafConfigServiceModule.forRoot(leafConfig),
     LeafApiClientConfigServiceModule.forRoot(leafApiClientConfig),
     EffectsModule.forRoot([SessionEffects, StatisticsEffects]),
-    LeafConfigServiceModule.forRoot(leafConfig),
-    LeafComponentsModule,
-    LeafAdminModule,
-    LeafNotificationModule,
-    LeafSessionModule,
-    LeafWebImagesSeekerModule,
-    LeafUploadFileModule,
-    LeafLoginVanillaModule,
-    LeafRegisterVanillaModule,
-    LeafPasswordForgottenVanillaModule,
-    AdaptiveViewModule,
-    GenericFormModule,
     StoreModule.forRoot(
       {
         ...leafCoreStore
@@ -112,7 +92,23 @@ export function HttpLoaderFactory(http: HttpClient) {
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
       logOnly: environment.production, // Restrict extension to log-only mode
-    })
+    }),
+    // Services
+    LeafAdminModule,
+    LeafNotificationModule,
+    LeafSessionModule,
+    LeafWebImagesSeekerModule,
+    LeafUploadFileModule,
+    // Directive
+    AdaptiveViewModule,
+    // Components
+    LeafLoginVanillaModule,
+    LeafRegisterVanillaModule,
+    LeafPasswordForgottenVanillaModule,
+    GenericFormModule,
+    LeafNavigationModule,
+    LeafHeaderAccountModule,
+    AdminSettingsPageModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
