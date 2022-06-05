@@ -11,6 +11,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatSliderModule} from '@angular/material/slider';
 
+import { UserSelectorModule } from '../../admin/index';
+
 @NgModule({
   imports: [
     /* Common deps */
@@ -25,6 +27,8 @@ import {MatSliderModule} from '@angular/material/slider';
     MatRadioModule,
     MatCheckboxModule,
     MatSliderModule,
+    /* Leaf deps */
+    UserSelectorModule
   ],
   declarations: [GenericFormComponent],
   exports: [GenericFormComponent]

@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
+import { Inject, Injectable, LOCALE_ID, NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 
@@ -34,11 +34,14 @@ import { TemplatesComponent } from './templates/templates.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
+import { CommonModule, getLocaleFirstDayOfWeek } from '@angular/common';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { EffectsModule } from '@ngrx/effects';
+import { DateAdapter, MatNativeDateModule, NativeDateAdapter } from '@angular/material/core';
+import { Platform } from '@angular/cdk/platform';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 const leafConfig: LeafConfig = {
   serverUrl: environment.serverUrl,
@@ -61,12 +64,24 @@ export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
 
+@Injectable()
+export class LocaleDateAdapter extends NativeDateAdapter {
+  constructor(@Inject(LOCALE_ID) public locale: string) {
+    super(locale, new Platform(0));
+  }
+
+  getFirstDayOfWeek() {
+    return getLocaleFirstDayOfWeek(this.locale);
+  }
+}
+
 @NgModule({
   declarations: [AppComponent, TemplatesComponent],
   imports: [
     CommonModule,
     BrowserModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     AppRouteModule,
     /* Translation module */
     TranslateModule.forRoot({
@@ -79,6 +94,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     }),
     /* Material design library import */
     MatDividerModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
     /* Leaf library import */
     // Stores
     LeafConfigServiceModule.forRoot(leafConfig),
@@ -108,9 +125,12 @@ export function HttpLoaderFactory(http: HttpClient) {
     GenericFormModule,
     LeafNavigationModule,
     LeafHeaderAccountModule,
-    AdminSettingsPageModule,
+    AdminSettingsPageModule
   ],
-  providers: [],
+  providers: [{
+    provide: DateAdapter,
+    useClass: LocaleDateAdapter
+   }],
   bootstrap: [AppComponent],
 })
 export class AppModule {

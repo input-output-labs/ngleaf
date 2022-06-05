@@ -1,0 +1,11 @@
+<ng-container *ngIf="(currentAccount$ | async)?.admin; else forbidden">
+  <leaf-generic-form
+    [config]="genericFormConfig"
+    [formGroup]="formGroup"
+    (actionClicked)="actionClicked($event)"
+  ></leaf-generic-form>
+</ng-container>
+
+<ng-template #forbidden>
+  Only administrators can create rooms for now
+</ng-template>

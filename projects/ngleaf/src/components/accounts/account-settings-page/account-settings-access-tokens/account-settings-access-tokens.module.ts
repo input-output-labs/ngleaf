@@ -9,6 +9,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatTableModule } from '@angular/material/table';
 
 import { LeafSessionModule } from '../../../../services/index';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [AccountSettingsAccessTokensComponent],
@@ -20,6 +21,7 @@ import { LeafSessionModule } from '../../../../services/index';
     MatDividerModule,
     MatCardModule,
     MatFormFieldModule,
+    MatInputModule,
     MatDatepickerModule,
     MatTableModule,
     /* Leaf deps*/

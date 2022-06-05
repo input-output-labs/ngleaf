@@ -1,12 +1,26 @@
 <form>
   <mat-form-field class="full-width">
-    <input type="text"
-           [placeholder]="placeholder"
-           matInput
-           [disabled]="disabled"
-           [formControl]="inputControler"
-           [matAutocomplete]="auto">
-    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayProperty">
+    <mat-chip-list #chipList aria-label="User selection">
+      <ng-container *ngIf="multiple">
+        <mat-chip
+          *ngFor="let user of users"
+          (removed)="remove(user)">
+          {{user.username}}
+          <button matChipRemove>
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip>
+      </ng-container>
+      <input
+        #userInput
+        [placeholder]="placeholder"
+        [formControl]="inputControler"
+        [matAutocomplete]="auto"
+        [matChipInputFor]="chipList"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        (matChipInputTokenEnd)="add($event)">
+    </mat-chip-list>
+    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayProperty" (optionSelected)="selected($event)">
       <mat-option *ngFor="let user of proposedUsers | async" [value]="user">
         {{user.username}}
       </mat-option>

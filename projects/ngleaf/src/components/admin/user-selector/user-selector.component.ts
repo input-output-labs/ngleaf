@@ -1,5 +1,8 @@
-import { Component, forwardRef, Input, OnInit } from '@angular/core';
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import { Component, ElementRef, forwardRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { MatChipInputEvent } from '@angular/material/chips';
 import { Observable, of } from 'rxjs';
 import { startWith, switchMap } from 'rxjs/operators';
 
@@ -18,25 +21,70 @@ import { LeafUserModel, AccountApiClient } from '../../../api/index';
   ]
 })
 export class UserSelectorComponent implements OnInit, ControlValueAccessor {
+  separatorKeysCodes: number[] = [ENTER, COMMA];
+
   public inputControler = new FormControl();
   public proposedUsers: Observable<LeafUserModel[]>;
   public disabled: boolean;
 
+  users: string[] = [];
+
   @Input()
   public placeholder = 'Username';
+
+  @Input()
+  public multiple: boolean = false;
+
+  @ViewChild('userInput') userInput: ElementRef<HTMLInputElement>;
 
   constructor(private accountApi: AccountApiClient) {}
 
   ngOnInit() {
-    this.inputControler.valueChanges.subscribe(
-      value => this.onChanged(typeof value === 'object' && 'id' in value ? value : null)
-    );
     this.proposedUsers = this.inputControler.valueChanges.pipe(
       startWith(''),
       switchMap(
-        (inputValue) => inputValue.length >= 2 ? this.accountApi.autocomplete(inputValue) : of([])
+        (inputValue) => inputValue && inputValue.length >= 2 ? this.accountApi.autocomplete(inputValue) : of([])
       )
     );
+  }
+
+  emitChange() {
+    if (this.multiple) {
+      this.onChanged(this.users);
+    } else {
+      this.onChanged(this.users && this.users[0]);
+    }
+  }
+
+  add(event: MatChipInputEvent): void {
+    const value = (event.value || '').trim();
+
+    // Add our user
+    if (value) {
+      this.users.push(value);
+      this.emitChange();
+    }
+
+    // Clear the input value
+    event.chipInput!.clear();
+
+    this.inputControler.setValue(null);
+  }
+
+  remove(user: string): void {
+    const index = this.users.indexOf(user);
+
+    if (index >= 0) {
+      this.users.splice(index, 1);
+      this.emitChange();
+    }
+  }
+
+  selected(event: MatAutocompleteSelectedEvent): void {
+    this.users.push(event.option.value);
+    this.emitChange();
+    this.userInput.nativeElement.value = this.multiple ? '' : event.option.value.username;
+    this.inputControler.setValue(null);
   }
 
   public displayProperty(value) {
@@ -49,7 +97,11 @@ export class UserSelectorComponent implements OnInit, ControlValueAccessor {
   onTouched: any = () => {};
 
   writeValue(val) {
-    this.inputControler.setValue(val, {emitEvent: false});
+    if (this.multiple) {
+      this.users = val;
+    } else {
+      this.inputControler.setValue(val, {emitEvent: false});
+    }
   }
 
   registerOnChange(fn: any) {

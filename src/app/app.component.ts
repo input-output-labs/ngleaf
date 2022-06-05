@@ -24,6 +24,10 @@ export class AppComponent {
     {
       label: 'Statistics demo',
       link: 'statistics'
+    },
+    {
+      label: 'Messenger demo',
+      link: 'messenger'
     }
   ];
 

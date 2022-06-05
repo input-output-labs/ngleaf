@@ -4,7 +4,7 @@
     class="title"
     [innerHtml]="config.titleKey | translate | titlecase"></div>
   <div class="inputs">
-    <mat-grid-list [cols]="config.grid?.cols || 1" [rowHeight]="config.grid?.rowHeight || '65px'" [gutterSize]="config.grid?.gutterSize">
+    <mat-grid-list [cols]="config.grid?.cols || 1" [rowHeight]="config.grid?.rowHeight || '65px'" [gutterSize]="config.grid?.gutterSize || '0px'">
       <ng-container *ngFor="let input of config.inputs">
           <mat-grid-tile [colspan]="input.colspan || 1" [rowspan]="input.rowspan || 1">
             <ng-container [ngSwitch]="input.type">
@@ -52,6 +52,15 @@
                   ></mat-slider>
               </ng-container>
 
+              <ng-container *ngSwitchCase="'user-selector'">
+                <leaf-user-selector
+                  class="fit-parent"
+                  [multiple]="!!input.multiple"
+                  [placeholder]="input.placeholderKey"
+                  [formControlName]="input.id"
+                  ></leaf-user-selector>
+              </ng-container>
+
               <ng-container *ngSwitchDefault>
                 Unsuported type {{input.type}}
               </ng-container>
@@ -68,7 +77,7 @@
       mat-flat-button
       [color]="action.color"
       [innerHtml]="action.labelKey | translate"
-      (click)="actionClicked(action.id)"
+      (click)="clickOnAction(action.id)"
       ></button>
   </div>
 </form>

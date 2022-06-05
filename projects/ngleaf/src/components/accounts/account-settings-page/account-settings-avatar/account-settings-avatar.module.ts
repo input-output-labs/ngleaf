@@ -3,9 +3,10 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AccountSettingsAvatarComponent } from './account-settings-avatar.component';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatButtonModule } from '@angular/material/button';
 
 import { LeafSessionModule } from '../../../../services/index';
-import { MatButtonModule } from '@angular/material/button';
+import { LeafImageUploadModule } from '../../../files/imageUpload/index';
 
 @NgModule({
   declarations: [AccountSettingsAvatarComponent],
@@ -18,6 +19,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatButtonModule,
     /* Leaf deps*/
     LeafSessionModule,
+    LeafImageUploadModule
   ],
   exports: [AccountSettingsAvatarComponent]
 })

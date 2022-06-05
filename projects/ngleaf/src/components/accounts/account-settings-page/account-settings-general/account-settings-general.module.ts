@@ -7,6 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { LeafSessionModule } from '../../../../services/index';
 import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [AccountSettingsGeneralComponent],
@@ -17,6 +18,7 @@ import { MatButtonModule } from '@angular/material/button';
     /* Material deps */
     MatDividerModule,
     MatFormFieldModule,
+    MatInputModule,
     MatButtonModule,
     /* Leaf deps*/
     LeafSessionModule,

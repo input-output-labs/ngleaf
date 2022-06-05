@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ThemePalette } from '@angular/material/core';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
@@ -9,7 +9,7 @@ export interface GenericFormActionConfig {
   color?: ThemePalette;
 }
 
-export type GenericFormInputType = 'text' | 'input' | 'textarea' | 'radios' | 'checkbox' | 'slider';
+export type GenericFormInputType = 'text' | 'input' | 'textarea' | 'radios' | 'checkbox' | 'slider' | 'user-selector';
 
 export interface TextConfig {
   labelKey?: string;
@@ -43,6 +43,11 @@ export interface SliderConfig {
   thumbLabel?: boolean;
 }
 
+export interface UserSelectorConfig {
+  placeholderKey?: string;
+  multiple: boolean;
+}
+
 export interface GenericInputConfig {
   id?: string
   type: GenericFormInputType;
@@ -50,7 +55,7 @@ export interface GenericInputConfig {
   rowspan?: number;
 }
 
-export type GenericFormInputConfig = GenericInputConfig & (TextConfig | InputConfig | RadiosConfig | CheckboxConfig | SliderConfig);
+export type GenericFormInputConfig = GenericInputConfig & (TextConfig | InputConfig | RadiosConfig | CheckboxConfig | SliderConfig | UserSelectorConfig);
 
 export interface GenericFormGridConfig {
   cols?: number;
@@ -78,12 +83,21 @@ export class GenericFormComponent implements OnInit {
   @Input()
   public formGroup: FormGroup;
 
+  @Output()
+  public actionClicked: EventEmitter<any> = new EventEmitter();
+
   constructor() { }
 
   ngOnInit() {
   }
 
-  public actionClicked(actionId: string) {
-    // emit
+  public clickOnAction(actionId: string) {
+    this.formGroup.updateValueAndValidity();
+
+    this.actionClicked.emit({
+      actionId,
+      errors: this.formGroup.errors,
+      valid: this.formGroup.valid,
+    });
   }
 }
