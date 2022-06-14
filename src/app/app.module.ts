@@ -29,7 +29,10 @@ import {
   GenericFormModule,
   LeafHeaderAccountModule,
   AdminSettingsPageModule,
+  messengerReducer,
+  MessengerEffects,
 } from '@input-output-labs/ngleaf';
+
 import { TemplatesComponent } from './templates/templates.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { StoreModule } from '@ngrx/store';
@@ -100,10 +103,11 @@ export class LocaleDateAdapter extends NativeDateAdapter {
     // Stores
     LeafConfigServiceModule.forRoot(leafConfig),
     LeafApiClientConfigServiceModule.forRoot(leafApiClientConfig),
-    EffectsModule.forRoot([SessionEffects, StatisticsEffects]),
+    EffectsModule.forRoot([SessionEffects, StatisticsEffects, MessengerEffects]),
     StoreModule.forRoot(
       {
-        ...leafCoreStore
+        ...leafCoreStore,
+        messenger: messengerReducer
       }
     ),
     StoreDevtoolsModule.instrument({
@@ -125,7 +129,7 @@ export class LocaleDateAdapter extends NativeDateAdapter {
     GenericFormModule,
     LeafNavigationModule,
     LeafHeaderAccountModule,
-    AdminSettingsPageModule
+    AdminSettingsPageModule,
   ],
   providers: [{
     provide: DateAdapter,

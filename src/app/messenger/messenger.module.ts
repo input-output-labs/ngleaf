@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatDividerModule } from '@angular/material/divider';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 import {
   RoomCreationFormModule,
@@ -15,6 +16,7 @@ import { MessengerComponent } from './messenger.component';
     CommonModule,
     /* Material deps */
     MatDividerModule,
+    MatSnackBarModule,
     /* Leaf deps */
     RoomCreationFormModule,
   ],

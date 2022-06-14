@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { filter, Observable } from 'rxjs';
 
 
 import { LeafAccountModel } from '../../../api/index';
-import { selectCurrentAccountData } from '../../../store/index';
 import { GenericFormConfig } from '../../common/generic-form/generic-form.component';
+import { selectCurrentAccountData } from '../../../store/index';
 import { LeafMessengerService } from '../../../services/index';
 
 @Component({
@@ -29,11 +29,6 @@ export class RoomCreationFormComponent {
         type: 'user-selector',
         placeholderKey: 'Enter username',
         multiple: true
-      },
-      {
-        id: 'public',
-        type: 'checkbox',
-        labelKey: 'Public'
       }
     ],
     actions: [{
@@ -53,8 +48,7 @@ export class RoomCreationFormComponent {
   constructor(private store: Store, private fb: FormBuilder, private messengerService: LeafMessengerService) {
     this.formGroup = this.fb.group({
       roomName: ['', Validators.required],
-      members: [[]],
-      public: [false]
+      members: [[]]
     });
     this.currentAccount$ = this.store.select(selectCurrentAccountData).pipe(filter(account => !!account));
   }
@@ -68,7 +62,6 @@ export class RoomCreationFormComponent {
           members: rawValue.members.map((member) => member.id),
           public: rawValue.public
         });
-        console.log(event);
       }
     }
   }
