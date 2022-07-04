@@ -8,7 +8,7 @@
 
 <div class="container-spacer">
   <h3 class="">EMAILS AUTHORISES</h3>
-  <mat-selection-list #emails [(ngModel)]="selectedEmails">
+  <mat-selection-list #emails [(ngModel)]="selectedEmails" name="emails" ngDefaultControl>
     <mat-list-option *ngFor="let email of (authorizedEmails$ | async)" [value]="email.email">
       {{email.email}}
     </mat-list-option>
