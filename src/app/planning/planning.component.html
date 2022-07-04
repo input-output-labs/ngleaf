@@ -1,0 +1,38 @@
+<h1>Planning</h1>
+
+<mat-divider></mat-divider>
+
+<h2>Section bar</h2>
+<leaf-sections-bar [sections]="[{
+  color: 'lightgray',
+  relativeWidth: 1
+},{
+  color: 'blue',
+  relativeWidth: 3
+},{
+  color: 'lightgray',
+  relativeWidth: 1
+}]"></leaf-sections-bar>
+<br/>
+
+<mat-divider></mat-divider>
+
+<h2>Month planning</h2>
+<leaf-month-planning
+[month]="6"
+[year]="2022"
+[events]="EVENTS"
+(onDateClicked)="onDateClicked($event)"></leaf-month-planning>
+<br/>
+
+<mat-divider></mat-divider>
+
+<h2>Day planning</h2>
+<leaf-day-planning
+class="day-planning"
+[month]="6"
+[year]="2022"
+[day]="15"
+[events]="EVENTS"
+(onEventClicked)="onDateClicked($event)"></leaf-day-planning>
+<br/>

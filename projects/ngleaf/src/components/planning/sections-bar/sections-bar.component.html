@@ -1,0 +1,8 @@
+<div class="sections-wrapper">
+  <div
+    *ngFor="let section of sections"
+    [ngStyle]="{
+      'background-color': section.color,
+      'flex': section.relativeWidth
+    }"></div>
+</div>

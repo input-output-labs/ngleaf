@@ -1,0 +1,36 @@
+<table class="month-calendar">
+  <thead>
+    <tr class="calendar-header-week">
+      <th class="calendar-header-day">L</th>
+      <th class="calendar-header-day">M</th>
+      <th class="calendar-header-day">M</th>
+      <th class="calendar-header-day">J</th>
+      <th class="calendar-header-day">V</th>
+      <th class="calendar-header-day">S</th>
+      <th class="calendar-header-day">D</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let week of calendar" class="calendar-week">
+      <td
+        *ngFor="let day of week" class="calendar-day"
+        [class.isCurrentMonth]="day.isCurrentMonth"
+        (click)="onDateClicked.emit(day.date)">
+        <div class="calendar-day-header">{{day.day}}</div>
+        <div class="calendar-day-body">
+          <div
+            *ngFor="let event of day.events"
+            class="event"
+            [class.starting-today]="sameDay(day.date, event.from)"
+            [class.ending-today]="sameDay(day.date, event.to)"
+            [ngStyle]="{
+              'background-color': event.backgroundColor || 'grey',
+              'color': event.textColor || 'white'
+            }">
+            {{event.label}}
+          </div>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>

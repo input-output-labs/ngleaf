@@ -15,6 +15,8 @@ import {
 } from '@input-output-labs/ngleaf';
 import { MessengerComponent } from './messenger/messenger.component';
 import { MessengerModule } from './messenger/messenger.module';
+import { PlanningComponent } from './planning/planning.component';
+import { PlanningModule } from './planning/planning.module';
 import { TemplatesComponent } from './templates/templates.component';
 
 const routes: Route[] = [
@@ -30,6 +32,10 @@ const routes: Route[] = [
   {
     path: 'messenger',
     component: MessengerComponent,
+  },
+  {
+    path: 'planning',
+    component: PlanningComponent,
   },
   {
     path: 'statistics',
@@ -59,6 +65,7 @@ const routes: Route[] = [
     StatisticsPageModule,
     LeafForbiddenModule,
     MessengerModule,
+    PlanningModule
   ], // add { enableTracing: true } after routes in forRoot to debug the router
   exports: [RouterModule],
 })

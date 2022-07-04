@@ -1,0 +1,30 @@
+<div class="day-planning">
+  <div class="time-legend">
+    <div class="legend-item">6h</div>
+    <div class="legend-item">12h</div>
+    <div class="legend-item">18h</div>
+  </div>
+  <div class="events">
+    <div
+      class="group"
+      *ngFor="let group of groups"
+      [style.flex]="1 + group.to - group.from">
+      <div
+        class="column"
+        *ngFor="let column of group.columns">
+        <div
+          class="slot"
+          *ngFor="let slot of column.slots"
+          [style.flex]="1 + slot.to - slot.from">
+          <div
+            *ngIf="slot.event as event"
+            class="event"
+            [style.border-color]="event.backgroundColor || 'draygray'">
+            {{event.label}} <br/>
+            {{event.position.from}} -&gt; {{event.position.to}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
