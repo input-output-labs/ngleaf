@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 
 import { emitNotification } from '../../../../store/index';
@@ -34,12 +34,12 @@ export class LeafRegisterVanillaComponent implements OnInit {
   @Output()
   public onError: EventEmitter<LeafRegisterVanillaError> = new EventEmitter<LeafRegisterVanillaError>();
 
-  public registerForm: FormGroup;
+  public registerForm: UntypedFormGroup;
 
   public showPassword: boolean = false;
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private leafSessionService: LeafSessionService,
     private store: Store
   ) {}

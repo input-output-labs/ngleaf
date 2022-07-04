@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { filter, map, take } from 'rxjs';
@@ -41,12 +41,12 @@ export class LeafPasswordForgottenVanillaComponent implements OnInit {
   public onDone: EventEmitter<void> = new EventEmitter<void>();
 
   public state: LeafPasswordForgottenVanillaState = 'SendPassword';
-  public sendPasswordChangeForm: FormGroup;
-  public passwordChangeForm: FormGroup;
+  public sendPasswordChangeForm: UntypedFormGroup;
+  public passwordChangeForm: UntypedFormGroup;
   public emailToResendTo?: string;
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private leafSessionService: LeafSessionService,
     private notificationService: LeafNotificationService,
     private route: ActivatedRoute,

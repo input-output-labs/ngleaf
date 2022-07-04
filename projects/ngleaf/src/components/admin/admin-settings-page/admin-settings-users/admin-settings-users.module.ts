@@ -5,9 +5,11 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { AdminSettingsUsersComponent } from './admin-settings-users.component';
 import { LeafAdminModule } from '../../../../services/index';
+import { LeafConfirmDialogModule } from '../../../common/confirm-dialog/confirm-dialog.module';
 
 @NgModule({
   declarations: [AdminSettingsUsersComponent],
@@ -20,8 +22,10 @@ import { LeafAdminModule } from '../../../../services/index';
     MatTableModule,
     MatIconModule,
     MatButtonModule,
+    MatDialogModule,
     /* Leaf deps*/
-    LeafAdminModule
+    LeafAdminModule,
+    LeafConfirmDialogModule
   ],
   exports: [AdminSettingsUsersComponent]
 })

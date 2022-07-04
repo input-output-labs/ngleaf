@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 import { LeafSessionService } from '../../../../services/index';
 
@@ -9,10 +9,10 @@ import { LeafSessionService } from '../../../../services/index';
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit {
-  public registerForm: FormGroup;
+  public registerForm: UntypedFormGroup;
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private leafSessionService: LeafSessionService
   ) {}
 

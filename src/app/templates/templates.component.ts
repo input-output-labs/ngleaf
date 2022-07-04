@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { LeafWebImagesSeekerDialogComponent, GenericFormConfig } from '@input-output-labs/ngleaf';
 
@@ -13,7 +13,7 @@ export class TemplatesComponent {
   selectedImageUrl: string;
   name: string;
 
-  public genericFormFormGroup: FormGroup = this.fb.group({
+  public genericFormFormGroup: UntypedFormGroup = this.fb.group({
     input1: ['input1'],
     input2: ['input2'],
     input3: ['input3'],
@@ -22,7 +22,7 @@ export class TemplatesComponent {
     slider1: ['75']
   });
 
-  constructor(private dialog: MatDialog, private fb: FormBuilder) {
+  constructor(private dialog: MatDialog, private fb: UntypedFormBuilder) {
     this.genericFormFormGroup.valueChanges.subscribe(console.log);
   }
 

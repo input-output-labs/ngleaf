@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
@@ -17,7 +17,7 @@ export class LeafWebImagesSeekerDialogComponent {
 
   public results$: Observable<string[]>;
   public selectedImageIndex = -1;
-  public inputFormControl: FormControl = new FormControl('');
+  public inputFormControl: UntypedFormControl = new UntypedFormControl('');
 
   constructor(
     public dialogRef: MatDialogRef<LeafWebImagesSeekerDialogComponent>,

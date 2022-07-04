@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { filter, Observable } from 'rxjs';
 
@@ -41,11 +41,11 @@ export class RoomCreationFormComponent {
       color: 'primary'
     }]
   };
-  public formGroup: FormGroup;
+  public formGroup: UntypedFormGroup;
 
   public currentAccount$: Observable<LeafAccountModel>;
 
-  constructor(private store: Store, private fb: FormBuilder, private messengerService: LeafMessengerService) {
+  constructor(private store: Store, private fb: UntypedFormBuilder, private messengerService: LeafMessengerService) {
     this.formGroup = this.fb.group({
       roomName: ['', Validators.required],
       members: [[]]

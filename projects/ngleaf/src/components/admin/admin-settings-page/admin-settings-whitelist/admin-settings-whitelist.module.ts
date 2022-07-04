@@ -6,6 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 import { AdminSettingsWhitelistComponent } from './admin-settings-whitelist.component';
 import { LeafAdminModule } from '../../../../services/index';
@@ -23,6 +24,7 @@ import { LeafAdminModule } from '../../../../services/index';
     MatIconModule,
     MatButtonModule,
     MatFormFieldModule,
+    MatInputModule,
     /* Leaf deps*/
     LeafAdminModule
   ],

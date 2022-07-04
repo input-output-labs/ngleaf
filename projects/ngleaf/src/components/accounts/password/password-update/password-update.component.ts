@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { distinctUntilChanged } from 'rxjs';
 
 import { LeafSessionService } from '../../../../services/index';
@@ -10,10 +10,10 @@ import { LeafSessionService } from '../../../../services/index';
   styleUrls: ['./password-update.component.scss']
 })
 export class PasswordUpdateComponent {
-  public changePasswordForm: FormGroup;
+  public changePasswordForm: UntypedFormGroup;
 
   constructor(
-    public formBuilder: FormBuilder,
+    public formBuilder: UntypedFormBuilder,
     public sessionService: LeafSessionService
   ) {
     this.changePasswordForm = this.formBuilder.group({
