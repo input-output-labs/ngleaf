@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 import { LeafSessionService } from '../../../../services/index';
 
@@ -9,10 +9,10 @@ import { LeafSessionService } from '../../../../services/index';
   styleUrls: ['./account-settings-avatar.component.scss'],
 })
 export class AccountSettingsAvatarComponent implements OnInit {
-  public changeAvatarForm: FormGroup;
+  public changeAvatarForm: UntypedFormGroup;
 
   constructor(
-    public formBuilder: FormBuilder,
+    public formBuilder: UntypedFormBuilder,
     public sessionService: LeafSessionService
   ) {
     this.changeAvatarForm = this.formBuilder.group({

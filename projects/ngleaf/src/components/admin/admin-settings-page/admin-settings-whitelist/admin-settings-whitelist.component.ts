@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
@@ -13,7 +13,7 @@ import { selectAuthorizedEmails } from '../../../../store/core/administration/ad
   styleUrls: ['./admin-settings-whitelist.component.scss'],
 })
 export class AdminSettingsWhitelistComponent implements OnInit {
-  public whitelistEmailForm: FormGroup;
+  public whitelistEmailForm: UntypedFormGroup;
 
   public authorizedEmails$: Observable<LeafAuthorizedEmailModel[]>;
   selectedEmails: string[] = [];
@@ -21,7 +21,7 @@ export class AdminSettingsWhitelistComponent implements OnInit {
   constructor(
     private store: Store,
     private adminService: LeafAdminService,
-    public formBuilder: FormBuilder
+    public formBuilder: UntypedFormBuilder
   ) {
     this.whitelistEmailForm = this.formBuilder.group({
       emails: ['', Validators.required],

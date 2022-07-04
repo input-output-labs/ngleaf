@@ -1,6 +1,6 @@
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { Component, ElementRef, forwardRef, Input, OnInit, ViewChild } from '@angular/core';
-import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, UntypedFormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { Observable, of } from 'rxjs';
@@ -23,7 +23,7 @@ import { LeafUserModel, AccountApiClient } from '../../../api/index';
 export class UserSelectorComponent implements OnInit, ControlValueAccessor {
   separatorKeysCodes: number[] = [ENTER, COMMA];
 
-  public inputControler = new FormControl();
+  public inputControler = new UntypedFormControl();
   public proposedUsers: Observable<LeafUserModel[]>;
   public disabled: boolean;
 

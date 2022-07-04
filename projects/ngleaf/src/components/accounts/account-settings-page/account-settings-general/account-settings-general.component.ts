@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 import { LeafSessionService } from '../../../../services/index';
 
@@ -9,12 +9,12 @@ import { LeafSessionService } from '../../../../services/index';
   styleUrls: ['./account-settings-general.component.scss'],
 })
 export class AccountSettingsGeneralComponent implements OnInit {
-  public changeNameForm: FormGroup;
+  public changeNameForm: UntypedFormGroup;
 
   public members: string[] = [];
 
   constructor(
-    public formBuilder: FormBuilder,
+    public formBuilder: UntypedFormBuilder,
     public sessionService: LeafSessionService
   ) {
     this.changeNameForm = this.formBuilder.group({

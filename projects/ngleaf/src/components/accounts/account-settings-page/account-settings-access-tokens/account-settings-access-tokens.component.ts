@@ -1,4 +1,4 @@
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -14,7 +14,7 @@ import { selectCurrentAccountData } from '../../../../store/core/session/session
 })
 export class AccountSettingsAccessTokensComponent {
   public displayedColumns: string[] = ['name', 'creation', 'expiration', 'action'];
-  public privateTokenCreationForm: FormGroup;
+  public privateTokenCreationForm: UntypedFormGroup;
 
   public currentAccount$: Observable<LeafAccountModel>;
 
@@ -22,7 +22,7 @@ export class AccountSettingsAccessTokensComponent {
 
   constructor(
     private store: Store,
-    public formBuilder: FormBuilder,
+    public formBuilder: UntypedFormBuilder,
     private sessionService: LeafSessionService
   ) {
     this.currentAccount$ = this.store.select(selectCurrentAccountData);
