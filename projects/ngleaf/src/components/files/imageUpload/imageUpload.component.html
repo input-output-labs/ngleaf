@@ -1,7 +1,17 @@
-<div class="image-upload-wrap">
+<div
+  class="image-upload-wrap"
+  [ngClass]="{'image-inserted': !!imageUrl}"
+  [ngStyle]="{
+    'borderColor': hover ? '#ffffff': color,
+    'backgroundColor': hover ? color: undefined
+  }"
+  (mouseover)="hover=true" (mouseleave)="hover=false">
   <input class="file-upload-input" type='file' (change)="selectFile($event);" accept="image/*"/>
   <div class="drag-text" *ngIf="!imageUrl">
-    <h3>Drag and drop a file or select add Image</h3>
+    <h3
+      [ngStyle]="{
+        'color': hover ? '#ffffff': color
+      }">{{'leaf.image-upload.drop-zone-label' | translate}}</h3>
   </div>
   <img class="file-upload-image" *ngIf="imageUrl" [src]="imageUrl" alt="Your image"/>
 </div>

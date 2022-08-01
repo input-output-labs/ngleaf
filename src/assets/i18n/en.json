@@ -39,6 +39,9 @@
           "passwordValidationPlaceholder": "Confirm new password",
           "resendLinkLabel": "Resend email"
         }
+      },
+      "image-upload": {
+        "drop-zone-label": "Drag and drop a file or click here"
       }
     }
 }

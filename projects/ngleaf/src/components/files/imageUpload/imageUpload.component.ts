@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, forwardRef } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, forwardRef, Input } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { LeafUploadFileService } from '../../../services/index';
@@ -20,8 +20,13 @@ export class LeafImageUploadComponent implements OnInit, ControlValueAccessor {
   currentFileUpload: File;
   public imageUrl: string;
 
+  @Input()
+  public color: string = '#1fb264';
+
   @Output()
-  selectedFile: EventEmitter<any> = new EventEmitter();
+  public selectedFile: EventEmitter<any> = new EventEmitter();
+
+  public hover = false;
 
   // Form control field
   private onChange = (_: any) => {};

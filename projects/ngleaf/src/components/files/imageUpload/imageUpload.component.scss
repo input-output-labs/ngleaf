@@ -1,13 +1,11 @@
 .image-upload-wrap {
   width: calc(100% - 8px);
-  height: calc(100% - 8px);
-  border: 4px dashed #1fb264;
-  position: relative;
-}
 
-.image-upload-wrap:hover {
-  background-color: #1fb264;
-  border: 4px dashed #ffffff;
+  &:not(.image-inserted) {
+    height: calc(100% - 8px);
+  }
+  border: 4px dashed;
+  position: relative;
 }
 
 .drag-text {
@@ -23,7 +21,6 @@
     flex: 1;
     font-weight: 100;
     text-transform: uppercase;
-    color: #15824b;
   }
 }
 
