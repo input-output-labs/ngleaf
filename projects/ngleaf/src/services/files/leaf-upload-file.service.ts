@@ -14,16 +14,10 @@ export class LeafUploadFileService {
     @Inject(LeafConfigServiceToken) private config,
     private http: LeafAuthHttpClient) {}
 
-  pushFileToStorage(file: File): Observable<string> {
+  pushFileToStorage(file: Blob): Observable<string> {
     const formdata: FormData = new FormData();
 
     formdata.append('file', file);
-
-    this.notificationService.emit({
-      id: 'successChangeUsername',
-      category: 'session',
-      message: 'Name changed'
-    });
 
     const url$ = new Subject<string>();
 

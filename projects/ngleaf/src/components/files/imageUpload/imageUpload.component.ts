@@ -17,11 +17,17 @@ const CUSTOM_VALUE_ACCESSOR: any = {
 })
 export class LeafImageUploadComponent implements OnInit, ControlValueAccessor {
   selectedFiles: FileList;
-  currentFileUpload: File;
+  currentFileUpload: Blob;
   public imageUrl: string;
 
   @Input()
   public color: string = '#1fb264';
+
+  @Input()
+  public resizeWidth?: number;
+
+  @Input()
+  public resizeHeight?: number;
 
   @Output()
   public selectedFile: EventEmitter<any> = new EventEmitter();
@@ -49,11 +55,77 @@ export class LeafImageUploadComponent implements OnInit, ControlValueAccessor {
 
   public selectFile(event) {
     this.selectedFiles = event.target.files;
-    this.upload();
+
+    const that = this;
+
+    if (this.selectedFiles && this.selectedFiles[0]) {
+      const file = this.selectedFiles[0];
+      const reader = new FileReader();
+
+      var img = document.createElement("img");
+
+      reader.onload = (e: any) => {
+        const image = e.target.result;
+        console.log(image);
+        img.src = image;
+        that.imageUrl = image;
+
+        if (this.resizeWidth && this.resizeHeight) {
+          img.addEventListener('load', function () {
+            var canvas = document.createElement("canvas");
+
+            var width = img.width;
+            var height = img.height;
+
+            if (width > that.resizeWidth) {
+              width = that.resizeWidth;
+            }
+
+            if (height > that.resizeHeight) {
+              height = that.resizeHeight;
+            }
+
+            canvas.width = width;
+            canvas.height = height;
+
+            var ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0, width, height);
+
+            var dataurl = canvas.toDataURL("image/png");
+
+            that.imageUrl = dataurl;
+
+            that.upload();
+          });
+        } else {
+          that.upload();
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  public dataURItoBlob(dataURI): Blob {
+    // convert base64 to raw binary data held in a string
+    // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
+    var byteString = atob(dataURI.split(',')[1]);
+    // separate out the mime component
+    var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
+    // write the bytes of the string to an ArrayBuffer
+    var ab = new ArrayBuffer(byteString.length);
+    // create a view into the buffer
+    var ia = new Uint8Array(ab);
+    // set the bytes of the buffer to the correct values
+    for (var i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+    }
+    // write the ArrayBuffer to a blob, and you're done
+    var blob = new Blob([ab], {type: mimeString});
+    return blob;
   }
 
   public upload() {
-    this.currentFileUpload = this.selectedFiles.item(0);
+    this.currentFileUpload = this.dataURItoBlob(this.imageUrl);
     this.uploadService
       .pushFileToStorage(this.currentFileUpload)
       .subscribe(imageUrl => {
