@@ -42,6 +42,14 @@
       },
       "image-upload": {
         "drop-zone-label": "Drag and drop a file or click here"
+      },
+      "mailing-authorization-page": {
+        "title": "Désinscription",
+        "description": "Pour vous désinscrire, veuillez cliquer sur le bouton çi-dessous :",
+        "error": "Erreur ! Email et/ou type de contenu manquant !",
+        "success": "Vous êtes désinscrit !",
+        "failure": "Erreur lors de la désinscription, veuillez réessayer plus tard.",
+        "button-label": "Se désinscrire"
       }
     }
 }

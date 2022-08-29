@@ -37,6 +37,10 @@ export const selectUpdatePassword = createSelector(
    selectSession,
   (state: SessionState) => state.updatePassword
 );
+export const selectMailingsUnsubscription = createSelector(
+   selectSession,
+  (state: SessionState) => state.mailingsUnsubscription
+);
 export const selectIsPending = createSelector(
   selectCurrentAccount,
   selectSessionToken,

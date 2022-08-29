@@ -7,4 +7,5 @@ export interface SessionState {
   sendResetPasswordKey: AsyncType<void>;
   resetPassword: AsyncType<void>;
   updatePassword: AsyncType<LeafAccountModel>;
+  mailingsUnsubscription: AsyncType<void>;
 }

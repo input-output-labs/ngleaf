@@ -1,0 +1,15 @@
+.mailing-authorization-page {
+  text-align: center;
+
+  .error {
+    color: red;
+  }
+
+  .result {
+    margin-top: 1rem;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+}

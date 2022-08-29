@@ -84,4 +84,19 @@ export const setUpdatePasswordFailure = createAction(
   props<{error: any}>()
 );
 
+export const resetMailingsUnsubscription = createAction(
+  '[Session store] Reset MailingsUnsubscription'
+);
+export const setMailingsUnsubscriptionCall = createAction(
+  '[Session store] Set MailingsUnsubscription call',
+  props<{call: Observable<void>}>()
+);
+export const setMailingsUnsubscriptionSuccess = createAction(
+  '[Session store] Set MailingsUnsubscription success'
+);
+export const setMailingsUnsubscriptionFailure = createAction(
+  '[Session store] Set MailingsUnsubscription failure',
+  props<{error: any}>()
+);
+
 

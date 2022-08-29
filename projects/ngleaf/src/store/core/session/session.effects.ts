@@ -5,7 +5,7 @@ import { map, switchMap, catchError } from 'rxjs/operators';
 
 import { JWTModel, LeafAccountModel } from '../../../api/models/index';
 import { AccountApiClient } from '../../../api/clients/index';
-import { setCurrentAccountCall, setCurrentAccountFailure, setCurrentAccountSuccess, setResetPasswordCall, setResetPasswordFailure, setResetPasswordSuccess, setSendResetPasswordKeyCall, setSendResetPasswordKeyFailure, setSendResetPasswordKeySuccess, setSessionTokenCall, setSessionTokenFailure, setSessionTokenSuccess, setUpdatePasswordCall, setUpdatePasswordFailure, setUpdatePasswordSuccess } from './session.actions';
+import { setCurrentAccountCall, setCurrentAccountFailure, setCurrentAccountSuccess, setMailingsUnsubscriptionCall, setMailingsUnsubscriptionFailure, setMailingsUnsubscriptionSuccess, setResetPasswordCall, setResetPasswordFailure, setResetPasswordSuccess, setSendResetPasswordKeyCall, setSendResetPasswordKeyFailure, setSendResetPasswordKeySuccess, setSessionTokenCall, setSessionTokenFailure, setSessionTokenSuccess, setUpdatePasswordCall, setUpdatePasswordFailure, setUpdatePasswordSuccess } from './session.actions';
 
 @Injectable()
 export class SessionEffects {
@@ -56,6 +56,16 @@ export class SessionEffects {
     payload.call.pipe(
         map((accountData) => (setUpdatePasswordSuccess({data: accountData}))),
         catchError((error) => of(setUpdatePasswordFailure({error})))
+      ))
+    )
+  );
+
+  setMailingsUnsubscriptionCall$ = createEffect(() => this.actions$.pipe(
+    ofType(setMailingsUnsubscriptionCall),
+    switchMap((payload: {call: Observable<void>}) =>
+    payload.call.pipe(
+        map(() => (setMailingsUnsubscriptionSuccess())),
+        catchError((error) => of(setMailingsUnsubscriptionFailure({error})))
       ))
     )
   );

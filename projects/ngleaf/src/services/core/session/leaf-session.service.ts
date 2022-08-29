@@ -8,7 +8,7 @@ import { LeafAuthHttpClient, AccountApiClient } from '../../../api/clients/index
 import { LeafConfig } from '../../../models/index';
 import { LeafNotificationService } from '../notification/leaf-notification.service';
 import { LeafConfigServiceToken } from '../../leaf-config.module';
-import { resetCurrentAccount, resetSessionToken, selectCurrentAccount, selectSessionToken, selectUpdatePassword, setCurrentAccountCall, setResetPasswordCall, setSendResetPasswordKeyCall, setSessionToken, setSessionTokenCall, setUpdatePasswordCall } from '../../../store/core/session/index';
+import { resetCurrentAccount, resetSessionToken, selectCurrentAccount, selectSessionToken, selectUpdatePassword, setCurrentAccountCall, setMailingsUnsubscriptionCall, setResetPasswordCall, setSendResetPasswordKeyCall, setSessionToken, setSessionTokenCall, setUpdatePasswordCall } from '../../../store/core/session/index';
 import { AsyncType } from '../../../store/common/index';
 import { JWTModel, LeafAccountModel } from '../../../api/models/index';
 
@@ -68,8 +68,6 @@ export class LeafSessionService {
   public refreshAccount(): Promise<void> {
     const call = this.accountApiClient.me();
     this.store.dispatch(setCurrentAccountCall({call}));
-
-
 
     return new Promise((resolve, reject) => {
       this.store.pipe(
@@ -366,5 +364,14 @@ export class LeafSessionService {
         });
       }
     });
+  }
+
+  public unsubscribeFromEmail(email: string, type: string) {
+    const unsubscription = {
+      email,
+      type
+    };
+    const call = this.accountApiClient.unsubscribeFromEmail(unsubscription);
+    this.store.dispatch(setMailingsUnsubscriptionCall({call}));
   }
 }

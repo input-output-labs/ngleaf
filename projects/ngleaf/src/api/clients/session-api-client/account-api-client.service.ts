@@ -53,4 +53,8 @@ export class AccountApiClient {
           { params }
       );
   }
+
+  public unsubscribeFromEmail(unsubscription: { email: string; type: string; }) {
+    return this.authHttp.post<void>(this.config.serverUrl + '/account/mailings/unsubscription', unsubscription);
+  }
 }

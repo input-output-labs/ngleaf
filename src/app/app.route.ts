@@ -12,6 +12,8 @@ import {
   LeafAuthGuardModule,
   StatisticsPageComponent,
   StatisticsPageModule,
+  MailingAuthorizationsPageComponent,
+  MailingAuthorizationsPageModule,
 } from '@input-output-labs/ngleaf';
 import { MessengerComponent } from './messenger/messenger.component';
 import { MessengerModule } from './messenger/messenger.module';
@@ -47,6 +49,10 @@ const routes: Route[] = [
     path: 'register',
     component: RegisterPageComponent,
   },
+  {
+    path: 'mailings/unsubscribe',
+    component: MailingAuthorizationsPageComponent,
+  },
   ...accountSettingsPageRoutes,
   ...adminSettingsPageRoutes
 ];
@@ -58,6 +64,7 @@ const routes: Route[] = [
     LeafAuthGuardModule,
     StatisticsPageModule,
     LeafForbiddenModule,
+    MailingAuthorizationsPageModule,
     MessengerModule,
   ], // add { enableTracing: true } after routes in forRoot to debug the router
   exports: [RouterModule],

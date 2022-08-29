@@ -1,0 +1,19 @@
+<div class="mailing-authorization-page">
+  <h1>{{ 'leaf.mailing-authorization-page.title' | translate }}</h1>
+
+  <p *ngIf="email && type">{{ 'leaf.mailing-authorization-page.description' | translate }}</p>
+  <p *ngIf="!email || !type" class="error">{{ 'leaf.mailing-authorization-page.error' | translate }}</p>
+
+  <button mat-raised-button color="accent" [disabled]="!email || !type" (click)="unsubscribe()">{{ 'leaf.mailing-authorization-page.button-label' | translate }}</button>
+
+  <div class="result" *ngIf="!!status">
+    <ng-container *ngIf="status === 'success'">
+      <mat-icon>thumb_up_alt</mat-icon>
+      {{ 'leaf.mailing-authorization-page.success' | translate }}
+    </ng-container>
+    <ng-container *ngIf="status === 'failure'">
+      <mat-icon>error_outline</mat-icon>
+      {{ 'leaf.mailing-authorization-page.failure' | translate }}
+    </ng-container>
+  </div>
+</div>
