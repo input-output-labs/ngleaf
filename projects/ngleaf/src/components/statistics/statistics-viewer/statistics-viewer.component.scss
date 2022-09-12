@@ -1,4 +1,33 @@
+$action-position-padding: 1rem;
+
 :host {
   width: 100%;
   height: 100%;
+  position: relative;
+
+  .action-wrapper {
+    position: absolute;
+    display: flex;
+    gap: 0.5rem;
+
+    &.top-right {
+      top: $action-position-padding;
+      right: $action-position-padding;
+    }
+
+    &.top-left {
+      top: $action-position-padding;
+      left: $action-position-padding;
+    }
+
+    &.bottom-right {
+      bottom: $action-position-padding;
+      right: $action-position-padding;
+    }
+
+    &.bottom-left {
+      bottom: $action-position-padding;
+      left: $action-position-padding;
+    }
+  }
 }

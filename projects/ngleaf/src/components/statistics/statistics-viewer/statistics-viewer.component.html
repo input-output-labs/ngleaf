@@ -3,3 +3,37 @@
     [yAxis]="true"
     [results]="series$ | async">
 </ngx-charts-line-chart>
+<div
+  *ngIf="showDatePicker"
+  class="action-wrapper"
+  [class.top-right]="datePickerPosition === 'topRight'"
+  [class.top-left]="datePickerPosition === 'topLeft'"
+  [class.bottom-right]="datePickerPosition === 'bottomRight'"
+  [class.bottom-left]="datePickerPosition === 'bottomLeft'"
+  >
+  <button mat-mini-fab [matMenuTriggerFor]="dateRangePicker">
+    <mat-icon>date_range</mat-icon>
+  </button>
+  <button
+    *ngIf="(dateRange$ | async)?.start || (dateRange$ | async)?.end"
+    mat-mini-fab
+    (click)="clearDateRange()">
+    <mat-icon>clear</mat-icon>
+  </button>
+</div>
+
+<mat-menu #dateRangePicker="matMenu">
+  <mat-form-field appearance="fill">
+    <mat-label>Enter a date range</mat-label>
+    <mat-date-range-input [formGroup]="dateRangeFormGroup" [rangePicker]="picker">
+      <input matStartDate formControlName="start" placeholder="Start date">
+      <input matEndDate formControlName="end" placeholder="End date">
+    </mat-date-range-input>
+    <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker #picker></mat-date-range-picker>
+
+    <mat-error *ngIf="dateRangeFormGroup.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error>
+    <mat-error *ngIf="dateRangeFormGroup.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error>
+  </mat-form-field>
+</mat-menu>
