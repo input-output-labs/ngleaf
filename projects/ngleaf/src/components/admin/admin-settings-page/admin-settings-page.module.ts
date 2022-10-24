@@ -7,6 +7,7 @@ import { LeafAdminModule } from '../../../services/index';
 import { AdminSettingsWhitelistModule } from './admin-settings-whitelist/admin-settings-whitelist.module';
 import { AdminSettingsAdministratorsModule } from './admin-settings-administrators';
 import { AdminSettingsUsersModule } from './admin-settings-users';
+import { EmailingPageModule } from '../../emailing';
 
 @NgModule({
   declarations: [AdminSettingsPageComponent],
@@ -20,6 +21,7 @@ import { AdminSettingsUsersModule } from './admin-settings-users';
     AdminSettingsWhitelistModule,
     AdminSettingsAdministratorsModule,
     AdminSettingsUsersModule,
+    EmailingPageModule
   ],
   exports: [AdminSettingsPageComponent]
 })

@@ -6,6 +6,7 @@ import { AdminSettingsPageComponent } from './admin-settings-page.component';
 import { AdminSettingsAdministratorsComponent } from './admin-settings-administrators/admin-settings-administrators.component';
 import { AdminSettingsWhitelistComponent } from './admin-settings-whitelist/admin-settings-whitelist.component';
 import { AdminSettingsUsersComponent } from './admin-settings-users/admin-settings-users.component';
+import { EmailingPageComponent } from '../../emailing';
 
 export const adminSettingsPageRoutes: Route[] = [
   {
@@ -29,6 +30,10 @@ export const adminSettingsPageRoutes: Route[] = [
       {
         path: 'whitelist',
         component: AdminSettingsWhitelistComponent,
+      },
+      {
+        path: 'emailing',
+        component: EmailingPageComponent,
       }
     ],
   }

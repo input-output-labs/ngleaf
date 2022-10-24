@@ -321,23 +321,6 @@ export class LeafSessionService {
   public sendResetPasswordKey(email) {
     const call = this.accountApiClient.sendPasswordKey(email);
     this.store.dispatch(setSendResetPasswordKeyCall({call}));
-
-    call.subscribe({
-      next: () => {
-        this.notificationService.emit({
-          id: 'sendResetPasswordSucceed',
-          category: 'session',
-          message: 'Sending the password reset was successful.'
-        });
-      },
-      error: () => {
-        this.notificationService.emit({
-          id: 'sendResetPasswordFailed',
-          category: 'session',
-          message: 'An error occurred while trying to reset the password. No change key sent.'
-        });
-      }
-    });
   }
 
   public resetPassword(key, password) {
@@ -347,23 +330,6 @@ export class LeafSessionService {
     };
     const call = this.accountApiClient.resetPassword(passwordResetting);
     this.store.dispatch(setResetPasswordCall({call}));
-
-    call.subscribe({
-      next: () => {
-        this.notificationService.emit({
-          id: 'changePasswordSuccess',
-          category: 'session',
-          message: 'Password changed successfully.'
-        });
-      },
-      error: () => {
-        this.notificationService.emit({
-          id: 'changePasswordFailed',
-          category: 'session',
-          message: 'An error occurred while trying to change the password.'
-        });
-      }
-    });
   }
 
   public unsubscribeFromEmail(email: string, type: string) {

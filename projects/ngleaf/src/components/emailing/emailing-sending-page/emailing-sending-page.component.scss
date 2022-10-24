@@ -1,0 +1,25 @@
+.emailing-sending-page {
+  width: calc(100% - 2rem);
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.content-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.space-bellow {
+  margin-bottom: 1rem;
+}
+
+.list-item-text {
+  display: flex;
+  align-items: center;
+}

@@ -10,8 +10,9 @@ import { MatRadioModule } from '@angular/material/radio';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatSliderModule} from '@angular/material/slider';
+import {MatSelectModule} from '@angular/material/select';
 
-import { UserSelectorModule } from '../../admin/index';
+import { UserSelectorModule } from '../../admin/user-selector/user-selector.module';
 
 @NgModule({
   imports: [
@@ -27,6 +28,7 @@ import { UserSelectorModule } from '../../admin/index';
     MatRadioModule,
     MatCheckboxModule,
     MatSliderModule,
+    MatSelectModule,
     /* Leaf deps */
     UserSelectorModule
   ],

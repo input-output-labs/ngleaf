@@ -1,8 +1,18 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
 #admin-settings-page {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
   width: 100%;
 
   #admin-settings-page-container {
     display: flex;
+    flex: 1;
 
     #admin-settings-left-column {
       width: 200px;

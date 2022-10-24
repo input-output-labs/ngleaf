@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { selectMailingsUnsubscription } from '../../../store';
 import { LeafSessionService } from '../../../services/core/session';
-import { filter, map } from 'rxjs';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'leaf-mailing-authorizations-page',
@@ -18,7 +18,7 @@ export class MailingAuthorizationsPageComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute, private sessionService: LeafSessionService, private store: Store) { }
 
   ngOnInit() {
-    this.activatedRoute.queryParams.subscribe(params=> {
+    this.activatedRoute.queryParams.subscribe(params => {
       this.type = params.type;
       this.email = params.email;
     });

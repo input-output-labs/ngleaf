@@ -1,0 +1,185 @@
+<mat-stepper linear #stepper class="emailing-sending-page">
+  <mat-step [stepControl]="targetFormGroup" label="Cible">
+    <form [formGroup]="targetFormGroup" class="content-form">
+      <mat-form-field appearance="outline">
+        <mat-label>Liste de diffusion</mat-label>
+        <mat-select formControlName="target">
+          <mat-option
+            *ngFor="let category of emailingCategories$ | async"
+            [value]="category.id"
+            >{{ category.name }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+    </form>
+    <div class="actions">
+      <button mat-button matStepperNext [disabled]="!targetFormGroup.valid">
+        Suivant
+      </button>
+    </div>
+  </mat-step>
+
+  <mat-step [stepControl]="contentFormGroup" label="Contenu">
+    <form [formGroup]="contentFormGroup" class="content-form">
+      <mat-form-field appearance="outline">
+        <mat-label>Titre de l'email</mat-label>
+        <input
+          matInput
+          placeholder="Newsletter de mois d'Août"
+          formControlName="title"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>ID Sendgrid</mat-label>
+        <input
+          matInput
+          placeholder="d-0014a5e8c965236b4563257894698d45"
+          formControlName="sengridId"
+        />
+      </mat-form-field>
+    </form>
+    <div class="actions">
+      <button mat-button matStepperPrevious>Précédent</button>
+      <button mat-button matStepperNext [disabled]="!contentFormGroup.valid">
+        Suivant
+      </button>
+    </div>
+  </mat-step>
+
+  <mat-step [stepControl]="batchFormGroup" label="Batch">
+    <form [formGroup]="batchFormGroup" class="content-form">
+      <mat-form-field appearance="outline">
+        <mat-label>Nombre d'emails envoyés par heure</mat-label>
+        <input
+          matInput
+          type="number"
+          placeholder="50"
+          min="1"
+          max="100"
+          step="5"
+          formControlName="emailsPerHour"
+        />
+      </mat-form-field>
+    </form>
+    <div class="actions">
+      <button mat-button matStepperPrevious>Précédent</button>
+      <button mat-button matStepperNext [disabled]="!batchFormGroup.valid">
+        Suivant
+      </button>
+    </div>
+  </mat-step>
+  <mat-step label="Validation">
+    <div class="space-bellow">
+      <mat-expansion-panel hideToggle expanded>
+        <mat-expansion-panel-header>
+          <mat-panel-title> Résumé de l'envoie en préparation </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <mat-list role="list" *ngIf="recap$ | async as recap">
+          <mat-list-item role="listitem">
+            <div class="list-item-text">
+              <span> Liste de diffusion: {{ recap.target?.name || "" }} </span>
+              <span *ngIf="testEmailBatch$ | async as report">
+                <mat-icon *ngIf="report.targetOk" color="primary"
+                  >done</mat-icon
+                >
+                <mat-icon *ngIf="!report.targetOk" color="warn">clear</mat-icon>
+              </span>
+            </div>
+          </mat-list-item>
+          <mat-list-item role="listitem">
+            <div class="list-item-text">
+              <span> Titre de l'email: {{ recap.title }} </span>
+              <span *ngIf="testEmailBatch$ | async as report">
+                <mat-icon *ngIf="report.titleOk" color="primary">done</mat-icon>
+                <mat-icon *ngIf="!report.titleOk" color="warn">clear</mat-icon>
+              </span>
+            </div>
+          </mat-list-item>
+          <mat-list-item role="listitem">
+            <div class="list-item-text">
+              <span> ID Sendgrid: {{ recap.sengridId }} </span>
+              <span *ngIf="testEmailBatch$ | async as report">
+                <mat-icon *ngIf="report.sendgridIdOk" color="primary"
+                  >done</mat-icon
+                >
+                <mat-icon *ngIf="!report.sendgridIdOk" color="warn"
+                  >clear</mat-icon
+                >
+              </span>
+            </div>
+          </mat-list-item>
+          <mat-list-item role="listitem">
+            <div class="list-item-text">
+              <span> Email envoyés par lot de {{ recap.emailsPerHour }} </span>
+              <ng-container *ngIf="testEmailBatch$ | async as report">
+                <span>
+                  <mat-icon *ngIf="report.emailsPerHourOk && report.targetAccountsCount > 0" color="primary"
+                    >done</mat-icon
+                  >
+                  <mat-icon *ngIf="!report.emailsPerHourOk && report.targetAccountsCount > 0" color="warn"
+                    >clear</mat-icon
+                  >
+                </span>
+                <span>
+                  ({{ report.targetAccountsCount }} destinataire(s), soit
+                  {{ report.batchCount }} lot(s))
+                </span>
+              </ng-container>
+            </div>
+          </mat-list-item>
+        </mat-list>
+      </mat-expansion-panel>
+      <mat-expansion-panel
+        (opened)="testingPanelOpened = true"
+        (closed)="testingPanelOpened = false"
+        [expanded]="testingPanelOpened === true"
+      >
+        <mat-expansion-panel-header>
+          <mat-panel-title> Test </mat-panel-title>
+        </mat-expansion-panel-header>
+        <form [formGroup]="testFormGroup" class="content-form">
+          <mat-form-field appearance="outline">
+            <mat-label>Destinataire de l'email test</mat-label>
+            <input
+              matInput
+              placeholder="nom.prenom@email.fr"
+              formControlName="email"
+            />
+          </mat-form-field>
+        </form>
+        <mat-progress-bar
+          indeterminate
+          *ngIf="testEmailBatchPending$ | async"
+        ></mat-progress-bar>
+      </mat-expansion-panel>
+    </div>
+    <div class="actions">
+      <button mat-button matStepperPrevious>Précédent</button>
+      <button
+        mat-flat-button
+        matStepperNext
+        [disabled]="
+          !targetFormGroup.valid &&
+          !contentFormGroup.valid &&
+          !batchFormGroup.valid &&
+          !(testEmailBatchPending$ | async)
+        "
+        color="primary"
+        (click)="sendingTestEmail()"
+      >
+        Tester
+      </button>
+      <button
+        mat-flat-button
+        matStepperNext
+        [disabled]="!(testEmailBatchOk$ | async) && !(createEmailBatchPending$ | async)"
+        color="warn"
+        (click)="sendingEmails()"
+      >
+        Envoyer
+      </button>
+    </div>
+  </mat-step>
+</mat-stepper>

@@ -24,6 +24,10 @@ export class AdminSettingsPageComponent implements OnInit {
       link: 'whitelist',
       name: 'Emails authorisés',
     },
+    {
+      link: 'emailing',
+      name: 'Envoie d\'emails',
+    },
   ];
 
   public currentRoute = '';

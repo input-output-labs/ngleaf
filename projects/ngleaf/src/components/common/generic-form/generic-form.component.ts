@@ -9,7 +9,7 @@ export interface GenericFormActionConfig {
   color?: ThemePalette;
 }
 
-export type GenericFormInputType = 'text' | 'input' | 'textarea' | 'radios' | 'checkbox' | 'slider' | 'user-selector';
+export type GenericFormInputType = 'text' | 'input' | 'textarea' | 'radios' | 'checkbox' | 'slider' | 'user-selector' | 'select';
 
 export interface TextConfig {
   labelKey?: string;
@@ -48,6 +48,10 @@ export interface UserSelectorConfig {
   multiple: boolean;
 }
 
+export interface SelectConfig {
+  choices: {value: any, labelKey: string}[]
+}
+
 export interface GenericInputConfig {
   id?: string
   type: GenericFormInputType;
@@ -55,7 +59,7 @@ export interface GenericInputConfig {
   rowspan?: number;
 }
 
-export type GenericFormInputConfig = GenericInputConfig & (TextConfig | InputConfig | RadiosConfig | CheckboxConfig | SliderConfig | UserSelectorConfig);
+export type GenericFormInputConfig = GenericInputConfig & (TextConfig | InputConfig | RadiosConfig | CheckboxConfig | SliderConfig | UserSelectorConfig | SelectConfig);
 
 export interface GenericFormGridConfig {
   cols?: number;
