@@ -1,6 +1,6 @@
 import { Route } from '@angular/router';
 
-import { LeafAuthGuardService } from '../../../guards/index';
+import { LeafAuthGuardService } from '../../../../guards/index';
 
 import { AccountSettingsGeneralComponent } from './account-settings-general/account-settings-general.component';
 import { AccountSettingsAvatarComponent } from './account-settings-avatar/account-settings-avatar.component';

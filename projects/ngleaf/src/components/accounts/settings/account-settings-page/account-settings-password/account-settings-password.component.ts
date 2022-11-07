@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
-import { LeafSessionService } from '../../../../services/index';
 
 @Component({
   selector: 'leaf-account-settings-password',

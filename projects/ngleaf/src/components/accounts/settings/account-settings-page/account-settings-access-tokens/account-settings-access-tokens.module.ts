@@ -8,7 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatTableModule } from '@angular/material/table';
 
-import { LeafSessionModule } from '../../../../services/index';
+import { LeafSessionModule } from '../../../../../services/index';
 import { MatInputModule } from '@angular/material/input';
 
 @NgModule({

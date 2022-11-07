@@ -9,11 +9,11 @@ import { AsyncType, emitNotification, selectResetPassword, selectSendResetPasswo
 import { LeafPasswordForgottenError, LeafPasswordForgottenState } from '../password-forgotten.models';
 
 @Component({
-  selector: 'leaf-password-forgotten-vanilla',
-  templateUrl: './password-forgotten-vanilla.component.html',
-  styleUrls: ['./password-forgotten-vanilla.component.scss']
+  selector: 'leaf-password-forgotten',
+  templateUrl: './password-forgotten.component.html',
+  styleUrls: ['./password-forgotten.component.scss']
 })
-export class LeafPasswordForgottenVanillaComponent implements OnInit {
+export class LeafPasswordForgottenComponent implements OnInit {
   @Input()
   public emailValidators: ValidatorFn[] = [Validators.required];
   @Input()

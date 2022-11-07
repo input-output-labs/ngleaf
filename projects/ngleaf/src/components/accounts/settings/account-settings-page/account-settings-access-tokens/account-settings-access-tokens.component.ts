@@ -3,9 +3,9 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { LeafSessionService } from '../../../../services/index';
-import { LeafAccountModel } from '../../../../api/models/index';
-import { selectCurrentAccountData } from '../../../../store/core/session/session.selectors';
+import { LeafSessionService } from '../../../../../services/index';
+import { LeafAccountModel } from '../../../../../api/models/index';
+import { selectCurrentAccountData } from '../../../../../store/core/session/session.selectors';
 
 @Component({
   selector: 'leaf-account-settings-access-tokens',

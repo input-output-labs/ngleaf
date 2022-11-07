@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-
-import { LeafSessionService } from '../../../../services/index';
+import { LeafSessionService } from '../../../../services/core/session/leaf-session.service';
 
 @Component({
-  selector: 'leaf-account-settings-general',
-  templateUrl: './account-settings-general.component.html',
-  styleUrls: ['./account-settings-general.component.scss'],
+  selector: 'leaf-pseudo-update',
+  templateUrl: './pseudo-update.component.html',
+  styleUrls: ['./pseudo-update.component.scss']
 })
-export class AccountSettingsGeneralComponent implements OnInit {
+export class PseudoUpdateComponent implements OnInit {
   public changeNameForm: UntypedFormGroup;
 
   public members: string[] = [];

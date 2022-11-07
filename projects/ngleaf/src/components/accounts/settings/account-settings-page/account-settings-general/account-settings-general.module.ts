@@ -5,9 +5,10 @@ import { AccountSettingsGeneralComponent } from './account-settings-general.comp
 import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
-import { LeafSessionModule } from '../../../../services/index';
+import { LeafSessionModule } from '../../../../../services/index';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
+import { PseudoUpdateModule } from '../../pseudo-update';
 
 @NgModule({
   declarations: [AccountSettingsGeneralComponent],
@@ -22,6 +23,7 @@ import { MatInputModule } from '@angular/material/input';
     MatButtonModule,
     /* Leaf deps*/
     LeafSessionModule,
+    PseudoUpdateModule,
   ],
   exports: [AccountSettingsGeneralComponent]
 })

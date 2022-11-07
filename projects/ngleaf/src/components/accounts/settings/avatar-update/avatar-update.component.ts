@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-
-import { LeafSessionService } from '../../../../services/index';
+import { LeafSessionService } from '../../../../services/core/session/leaf-session.service';
 
 @Component({
-  selector: 'leaf-account-settings-avatar',
-  templateUrl: './account-settings-avatar.component.html',
-  styleUrls: ['./account-settings-avatar.component.scss'],
+  selector: 'leaf-avatar-update',
+  templateUrl: './avatar-update.component.html',
+  styleUrls: ['./avatar-update.component.scss']
 })
-export class AccountSettingsAvatarComponent implements OnInit {
+export class AvatarUpdateComponent implements OnInit {
   public changeAvatarForm: UntypedFormGroup;
 
   constructor(
