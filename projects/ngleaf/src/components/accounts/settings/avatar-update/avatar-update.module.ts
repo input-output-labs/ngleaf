@@ -5,12 +5,14 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { LeafImageUploadModule } from '../../../files';
 import { LeafSessionModule } from '../../../../services';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
     /* Core deps */
     CommonModule,
     ReactiveFormsModule,
+    TranslateModule,
     /* Material deps */
     MatButtonModule,
     /* Leaf deps */

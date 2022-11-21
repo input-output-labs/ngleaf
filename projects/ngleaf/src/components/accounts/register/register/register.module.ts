@@ -7,6 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 
 import { LeafSessionModule } from '../../../../services/core/session/index';
 import { RegisterComponent } from './register.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [RegisterComponent],
@@ -14,6 +15,7 @@ import { RegisterComponent } from './register.component';
     /* Code deps */
     CommonModule,
     ReactiveFormsModule,
+    TranslateModule,
     /* Material deps */
     MatButtonModule,
     MatFormFieldModule,

@@ -6,15 +6,19 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   imports: [
+    /* Core deps */
     CommonModule,
-    TranslateModule,
     ReactiveFormsModule,
     StoreModule,
+    TranslateModule,
+    /* Material deps */
+    MatButtonModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
   ],
   declarations: [LeafPasswordForgottenComponent],
   exports: [LeafPasswordForgottenComponent]

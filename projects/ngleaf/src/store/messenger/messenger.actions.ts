@@ -17,3 +17,4 @@ export const setRoomCreationFailure = createAction(
   '[Messenger store] Set roomCreation failure',
   props<{error: any}>()
 );
+

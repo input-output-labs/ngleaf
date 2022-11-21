@@ -6,12 +6,14 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { LeafSessionModule } from '../../../../services/core/session/leaf-session.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
     /* Core deps*/
     CommonModule,
     ReactiveFormsModule,
+    TranslateModule,
     /* Material deps*/
     MatFormFieldModule,
     MatInputModule,

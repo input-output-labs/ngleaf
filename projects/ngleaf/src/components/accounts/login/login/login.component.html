@@ -1,12 +1,12 @@
 <form class="form" [formGroup]="loginForm" (keypressed.enter)="login()">
   <mat-form-field color="primary" appearance="outline">
-    <mat-label>Login</mat-label>
+    <mat-label>{{ 'leaf.login.loginLabel' | translate }}</mat-label>
     <input matInput id="loginEmail" value="" formControlName="email">
   </mat-form-field>
 
   <mat-form-field color="primary" appearance="outline">
-    <mat-label>Password</mat-label>
+    <mat-label>{{ 'leaf.login.passwordLabel' | translate }}</mat-label>
     <input matInput id="loginPassword" type="password" value="" formControlName="password">
   </mat-form-field>
-  <button class="login-button" mat-stroked-button (click)="login()" color="primary">LOG IN</button>
+  <button class="login-button" mat-stroked-button (click)="login()" color="primary">{{ 'leaf.login.submitLabel' | translate }}</button>
 </form>

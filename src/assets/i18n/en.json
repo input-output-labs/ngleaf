@@ -5,20 +5,15 @@
         }
     },
     "leaf": {
-      "updatePassword": {
-        "currentPasswordPlaceholder": "Mot de passe actuel",
-        "newPassword": "Nouveau mot de passe",
-        "newPasswordVerify": "Vérification mot de passe",
-        "buttonLabel": "Changer de mot de passe",
-        "requiredError": "Vous devez remplir ce champ",
-        "differentPasswordError": "Les deux mots de passe de correspondent pas"
-      },
       "login": {
         "vanilla": {
           "buttonLabel": "Login",
           "loginPlaceholder": "Enter email or login",
           "passwordPlaceholder": "Enter password"
-        }
+        },
+        "loginLabel": "Login",
+        "passwordLabel": "Password",
+        "submitLabel": "Log in"
       },
       "register": {
         "vanilla": {
@@ -26,7 +21,11 @@
           "loginPlaceholder": "Enter email or login",
           "passwordPlaceholder": "Enter password",
           "passwordValidationPlaceholder": "Confirm password"
-        }
+        },
+        "submitLabel": "Register",
+        "loginLabel": "Email or login",
+        "passwordLabel": "Password",
+        "passwordValidationLabel": "Repeat Password"
       },
       "password-forgotten": {
         "vanilla": {
@@ -38,7 +37,17 @@
           "passwordPlaceholder": "Enter new password",
           "passwordValidationPlaceholder": "Confirm new password",
           "resendLinkLabel": "Resend email"
-        }
+        },
+        "passwordChangeKeyDisclaimerLabel": "In order to change your password, you will need a password change key. Enter your account email address and then click on the button bellow to receive it in your mailbox.",
+        "emailPlaceholder": "Enter email",
+        "sendPasswordChangeKeyButtonLabel": "Send password change key",
+        "changePasswordButtonLabel": "Change password",
+        "passwordChangeKeyPlaceholder": "Enter password change key",
+        "passwordLabel": "New password",
+        "passwordPlaceholder": "Enter new password",
+        "passwordValidationLabel": "New password validation",
+        "passwordValidationPlaceholder": "Confirm new password",
+        "resendLinkLabel": "Resend email"
       },
       "image-upload": {
         "drop-zone-label": "Drag and drop a file or click here"
@@ -50,6 +59,33 @@
         "success": "Vous êtes désinscrit !",
         "failure": "Erreur lors de la désinscription, veuillez réessayer plus tard.",
         "button-label": "Se désinscrire"
+      },
+      "pseudo-update": {
+        "pseudo-input-placeholder": "Pseudo",
+        "submit-button-label": "Changer le pseudo"
+      },
+      "avatar-update": {
+        "pseudo-input-placeholder": "Pseudo",
+        "submit-button-label": "Enregistrer cet avatar"
+      },
+      "updatePassword": {
+        "currentPasswordPlaceholder": "Mot de passe actuel",
+        "newPassword": "Nouveau mot de passe",
+        "newPasswordVerify": "Vérification mot de passe",
+        "buttonLabel": "Changer de mot de passe",
+        "requiredError": "Vous devez remplir ce champ",
+        "differentPasswordError": "Les deux mots de passe de correspondent pas"
+      },
+      "password-update": {
+        "currentPasswordPlaceholder": "Current password",
+        "newPasswordPlaceholder": "New password",
+        "newPasswordValidationPlaceholder": "New password validation",
+        "requiredError": "This field is mandatory",
+        "submitLabel": "Change password",
+        "differentPasswordError": "Both password and validation must be identical"
+      },
+      "login-page": {
+        "title": "Login"
       }
     }
 }

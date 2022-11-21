@@ -7,6 +7,7 @@ import { LeafSessionModule } from '../../../../services/core/session/index';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [LoginComponent],
@@ -14,6 +15,7 @@ import { MatButtonModule } from '@angular/material/button';
     /* Code deps */
     CommonModule,
     ReactiveFormsModule,
+    TranslateModule,
     /* Material deps */
     MatButtonModule,
     MatFormFieldModule,

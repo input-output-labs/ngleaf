@@ -1,12 +1,11 @@
 <form class="form" [formGroup]="changeNameForm">
-  <h3 class="">PSEUDO</h3>
   <div class="row">
     <div class="input">
       <mat-form-field>
         <input
           matInput
           id="username"
-          placeholder="Pseudo"
+          [placeholder]="'leaf.pseudo-update.pseudo-input-placeholder' | translate"
           value=""
           formControlName="username"
         />
@@ -15,5 +14,5 @@
   </div>
 </form>
 <button mat-button (click)="changeName()" [disabled]="changeNameForm.invalid">
-  CHANGER MON NOM
+  {{ 'leaf.pseudo-update.submit-button-label' | translate}}
 </button>

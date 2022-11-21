@@ -12,14 +12,17 @@ import { LeafSessionModule } from '../../../../services/index';
 
 @NgModule({
   imports: [
+    /* Code deps */
     CommonModule,
     ReactiveFormsModule,
-    LeafSessionModule,
+    TranslateModule,
+    /* Material deps */
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    TranslateModule,
-    MatIconModule
+    MatIconModule,
+    /* Leaf deps */
+    LeafSessionModule,
   ],
   declarations: [PasswordUpdateComponent],
   exports: [PasswordUpdateComponent]
