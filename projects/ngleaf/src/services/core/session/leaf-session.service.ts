@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { filter, map, take } from 'rxjs';
 
-import { LeafAuthHttpClient, AccountApiClient } from '../../../api/clients/index';
+import { LeafAuthHttpClient, AccountApiClient, SponsoringApiClientService } from '../../../api/clients/index';
 
 import { LeafConfig } from '../../../models/index';
 import { LeafNotificationService } from '../notification/leaf-notification.service';
@@ -11,6 +11,7 @@ import { LeafConfigServiceToken } from '../../leaf-config.module';
 import { resetCurrentAccount, resetSessionToken, selectCurrentAccount, selectSessionToken, selectUpdatePassword, setCurrentAccountCall, setMailingsUnsubscriptionCall, setResetPasswordCall, setSendResetPasswordKeyCall, setSessionToken, setSessionTokenCall, setUpdatePasswordCall } from '../../../store/core/session/index';
 import { AsyncType } from '../../../store/common/index';
 import { JWTModel, LeafAccountModel } from '../../../api/models/index';
+import { selectSponsorCode, setSetSponsorCall, setSponsorCode } from '../../../store/sponsoring/index';
 
 @Injectable()
 export class LeafSessionService {
@@ -18,11 +19,12 @@ export class LeafSessionService {
   constructor(
     @Inject(LeafConfigServiceToken) public config: LeafConfig,
     private accountApiClient: AccountApiClient,
+    private sponsoringApiClientService: SponsoringApiClientService,
     private store: Store,
     public authHttp: LeafAuthHttpClient,
     public notificationService: LeafNotificationService,
     private router: Router,
-    private activeRoute: ActivatedRoute
+    private activeRoute: ActivatedRoute,
   ) {}
 
   public init() {
@@ -87,6 +89,22 @@ export class LeafSessionService {
 
   }
 
+  private addSponsorIfPossible() {
+    if (this.config.featureActivation.sponsoring) {
+      this.store.pipe(
+        select(selectSponsorCode),
+        take(1)
+      ).subscribe((sponsorCode?: string) => {
+        if (sponsorCode) {
+          this.store.dispatch(setSetSponsorCall({
+            call: this.sponsoringApiClientService.setSponsor(sponsorCode)
+          }));
+          this.store.dispatch(setSponsorCode({sponsorCode: undefined}));
+        }
+      });
+    }
+  }
+
   public register(email, password) {
     const account = {
       email,
@@ -102,6 +120,7 @@ export class LeafSessionService {
       take(1)
     ).subscribe(() => {
       const returnTo = this.activeRoute.snapshot.queryParams.return || this.config.navigation.registerSuccessRedirect || '/';
+      this.addSponsorIfPossible();
       this.router.navigate([returnTo]);
     });
 

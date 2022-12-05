@@ -6,3 +6,4 @@ export * from './emailing-api-client/index';
 export * from './messenger-api-client/index';
 export * from './session-api-client/index';
 export * from './statistics-api-client/index';
+export * from './sponsoring-api-client/index';

@@ -47,10 +47,10 @@
   <button mat-button (click)="addPrivateToken()" [disabled]="privateTokenCreationForm.invalid">CREATE ACCESS TOKEN</button>
 </div>
 
-<mat-divider *ngIf="(currentAccount$ | async)?.privateTokens != null && (currentAccount$ | async)?.privateTokens.length > 0"></mat-divider>
+<mat-divider *ngIf="(currentAccount$ | async)?.authentication.privateTokens != null && (currentAccount$ | async)?.authentication.privateTokens.length > 0"></mat-divider>
 
-<div class="container-spacer" *ngIf="(currentAccount$ | async)?.privateTokens != null && (currentAccount$ | async)?.privateTokens.length > 0">
-    <table mat-table [dataSource]="(currentAccount$ | async)?.privateTokens">
+<div class="container-spacer" *ngIf="(currentAccount$ | async)?.authentication.privateTokens != null && (currentAccount$ | async)?.authentication.privateTokens.length > 0">
+    <table mat-table [dataSource]="(currentAccount$ | async)?.authentication.privateTokens">
 
         <!--- Note that these columns can be defined in any order.
               The actual rendered columns are set as a property on the row definition" -->

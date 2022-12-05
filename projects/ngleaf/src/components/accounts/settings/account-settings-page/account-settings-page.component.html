@@ -3,10 +3,10 @@
       <div id="account-settings-left-column">
           <div class="account-trailer-head">
               <div data-v-31254916="" class="v-avatar grey lighten-4">
-                <img data-v-31254916="" *ngIf="(currentAccount$ | async)?.avatarUrl" [src]="(currentAccount$ | async)?.avatarUrl" alt="avatar" class="avatar">
-                <img data-v-31254916="" *ngIf="!(currentAccount$ | async)?.avatarUrl" src="https://png.pngtree.com/svg/20161013/dpi_user_default_avatar_116868.png" alt="avatar" class="avatar">
+                <img data-v-31254916="" *ngIf="(currentAccount$ | async)?.profile.avatarUrl" [src]="(currentAccount$ | async)?.profile.avatarUrl" alt="avatar" class="avatar">
+                <img data-v-31254916="" *ngIf="!(currentAccount$ | async)?.profile.avatarUrl" src="https://png.pngtree.com/svg/20161013/dpi_user_default_avatar_116868.png" alt="avatar" class="avatar">
               </div>
-              <div class="login">{{(currentAccount$ | async)?.username}}</div>
+              <div class="login">{{(currentAccount$ | async)?.profile.username}}</div>
           </div>
           <div class="account-settings-menu">
               <ul class="js-nav-links">

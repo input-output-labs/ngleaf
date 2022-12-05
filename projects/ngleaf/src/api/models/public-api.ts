@@ -10,3 +10,4 @@ export * from './messenger.model';
 export * from './password-changing.model';
 export * from './password-resetting.model';
 export * from './registration.model';
+export * from './sponsoring.model';

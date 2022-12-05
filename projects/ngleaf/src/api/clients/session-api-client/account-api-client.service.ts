@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { LeafAuthHttpClient } from '../auth-http-client/leaf-auth-http-client.service';
-import { JWTModel, LeafAccountModel, LeafUserModel, LoginModel, PasswordChangingModel, PasswordResettingModel, RegistrationModel } from '../../models/index';
+import { JWTModel, LeafAccountModel, LoginModel, PasswordChangingModel, PasswordResettingModel, RegistrationModel } from '../../models/index';
 
 import { LeafApiClientConfig, LeafApiClientConfigServiceToken } from '../api-client-config.module';
 import { HttpParams } from '@angular/common/http';
@@ -46,9 +46,9 @@ export class AccountApiClient {
     return this.authHttp.post<LeafAccountModel>(this.config.serverUrl + '/account/me/avatar', newAvatarUrl);
   }
 
-  public autocomplete(input: string): Observable<LeafUserModel[]> {
+  public autocomplete(input: string): Observable<LeafAccountModel[]> {
       const params = new HttpParams().set('input', input);
-      return this.authHttp.get<LeafUserModel[]>(
+      return this.authHttp.get<LeafAccountModel[]>(
           this.config.serverUrl + '/account/autocomplete',
           { params }
       );

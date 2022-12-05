@@ -1,0 +1,30 @@
+<div class="sponsoring-my-sponsor">
+  <ng-container *ngIf="(sponsor$ | async) || (sponsorId$ | async) as sponsor; else noSponsor">
+    {{ 'leaf.sponsoring-my-sponsor.my-sponsor-label' | translate }} {{ sponsor }}
+  </ng-container>
+</div>
+
+<ng-template #noSponsor>
+  <div class="no-sponsor-disclaimer">
+    <mat-icon>info</mat-icon>
+    <span>{{ 'leaf.sponsoring-my-sponsor.sponsor-disclaimer-label' | translate }}</span>
+  </div>
+  <mat-form-field appearance="fill">
+    <mat-label>{{ 'leaf.sponsoring-my-sponsor.sponsor-selection-field-label' | translate }}</mat-label>
+    <input matInput required [formControl]="mySponsorFormControl">
+    <button
+      [matTooltip]="'leaf.sponsoring-my-sponsor.sponsor-selection-submission-tooltip-label' | translate"
+      mat-icon-button
+      [disabled]="!mySponsorFormControl.valid"
+      (click)="chooseSponsor()"
+      matSuffix>
+      <mat-icon matSuffix>send</mat-icon>
+    </button>
+    <mat-error *ngIf="mySponsorFormControl.hasError('serverError')">
+      {{ 'leaf.sponsoring-my-sponsor.server-error' | translate }}
+    </mat-error>
+    <mat-error *ngIf="mySponsorFormControl.hasError('required')">
+      {{ 'leaf.sponsoring-my-sponsor.required-field-error' | translate }}
+    </mat-error>
+  </mat-form-field>
+</ng-template>

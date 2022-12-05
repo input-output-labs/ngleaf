@@ -1,0 +1,12 @@
+.sponsoring-my-sponsor {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  .no-sponsor-disclaimer {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}

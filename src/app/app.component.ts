@@ -28,6 +28,10 @@ export class AppComponent {
     {
       label: 'Messenger demo',
       link: 'messenger'
+    },
+    {
+      label: 'Sponsoring demo',
+      link: 'sponsoring'
     }
   ];
 

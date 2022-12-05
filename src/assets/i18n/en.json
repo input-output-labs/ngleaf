@@ -86,6 +86,22 @@
       },
       "login-page": {
         "title": "Login"
+      },
+      "sponsoring-link": {
+        "affiliation-code": "Affiliation code",
+        "affiliation-link": "Affiliation link",
+        "copy-to-clipboard-tooltip-label": "Copy to clipboard"
+      },
+      "sponsoring-my-sponsor": {
+        "my-sponsor-label": "My sponsor: ",
+        "no-sponsor-disclaimer-label": "Vous do not have any sponsor yet. Choose one by filling the field bellow.",
+        "sponsor-selection-field-label": "Code de mon sponsor",
+        "sponsor-selection-submission-tooltip-label": "Choisir ce parrain",
+        "server-error": "Un erreur s'est produite. Si elle persiste, veuillez contacter le support.",
+        "required-field-error": "Un code d'affiliation est nécessaire"
+      },
+      "sponsoring-my-affiliates": {
+        "no-affiliates-disclaimer-label": "You do not have any affiliates yet."
       }
     }
 }

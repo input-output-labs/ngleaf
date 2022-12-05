@@ -21,7 +21,7 @@
         (matChipInputTokenEnd)="add($event)">
     </mat-chip-list>
     <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayProperty" (optionSelected)="selected($event)">
-      <mat-option *ngFor="let user of proposedUsers | async" [value]="user">
+      <mat-option *ngFor="let user of proposedUsers$ | async" [value]="user">
         {{user.username}}
       </mat-option>
     </mat-autocomplete>

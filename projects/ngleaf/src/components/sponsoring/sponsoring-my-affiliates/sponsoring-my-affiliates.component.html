@@ -1,0 +1,8 @@
+<mat-chip-list>
+  <ng-container *ngIf="((affiliates$ | async) || (affiliatedIds$ | async))?.length ; else noAffiliates">
+    <mat-chip *ngFor="let affiliatedId of ((affiliates$ | async) || (affiliatedIds$ | async))">{{affiliatedId}}</mat-chip>
+  </ng-container>
+  <ng-template #noAffiliates>
+    {{ 'leaf.sponsoring-my-affiliates.no-affiliates-disclaimer-label' | translate }}
+  </ng-template>
+</mat-chip-list>

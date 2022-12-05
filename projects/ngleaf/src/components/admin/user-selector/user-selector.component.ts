@@ -6,7 +6,7 @@ import { MatChipInputEvent } from '@angular/material/chips';
 import { Observable, of } from 'rxjs';
 import { startWith, switchMap } from 'rxjs/operators';
 
-import { LeafUserModel, AccountApiClient } from '../../../api/index';
+import { LeafAccountModel, AccountApiClient } from '../../../api/index';
 
 @Component({
   selector: 'leaf-user-selector',
@@ -24,7 +24,7 @@ export class UserSelectorComponent implements OnInit, ControlValueAccessor {
   separatorKeysCodes: number[] = [ENTER, COMMA];
 
   public inputControler = new UntypedFormControl();
-  public proposedUsers: Observable<LeafUserModel[]>;
+  public proposedUsers$: Observable<LeafAccountModel[]>;
   public disabled: boolean;
 
   users: string[] = [];
@@ -40,7 +40,7 @@ export class UserSelectorComponent implements OnInit, ControlValueAccessor {
   constructor(private accountApi: AccountApiClient) {}
 
   ngOnInit() {
-    this.proposedUsers = this.inputControler.valueChanges.pipe(
+    this.proposedUsers$ = this.inputControler.valueChanges.pipe(
       startWith(''),
       switchMap(
         (inputValue) => inputValue && inputValue.length >= 2 ? this.accountApi.autocomplete(inputValue) : of([])

@@ -30,8 +30,10 @@ import {
   LeafHeaderAccountModule,
   AdminSettingsPageModule,
   messengerReducer,
+  sponsoringReducer,
   MessengerEffects,
-  EmailingEffects
+  EmailingEffects,
+  SponsoringEffects
 } from '@input-output-labs/ngleaf';
 
 import { TemplatesComponent } from './templates/templates.component';
@@ -104,11 +106,12 @@ export class LocaleDateAdapter extends NativeDateAdapter {
     // Stores
     LeafConfigServiceModule.forRoot(leafConfig),
     LeafApiClientConfigServiceModule.forRoot(leafApiClientConfig),
-    EffectsModule.forRoot([SessionEffects, StatisticsEffects, MessengerEffects, EmailingEffects]),
+    EffectsModule.forRoot([SessionEffects, StatisticsEffects, MessengerEffects, EmailingEffects, SponsoringEffects]),
     StoreModule.forRoot(
       {
         ...leafCoreStore,
-        messenger: messengerReducer
+        messenger: messengerReducer,
+        sponsoring: sponsoringReducer
       }
     ),
     StoreDevtoolsModule.instrument({
@@ -135,7 +138,9 @@ export class LocaleDateAdapter extends NativeDateAdapter {
   providers: [{
     provide: DateAdapter,
     useClass: LocaleDateAdapter
-   }],
+   },
+   {provide: Window, useValue: window}
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {

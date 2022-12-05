@@ -1,0 +1,24 @@
+<div class="sponsoring-link">
+  <mat-form-field appearance="fill" *ngIf="(sponsorCode$ | async) as sponsorCode">
+    <mat-label>{{ 'leaf.sponsoring-link.affiliation-code' | translate }}</mat-label>
+    <input matInput readonly required [value]="sponsorCode">
+    <button
+      [matTooltip]="'leaf.sponsoring-link.copy-to-clipboard-tooltip-label' | translate"
+      mat-icon-button
+      [cdkCopyToClipboard]="sponsorCode"
+      matSuffix>
+      <mat-icon matSuffix>content_copy</mat-icon>
+    </button>
+  </mat-form-field>
+  <mat-form-field appearance="fill" *ngIf="(sponsorLink$ | async) as sponsorLink">
+    <mat-label>{{ 'leaf.sponsoring-link.affiliation-link' | translate }}</mat-label>
+    <input matInput readonly required [value]="sponsorLink">
+    <button
+      [matTooltip]="'leaf.sponsoring-link.copy-to-clipboard-tooltip-label' | translate"
+      mat-icon-button
+      [cdkCopyToClipboard]="sponsorLink"
+      matSuffix>
+      <mat-icon matSuffix>content_copy</mat-icon>
+    </button>
+  </mat-form-field>
+</div>

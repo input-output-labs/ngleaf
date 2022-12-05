@@ -1,3 +1,5 @@
+import { ResourceMetadata } from "./resource-metadata.model";
+
 export interface LeafPrivateTokenModel {
   name?: string;
   created?: Date;
@@ -5,16 +7,33 @@ export interface LeafPrivateTokenModel {
   accountId?: string;
 }
 
-export interface LeafUserModel {
-  id?: string;
-  username?: string;
-  avatarUrl?: string;
+export interface LeafAccountAuthentication {
+  password?: string;
+  privateTokens?: LeafPrivateTokenModel[];
 }
 
-export interface LeafAccountModel extends LeafUserModel {
+export interface LeafAddress {
+  address?: string;
+  postalCode?: string;
+  city?: string;
+  country?: string;
+}
+
+export interface LeafAccountProfile {
+  username?: string;
+  avatarUrl?: string;
+  firstname?: string;
+  lastname?: string;
+  phoneNumber?: string;
+  address?: string;
+}
+
+export interface LeafAccountModel {
+  id?: string;
   email: string;
-  password?: string;
+  authentication: LeafAccountAuthentication;
+  profile: LeafAccountProfile;
   admin?: boolean;
-  privateTokens?: LeafPrivateTokenModel[];
   modules?: {[moduleName: string]: any};
+  metadata?: ResourceMetadata;
 }
