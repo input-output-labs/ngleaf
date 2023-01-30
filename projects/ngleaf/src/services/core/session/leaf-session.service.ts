@@ -90,7 +90,7 @@ export class LeafSessionService {
   }
 
   private addSponsorIfPossible() {
-    if (this.config.featureActivation.sponsoring) {
+    if (this.config.featureActivation?.sponsoring) {
       this.store.pipe(
         select(selectSponsorCode),
         take(1)

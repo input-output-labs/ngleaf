@@ -10,6 +10,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { AdminSettingsUsersComponent } from './admin-settings-users.component';
 import { LeafAdminModule } from '../../../../services/index';
 import { LeafConfirmDialogModule } from '../../../common/confirm-dialog/confirm-dialog.module';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   declarations: [AdminSettingsUsersComponent],
@@ -23,6 +25,8 @@ import { LeafConfirmDialogModule } from '../../../common/confirm-dialog/confirm-
     MatIconModule,
     MatButtonModule,
     MatDialogModule,
+    MatMenuModule,
+    MatListModule,
     /* Leaf deps*/
     LeafAdminModule,
     LeafConfirmDialogModule

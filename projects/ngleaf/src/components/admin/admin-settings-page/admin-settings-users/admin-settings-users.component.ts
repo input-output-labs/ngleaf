@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, TemplateRef } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import { LeafAdminService } from '../../../../services/core/admin/leaf-admin.service';
@@ -14,8 +14,13 @@ import { LeafConfirmDialogComponent, ConfirmDialogModel } from '../../../common/
   styleUrls: ['./admin-settings-users.component.scss']
 })
 export class AdminSettingsUsersComponent implements OnInit {
-  columnsToDisplay = ['id', 'email', 'username', 'registrationDate', 'isAdmin', 'actions'];
   public users$: Observable<LeafAccountModel[]>;
+
+  @Input()
+  extraDataTemplate?: TemplateRef<any>;
+
+  @Input()
+  extraActionTemplate?: TemplateRef<any>;
 
   constructor(
     private store: Store,
@@ -24,6 +29,14 @@ export class AdminSettingsUsersComponent implements OnInit {
   ) {
       this.users$ = this.store.select(selectUsers);
     }
+
+  getColumnsToDisplay() {
+    return [
+      ...['id', 'email', 'profile', 'registrationDate'],
+      ...!!this.extraDataTemplate ? ['extraData']: [],
+      ...['isAdmin', 'actions']
+    ];
+  }
 
   ngOnInit() {
     this.adminService.fetchUsers();
