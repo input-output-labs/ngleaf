@@ -16,7 +16,7 @@ import { SponsoringApiClientService } from '../../../api/clients/index';
 })
 export class SponsoringMySponsorComponent {
   public sponsorId$: Observable<string>;
-  public sponsor$: Observable<string>;
+  public sponsor$: Observable<string | undefined>;
   public mySponsorFormControl: FormControl;
 
   constructor(private store: Store, private sponsoringApiClientService: SponsoringApiClientService, fb: FormBuilder) {
@@ -38,6 +38,10 @@ export class SponsoringMySponsorComponent {
       map(asyncItem => asyncItem.data),
       map(sponsoringProfiles => sponsoringProfiles.sponsor),
       map(sponsorProfile => {
+        if (!sponsorProfile) {
+          return undefined;
+        }
+
         let description = undefined;
         if (sponsorProfile.firstname || sponsorProfile.lastname) {
           const parts = [];
