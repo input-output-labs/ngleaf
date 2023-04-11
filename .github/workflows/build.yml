@@ -12,14 +12,12 @@ jobs:
         node-version: [12.x]
 
     steps:
-      - uses: actions/checkout@v2
-      # Setup .npmrc file to publish to GitHub Packages
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v3
+      # Setup .npmrc file to publish to GitHub Package
+      - uses: actions/setup-node@v3
         with:
-          always-auth: true
-          node-version: '12.x'
-          registry-url: 'https://nexus.io-labs.fr/repository/npm-public/'
-          # Defaults to the user or organization that owns the workflow file
+          node-version: '19.x'
+          registry-url: 'https://npm.pkg.github.com'
           scope: '@input-output-labs'
       - run: npm install
       - run: npm run build:lib
@@ -30,4 +28,4 @@ jobs:
           cd dist/ngleaf
           npm publish --access public
         env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
