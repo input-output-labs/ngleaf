@@ -6,7 +6,7 @@
     "@angular/core": "^14.0.4"
   },
   "publishConfig": {
-    "registry": "https://nexus.io-labs.fr/repository/npm-public/"
+    "registry": "https://npm.pkg.github.com"
   },
   "dependencies": {
     "tslib": "^2.3.0"
