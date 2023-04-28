@@ -3,7 +3,7 @@ import { select, Store } from '@ngrx/store';
 import { filter, map } from 'rxjs';
 
 import { selectRoomCreation, AsyncType, LeafRoomModel } from '@input-output-labs/ngleaf';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 
 @Component({
   selector: 'app-messenger',
