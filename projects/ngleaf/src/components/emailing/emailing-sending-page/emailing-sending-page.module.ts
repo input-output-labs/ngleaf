@@ -1,15 +1,15 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { ReactiveFormsModule } from "@angular/forms";
-import { MatProgressBarModule } from "@angular/material/progress-bar";
+import { MatLegacyProgressBarModule as MatProgressBarModule } from "@angular/material/legacy-progress-bar";
 import { MatStepperModule } from "@angular/material/stepper";
-import {MatSelectModule} from '@angular/material/select';
-import {MatListModule} from '@angular/material/list';
+import {MatLegacySelectModule as MatSelectModule} from '@angular/material/legacy-select';
+import {MatLegacyListModule as MatListModule} from '@angular/material/legacy-list';
 import {MatExpansionModule} from '@angular/material/expansion';
-import { MatButtonModule } from "@angular/material/button";
+import { MatLegacyButtonModule as MatButtonModule } from "@angular/material/legacy-button";
 import { MatIconModule } from "@angular/material/icon";
-import { MatFormFieldModule } from "@angular/material/form-field";
-import { MatInputModule } from "@angular/material/input";
+import { MatLegacyFormFieldModule as MatFormFieldModule } from "@angular/material/legacy-form-field";
+import { MatLegacyInputModule as MatInputModule } from "@angular/material/legacy-input";
 
 import { EmailingApiClientModule } from "../../../api/clients/emailing-api-client/emailing-api-client.module";
 import { EmailingSendingPageComponent } from "./emailing-sending-page.component";

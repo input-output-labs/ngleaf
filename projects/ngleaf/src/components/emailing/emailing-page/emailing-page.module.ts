@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import {MatTabsModule} from '@angular/material/tabs';
+import {MatLegacyTabsModule as MatTabsModule} from '@angular/material/legacy-tabs';
 
 import { EmailingPageComponent } from './emailing-page.component';
 import { EmailingCategoriesPageModule } from '../emailing-categories-page';
