@@ -39,7 +39,6 @@ export interface SliderConfig {
   min?: number;
   max?: number;
   step?: number;
-  invert?: boolean;
   thumbLabel?: boolean;
 }
 
