@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { ThemePalette } from '@angular/material/core';
-import { MatLegacyFormFieldAppearance as MatFormFieldAppearance } from '@angular/material/legacy-form-field';
+import { MatFormFieldAppearance } from '@angular/material/form-field';
 
 export interface GenericFormActionConfig {
   id: string;
