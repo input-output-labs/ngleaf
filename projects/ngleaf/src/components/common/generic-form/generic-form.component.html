@@ -77,11 +77,10 @@
                 [min]="input.min || 0"
                 [max]="input.max || 10"
                 [step]="input.step || 1"
-                [invert]="!!input.invert"
                 [thumbLabel]="!!input.thumbLabel"
                 [color]="input.color"
                 [formControlName]="input.id"
-              ></mat-slider>
+              ><input matSliderThumb /></mat-slider>
             </ng-container>
 
             <ng-container *ngSwitchCase="'user-selector'">

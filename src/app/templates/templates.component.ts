@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { LeafWebImagesSeekerDialogComponent, GenericFormConfig } from '@input-output-labs/ngleaf';
 
 @Component({

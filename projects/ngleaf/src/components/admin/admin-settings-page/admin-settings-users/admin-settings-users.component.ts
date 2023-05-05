@@ -5,7 +5,7 @@ import { LeafAdminService } from '../../../../services/core/admin/leaf-admin.ser
 import { LeafAccountModel } from '../../../../api/models/index';
 import { selectUsers } from '../../../../store/core/administration/administration.selectors';
 import { Observable } from 'rxjs';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { LeafConfirmDialogComponent, ConfirmDialogModel } from '../../../common/confirm-dialog/confirm-dialog.component';
 
 @Component({

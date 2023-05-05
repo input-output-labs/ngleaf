@@ -1,15 +1,15 @@
 <form>
   <mat-form-field class="full-width">
-    <mat-chip-list #chipList aria-label="User selection">
+    <mat-chip-grid #chipList aria-label="User selection">
       <ng-container *ngIf="multiple">
-        <mat-chip
+        <mat-chip-row
           *ngFor="let user of users"
           (removed)="remove(user)">
           {{user.username}}
           <button matChipRemove>
             <mat-icon>cancel</mat-icon>
           </button>
-        </mat-chip>
+        </mat-chip-row>
       </ng-container>
       <input
         #userInput
@@ -19,7 +19,7 @@
         [matChipInputFor]="chipList"
         [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
         (matChipInputTokenEnd)="add($event)">
-    </mat-chip-list>
+    </mat-chip-grid>
     <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayProperty" (optionSelected)="selected($event)">
       <mat-option *ngFor="let user of proposedUsers$ | async" [value]="user">
         {{user.username}}
