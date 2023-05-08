@@ -102,6 +102,17 @@
       },
       "sponsoring-my-affiliates": {
         "no-affiliates-disclaimer-label": "You do not have any affiliates yet."
+      },
+      "notification-item": {
+        "LEAF_ACCOUNT_REGISTRATION": {
+          "icon": "account_circle",
+          "label": "Hi {{payload.profile.username}} !<br/>Welcome in the leaf demo app !",
+          "link": "/settings/general"
+        },
+        "LEAF_TEST_NOTIF": {
+          "icon": "science",
+          "label": "New test notif"
+        }
       }
     }
 }

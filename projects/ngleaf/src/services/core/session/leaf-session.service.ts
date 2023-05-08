@@ -6,12 +6,12 @@ import { filter, map, take } from 'rxjs';
 import { LeafAuthHttpClient, AccountApiClient, SponsoringApiClientService } from '../../../api/clients/index';
 
 import { LeafConfig } from '../../../models/index';
-import { LeafNotificationService } from '../notification/leaf-notification.service';
 import { LeafConfigServiceToken } from '../../leaf-config.module';
 import { resetCurrentAccount, resetSessionToken, selectCurrentAccount, selectSessionToken, selectUpdatePassword, setCurrentAccountCall, setMailingsUnsubscriptionCall, setResetPasswordCall, setSendResetPasswordKeyCall, setSessionToken, setSessionTokenCall, setUpdatePasswordCall } from '../../../store/core/session/index';
 import { AsyncType } from '../../../store/common/index';
 import { JWTModel, LeafAccountModel } from '../../../api/models/index';
 import { selectSponsorCode, setSetSponsorCall, setSponsorCode } from '../../../store/sponsoring/index';
+import { LeafWebSocketService } from '../websocket';
 
 @Injectable()
 export class LeafSessionService {
@@ -22,9 +22,9 @@ export class LeafSessionService {
     private sponsoringApiClientService: SponsoringApiClientService,
     private store: Store,
     public authHttp: LeafAuthHttpClient,
-    public notificationService: LeafNotificationService,
     private router: Router,
     private activeRoute: ActivatedRoute,
+    private webSocketService: LeafWebSocketService,
   ) {}
 
   public init() {
@@ -75,13 +75,12 @@ export class LeafSessionService {
       this.store.pipe(
         select(selectCurrentAccount),
         filter((currentAccount: AsyncType<LeafAccountModel>) => !currentAccount.status.pending && !!currentAccount.data),
-        map((currentAccount: AsyncType<LeafAccountModel>) => currentAccount.status),
         take(1)
-      ).subscribe((status) => {
-        if(status.success) {
+      ).subscribe((currentAccountAsync) => {
+        if(currentAccountAsync.status.success) {
           resolve();
         }
-        if(status.failure) {
+        if(currentAccountAsync.status.failure) {
           reject();
         }
       });
@@ -123,28 +122,6 @@ export class LeafSessionService {
       this.addSponsorIfPossible();
       this.router.navigate([returnTo]);
     });
-
-    this.store.pipe(
-      select(selectCurrentAccount),
-      filter((currentAccount: AsyncType<LeafAccountModel>) => !currentAccount.status.pending && (!!currentAccount.data || !!currentAccount.error)),
-      map((currentAccount: AsyncType<LeafAccountModel>) => currentAccount.status),
-      take(1)
-    ).subscribe((status) => {
-      if(status.success) {
-        this.notificationService.emit({
-          id: 'registerSuccess',
-          category: 'session',
-          message: 'Registration was successful.'
-        });
-      }
-      if(status.failure) {
-        this.notificationService.emit({
-          id: 'registerFailed',
-          category: 'session',
-          message: 'Register failed.'
-        });
-      }
-    });
   }
 
   public login(email, password) {
@@ -165,28 +142,6 @@ export class LeafSessionService {
       const returnTo = this.activeRoute.snapshot.queryParams.return || this.config.navigation.loginSuccessRedirect || '/';
       this.router.navigate([returnTo]);
     });
-
-    this.store.pipe(
-      select(selectCurrentAccount),
-      filter((currentAccount: AsyncType<LeafAccountModel>) => !currentAccount.status.pending && (!!currentAccount.data || !!currentAccount.error)),
-      map((currentAccount: AsyncType<LeafAccountModel>) => currentAccount.status),
-      take(1)
-    ).subscribe((status) => {
-      if(status.success) {
-        this.notificationService.emit({
-          id: 'loginSuccess',
-          category: 'session',
-          message: 'Login was successful.'
-        });
-      }
-      if(status.failure) {
-        this.notificationService.emit({
-          id: 'loginFailed',
-          category: 'session',
-          message: 'Login failed.'
-        });
-      }
-    });
   }
 
   public logout(): Promise<void> {
@@ -206,19 +161,9 @@ export class LeafSessionService {
         .subscribe(
           () => {
             this.refreshAccount();
-            this.notificationService.emit({
-              id: 'successChangeUsername',
-              category: 'session',
-              message: 'Name changed'
-            });
             resolve();
           },
           () => {
-            this.notificationService.emit({
-              id: 'failureChangeUsername',
-              category: 'session',
-              message: 'Name changed failed'
-            });
             reject();
           }
         );
@@ -236,20 +181,9 @@ export class LeafSessionService {
         .subscribe(
           (jwt) => {
             this.refreshAccount();
-            this.notificationService.emit({
-              id: 'successAddPrivateToken',
-              category: 'session',
-              message: 'Private token added'
-            });
             resolve(jwt.token);
           },
-          () => {
-            this.notificationService.emit({
-              id: 'failureAddPrivateToken',
-              category: 'session',
-              message: 'Private token addition failed'
-            });
-          }
+          () => {}
         );
     });
   }
@@ -262,19 +196,8 @@ export class LeafSessionService {
       .subscribe(
         () => {
           this.refreshAccount();
-          this.notificationService.emit({
-            id: 'successRevokePrivateToken',
-            category: 'session',
-            message: 'private token revoked'
-          });
         },
-        () => {
-          this.notificationService.emit({
-            id: 'failureRevokePrivateToken',
-            category: 'session',
-            message: 'private token revokation failed'
-          });
-        }
+        () => {}
       );
   }
 
@@ -285,19 +208,9 @@ export class LeafSessionService {
         .subscribe(
           () => {
             this.refreshAccount();
-            this.notificationService.emit({
-              id: 'successChangeAvatar',
-              category: 'session',
-              message: 'avatar changed'
-            });
             resolve();
           },
           () => {
-            this.notificationService.emit({
-              id: 'failureChangeAvatar',
-              category: 'session',
-              message: 'avatar changed failed'
-            });
             reject();
           }
         );
@@ -313,28 +226,6 @@ export class LeafSessionService {
     this.store.dispatch(setUpdatePasswordCall({
       call: this.accountApiClient.changePassword(passwordChanging)
     }));
-
-    this.store.pipe(
-      select(selectUpdatePassword),
-      filter((updatePassword: AsyncType<LeafAccountModel>) => !updatePassword.status.pending && !!updatePassword.data),
-      map((updatePassword: AsyncType<LeafAccountModel>) => updatePassword.status),
-      take(1)
-    ).subscribe((status) => {
-      if(status.success) {
-        this.notificationService.emit({
-          id: 'successChangePassword',
-          category: 'session',
-          message: 'password changed'
-        });
-      }
-      if(status.failure) {
-        this.notificationService.emit({
-          id: 'failureChangePassword',
-          category: 'session',
-          message: 'password changed failed'
-        });
-      }
-    });
   }
 
   public sendResetPasswordKey(email) {

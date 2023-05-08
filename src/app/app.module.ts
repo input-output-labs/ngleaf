@@ -11,7 +11,7 @@ import {
   LeafConfig,
   LeafAdminModule,
   LeafConfigServiceModule,
-  LeafNotificationModule,
+  LeafWebSocketModule,
   LeafSessionModule,
   LeafSessionService,
   LeafUploadFileModule,
@@ -32,8 +32,11 @@ import {
   messengerReducer,
   sponsoringReducer,
   MessengerEffects,
+  NotificationsEffects,
   EmailingEffects,
-  SponsoringEffects
+  SponsoringEffects,
+  NotificationApiClientModule,
+  NotificationsWidgetModule
 } from '@input-output-labs/ngleaf';
 
 import { TemplatesComponent } from './templates/templates.component';
@@ -48,6 +51,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { DateAdapter, MatNativeDateModule, NativeDateAdapter } from '@angular/material/core';
 import { Platform } from '@angular/cdk/platform';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { FormsModule } from '@angular/forms';
 
 const leafConfig: LeafConfig = {
   serverUrl: environment.serverUrl,
@@ -89,6 +93,7 @@ export class LocaleDateAdapter extends NativeDateAdapter {
     BrowserAnimationsModule,
     HttpClientModule,
     AppRouteModule,
+    FormsModule,
     /* Translation module */
     TranslateModule.forRoot({
       defaultLanguage: 'en',
@@ -106,7 +111,7 @@ export class LocaleDateAdapter extends NativeDateAdapter {
     // Stores
     LeafConfigServiceModule.forRoot(leafConfig),
     LeafApiClientConfigServiceModule.forRoot(leafApiClientConfig),
-    EffectsModule.forRoot([SessionEffects, StatisticsEffects, MessengerEffects, EmailingEffects, SponsoringEffects]),
+    EffectsModule.forRoot([SessionEffects, StatisticsEffects, NotificationsEffects, MessengerEffects, EmailingEffects, SponsoringEffects]),
     StoreModule.forRoot(
       {
         ...leafCoreStore,
@@ -120,10 +125,11 @@ export class LocaleDateAdapter extends NativeDateAdapter {
     }),
     // Services
     LeafAdminModule,
-    LeafNotificationModule,
+    LeafWebSocketModule,
     LeafSessionModule,
     LeafWebImagesSeekerModule,
     LeafUploadFileModule,
+    NotificationApiClientModule,
     // Directive
     AdaptiveViewModule,
     // Components
@@ -134,6 +140,7 @@ export class LocaleDateAdapter extends NativeDateAdapter {
     LeafNavigationModule,
     LeafHeaderAccountModule,
     AdminSettingsPageModule,
+    NotificationsWidgetModule,
   ],
   providers: [{
     provide: DateAdapter,

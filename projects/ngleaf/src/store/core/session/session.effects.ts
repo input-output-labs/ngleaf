@@ -4,7 +4,6 @@ import { Observable, of } from 'rxjs';
 import { map, switchMap, catchError } from 'rxjs/operators';
 
 import { JWTModel, LeafAccountModel } from '../../../api/models/index';
-import { AccountApiClient } from '../../../api/clients/index';
 import { setCurrentAccountCall, setCurrentAccountFailure, setCurrentAccountSuccess, setMailingsUnsubscriptionCall, setMailingsUnsubscriptionFailure, setMailingsUnsubscriptionSuccess, setResetPasswordCall, setResetPasswordFailure, setResetPasswordSuccess, setSendResetPasswordKeyCall, setSendResetPasswordKeyFailure, setSendResetPasswordKeySuccess, setSessionTokenCall, setSessionTokenFailure, setSessionTokenSuccess, setUpdatePasswordCall, setUpdatePasswordFailure, setUpdatePasswordSuccess } from './session.actions';
 
 @Injectable()
@@ -71,7 +70,6 @@ export class SessionEffects {
   );
 
   constructor(
-    private actions$: Actions,
-    private accountApiClient: AccountApiClient
+    private actions$: Actions
   ) {}
 }

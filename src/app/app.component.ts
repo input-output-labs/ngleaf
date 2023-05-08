@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LeafWebSocketService } from '@input-output-labs/ngleaf';
 
 @Component({
   selector: 'app-root',
@@ -35,6 +36,6 @@ export class AppComponent {
     }
   ];
 
-  constructor() {}
+  constructor(private webSocketService: LeafWebSocketService) {}
 }
 

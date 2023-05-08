@@ -37,6 +37,7 @@ export class SponsoringMySponsorComponent {
       filter(asyncItem => !asyncItem.status.pending),
       map(asyncItem => asyncItem.data),
       map(sponsoringProfiles => sponsoringProfiles.sponsor),
+      filter(sponsorProfile => !!sponsorProfile),
       map(sponsorProfile => {
         if (!sponsorProfile) {
           return undefined;

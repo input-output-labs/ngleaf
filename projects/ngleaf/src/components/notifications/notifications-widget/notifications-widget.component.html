@@ -1,0 +1,26 @@
+<div class="notifications-widget">
+  <button
+    mat-icon-button
+    [color]="
+      (notificationIcon$ | async) === 'notifications_active'
+        ? 'warn'
+        : undefined
+    "
+    [matMenuTriggerFor]="notificationMenu"
+    (click)="onMenuOpened()"
+  >
+    <mat-icon
+      [matBadge]="unseenNotificationsCount$ | async"
+      matBadgePosition="after"
+      matBadgeColor="warn"
+      matBadgeSize="small"
+      [matBadgeHidden]="!(unseenNotificationsCount$ | async)"
+      >{{ notificationIcon$ | async }}</mat-icon
+    >
+  </button>
+  <mat-menu #notificationMenu="matMenu" class="notification-menu">
+    <button mat-menu-item *ngFor="let notification of (notifications$ | async)" (click)="onNotificationClicked(notification)">
+      <leaf-notification-item [notification]="notification"></leaf-notification-item>
+    </button>
+  </mat-menu>
+</div>

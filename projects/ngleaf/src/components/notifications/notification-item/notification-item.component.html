@@ -1,0 +1,4 @@
+<div class="notification-item">
+  <mat-icon>{{ 'leaf.notification-item.' + notification.code + '.icon' | translate }}</mat-icon>
+  <span [innerHTML]="'leaf.notification-item.' + notification.code + '.label' | translate : {payload: notification.payload}"></span>
+</div>

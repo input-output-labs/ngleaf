@@ -32,17 +32,19 @@ export class SponsoringMyAffiliatesComponent {
       filter(affiliatesProfiles => !!affiliatesProfiles),
       map(affiliatesProfiles => affiliatesProfiles.map(affiliateProfile => {
         let description = undefined;
-        if (affiliateProfile.firstname || affiliateProfile.lastname) {
-          const parts = [];
-          if (affiliateProfile.firstname) {
-            parts.push(affiliateProfile.firstname);
+        if (!!affiliateProfile) {
+          if (affiliateProfile.firstname || affiliateProfile.lastname) {
+            const parts = [];
+            if (affiliateProfile.firstname) {
+              parts.push(affiliateProfile.firstname);
+            }
+            if (affiliateProfile.lastname) {
+              parts.push(affiliateProfile.lastname);
+            }
+            description = parts.join(' ');
+          } else if(affiliateProfile.username) {
+            description = affiliateProfile.username;
           }
-          if (affiliateProfile.lastname) {
-            parts.push(affiliateProfile.lastname);
-          }
-          description = parts.join(' ');
-        } else if(affiliateProfile.username) {
-          description = affiliateProfile.username;
         }
         return description;
       }))
