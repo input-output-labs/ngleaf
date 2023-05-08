@@ -16,6 +16,7 @@ export interface ApisConfig {
 
 export interface LeafConfig {
   serverUrl: string;
+  serverWSBrokerUrl: string;
   navigation: LeafNavigationConfig;
   apis?: ApisConfig;
   featureActivation?: LeafFeatureActivation

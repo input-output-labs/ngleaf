@@ -55,6 +55,7 @@ import { FormsModule } from '@angular/forms';
 
 const leafConfig: LeafConfig = {
   serverUrl: environment.serverUrl,
+  serverWSBrokerUrl: environment.serverWSBrokerUrl,
   navigation: {
     authGuardErrorRedirect: '/login',
     adminGuardErrorRedirect: '/forbidden',

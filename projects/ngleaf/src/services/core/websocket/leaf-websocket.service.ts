@@ -1,10 +1,12 @@
-import { Injectable } from "@angular/core";
+import { Inject, Injectable } from "@angular/core";
 import { Store, select } from "@ngrx/store";
 import { RxStomp } from "@stomp/rx-stomp";
 import { Subscription, distinctUntilChanged, map } from "rxjs";
 import { myRxStompConfig } from "./rx-stomp.config";
 import { selectCurrentAccountData } from "../../../store/core/session/session.selectors";
 import { fetchNotifications } from "../../../store/core/notifications/notifications.actions";
+import { LeafConfig } from "../../../models";
+import { LeafConfigServiceToken } from "../../../services";
 
 export interface Message {
   source: string;
@@ -15,9 +17,14 @@ export interface Message {
 export class LeafWebSocketService extends RxStomp {
   private notificationSubscription: Subscription = null;
 
-  constructor(store: Store) {
+  constructor(
+    @Inject(LeafConfigServiceToken) public config: LeafConfig,
+    store: Store) {
     super();
-    this.configure(myRxStompConfig);
+    this.configure({
+      ...myRxStompConfig,
+      brokerURL: config.serverWSBrokerUrl
+    });
     this.activate();
 
     store.pipe(
