@@ -3,7 +3,7 @@
     mat-icon-button
     [color]="
       (notificationIcon$ | async) === 'notifications_active'
-        ? 'warn'
+        ? 'primary'
         : undefined
     "
     [matMenuTriggerFor]="notificationMenu"
@@ -11,7 +11,7 @@
     <mat-icon
       [matBadge]="unseenNotificationsCount$ | async"
       matBadgePosition="after"
-      matBadgeColor="warn"
+      matBadgeColor="primary"
       matBadgeSize="small"
       [matBadgeHidden]="!(unseenNotificationsCount$ | async)"
       >{{ notificationIcon$ | async }}</mat-icon
