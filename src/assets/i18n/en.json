@@ -103,6 +103,10 @@
       "sponsoring-my-affiliates": {
         "no-affiliates-disclaimer-label": "You do not have any affiliates yet."
       },
+      "notifications-widget": {
+        "title": "Notifications",
+        "markAllAsSeen": "Mark all as seen"
+      },
       "notification-item": {
         "LEAF_ACCOUNT_REGISTRATION": {
           "icon": "account_circle",
@@ -112,6 +116,15 @@
         "LEAF_TEST_NOTIF": {
           "icon": "science",
           "label": "New test notif"
+        },
+        "RPLUS_BOOKING_CREATION_OWNER": {
+          "icon": "science",
+          "label": "Nouvelle reservation chez vous"
+        },
+        "RPLUS_BOOKING_CANCELLED_OWNER": {
+          "icon": "account_circle",
+          "label": "Réservation annulée",
+          "link": "/settings/avatar"
         }
       }
     }

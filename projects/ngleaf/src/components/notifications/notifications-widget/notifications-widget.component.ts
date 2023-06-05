@@ -1,7 +1,7 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input, ViewChild } from "@angular/core";
 import { LeafNotificationModel } from "../../../api/models/notifications.model";
 import { Observable, combineLatest, map, take } from "rxjs";
-import { Store } from "@ngrx/store";
+import { Store, select } from "@ngrx/store";
 import {
   fetchNotifications,
   selectNotifications,
@@ -11,6 +11,12 @@ import {
 } from "../../../store";
 import { TranslateService } from "@ngx-translate/core";
 import { Router } from "@angular/router";
+import { MatMenuTrigger } from "@angular/material/menu";
+
+const NOTIFICATIONS_SORTING_MAP = {
+  CREATED: 0,
+  UI_SEEN: 1,
+};
 
 @Component({
   selector: "leaf-notifications-widget",
@@ -18,6 +24,13 @@ import { Router } from "@angular/router";
   styleUrls: ["./notifications-widget.component.scss"],
 })
 export class NotificationsWidgetComponent implements OnInit {
+  @ViewChild(MatMenuTrigger) menuTrigger: MatMenuTrigger;
+
+  @Input()
+  public menuXPosition: string = "before";
+  @Input()
+  public menuYPosition: string = "below";
+
   public notifications$: Observable<LeafNotificationModel[]>;
   public unseenNotificationsCount$: Observable<number>;
   public notificationIcon$: Observable<string>;
@@ -27,7 +40,16 @@ export class NotificationsWidgetComponent implements OnInit {
     private translateService: TranslateService,
     private router: Router
   ) {
-    this.notifications$ = store.select(selectNotifications);
+    this.notifications$ = store.pipe(
+      select(selectNotifications),
+      map((notifications: LeafNotificationModel[]) =>
+        [...notifications].sort(
+          (n1, n2) =>
+            NOTIFICATIONS_SORTING_MAP[n1.channelSendingStatus.UI] -
+            NOTIFICATIONS_SORTING_MAP[n2.channelSendingStatus.UI]
+        )
+      )
+    );
     this.unseenNotificationsCount$ = store.select(
       selectUnseenNotificationsCount
     );
@@ -51,7 +73,7 @@ export class NotificationsWidgetComponent implements OnInit {
     this.store.dispatch(fetchNotifications());
   }
 
-  public onMenuOpened() {
+  public markAllAsSeen() {
     this.notifications$
       .pipe(take(1))
       .subscribe((notifications: LeafNotificationModel[]) => {
@@ -69,13 +91,28 @@ export class NotificationsWidgetComponent implements OnInit {
       });
   }
 
+  public preventClose(event: any) {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+
   public onNotificationClicked(notification: LeafNotificationModel) {
     const key = `leaf.notification-item.${notification.code}.link`;
-    this.translateService.get([key]).subscribe((data) => {
-      const redirectionLink = data[key];
-      if (redirectionLink !== key) {
-        this.router.navigate([redirectionLink]);
-      }
-    });
+    this.translateService
+      .get([key], { payload: notification.payload })
+      .subscribe((data) => {
+        const redirectionLink = data[key];
+        if (redirectionLink !== key) {
+          this.router.navigateByUrl(redirectionLink);
+
+          if (notification.channelSendingStatus.UI === "CREATED") {
+            this.store.dispatch(
+              setNotificationsAsSeen({ notifications: [notification] })
+            );
+          }
+
+          this.menuTrigger.closeMenu();
+        }
+      });
   }
 }

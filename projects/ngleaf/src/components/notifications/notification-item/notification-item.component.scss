@@ -1,5 +1,18 @@
 .notification-item {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+  user-select: none;
+
+  &.clickable {
+    cursor: pointer;
+  }
+
+  .notification-item-icon {
+    margin-top: 24px !important;
+    margin-right: 16px !important;
+  }
+
+  &.unseen {
+    .notification-item-title, .notification-item-date {
+      font-weight: 500;
+    }
+  }
 }

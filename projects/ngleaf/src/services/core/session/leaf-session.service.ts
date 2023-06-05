@@ -7,11 +7,10 @@ import { LeafAuthHttpClient, AccountApiClient, SponsoringApiClientService } from
 
 import { LeafConfig } from '../../../models/index';
 import { LeafConfigServiceToken } from '../../leaf-config.module';
-import { resetCurrentAccount, resetSessionToken, selectCurrentAccount, selectSessionToken, selectUpdatePassword, setCurrentAccountCall, setMailingsUnsubscriptionCall, setResetPasswordCall, setSendResetPasswordKeyCall, setSessionToken, setSessionTokenCall, setUpdatePasswordCall } from '../../../store/core/session/index';
+import { resetCurrentAccount, resetSessionToken, selectCurrentAccount, selectSessionToken, setCurrentAccountCall, setMailingsUnsubscriptionCall, setResetPasswordCall, setSendResetPasswordKeyCall, setSessionToken, setSessionTokenCall, setUpdatePasswordCall } from '../../../store/core/session/index';
 import { AsyncType } from '../../../store/common/index';
 import { JWTModel, LeafAccountModel } from '../../../api/models/index';
 import { selectSponsorCode, setSetSponsorCall, setSponsorCode } from '../../../store/sponsoring/index';
-import { LeafWebSocketService } from '../websocket';
 
 @Injectable()
 export class LeafSessionService {
@@ -24,7 +23,6 @@ export class LeafSessionService {
     public authHttp: LeafAuthHttpClient,
     private router: Router,
     private activeRoute: ActivatedRoute,
-    private webSocketService: LeafWebSocketService,
   ) {}
 
   public init() {

@@ -12,6 +12,7 @@ import {
   LeafAdminModule,
   LeafConfigServiceModule,
   LeafWebSocketModule,
+  LeafWebSocketService,
   LeafSessionModule,
   LeafSessionService,
   LeafUploadFileModule,
@@ -152,10 +153,11 @@ export class LocaleDateAdapter extends NativeDateAdapter {
   bootstrap: [AppComponent],
 })
 export class AppModule {
-  constructor(leafSession: LeafSessionService, translate: TranslateService) {
+  constructor(leafSession: LeafSessionService, leafWebSocketService: LeafWebSocketService, translate: TranslateService) {
     translate.setDefaultLang('en');
     translate.use('en');
 
     leafSession.init();
+    leafWebSocketService.init();
   }
 }

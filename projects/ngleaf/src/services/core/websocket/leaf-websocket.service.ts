@@ -19,15 +19,18 @@ export class LeafWebSocketService extends RxStomp {
 
   constructor(
     @Inject(LeafConfigServiceToken) public config: LeafConfig,
-    store: Store) {
+    private store: Store) {
     super();
+  }
+
+  public init() {
     this.configure({
       ...myRxStompConfig,
-      brokerURL: config.serverWSBrokerUrl
+      brokerURL: this.config.serverWSBrokerUrl
     });
     this.activate();
 
-    store.pipe(
+    this.store.pipe(
       select(selectCurrentAccountData),
       map(currentAccount => currentAccount?.id),
       distinctUntilChanged(),
@@ -38,11 +41,9 @@ export class LeafWebSocketService extends RxStomp {
       const watchedDestination = `/notifications/${currentAccountId}`;
       this.notificationSubscription = this.watch(watchedDestination).subscribe((message: any) => {
         if(message.body === 'REFRESH') {
-          store.dispatch(fetchNotifications());
+          this.store.dispatch(fetchNotifications());
         }
       });
     });
   }
-
-
 }

@@ -1,5 +1,26 @@
 ::ng-deep .notification-menu {
   background-color: white !important;
+  max-width: none !important;
+}
+
+.notification-menu-header {
+  padding: 8px 16px 8px;
+  display: flex;
+  width: calc(100% - 32px);
+
+  .spacer {
+    flex: 1;
+    min-width: 1rem;
+  }
+}
+
+.notification-menu-card {
+  margin-top: -8px;
+  margin-bottom: -8px;
+}
+
+.notification-menu-list {
   max-height: 20rem !important;
-  overflow-y: scroll !important;
+  overflow-y: auto !important;
+  padding: 0;
 }

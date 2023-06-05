@@ -1,4 +1,20 @@
-<div class="notification-item">
-  <mat-icon>{{ 'leaf.notification-item.' + notification.code + '.icon' | translate }}</mat-icon>
-  <span [innerHTML]="'leaf.notification-item.' + notification.code + '.label' | translate : {payload: notification.payload}"></span>
-</div>
+<mat-list-item
+  class="notification-item"
+  [class.clickable]="clickable"
+  [class.unseen]="notification.channelSendingStatus.UI !== 'UI_SEEN'"
+  matRipple
+  [matRippleDisabled]="!clickable"
+  matRippleCentered
+  matRippleUnbounded>
+  <mat-icon
+    matListItemIcon
+    class="notification-item-icon"
+    matBadge="&#8288;"
+    matBadgeColor="primary"
+    matBadgeSize="small"
+    matBadgePosition="above before"
+    [matBadgeHidden]="notification.channelSendingStatus.UI !== 'CREATED'"
+  >{{ 'leaf.notification-item.' + notification.code + '.icon' | translate }}</mat-icon>
+  <div matListItemTitle class="notification-item-title" [innerHTML]="'leaf.notification-item.' + notification.code + '.label' | translate : {payload: notification.payload}"></div>
+  <div matListItemLine class="notification-item-date">{{notification.creationDate | date}}</div>
+</mat-list-item>
