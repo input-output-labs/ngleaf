@@ -45,6 +45,10 @@ export class NotificationsWidgetComponent implements OnInit {
       map((notifications: LeafNotificationModel[]) =>
         [...notifications].sort(
           (n1, n2) =>
+            new Date(n2.creationDate).getTime() -
+            new Date(n1.creationDate).getTime()
+        ).sort(
+          (n1, n2) =>
             NOTIFICATIONS_SORTING_MAP[n1.channelSendingStatus.UI] -
             NOTIFICATIONS_SORTING_MAP[n2.channelSendingStatus.UI]
         )

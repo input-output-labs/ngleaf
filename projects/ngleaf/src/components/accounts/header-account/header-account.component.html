@@ -1,17 +1,19 @@
-<mat-menu #menu="matMenu" class="account-menu">
-  <leaf-account-popover-content [username]="(currentAccount$ | async)?.username"
-                               [avatarUrl]="(currentAccount$ | async)?.avatarUrl"></leaf-account-popover-content>
-</mat-menu>
+<div class="header-account" [class.reduced]="(currentAccount$ | async)">
+  <mat-menu #menu="matMenu" class="account-menu">
+    <leaf-account-popover-content [username]="(currentAccount$ | async)?.username"
+                                 [avatarUrl]="(currentAccount$ | async)?.avatarUrl"></leaf-account-popover-content>
+  </mat-menu>
 
-<mat-icon *ngIf="(currentAccount$ | async)" class="icon" medium matTooltip="Mon compte"
-          [matMenuTriggerFor]="menu">account_circle
-</mat-icon>
+  <mat-icon *ngIf="(currentAccount$ | async)" class="icon" medium matTooltip="Mon compte"
+            [matMenuTriggerFor]="menu">account_circle
+  </mat-icon>
 
-<button *ngIf="!(currentAccount$ | async)" mat-stroked-button (click)="goToLogin()">
-  LOGIN
-</button>
-<button class="register-button" *ngIf="!(currentAccount$ | async)" mat-stroked-button (click)="goToRegister()">
-  REGISTER
-</button>
+  <button *ngIf="!(currentAccount$ | async)" mat-stroked-button (click)="goToLogin()">
+    LOGIN
+  </button>
+  <button class="register-button" *ngIf="!(currentAccount$ | async)" mat-stroked-button (click)="goToRegister()">
+    REGISTER
+  </button>
+</div>
 
 

@@ -24,6 +24,7 @@ import { MessengerModule } from './messenger/messenger.module';
 import { SponsoringComponent } from './sponsoring/sponsoring.component';
 import { SponsoringModule } from './sponsoring/sponsoring.module';
 import { TemplatesComponent } from './templates/templates.component';
+import { MatDividerModule } from '@angular/material/divider';
 
 const routes: Route[] = [
   {

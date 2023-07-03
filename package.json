@@ -44,6 +44,7 @@
     "@swimlane/ngx-charts": "^20.1.0",
     "cookieconsent": "^3.1.1",
     "core-js": "~3.20.2",
+    "lodash-es": "^4.17.21",
     "ngx-cookieconsent": "^2.2.3",
     "pre-commit": "^1.2.2",
     "prettier": "~2.5.1",

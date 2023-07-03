@@ -8,5 +8,6 @@ export * from './emailing/index';
 export * from './files/index';
 export * from './messenger/index';
 export * from './notifications/index';
+export * from './organizations/index';
 export * from './sponsoring/index';
 export * from './statistics/index';

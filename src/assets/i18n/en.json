@@ -107,6 +107,11 @@
         "title": "Notifications",
         "markAllAsSeen": "Mark all as seen"
       },
+      "organization-selector": {
+        "no-organizations": "No organizations",
+        "organization-selector-label": "Select an organization",
+        "not-logged-in-disclaimer": "Please loggin"
+      },
       "notification-item": {
         "LEAF_ACCOUNT_REGISTRATION": {
           "icon": "account_circle",

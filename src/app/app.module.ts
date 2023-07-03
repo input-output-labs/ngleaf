@@ -37,7 +37,8 @@ import {
   EmailingEffects,
   SponsoringEffects,
   NotificationApiClientModule,
-  NotificationsWidgetModule
+  NotificationsWidgetModule,
+  OrganizationSelectorModule,
 } from '@input-output-labs/ngleaf';
 
 import { TemplatesComponent } from './templates/templates.component';
@@ -110,6 +111,7 @@ export class LocaleDateAdapter extends NativeDateAdapter {
     MatNativeDateModule,
     MatDatepickerModule,
     /* Leaf library import */
+    OrganizationSelectorModule,
     // Stores
     LeafConfigServiceModule.forRoot(leafConfig),
     LeafApiClientConfigServiceModule.forRoot(leafApiClientConfig),

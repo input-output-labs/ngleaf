@@ -24,6 +24,18 @@ export function asyncTypeFailure<T>(asyncObject: AsyncType<T>, error: any) {
   };
 }
 
+export function asyncTypePending<T>(asyncObject: AsyncType<T>) {
+  return {
+      ...asyncObject,
+      call: undefined,
+      status: {
+          pending: true,
+          failure: false,
+          success: false
+      }
+  };
+}
+
 export function createAsyncTypeFromCall<T>(call?: Observable<T>) {
   return {
       data: undefined,
@@ -43,7 +55,7 @@ export function createEmptyAsyncType() {
       error: undefined,
       call: undefined,
       status: {
-          pending: false,
+          pending: undefined,
           failure: undefined,
           success: undefined
       }

@@ -1,0 +1,23 @@
+<div class="organization-selector" *ngIf="!!(currentAccount$ | async) ; else notLoggedIn">
+  <div *ngIf="(organizations$ | async)?.length; else noOrganizations">
+    <div class="current-organization">
+      <span *ngIf="(currentOrganization$ | async) as currentOrganization; else noCurrentOrganization">
+        {{currentOrganization.name}}
+      </span>
+      <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="(currentOrganization$ | async) === undefined || (organizations$ | async)?.length > 1">
+        <mat-icon>sync_alt</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>
+
+<mat-menu #menu="matMenu" xPosition="before" yPosition="below">
+  <button mat-menu-item *ngFor="let organization of organizations$ | async" (click)="selectOrganization(organization)">{{ organization.name }}</button>
+</mat-menu>
+<ng-template #noOrganizations> {{ 'leaf.organization-selector.no-organizations' | translate }} </ng-template>
+<ng-template #noCurrentOrganization> {{ 'leaf.organization-selector.organization-selector-label' | translate }} </ng-template>
+<ng-template #notLoggedIn>
+  <div  *ngIf="!hideWhenNotLoggedIn">
+    {{ 'leaf.organization-selector.not-logged-in-disclaimer' | translate }}
+  </div>
+</ng-template>
