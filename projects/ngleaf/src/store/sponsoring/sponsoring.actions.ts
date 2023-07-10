@@ -19,6 +19,19 @@ export const setSetSponsorFailure = createAction(
   props<{error: any}>()
 );
 
+export const setUpdateSponsorCodeCall = createAction(
+  '[Sponsoring store] Set UpdateSponsorCode call',
+  props<{call: Observable<LeafAccountModel>}>()
+);
+export const setUpdateSponsorCodeSuccess = createAction(
+  '[Sponsoring store] Set UpdateSponsorCode success',
+  props<{data: LeafAccountModel}>()
+);
+export const setUpdateSponsorCodeFailure = createAction(
+  '[Sponsoring store] Set UpdateSponsorCode failure',
+  props<{error: any}>()
+);
+
 export const setSponsoringProfilesCall = createAction(
   '[Sponsoring store] Set sponsoringProfiles call',
   props<{call: Observable<SponsoringProfileModel>}>()

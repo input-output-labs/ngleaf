@@ -15,6 +15,10 @@ export const selectSetSponsor = createSelector(
   selectSponsoringFromAppState,
   (state: SponsoringState) => state.setSponsor
 );
+export const selectUpdateSponsorCode = createSelector(
+  selectSponsoringFromAppState,
+  (state: SponsoringState) => state.updateSponsorCode
+);
 export const selectSponsoringProfiles = createSelector(
   selectSponsoringFromAppState,
   (state: SponsoringState) => state.sponsoringProfiles

@@ -1,0 +1,32 @@
+<div class="sponsoring-code-update">
+  <div class="no-sponsor-disclaimer">
+    <mat-icon class="no-shrink">info</mat-icon>
+    <span>{{
+      "leaf.sponsoring-code-update.sponsorcode-disclaimer-label" | translate
+    }}</span>
+  </div>
+  <mat-form-field appearance="fill">
+    <mat-label>{{
+      "leaf.sponsoring-code-update.sponsor-code-selection-field-label" | translate
+    }}</mat-label>
+    <input matInput required [formControl]="mySponsorCodeFormControl" />
+    <button
+      [matTooltip]="
+        'leaf.sponsoring-code-update.sponsor-selection-submission-tooltip-label'
+          | translate
+      "
+      mat-icon-button
+      [disabled]="!mySponsorCodeFormControl.valid"
+      (click)="chooseSponsorCode()"
+      matSuffix
+    >
+      <mat-icon matSuffix>send</mat-icon>
+    </button>
+    <mat-error *ngIf="mySponsorCodeFormControl.hasError('serverError')">
+      {{ "leaf.sponsoring-code-update.server-error" | translate }}
+    </mat-error>
+    <mat-error *ngIf="mySponsorCodeFormControl.hasError('required')">
+      {{ "leaf.sponsoring-code-update.required-field-error" | translate }}
+    </mat-error>
+  </mat-form-field>
+</div>

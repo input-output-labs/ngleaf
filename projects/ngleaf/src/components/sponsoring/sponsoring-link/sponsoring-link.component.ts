@@ -2,6 +2,7 @@ import { Component, Inject, Input, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { filter, map, Observable } from 'rxjs';
 import { selectCurrentAccount } from '../../../store/core/session/session.selectors';
+import { getModule } from '../../../helpers/index';
 
 @Component({
   selector: 'leaf-sponsoring-link',
@@ -28,7 +29,7 @@ export class SponsoringLinkComponent implements OnInit {
     );
 
     this.sponsorCode$ = currentAccount$.pipe(
-      map(account => account?.id)
+      map(account => getModule(account, 'sponsoring')?.sponsorCode)
     );
     this.sponsorLink$ = this.sponsorCode$.pipe(
       map(sponsorCode => `${this.hostname}?sponsorCode=${sponsorCode}`)

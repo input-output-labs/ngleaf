@@ -1,6 +1,7 @@
 import { LeafAccountProfile } from "./leaf-account.model";
 
 export interface SponsoringModel {
+  sponsorCode: string;
   sponsorId: string;
   affiliatedIds: string[];
 }

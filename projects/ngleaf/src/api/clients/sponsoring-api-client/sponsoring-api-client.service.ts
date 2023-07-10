@@ -28,4 +28,11 @@ export class SponsoringApiClientService {
       { sponsorId }
     );
   }
+
+  public updateSponsorCode(accountId: string, sponsorCode: string): Observable<LeafAccountModel> {
+    return this.authHttp.post<LeafAccountModel>(
+      `${this.config.serverUrl}/account/${accountId}/sponsoring/sponsorcode`,
+      { sponsorCode }
+    );
+  }
 }

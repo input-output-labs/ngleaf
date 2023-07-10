@@ -5,7 +5,7 @@ import { map, switchMap, catchError } from 'rxjs/operators';
 import { LeafAccountModel, SponsoringProfileModel } from '../../api/index';
 import { setCurrentAccountSuccess } from '../core';
 
-import { setSetSponsorCall, setSetSponsorFailure, setSetSponsorSuccess, setSponsoringProfilesCall, setSponsoringProfilesFailure, setSponsoringProfilesSuccess } from './sponsoring.actions';
+import { setSetSponsorCall, setSetSponsorFailure, setSetSponsorSuccess, setSponsoringProfilesCall, setSponsoringProfilesFailure, setSponsoringProfilesSuccess, setUpdateSponsorCodeCall, setUpdateSponsorCodeFailure, setUpdateSponsorCodeSuccess } from './sponsoring.actions';
 
 @Injectable()
 export class SponsoringEffects {
@@ -16,6 +16,16 @@ export class SponsoringEffects {
     payload.call.pipe(
         map(updatedAccount => (setSetSponsorSuccess({data: updatedAccount}))),
         catchError((error) => of(setSetSponsorFailure({error})))
+      )
+    )
+  ));
+
+  setUpdateSponsorCall$ = createEffect(() => this.actions$.pipe(
+    ofType(setUpdateSponsorCodeCall),
+    switchMap((payload: {call: Observable<LeafAccountModel>}) =>
+    payload.call.pipe(
+        map(updatedAccount => (setUpdateSponsorCodeSuccess({data: updatedAccount}))),
+        catchError((error) => of(setUpdateSponsorCodeFailure({error})))
       )
     )
   ));

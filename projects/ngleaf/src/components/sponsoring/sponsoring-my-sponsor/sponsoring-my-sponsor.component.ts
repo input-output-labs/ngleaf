@@ -70,16 +70,16 @@ export class SponsoringMySponsorComponent {
       this.store.dispatch(setSetSponsorCall({
         call: this.sponsoringApiClientService.setSponsor(sponsorCode)
       }));
-    }
 
-    this.store.pipe(
-      select(selectSetSponsor),
-      filter(asyncItem => !asyncItem.status.pending),
-      take(1)
-    ).subscribe(asyncItem => {
-      if (asyncItem.error) {
-        this.mySponsorFormControl.setErrors({'serverError': true});
-      }
-    });
+      this.store.pipe(
+        select(selectSetSponsor),
+        filter(asyncItem => !asyncItem.status.pending),
+        take(1)
+      ).subscribe(asyncItem => {
+        if (asyncItem.error) {
+          this.mySponsorFormControl.setErrors({'serverError': true});
+        }
+      });
+    }
   }
 }

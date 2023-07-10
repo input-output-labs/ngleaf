@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { SponsoringComponent } from './sponsoring.component';
 
 import {
+  SponsoringCodeUpdateModule,
   SponsoringLinkModule,
   SponsoringMyAffiliatesModule,
   SponsoringMySponsorModule,
@@ -13,9 +14,10 @@ import {
     /* Core deps */
     CommonModule,
     /* Leaf deps */
+    SponsoringCodeUpdateModule,
     SponsoringLinkModule,
     SponsoringMySponsorModule,
-    SponsoringMyAffiliatesModule
+    SponsoringMyAffiliatesModule,
   ],
   declarations: [SponsoringComponent],
   exports: [SponsoringComponent]

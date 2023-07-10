@@ -1,0 +1,7 @@
+<h1 mat-dialog-title>{{ "leaf.sponsoring-code-update-dialog.title" | translate }}</h1>
+<div mat-dialog-content>
+  <leaf-sponsoring-code-update [account]="data.account" (onChanged)="onChanged()"></leaf-sponsoring-code-update>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancel()" >{{ "leaf.sponsoring-code-update-dialog.cancel-button-label" | translate }}</button>
+</div>
