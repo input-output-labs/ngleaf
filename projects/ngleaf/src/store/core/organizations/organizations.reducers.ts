@@ -63,23 +63,23 @@ export function organizationsReducer(reducerState, action): OrganizationsState {
     ),
     /* Current organization users */
     on(
-      Actions.setCurrentOrganizationUsersSuccess,
-      (state: OrganizationsState, {data}) => ({
+      Actions.setOrganizationUsersSuccess,
+      (state: OrganizationsState, {organizationId, data}) => ({
         ...state,
-        allOrganizations: setOrganizationUsersById(state.allOrganizations, state.currentOrganizationId, data),
-        myOrganizations: setOrganizationUsersById(state.myOrganizations, state.currentOrganizationId, data),
+        allOrganizations: setOrganizationUsersById(state.allOrganizations, organizationId, data),
+        myOrganizations: setOrganizationUsersById(state.myOrganizations, organizationId, data),
         currentOrganizationUsers: asyncTypeSuccess(state.currentOrganizationUsers),
       })
     ),
     on(
-      Actions.setCurrentOrganizationUsersFailure,
+      Actions.setOrganizationUsersFailure,
       (state: OrganizationsState, {error}) => ({
         ...state,
         currentOrganizationUsers: asyncTypeFailure(state.currentOrganizationUsers, error),
       })
     ),
     on(
-      Actions.resetCurrentOrganizationUsers,
+      Actions.resetOrganizationUsers,
       (state: OrganizationsState) => ({
         ...state,
         currentOrganizationUsers: createEmptyAsyncType(),

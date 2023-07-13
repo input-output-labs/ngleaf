@@ -59,26 +59,38 @@ export class OrganizationsEffects {
     this.actions$.pipe(
       ofType(OrganizationsActions.listCurrentOrganizationUsers),
       withLatestFrom(this.store.select(selectCurrentOrganizationId)),
-      switchMap(([, currentOrganizationId]) => {
+      map(([, currentOrganizationId]) => {
         if (currentOrganizationId) {
-          return this.organizationApiClient
-            .listOrganizationUsersById(currentOrganizationId)
-            .pipe(
-              map((users) =>
-                OrganizationsActions.setCurrentOrganizationUsersSuccess({
-                  data: users,
-                })
-              ),
-              catchError((error) =>
-                of(
-                  OrganizationsActions.setCurrentOrganizationUsersFailure({
-                    error,
-                  })
-                )
-              )
-            );
+          return OrganizationsActions.listOrganizationUsers({
+            organizationId: currentOrganizationId,
+          });
         }
-        return of(OrganizationsActions.resetCurrentOrganizationUsers());
+        return OrganizationsActions.resetOrganizationUsers();
+      })
+    )
+  );
+
+  listOrganizationUsers$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(OrganizationsActions.listOrganizationUsers),
+      switchMap((payload: { organizationId: string }) => {
+        return this.organizationApiClient
+          .listOrganizationUsersById(payload.organizationId)
+          .pipe(
+            map((users) =>
+              OrganizationsActions.setOrganizationUsersSuccess({
+                organizationId: payload.organizationId,
+                data: users,
+              })
+            ),
+            catchError((error) =>
+              of(
+                OrganizationsActions.setOrganizationUsersFailure({
+                  error,
+                })
+              )
+            )
+          );
       })
     )
   );
@@ -109,7 +121,7 @@ export class OrganizationsEffects {
   addUsersToOrganization$ = createEffect(() =>
     this.actions$.pipe(
       ofType(OrganizationsActions.addUsersToOrganization),
-      switchMap((payload: {id: string, accountIds: string[]}) =>
+      switchMap((payload: { id: string; accountIds: string[] }) =>
         this.organizationApiClient
           .addUsersToOrganization(payload.id, payload.accountIds)
           .pipe(
@@ -128,5 +140,4 @@ export class OrganizationsEffects {
       map(() => OrganizationsActions.listMyOrganizations())
     )
   );
-
 }

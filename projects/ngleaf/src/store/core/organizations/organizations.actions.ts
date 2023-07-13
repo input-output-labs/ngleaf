@@ -46,16 +46,20 @@ export const assignUserToOrganizationFailure = createAction(
 export const listCurrentOrganizationUsers = createAction(
   '[Organizations store] List current organization users'
 );
-export const setCurrentOrganizationUsersSuccess = createAction(
-  '[Organizations store] Set current organization users success',
-  props<{data: LeafAccountModel[]}>()
+export const listOrganizationUsers = createAction(
+  '[Organizations store] List current organization users',
+  props<{organizationId: string}>()
 );
-export const setCurrentOrganizationUsersFailure = createAction(
-  '[Organizations store] Set current organization users failure',
+export const setOrganizationUsersSuccess = createAction(
+  '[Organizations store] Set organization users success',
+  props<{organizationId: string, data: LeafAccountModel[]}>()
+);
+export const setOrganizationUsersFailure = createAction(
+  '[Organizations store] Set organization users failure',
   props<{error: any}>()
 );
-export const resetCurrentOrganizationUsers = createAction(
-  '[Organizations store] Reset current organization users'
+export const resetOrganizationUsers = createAction(
+  '[Organizations store] Reset organization users'
 );
 
 export const createOrganization = createAction(
