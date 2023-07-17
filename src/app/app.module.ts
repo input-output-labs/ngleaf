@@ -16,7 +16,6 @@ import {
   LeafSessionModule,
   LeafSessionService,
   LeafUploadFileModule,
-  LeafWebImagesSeekerModule,
   leafCoreStore,
   LeafApiClientConfig,
   LeafApiClientConfigServiceModule,
@@ -38,10 +37,8 @@ import {
   SponsoringEffects,
   NotificationApiClientModule,
   NotificationsWidgetModule,
-  OrganizationSelectorModule,
 } from '@input-output-labs/ngleaf';
 
-import { MatDividerModule } from '@angular/material/divider';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { CommonModule, getLocaleFirstDayOfWeek } from '@angular/common';
@@ -51,7 +48,6 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { EffectsModule } from '@ngrx/effects';
 import { DateAdapter, MatNativeDateModule, NativeDateAdapter } from '@angular/material/core';
 import { Platform } from '@angular/cdk/platform';
-import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FormsModule } from '@angular/forms';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
@@ -59,7 +55,7 @@ const leafConfig: LeafConfig = {
   serverUrl: environment.serverUrl,
   serverWSBrokerUrl: environment.serverWSBrokerUrl,
   navigation: {
-    authGuardErrorRedirect: '/login',
+    authGuardErrorRedirect: '/welcome/login',
     adminGuardErrorRedirect: '/forbidden',
     loginSuccessRedirect: '',
     registerSuccessRedirect: ''

@@ -6,6 +6,7 @@ import { MatListModule } from '@angular/material/list';
 import { LeafSessionModule, OrganizationSelectorModule } from '@input-output-labs/ngleaf';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
 import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
@@ -18,6 +19,7 @@ import { TranslateModule } from '@ngx-translate/core';
     MatListModule,
     MatButtonModule,
     MatIconModule,
+    MatDividerModule,
     /* Leaf deps */
     LeafSessionModule,
     OrganizationSelectorModule,
