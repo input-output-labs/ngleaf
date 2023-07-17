@@ -1,0 +1,53 @@
+<div class="menu">
+  <img src="/assets/images/logo.svg" class="logo" />
+
+  <mat-list role="list" class="full-width">
+    <mat-list-item role="listitem">
+      <leaf-organization-selector></leaf-organization-selector>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item role="listitem">
+      <a mat-button href="/dashboard" class="full-width menu-item-link">
+        <mat-icon>home</mat-icon>
+        <span>{{ "app.menu.dashbordLinkLabel" | translate }}</span>
+      </a>
+    </mat-list-item>
+    <mat-list-item role="listitem">
+      <a mat-button href="/leaf-labs" class="full-width menu-item-link">
+        <mat-icon>eco</mat-icon>
+        <span>{{ "app.menu.leafLabsLinkLabel" | translate }}</span>
+      </a>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item role="listitem">
+      <a mat-button href="/organization" class="full-width menu-item-link">
+        <mat-icon>storefront</mat-icon>
+        <span>{{ "app.menu.organizationLinkLabel" | translate }}</span>
+      </a>
+    </mat-list-item>
+  </mat-list>
+
+  <div class="spacer"></div>
+
+  <mat-list role="list" class="full-width">
+    <mat-list-item role="listitem">
+      <a mat-button href="/notifications" class="full-width menu-item-link">
+        <mat-icon>notifications</mat-icon>
+        <span>{{ "app.menu.notificationsLinkLabel" | translate }}</span>
+      </a>
+    </mat-list-item>
+    <mat-list-item role="listitem">
+      <a mat-button href="/settings" class="full-width menu-item-link">
+        <mat-icon>account_circle</mat-icon>
+        <span>{{ "app.menu.settingsLinkLabel" | translate }}</span>
+      </a>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item role="listitem">
+      <button mat-button (click)="logout()" class="full-width menu-item-link">
+        <mat-icon>logout</mat-icon>
+        <span>{{ "app.menu.logoutButtonLabel" | translate }}</span>
+      </button>
+    </mat-list-item>
+  </mat-list>
+</div>

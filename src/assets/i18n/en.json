@@ -1,7 +1,49 @@
 {
     "app": {
-        "content": {
-            "welcome": "Welcome in leaf !"
+        "welcome": {
+          "login-page": {
+            "passwordForgottenLinkLabel": "Forgot Password ?",
+            "registerLinkLabel": "Create Account"
+          },
+          "password-page": {
+            "loginLinkLabel": "< Back to login"
+          },
+          "register-page": {
+            "loginQuestionLabel": "Already have an account?",
+            "loginLinkLabel": "Sign in"
+          }
+        },
+        "menu": {
+          "dashbordLinkLabel": "Dashboard",
+          "leafLabsLinkLabel": "Leaf labs",
+          "notificationsLinkLabel": "Notifications",
+          "organizationLinkLabel": "Organization",
+          "settingsLinkLabel": "My account",
+          "logoutButtonLabel": "Logout"
+        },
+        "account-settings": {
+          "layout": {
+            "title": "Account settings",
+            "pseudoLinkLabel": "Pseudo",
+            "avatarLinkLabel": "Avatar",
+            "passwordLinkLabel": "Password"
+          }
+        },
+        "organization-settings": {
+          "layout": {
+            "title": "Organization",
+            "membersLinkLabel": "Members",
+            "policiesLinkLabel": "Policies"
+          }
+        },
+        "leaf-labs": {
+          "layout": {
+            "title": "Leaf labs",
+            "templatesLinkLabel": "Templates",
+            "messengerLinkLabel": "Messenger",
+            "sponsoringLinkLabel": "Sponsoring",
+            "statisticsLinkLabel": "Statistics"
+          }
         }
     },
     "leaf": {
@@ -40,6 +82,7 @@
         },
         "passwordChangeKeyDisclaimerLabel": "In order to change your password, you will need a password change key. Enter your account email address and then click on the button bellow to receive it in your mailbox.",
         "emailPlaceholder": "Enter email",
+        "emailLabel": "Enter email",
         "sendPasswordChangeKeyButtonLabel": "Send password change key",
         "changePasswordButtonLabel": "Change password",
         "passwordChangeKeyPlaceholder": "Enter password change key",
@@ -62,19 +105,19 @@
       },
       "pseudo-update": {
         "pseudo-input-placeholder": "Pseudo",
-        "submit-button-label": "Changer le pseudo"
+        "submit-button-label": "Save pseudo"
       },
       "avatar-update": {
         "pseudo-input-placeholder": "Pseudo",
-        "submit-button-label": "Enregistrer cet avatar"
+        "submit-button-label": "Save avatar"
       },
       "updatePassword": {
-        "currentPasswordPlaceholder": "Mot de passe actuel",
-        "newPassword": "Nouveau mot de passe",
-        "newPasswordVerify": "Vérification mot de passe",
-        "buttonLabel": "Changer de mot de passe",
-        "requiredError": "Vous devez remplir ce champ",
-        "differentPasswordError": "Les deux mots de passe de correspondent pas"
+        "currentPasswordPlaceholder": "Enter current password",
+        "newPassword": "New password",
+        "newPasswordVerify": "Verify new password",
+        "buttonLabel": "Change password",
+        "requiredError": "This field is mandatory",
+        "differentPasswordError": "Both passwords does not match"
       },
       "password-update": {
         "currentPasswordPlaceholder": "Current password",

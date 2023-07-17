@@ -2,71 +2,60 @@ import { NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
 
 import {
-  LoginPageComponent,
-  RegisterPageComponent,
   LeafForbiddenComponent,
   LeafForbiddenModule,
-  accountSettingsPageRoutes,
   adminSettingsPageRoutes,
   LeafAdminGuardModule,
   LeafAuthGuardModule,
-  StatisticsPageComponent,
   StatisticsPageModule,
   MailingAuthorizationsPageComponent,
   MailingAuthorizationsPageModule,
-  LeafSponsoringResolver,
-  LeafSponsorCodeInterceptorGuardModule,
-  LeafSponsoringResolverModule,
-  LeafSponsorCodeInterceptorGuard
+  LeafAuthGuardService
 } from '@input-output-labs/ngleaf';
-import { MessengerComponent } from './messenger/messenger.component';
-import { MessengerModule } from './messenger/messenger.module';
-import { SponsoringComponent } from './sponsoring/sponsoring.component';
-import { SponsoringModule } from './sponsoring/sponsoring.module';
-import { TemplatesComponent } from './templates/templates.component';
-import { MatDividerModule } from '@angular/material/divider';
+import { MainLayoutComponent } from '../components/main-layout/main-layout.component';
+import { MainLayoutModule } from '../components/main-layout/main-layout.module';
 
 const routes: Route[] = [
   {
+    path: 'welcome',
+    loadChildren: () => import('./welcome/welcome.module').then(m => m.WelcomeModule)
+  },
+  {
     path: '',
-    redirectTo: '/settings',
-    pathMatch: 'full',
-  },
-  {
-    path: 'templates',
-    component: TemplatesComponent,
-  },
-  {
-    path: 'messenger',
-    component: MessengerComponent,
-  },
-  {
-    path: 'sponsoring',
-    canActivate: [LeafSponsorCodeInterceptorGuard],
-    component: SponsoringComponent,
-    resolve: [LeafSponsoringResolver]
-  },
-  {
-    path: 'statistics',
-    component: StatisticsPageComponent,
+    canActivate: [LeafAuthGuardService],
+    component: MainLayoutComponent,
+    children: [
+      {
+        path: '',
+        redirectTo: '/dashboard',
+        pathMatch: 'full',
+      },
+      {
+        path: 'dashboard',
+        loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
+      },
+      {
+        path: 'leaf-labs',
+        loadChildren: () => import('./leaf-labs/leaf-labs.module').then(m => m.LeafLabsModule)
+      },
+      {
+        path: 'settings',
+        loadChildren: () => import('./account-settings/account-settings.module').then(m => m.AccountSettingsModule)
+      },
+      {
+        path: 'organization',
+        loadChildren: () => import('./organization-settings/organization-settings.module').then(m => m.OrganizationSettingsModule)
+      },
+    ]
   },
   {
     path: 'forbidden',
     component: LeafForbiddenComponent,
   },
   {
-    path: 'login',
-    component: LoginPageComponent,
-  },
-  {
-    path: 'register',
-    component: RegisterPageComponent,
-  },
-  {
     path: 'mailings/unsubscribe',
     component: MailingAuthorizationsPageComponent,
   },
-  ...accountSettingsPageRoutes,
   ...adminSettingsPageRoutes
 ];
 
@@ -78,10 +67,7 @@ const routes: Route[] = [
     StatisticsPageModule,
     LeafForbiddenModule,
     MailingAuthorizationsPageModule,
-    MessengerModule,
-    SponsoringModule,
-    LeafSponsoringResolverModule,
-    LeafSponsorCodeInterceptorGuardModule,
+    MainLayoutModule,
   ], // add { enableTracing: true } after routes in forRoot to debug the router
   exports: [RouterModule],
 })

@@ -1,14 +1,3 @@
-<leaf-navigation [contentTemplate]="content" [headerTemplate]="header" [links]="links" title="ngleaf demo app"></leaf-navigation>
-
-<ng-template #header>
-  <span class="header">
-    <leaf-organization-selector></leaf-organization-selector>
-    <leaf-notifications-widget></leaf-notifications-widget>
-    <leaf-header-account></leaf-header-account>
-  </span>
-</ng-template>
-
-<ng-template #content>
-  {{ 'app.content.welcome' | translate}}
+<div class="app">
   <router-outlet></router-outlet>
-</ng-template>
+</div>

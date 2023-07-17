@@ -1,0 +1,16 @@
+<div class="leaf-labs">
+  <h1>{{ 'app.leaf-labs.layout.title' | translate }}</h1>
+  <nav mat-tab-nav-bar [tabPanel]="tabPanel">
+    <a
+      mat-tab-link
+      *ngFor="let link of navLinks"
+      [routerLink]="link.link"
+      routerLinkActive
+      #rla="routerLinkActive"
+      [active]="rla.isActive"
+      >{{ link.labelKey | translate }}</a>
+  </nav>
+  <mat-tab-nav-panel #tabPanel class="content">
+    <router-outlet></router-outlet>
+  </mat-tab-nav-panel>
+</div>

@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { LeafWebSocketService } from '@input-output-labs/ngleaf';
 
 @Component({
   selector: 'app-root',
@@ -7,35 +6,6 @@ import { LeafWebSocketService } from '@input-output-labs/ngleaf';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'ngleaf-app';
-
-  public links = [
-    {
-      label: 'My Settings',
-      link: 'settings/general'
-    },
-    {
-      label: 'Admin panel',
-      link: 'admin/users'
-    },
-    {
-      label: 'Common templates',
-      link: 'templates'
-    },
-    {
-      label: 'Statistics demo',
-      link: 'statistics'
-    },
-    {
-      label: 'Messenger demo',
-      link: 'messenger'
-    },
-    {
-      label: 'Sponsoring demo',
-      link: 'sponsoring'
-    }
-  ];
-
-  constructor(private webSocketService: LeafWebSocketService) {}
+  constructor() {}
 }
 

@@ -1,0 +1,25 @@
+.menu {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .logo {
+        width: 120px;
+        height: auto;
+    }
+
+    .spacer {
+        flex: 1;
+    }
+
+    .full-width {
+        width: 100%;
+    }
+
+    .mdc-button.menu-item-link {
+      justify-content: flex-start;
+      align-items: center;
+      gap: 1rem;
+    }
+}

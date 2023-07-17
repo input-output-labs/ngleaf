@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { Inject, Injectable, LOCALE_ID, NgModule } from '@angular/core';
+import { Inject, Injectable, LOCALE_ID, NgModule, isDevMode } from '@angular/core';
 
 import { AppComponent } from './app.component';
 
@@ -41,7 +41,6 @@ import {
   OrganizationSelectorModule,
 } from '@input-output-labs/ngleaf';
 
-import { TemplatesComponent } from './templates/templates.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -54,6 +53,7 @@ import { DateAdapter, MatNativeDateModule, NativeDateAdapter } from '@angular/ma
 import { Platform } from '@angular/cdk/platform';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FormsModule } from '@angular/forms';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 const leafConfig: LeafConfig = {
   serverUrl: environment.serverUrl,
@@ -89,7 +89,7 @@ export class LocaleDateAdapter extends NativeDateAdapter {
 }
 
 @NgModule({
-  declarations: [AppComponent, TemplatesComponent],
+  declarations: [AppComponent],
   imports: [
     CommonModule,
     BrowserModule,
@@ -107,14 +107,11 @@ export class LocaleDateAdapter extends NativeDateAdapter {
       }
     }),
     /* Material design library import */
-    MatDividerModule,
     MatNativeDateModule,
-    MatDatepickerModule,
     /* Leaf library import */
-    OrganizationSelectorModule,
-    // Stores
     LeafConfigServiceModule.forRoot(leafConfig),
     LeafApiClientConfigServiceModule.forRoot(leafApiClientConfig),
+    // Stores
     EffectsModule.forRoot([SessionEffects, StatisticsEffects, NotificationsEffects, MessengerEffects, EmailingEffects, SponsoringEffects]),
     StoreModule.forRoot(
       {
@@ -131,7 +128,6 @@ export class LocaleDateAdapter extends NativeDateAdapter {
     LeafAdminModule,
     LeafWebSocketModule,
     LeafSessionModule,
-    LeafWebImagesSeekerModule,
     LeafUploadFileModule,
     NotificationApiClientModule,
     // Directive
@@ -145,6 +141,12 @@ export class LocaleDateAdapter extends NativeDateAdapter {
     LeafHeaderAccountModule,
     AdminSettingsPageModule,
     NotificationsWidgetModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    }),
   ],
   providers: [{
     provide: DateAdapter,
