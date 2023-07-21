@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { Router, ActivatedRouteSnapshot, RouterStateSnapshot, CanActivate } from '@angular/router';
+import { Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { take, mergeMap, filter, map, withLatestFrom } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
@@ -9,7 +9,7 @@ import { LeafConfigServiceToken } from '../../services/leaf-config.module';
 import { LeafConfig } from '../../models/leaf-config.model';
 
 @Injectable()
-export class LeafAuthGuardService implements CanActivate {
+export class LeafAuthGuardService  {
 
   constructor(
     private store: Store,

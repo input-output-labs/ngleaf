@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Router, ActivatedRouteSnapshot, RouterStateSnapshot, CanActivate } from '@angular/router';
+import { Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { setSponsorCode } from '../../../store/sponsoring/index';
 import { Observable, of } from 'rxjs';
 
 @Injectable()
-export class LeafSponsorCodeInterceptorGuard implements CanActivate {
+export class LeafSponsorCodeInterceptorGuard  {
 
   constructor(
     private store: Store,
