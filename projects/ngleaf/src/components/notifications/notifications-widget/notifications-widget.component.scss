@@ -24,3 +24,10 @@
   overflow-y: auto !important;
   padding: 0;
 }
+
+.expanded-button {
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}

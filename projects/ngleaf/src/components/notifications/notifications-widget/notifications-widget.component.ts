@@ -30,6 +30,8 @@ export class NotificationsWidgetComponent implements OnInit {
   public menuXPosition: string = "before";
   @Input()
   public menuYPosition: string = "below";
+  @Input()
+  public reduced: boolean = true;
 
   public notifications$: Observable<LeafNotificationModel[]>;
   public unseenNotificationsCount$: Observable<number>;

@@ -1,52 +1,68 @@
-<div class="notifications-widget">
-  <button
-    mat-icon-button
-    [color]="
-      (notificationIcon$ | async) === 'notifications_active'
-        ? 'primary'
-        : undefined
-    "
-    [matMenuTriggerFor]="notificationMenu"
+<button mat-icon-button *ngIf="reduced" [matMenuTriggerFor]="notificationMenu">
+  <mat-icon
+    [matBadge]="unseenNotificationsCount$ | async"
+    matBadgePosition="after"
+    matBadgeColor="primary"
+    matBadgeSize="small"
+    [matBadgeHidden]="!(unseenNotificationsCount$ | async)"
+    >{{ notificationIcon$ | async }}</mat-icon
   >
-    <mat-icon
-      [matBadge]="unseenNotificationsCount$ | async"
-      matBadgePosition="after"
-      matBadgeColor="primary"
-      matBadgeSize="small"
-      [matBadgeHidden]="!(unseenNotificationsCount$ | async)"
-      >{{ notificationIcon$ | async }}</mat-icon
-    >
-  </button>
-  <mat-menu
-    #notificationMenu="matMenu"
-    class="notification-menu"
-    [xPosition]="menuXPosition"
-    [yPosition]="menuYPosition">
-    <mat-card class="mat-elevation-z0 notification-menu-card" (click)="preventClose($event)">
-      <mat-card-header class="notification-menu-header">
-        <mat-card-title>
-          {{ 'leaf.notifications-widget.title' | translate }}
-        </mat-card-title>
-        <div class="spacer"></div>
-        <button
-          *ngIf="(unseenNotificationsCount$ | async) > 0"
-          mat-button
-          color="primary"
-          (click)="markAllAsSeen()">
-          {{ 'leaf.notifications-widget.markAllAsSeen' | translate }}
-        </button>
-      </mat-card-header>
+</button>
+<button
+  mat-button
+  class="expanded-button"
+  *ngIf="!reduced"
+  [matMenuTriggerFor]="notificationMenu"
+  [matBadge]="unseenNotificationsCount$ | async"
+  matBadgePosition="after"
+  matBadgeColor="primary"
+  matBadgeSize="small"
+  [matBadgeHidden]="!(unseenNotificationsCount$ | async)"
+>
+  <mat-icon>{{ notificationIcon$ | async }}</mat-icon>
+  <span>{{ "leaf.notifications-widget.button-label" | translate }}</span>
+</button>
+<mat-menu
+  #notificationMenu="matMenu"
+  class="notification-menu"
+  [xPosition]="menuXPosition"
+  [yPosition]="menuYPosition"
+>
+  <mat-card
+    class="mat-elevation-z0 notification-menu-card"
+    (click)="preventClose($event)"
+  >
+    <mat-card-header class="notification-menu-header">
+      <mat-card-title>
+        {{ "leaf.notifications-widget.title" | translate }}
+      </mat-card-title>
+      <div class="spacer"></div>
+      <button
+        *ngIf="(unseenNotificationsCount$ | async) > 0"
+        mat-button
+        color="primary"
+        (click)="markAllAsSeen()"
+      >
+        {{ "leaf.notifications-widget.markAllAsSeen" | translate }}
+      </button>
+    </mat-card-header>
 
-      <mat-divider></mat-divider>
-      <mat-list class="notification-menu-list">
-        <ng-container *ngFor="let notification of (notifications$ | async); let isLast = last;">
-          <leaf-notification-item
-            [notification]="notification"
-            [clickable]="('leaf.notification-item.' + notification.code + '.link' | translate: {payload: notification.payload}) !== ('leaf.notification-item.' + notification.code + '.link')"
-            (click)="onNotificationClicked(notification)"></leaf-notification-item>
-          <mat-divider *ngIf="!isLast"></mat-divider>
-        </ng-container>
-      </mat-list>
-    </mat-card>
-  </mat-menu>
-</div>
+    <mat-divider></mat-divider>
+    <mat-list class="notification-menu-list">
+      <ng-container
+        *ngFor="let notification of notifications$ | async; let isLast = last"
+      >
+        <leaf-notification-item
+          [notification]="notification"
+          [clickable]="
+            ('leaf.notification-item.' + notification.code + '.link'
+              | translate: { payload: notification.payload }) !==
+            'leaf.notification-item.' + notification.code + '.link'
+          "
+          (click)="onNotificationClicked(notification)"
+        ></leaf-notification-item>
+        <mat-divider *ngIf="!isLast"></mat-divider>
+      </ng-container>
+    </mat-list>
+  </mat-card>
+</mat-menu>

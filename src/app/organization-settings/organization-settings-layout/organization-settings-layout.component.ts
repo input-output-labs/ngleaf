@@ -13,12 +13,12 @@ export class OrganizationSettingsLayoutComponent implements OnInit {
     this.navLinks = [
       {
         labelKey: "app.organization-settings.layout.membersLinkLabel",
-        link: "./pseudo",
+        link: "./members",
         index: 0,
       },
       {
         labelKey: "app.organization-settings.layout.policiesLinkLabel",
-        link: "./avatar",
+        link: "./policies",
         index: 1,
       },
     ];

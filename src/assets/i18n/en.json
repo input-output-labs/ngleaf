@@ -16,7 +16,6 @@
         "menu": {
           "dashbordLinkLabel": "Dashboard",
           "leafLabsLinkLabel": "Leaf labs",
-          "notificationsLinkLabel": "Notifications",
           "organizationLinkLabel": "Organization",
           "settingsLinkLabel": "My account",
           "logoutButtonLabel": "Logout"
@@ -158,6 +157,7 @@
         "no-affiliates-disclaimer-label": "You do not have any affiliates yet."
       },
       "notifications-widget": {
+        "button-label": "Notifications",
         "title": "Notifications",
         "markAllAsSeen": "Mark all as seen"
       },

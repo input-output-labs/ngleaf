@@ -13,11 +13,11 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'pseudo',
+        redirectTo: 'members',
         pathMatch: 'full',
       },
       {
-        path: 'pseudo',
+        path: 'members',
         component: PseudoUpdateComponent,
       },
     ],

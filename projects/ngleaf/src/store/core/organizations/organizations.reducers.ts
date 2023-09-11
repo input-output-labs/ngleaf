@@ -43,7 +43,7 @@ export function organizationsReducer(reducerState, action): OrganizationsState {
       (state: OrganizationsState, {data}) => ({
         ...state,
         myOrganizations: asyncTypeSuccess(state.myOrganizations, data),
-        currentOrganizationId: data.length === 1 ? data[1].id : state.currentOrganizationId,
+        currentOrganizationId: data.length === 1 ? data[0].id : state.currentOrganizationId,
       })
     ),
     on(

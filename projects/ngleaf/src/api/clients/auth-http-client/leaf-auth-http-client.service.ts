@@ -1,5 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { selectCurrentOrganizationId } from '../../../store';
 import { Observable } from 'rxjs';
 
 export interface IRequestOptions {
@@ -15,15 +17,22 @@ export interface IRequestOptions {
 @Injectable({
   providedIn: 'root',
   useFactory: applicationHttpClientCreator,
-  deps: [HttpClient],
+  deps: [HttpClient, Store],
 })
 export class LeafAuthHttpClient {
   public jwtoken: string;
+  public organizationId: string;
 
-  public constructor(public http: HttpClient) {}
+  public constructor(public http: HttpClient, public store: Store) {
+    this.store.select(selectCurrentOrganizationId).subscribe((currentOrganizationId) => this.organizationId = currentOrganizationId);
+  }
 
   public setJwtoken(jwtoken: string): void {
     this.jwtoken = jwtoken;
+  }
+
+  public setOrganizationId(organizationId: string): void {
+    this.organizationId = organizationId;
   }
 
   public addHeaders(options?: IRequestOptions): IRequestOptions {
@@ -47,6 +56,12 @@ export class LeafAuthHttpClient {
         'Authorization',
         this.jwtoken
       );
+      if (this.organizationId) {
+        authenticatedOptions.headers = authenticatedOptions.headers.set(
+          'Organization',
+          this.organizationId
+        );
+      }
       return authenticatedOptions;
     }
     return options;
@@ -85,6 +100,6 @@ export class LeafAuthHttpClient {
   }
 }
 
-export function applicationHttpClientCreator(http: HttpClient) {
-  return new LeafAuthHttpClient(http);
+export function applicationHttpClientCreator(http: HttpClient, store: Store) {
+  return new LeafAuthHttpClient(http, store);
 }
