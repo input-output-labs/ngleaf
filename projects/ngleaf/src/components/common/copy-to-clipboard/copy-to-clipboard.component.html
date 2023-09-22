@@ -1,0 +1,10 @@
+<button
+  color="primary"
+  mat-mini-fab
+  (click)="copy()"
+  #tooltip="matTooltip"
+  [matTooltip]="tooltipContent | translate"
+  [matTooltipPosition]="tooltipPosition"
+  [matTooltipHideDelay]="matTooltipHideDelay">
+    <mat-icon>content_copy</mat-icon>
+</button>
