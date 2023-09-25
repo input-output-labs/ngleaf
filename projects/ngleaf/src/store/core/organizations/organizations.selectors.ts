@@ -45,9 +45,9 @@ export const selectCurrentOrganization = createSelector(
  (myOrganizations?: LeafOrganization[], currentOrganizationId?: string) => (myOrganizations || []).find(organization => organization.id === currentOrganizationId)
 );
 
-export const selectCurrentOrganizationUsers = createSelector(
+export const selectOrganizationUsers = createSelector(
   selectOrganizationsState,
- (state: OrganizationsState) => state.currentOrganizationUsers
+ (state: OrganizationsState) => state.organizationUsers
 );
 
 export const selectCreateOrganization = createSelector(
@@ -58,4 +58,9 @@ export const selectCreateOrganization = createSelector(
 export const selectAddUsersToOrganization = createSelector(
   selectOrganizationsState,
  (state: OrganizationsState) => state.addUsersToOrganization
+);
+
+export const selectInvitationData = createSelector(
+  selectOrganizationsState,
+ (state: OrganizationsState) => state.invitationData
 );

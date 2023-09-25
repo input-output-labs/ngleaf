@@ -118,7 +118,7 @@ export class LeafSessionService {
     ).subscribe(() => {
       const returnTo = this.activeRoute.snapshot.queryParams.return || this.config.navigation.registerSuccessRedirect || '/';
       this.addSponsorIfPossible();
-      this.router.navigate([returnTo]);
+      this.returnTo(returnTo);
     });
   }
 
@@ -138,8 +138,18 @@ export class LeafSessionService {
       take(1)
     ).subscribe(() => {
       const returnTo = this.activeRoute.snapshot.queryParams.return || this.config.navigation.loginSuccessRedirect || '/';
-      this.router.navigate([returnTo]);
+      this.returnTo(returnTo);
     });
+  }
+
+  private returnTo(returnTo: string) {
+    const url = new URL('https://fake.com' + returnTo);
+    const queryParams = {};
+    for (const key of (url.searchParams as any).keys()) {
+      queryParams[key] = url.searchParams.get(key);
+    }
+
+    this.router.navigate([url.pathname], { queryParams });
   }
 
   public logout(): Promise<void> {

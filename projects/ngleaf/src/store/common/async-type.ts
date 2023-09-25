@@ -1,5 +1,21 @@
 import { Observable } from 'rxjs';
 
+export function upsert<T extends { id?: string }>(item: T, list: T[] = []): T[] {
+  const index = list.findIndex((listItem) => listItem.id === item.id);
+  if (index < 0) {
+    return [...list, item];
+  } else {
+    return [...list.slice(0, index), item, ...list.slice(index + 1)];
+  }
+}
+
+export function asyncUpsert<T extends { id?: string }>(item: T, asyncItem: AsyncType<T[]>): AsyncType<T[]> {
+  return {
+    ...asyncItem,
+    data: upsert<T>(item, asyncItem.data),
+  };
+}
+
 export function asyncTypeSuccess<T>(asyncObject: AsyncType<T>, data?: T) {
   return {
       ...asyncObject,

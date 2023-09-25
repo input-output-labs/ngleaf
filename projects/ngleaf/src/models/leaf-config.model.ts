@@ -4,6 +4,7 @@ export interface LeafNavigationConfig {
   loginSuccessRedirect?: string;
   registerSuccessRedirect?: string;
   logoutRedirect?: string;
+  afterInvitationRedirect?: string;
 }
 
 export interface LeafFeatureActivation {

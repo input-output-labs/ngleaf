@@ -1,0 +1,19 @@
+.invitation-bar {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+
+  .form-field {
+    width: 350px;
+  }
+
+  .send-invitation-button {
+    margin-bottom: 22px;
+  }
+}
+
+.mat-column-status {
+  text-align: center;
+}

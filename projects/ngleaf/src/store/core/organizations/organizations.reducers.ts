@@ -7,6 +7,7 @@ import {
   asyncTypeSuccess,
   createEmptyAsyncType,
   asyncTypePending,
+  asyncUpsert,
 } from '../../common/async-type';
 import { OrganizationsState } from './organizations.state';
 import { setOrganizationUsersById } from './organizations.helper';
@@ -14,9 +15,11 @@ import { setOrganizationUsersById } from './organizations.helper';
 const initialState: OrganizationsState = {
   allOrganizations: createEmptyAsyncType(),
   myOrganizations: createEmptyAsyncType(),
-  currentOrganizationUsers: createEmptyAsyncType(),
+  organizationUsers: createEmptyAsyncType(),
   createOrganization: createEmptyAsyncType(),
   addUsersToOrganization: createEmptyAsyncType(),
+  inviteUserToOrganization: createEmptyAsyncType(),
+  invitationData: createEmptyAsyncType(),
 };
 
 export function organizationsReducer(reducerState, action): OrganizationsState {
@@ -63,19 +66,26 @@ export function organizationsReducer(reducerState, action): OrganizationsState {
     ),
     /* Current organization users */
     on(
+      Actions.listOrganizationUsers,
+      (state: OrganizationsState, {organizationId}) => ({
+        ...state,
+        organizationUsers: asyncTypePending(state.organizationUsers),
+      })
+    ),
+    on(
       Actions.setOrganizationUsersSuccess,
       (state: OrganizationsState, {organizationId, data}) => ({
         ...state,
         allOrganizations: setOrganizationUsersById(state.allOrganizations, organizationId, data),
         myOrganizations: setOrganizationUsersById(state.myOrganizations, organizationId, data),
-        currentOrganizationUsers: asyncTypeSuccess(state.currentOrganizationUsers),
+        organizationUsers: asyncTypeSuccess(state.organizationUsers),
       })
     ),
     on(
       Actions.setOrganizationUsersFailure,
       (state: OrganizationsState, {error}) => ({
         ...state,
-        currentOrganizationUsers: asyncTypeFailure(state.currentOrganizationUsers, error),
+        organizationUsers: asyncTypeFailure(state.organizationUsers, error),
       })
     ),
     on(
@@ -127,6 +137,52 @@ export function organizationsReducer(reducerState, action): OrganizationsState {
       (state: OrganizationsState, {error}) => ({
         ...state,
         addUsersToOrganization: asyncTypeFailure(state.addUsersToOrganization, error),
+      })
+    ),
+    /* Invite user to organization */
+    on(
+      Actions.inviteUserToOrganization,
+      (state: OrganizationsState, {}) => ({
+        ...state,
+        inviteUserToOrganization: asyncTypePending(state.inviteUserToOrganization),
+      })
+    ),
+    on(
+      Actions.inviteUserToOrganizationSuccess,
+      (state: OrganizationsState, {data}) => ({
+        ...state,
+        inviteUserToOrganization: asyncTypeSuccess(state.inviteUserToOrganization),
+        allOrganizations: asyncUpsert(data, state.allOrganizations),
+        myOrganizations: asyncUpsert(data, state.allOrganizations),
+      })
+    ),
+    on(
+      Actions.inviteUserToOrganizationFailure,
+      (state: OrganizationsState, {error}) => ({
+        ...state,
+        inviteUserToOrganization: asyncTypeFailure(state.inviteUserToOrganization, error),
+      })
+    ),
+    /* Get invitation data for organization */
+    on(
+      Actions.getInvitationData,
+      (state: OrganizationsState, {}) => ({
+        ...state,
+        invitationData: asyncTypePending(state.invitationData),
+      })
+    ),
+    on(
+      Actions.getInvitationDataSuccess,
+      (state: OrganizationsState, {data}) => ({
+        ...state,
+        invitationData: asyncTypeSuccess(state.invitationData, data),
+      })
+    ),
+    on(
+      Actions.getInvitationDataFailure,
+      (state: OrganizationsState, {error}) => ({
+        ...state,
+        invitationData: asyncTypeFailure(state.invitationData, error),
       })
     ),
   )(reducerState, action);

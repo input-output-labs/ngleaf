@@ -3,7 +3,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { OrganizationsEffects } from './organizations.effects';
 import { organizationsReducer } from './organizations.reducers';
-import { OrganizationsApiClientModule } from '../../../api';
+import { OrganizationsApiClientModule } from '../../../api/clients/organizations-api-client/index';
+import { storageMetaReducer } from '../../common/storage.metareducer';
 
 @NgModule({
     imports: [
@@ -12,7 +13,7 @@ import { OrganizationsApiClientModule } from '../../../api';
             'organizations',
             organizationsReducer,
             {
-               // metaReducers: [storageMetaReducer]
+               metaReducers: [storageMetaReducer]
             }
         ),
         OrganizationsApiClientModule,

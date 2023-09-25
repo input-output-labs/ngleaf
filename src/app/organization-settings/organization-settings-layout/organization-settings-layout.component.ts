@@ -15,11 +15,13 @@ export class OrganizationSettingsLayoutComponent implements OnInit {
         labelKey: "app.organization-settings.layout.membersLinkLabel",
         link: "./members",
         index: 0,
+        disabled: false,
       },
       {
         labelKey: "app.organization-settings.layout.policiesLinkLabel",
         link: "./policies",
         index: 1,
+        disabled: true,
       },
     ];
   }

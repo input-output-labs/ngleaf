@@ -11,6 +11,9 @@
           "register-page": {
             "loginQuestionLabel": "Already have an account?",
             "loginLinkLabel": "Sign in"
+          },
+          "organization-invitation-page": {
+            "seeLater": "I will decide later"
           }
         },
         "menu": {
@@ -166,6 +169,38 @@
         "organization-selector-label": "Select an organization",
         "not-logged-in-disclaimer": "Please loggin"
       },
+      "organization-members": {
+        "search-member-input-label": "Search members",
+        "invite-member-button-label": "Invitations",
+        "userlist-table-column-picture": "Photo",
+        "userlist-table-column-name": "Nom",
+        "userlist-table-column-roles": "Rôle(s)",
+        "userlist-table-column-actions": "Actions"
+      },
+      "organization-invitations": {
+        "title": "Manage invitation",
+        "no-selected-organization-disclamer": "You need to select an organization to use this panel.",
+        "email-input-label": "Invite new member",
+        "email-input-placeholder": "john.doe@domain.com",
+        "invite-member-button-label": "Send invitation",
+        "close-dialog-label": "Close",
+        "invitation-table-column-date": "Date",
+        "invitation-table-column-email": "Email",
+        "invitation-table-column-status": "Status",
+        "invitation-table-statuses": {
+          "INVITED": "INVITED",
+          "DECLINED": "DECLINED",
+          "CANCELLED": "CANCELLED",
+          "ACCEPTED": "ACCEPTED"
+        },
+        "cancel-invitation-button-label": "Cancel invitation"
+      },
+      "organization-invitation": {
+        "title": "You have been invited to the \"{{ name }}\" organization",
+        "information": "Please accept or decline this invitation.",
+        "accept-button-label": "Accept",
+        "decline-button-label": "Decline"
+      },
       "notification-item": {
         "LEAF_ACCOUNT_REGISTRATION": {
           "icon": "account_circle",
@@ -184,6 +219,11 @@
           "icon": "account_circle",
           "label": "Réservation annulée",
           "link": "/settings/avatar"
+        },
+        "LEAF_ORGANIZATION_INVITATION": {
+          "icon": "store",
+          "label": "You have been invited to {{payload.organizationName}} !",
+          "link": "/welcome/invitation?organizationId={{payload.organizationId}}&email={{payload.invitationEmail}}"
         }
       }
     }

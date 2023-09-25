@@ -1,11 +1,13 @@
-import { LeafOrganization } from '../../../api/models';
+import { LeafOrganization, OrganizationInvitationData } from '../../../api/models';
 import { AsyncType, } from '../../common/index';
 
 export interface OrganizationsState {
   allOrganizations: AsyncType<LeafOrganization[]>;
   myOrganizations: AsyncType<LeafOrganization[]>;
   currentOrganizationId?: string;
-  currentOrganizationUsers: AsyncType<void>;
+  organizationUsers: AsyncType<void>;
   createOrganization: AsyncType<void>;
   addUsersToOrganization: AsyncType<void>;
+  inviteUserToOrganization: AsyncType<LeafOrganization>;
+  invitationData: AsyncType<OrganizationInvitationData>;
 }

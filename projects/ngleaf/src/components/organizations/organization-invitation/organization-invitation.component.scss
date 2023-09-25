@@ -1,0 +1,15 @@
+.invitation {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  .information {
+    font-style: italic;
+  }
+
+  .action-button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+}

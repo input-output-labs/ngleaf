@@ -28,6 +28,7 @@ export class LeafAuthGuardService  {
         if (currentAccount) {
           return of(true);
         } else {
+          console.log('state: ', state);
           this.router.navigate([this.config.navigation.authGuardErrorRedirect || '/login'], {
             queryParams: {
               return: state.url

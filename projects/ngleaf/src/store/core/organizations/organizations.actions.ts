@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { LeafAccountModel, LeafOrganization } from '../../../api/models';
+import { LeafAccountModel, LeafOrganization, OrganizationInvitationData } from '../../../api/models';
 import { Observable } from 'rxjs';
 
 export const listAllOrganizations = createAction(
@@ -47,7 +47,7 @@ export const listCurrentOrganizationUsers = createAction(
   '[Organizations store] List current organization users'
 );
 export const listOrganizationUsers = createAction(
-  '[Organizations store] List current organization users',
+  '[Organizations store] List organization users',
   props<{organizationId: string}>()
 );
 export const setOrganizationUsersSuccess = createAction(
@@ -85,3 +85,35 @@ export const addUsersToOrganizationFailure = createAction(
   '[Organizations store] Add users to organization failure',
   props<{error: any}>()
 );
+
+export const inviteUserToOrganization = createAction(
+  '[Organizations store] Invite user to organization',
+  props<{id: string, email: string}>()
+);
+export const inviteUserToOrganizationSuccess = createAction(
+  '[Organizations store] Invite user to organization success',
+  props<{data: LeafOrganization}>()
+);
+export const inviteUserToOrganizationFailure = createAction(
+  '[Organizations store] Invite user to organization failure',
+  props<{error: any}>()
+);
+
+export const getInvitationData = createAction(
+  '[Organizations store] Get invitation data',
+  props<{id: string, email: string}>()
+);
+export const getInvitationDataSuccess = createAction(
+  '[Organizations store] Get invitation data success',
+  props<{data: OrganizationInvitationData}>()
+);
+export const getInvitationDataFailure = createAction(
+  '[Organizations store] Get invitation data failure',
+  props<{error: any}>()
+);
+
+export const cancelInvitation = createAction(
+  '[Organizations store] Cancel user invitation to organization',
+  props<{id: string, email: string}>()
+);
+

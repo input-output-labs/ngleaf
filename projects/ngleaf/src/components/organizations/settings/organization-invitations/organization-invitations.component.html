@@ -1,0 +1,58 @@
+<h2 mat-dialog-title>{{'leaf.organization-invitations.title' | translate}}</h2>
+<mat-dialog-content class="mat-typography">
+  <ng-container *ngIf="organization$ | async as organization; else noOrganizationDisclaimer">
+    <div class="invitation-bar">
+      <mat-form-field class="form-field">
+        <mat-label>{{'leaf.organization-invitations.email-input-label' | translate}}</mat-label>
+        <input
+          matInput
+          [placeholder]="'leaf.organization-invitations.email-input-placeholder' | translate"
+          [formControl]="inviteEmailFormControl"
+        />
+      </mat-form-field>
+      <button class="send-invitation-button" mat-flat-button color="primary" (click)="inviteUser(organization.id)" [disabled]="!inviteEmailFormControl.valid">
+        <mat-icon>send</mat-icon>
+        {{ 'leaf.organization-invitations.invite-member-button-label' | translate}}
+      </button>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <table mat-table [dataSource]="filteredInvitation$ | async" class="mat-elevation-z0">
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef> {{ 'leaf.organization-invitations.invitation-table-column-date' | translate}} </th>
+        <td mat-cell *matCellDef="let element"> {{element.metadata.creationDate | date:'short' }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef> {{ 'leaf.organization-invitations.invitation-table-column-email' | translate}} </th>
+        <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef> {{ 'leaf.organization-invitations.invitation-table-column-status' | translate}} </th>
+        <td mat-cell *matCellDef="let element">
+          <mat-chip-option [color]="invitationStatusToColorMapping[element.status]" highlighted [selectable]="false" *ngIf="element.status !== 'INVITED'">
+            {{ ('leaf.organization-invitations.invitation-table-statuses.' + element.status) | translate}}
+          </mat-chip-option>
+          <button mat-stroked-button color="warn" *ngIf="element.status === 'INVITED'" (click)="cancelInvitation(organization, element)">
+            <mat-icon>delete_forever</mat-icon>
+            {{ 'leaf.organization-invitations.cancel-invitation-button-label' | translate}}
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </ng-container>
+  <ng-template #noOrganizationDisclaimer>
+    <div>
+      {{ 'leaf.organization-invitations.no-selected-organization-disclamer' | translate}}
+    </div>
+    <leaf-organization-selector></leaf-organization-selector>
+  </ng-template>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>{{ 'leaf.organization-invitations.close-dialog-label' | translate}}</button>
+</mat-dialog-actions>

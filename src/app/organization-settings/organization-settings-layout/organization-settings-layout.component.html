@@ -1,4 +1,4 @@
-<div class="account-settings">
+<div class="organization-settings">
   <h1>{{ 'app.organization-settings.layout.title' | translate }}</h1>
   <nav mat-tab-nav-bar [tabPanel]="tabPanel">
     <a
@@ -8,9 +8,12 @@
       routerLinkActive
       #rla="routerLinkActive"
       [active]="rla.isActive"
+      [disabled]="link.disabled"
       >{{ link.labelKey | translate }}</a>
   </nav>
-  <mat-tab-nav-panel #tabPanel class="account-settings-content">
-    <router-outlet></router-outlet>
+  <mat-tab-nav-panel #tabPanel>
+    <div class="organization-settings-content">
+      <router-outlet></router-outlet>
+    </div>
   </mat-tab-nav-panel>
 </div>
