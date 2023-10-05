@@ -32,7 +32,12 @@ export class LeafImageUploadComponent implements OnInit, ControlValueAccessor {
   @Output()
   public selectedFile: EventEmitter<any> = new EventEmitter();
 
+  @Output()
+  public onError: EventEmitter<void> =new EventEmitter();
+
   public hover = false;
+
+  public fileUploadInProgress = false;
 
   // Form control field
   private onChange = (_: any) => {};
@@ -126,12 +131,17 @@ export class LeafImageUploadComponent implements OnInit, ControlValueAccessor {
 
   public upload() {
     this.currentFileUpload = this.dataURItoBlob(this.imageUrl);
+    this.fileUploadInProgress = true;
     this.uploadService
       .pushFileToStorage(this.currentFileUpload)
       .subscribe(imageUrl => {
         this.imageUrl = imageUrl;
         this.onChange(this.imageUrl);
         this.selectedFile.emit(this.imageUrl);
+        this.fileUploadInProgress = false;
+      }, (error) => {
+        this.onError.emit(error);
+        this.fileUploadInProgress = false;
       });
 
     this.onTouched();

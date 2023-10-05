@@ -1,19 +1,21 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { TranslateModule } from "@ngx-translate/core";
 
-import { LeafUploadFileModule } from '../../../services/files/index';
-import { LeafImageUploadComponent } from './imageUpload.component';
+import { LeafUploadFileModule } from "../../../services/files/index";
+import { LeafImageUploadComponent } from "./imageUpload.component";
 
 @NgModule({
   imports: [
     CommonModule,
     TranslateModule,
     /* Material */
+    MatProgressSpinnerModule,
     /* Leaf deps */
-    LeafUploadFileModule
+    LeafUploadFileModule,
   ],
   declarations: [LeafImageUploadComponent],
-  exports: [LeafImageUploadComponent]
+  exports: [LeafImageUploadComponent],
 })
-export class LeafImageUploadModule { }
+export class LeafImageUploadModule {}

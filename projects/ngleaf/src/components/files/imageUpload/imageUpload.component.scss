@@ -41,3 +41,10 @@
   opacity: 0;
   cursor: pointer;
 }
+
+.spinner-container {
+  min-height: calc(100% - 8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -1,5 +1,5 @@
 import { Injectable, Inject } from "@angular/core";
-import { Observable, Subject } from "rxjs";
+import { map, Observable, take } from "rxjs";
 
 import { LeafFileModel } from "../../api/models/index";
 import { LeafConfigServiceToken } from "../leaf-config.module";
@@ -17,14 +17,9 @@ export class LeafUploadFileService {
 
     formdata.append("file", file);
 
-    const url$ = new Subject<string>();
-
-    this.http
+    return this.http
       .post(this.config.serverUrl + "/files", formdata, {
         reportProgress: true,
-      })
-      .subscribe((uploadedFile: LeafFileModel) => url$.next(uploadedFile.url));
-
-    return url$;
+      }).pipe(take(1), map((uploadedFile: LeafFileModel) => uploadedFile?.url));
   }
 }

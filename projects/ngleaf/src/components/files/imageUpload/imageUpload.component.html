@@ -1,17 +1,41 @@
-<div
-  class="image-upload-wrap"
-  [ngClass]="{'image-inserted': !!imageUrl}"
-  [ngStyle]="{
-    'borderColor': hover ? '#ffffff': color,
-    'backgroundColor': hover ? color: undefined
-  }"
-  (mouseover)="hover=true" (mouseleave)="hover=false">
-  <input class="file-upload-input" type='file' (change)="selectFile($event);" accept="image/*"/>
-  <div class="drag-text" *ngIf="!imageUrl">
-    <h3
-      [ngStyle]="{
-        'color': hover ? '#ffffff': color
-      }">{{'leaf.image-upload.drop-zone-label' | translate}}</h3>
+<ng-container *ngIf="!fileUploadInProgress; else loading">
+  <div
+    class="image-upload-wrap"
+    [ngClass]="{ 'image-inserted': !!imageUrl }"
+    [ngStyle]="{
+      borderColor: hover ? '#ffffff' : color,
+      backgroundColor: hover ? color : undefined
+    }"
+    (mouseover)="hover = true"
+    (mouseleave)="hover = false"
+  >
+    <input
+      class="file-upload-input"
+      type="file"
+      (change)="selectFile($event)"
+      accept="image/*"
+    />
+
+    <div class="drag-text" *ngIf="!imageUrl">
+      <h3
+        [ngStyle]="{
+          color: hover ? '#ffffff' : color
+        }"
+      >
+        {{ "leaf.image-upload.drop-zone-label" | translate }}
+      </h3>
+    </div>
+    <img
+      class="file-upload-image"
+      *ngIf="imageUrl"
+      [src]="imageUrl"
+      alt="Your image"
+    />
   </div>
-  <img class="file-upload-image" *ngIf="imageUrl" [src]="imageUrl" alt="Your image"/>
-</div>
+</ng-container>
+
+<ng-template #loading>
+  <div class="spinner-container">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>
