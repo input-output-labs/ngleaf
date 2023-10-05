@@ -5,6 +5,8 @@ import {
   Output,
   forwardRef,
   Input,
+  ChangeDetectorRef,
+  ChangeDetectionStrategy,
 } from "@angular/core";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 
@@ -21,6 +23,7 @@ const CUSTOM_VALUE_ACCESSOR: any = {
   templateUrl: "./imageUpload.component.html",
   styleUrls: ["./imageUpload.component.scss"],
   providers: [CUSTOM_VALUE_ACCESSOR],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LeafImageUploadComponent implements OnInit, ControlValueAccessor {
   selectedFiles: FileList;
@@ -56,7 +59,7 @@ export class LeafImageUploadComponent implements OnInit, ControlValueAccessor {
   private onChange = (_: any) => {};
   private onTouched = () => {};
 
-  constructor(private uploadService: LeafUploadFileService) {}
+  constructor(private uploadService: LeafUploadFileService, private readonly changeDetector: ChangeDetectorRef) {}
 
   ngOnInit() {}
 
@@ -84,7 +87,6 @@ export class LeafImageUploadComponent implements OnInit, ControlValueAccessor {
 
       reader.onload = (e: any) => {
         const image = e.target.result;
-        console.log(image);
         img.src = image;
         that.imageUrl = image;
 
@@ -157,16 +159,19 @@ export class LeafImageUploadComponent implements OnInit, ControlValueAccessor {
   public upload() {
     this.currentFileUpload = this.dataURItoBlob(this.imageUrl);
     this.fileUploadInProgress = true;
+    this.changeDetector.markForCheck();
     this.uploadService.pushFileToStorage(this.currentFileUpload).subscribe({
       next: (imageUrl) => {
         this.imageUrl = imageUrl;
         this.onChange(this.imageUrl);
         this.selectedFile.emit(this.imageUrl);
         this.fileUploadInProgress = false;
+        this.changeDetector.markForCheck();
       },
       error: (error) => {
         this.onError.emit(error);
         this.fileUploadInProgress = false;
+        this.changeDetector.markForCheck();
       }
     });
 
