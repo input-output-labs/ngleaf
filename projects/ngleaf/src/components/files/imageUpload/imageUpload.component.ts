@@ -29,6 +29,12 @@ export class LeafImageUploadComponent implements OnInit, ControlValueAccessor {
   @Input()
   public resizeHeight?: number;
 
+  @Input()
+  public compressionRate: number = 1; // 1 means better quality, 0 is the lowest quality possible
+
+  @Input()
+  public imageFormat: string = 'webp'; 
+
   @Output()
   public selectedFile: EventEmitter<any> = new EventEmitter();
 
@@ -96,7 +102,13 @@ export class LeafImageUploadComponent implements OnInit, ControlValueAccessor {
             var ctx = canvas.getContext("2d");
             ctx.drawImage(img, 0, 0, width, height);
 
-            var dataurl = canvas.toDataURL("image/png");
+            var adjustedCompressionRate = that.compressionRate; 
+            adjustedCompressionRate = Math.max(0, Math.min(1, adjustedCompressionRate));
+
+            var adjustedImageFormat = that.imageFormat;
+            adjustedImageFormat = adjustedImageFormat.toLowerCase();
+
+            var dataurl = canvas.toDataURL(`image/${adjustedImageFormat}`, adjustedCompressionRate);
 
             that.imageUrl = dataurl;
 
