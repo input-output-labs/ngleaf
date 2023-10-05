@@ -1,5 +1,8 @@
 .image-upload-wrap {
   width: calc(100% - 8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   &:not(.image-inserted) {
     height: calc(100% - 8px);

@@ -1,19 +1,26 @@
-import { Component, EventEmitter, OnInit, Output, forwardRef, Input } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+  forwardRef,
+  Input,
+} from "@angular/core";
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 
-import { LeafUploadFileService } from '../../../services/index';
+import { LeafUploadFileService } from "../../../services/index";
 
 const CUSTOM_VALUE_ACCESSOR: any = {
-  provide : NG_VALUE_ACCESSOR,
+  provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => LeafImageUploadComponent),
-  multi : true,
+  multi: true,
 };
 
 @Component({
-  selector: 'leaf-image-upload',
-  templateUrl: './imageUpload.component.html',
-  styleUrls: ['./imageUpload.component.scss'],
-  providers : [CUSTOM_VALUE_ACCESSOR],
+  selector: "leaf-image-upload",
+  templateUrl: "./imageUpload.component.html",
+  styleUrls: ["./imageUpload.component.scss"],
+  providers: [CUSTOM_VALUE_ACCESSOR],
 })
 export class LeafImageUploadComponent implements OnInit, ControlValueAccessor {
   selectedFiles: FileList;
@@ -21,7 +28,7 @@ export class LeafImageUploadComponent implements OnInit, ControlValueAccessor {
   public imageUrl: string;
 
   @Input()
-  public color: string = '#1fb264';
+  public color: string = "#1fb264";
 
   @Input()
   public resizeWidth?: number;
@@ -33,13 +40,13 @@ export class LeafImageUploadComponent implements OnInit, ControlValueAccessor {
   public compressionRate: number = 1; // 1 means better quality, 0 is the lowest quality possible
 
   @Input()
-  public imageFormat: string = 'webp'; 
+  public imageFormat: string = "webp";
 
   @Output()
   public selectedFile: EventEmitter<any> = new EventEmitter();
 
   @Output()
-  public onError: EventEmitter<void> =new EventEmitter();
+  public onError: EventEmitter<void> = new EventEmitter();
 
   public hover = false;
 
@@ -81,8 +88,8 @@ export class LeafImageUploadComponent implements OnInit, ControlValueAccessor {
         img.src = image;
         that.imageUrl = image;
 
-        if (this.resizeWidth && this.resizeHeight) {
-          img.addEventListener('load', function () {
+        if (that.resizeWidth && that.resizeHeight) {
+          img.addEventListener("load", function () {
             var canvas = document.createElement("canvas");
 
             var width = img.width;
@@ -102,13 +109,19 @@ export class LeafImageUploadComponent implements OnInit, ControlValueAccessor {
             var ctx = canvas.getContext("2d");
             ctx.drawImage(img, 0, 0, width, height);
 
-            var adjustedCompressionRate = that.compressionRate; 
-            adjustedCompressionRate = Math.max(0, Math.min(1, adjustedCompressionRate));
+            var adjustedCompressionRate = that.compressionRate;
+            adjustedCompressionRate = Math.max(
+              0,
+              Math.min(1, adjustedCompressionRate)
+            );
 
             var adjustedImageFormat = that.imageFormat;
             adjustedImageFormat = adjustedImageFormat.toLowerCase();
 
-            var dataurl = canvas.toDataURL(`image/${adjustedImageFormat}`, adjustedCompressionRate);
+            var dataurl = canvas.toDataURL(
+              `image/${adjustedImageFormat}`,
+              adjustedCompressionRate
+            );
 
             that.imageUrl = dataurl;
 
@@ -125,36 +138,37 @@ export class LeafImageUploadComponent implements OnInit, ControlValueAccessor {
   public dataURItoBlob(dataURI): Blob {
     // convert base64 to raw binary data held in a string
     // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
-    var byteString = atob(dataURI.split(',')[1]);
+    var byteString = atob(dataURI.split(",")[1]);
     // separate out the mime component
-    var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
+    var mimeString = dataURI.split(",")[0].split(":")[1].split(";")[0];
     // write the bytes of the string to an ArrayBuffer
     var ab = new ArrayBuffer(byteString.length);
     // create a view into the buffer
     var ia = new Uint8Array(ab);
     // set the bytes of the buffer to the correct values
     for (var i = 0; i < byteString.length; i++) {
-        ia[i] = byteString.charCodeAt(i);
+      ia[i] = byteString.charCodeAt(i);
     }
     // write the ArrayBuffer to a blob, and you're done
-    var blob = new Blob([ab], {type: mimeString});
+    var blob = new Blob([ab], { type: mimeString });
     return blob;
   }
 
   public upload() {
     this.currentFileUpload = this.dataURItoBlob(this.imageUrl);
     this.fileUploadInProgress = true;
-    this.uploadService
-      .pushFileToStorage(this.currentFileUpload)
-      .subscribe(imageUrl => {
+    this.uploadService.pushFileToStorage(this.currentFileUpload).subscribe({
+      next: (imageUrl) => {
         this.imageUrl = imageUrl;
         this.onChange(this.imageUrl);
         this.selectedFile.emit(this.imageUrl);
         this.fileUploadInProgress = false;
-      }, (error) => {
+      },
+      error: (error) => {
         this.onError.emit(error);
         this.fileUploadInProgress = false;
-      });
+      }
+    });
 
     this.onTouched();
     this.selectedFiles = undefined;
