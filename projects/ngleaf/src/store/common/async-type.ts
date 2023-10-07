@@ -65,13 +65,13 @@ export function createAsyncTypeFromCall<T>(call?: Observable<T>) {
   };
 }
 
-export function createEmptyAsyncType() {
+export function createEmptyAsyncType(data?: any) {
   return {
-      data: undefined,
+      data,
       error: undefined,
       call: undefined,
       status: {
-          pending: undefined,
+          pending: false,
           failure: undefined,
           success: undefined
       }

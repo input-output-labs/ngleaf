@@ -201,24 +201,43 @@
         "accept-button-label": "Accept",
         "decline-button-label": "Decline"
       },
+      "organization-policies": {
+        "roleListTitle": "Existing roles",
+        "addRoleButtonLabel": "Add role",
+        "roleNameFormLabel": "Role's name",
+        "roleSaveButtonLabel": "Save role's updates",
+        "policies" : {
+          "seeOrganization": {
+            "name": "See organization",
+            "description": "Allow organization's member to see global organization data. Except members or policies for which specific rules exist."
+          },
+          "seeMembers": {
+            "name": "See organization's members",
+            "description": "Allow organization's member to see the list of members of this organization. Personnal data are still kept safe. Only avatar, name, and roles are visible."
+          },
+          "manageMembers": {
+            "name": "Manage organization's members",
+            "description": "Allow organization's member to invite other user to this organization, to change other member's role, and remove a member from the organization."
+          },
+          "seePolicies": {
+            "name": "See organization's policies",
+            "description": "Allow members to see the existing roles and the rights they have upon the existing policies."
+          },
+          "managePolicies": {
+            "name": "Manage organization's policies",
+            "description": "Allow members to create or delete organization's role. They will also have the possibility to change the rights attach to each existing role."
+          }
+        }
+      },
       "notification-item": {
         "LEAF_ACCOUNT_REGISTRATION": {
           "icon": "account_circle",
           "label": "Hi {{payload.profile.username}} !<br/>Welcome in the leaf demo app !",
-          "link": "/settings/general"
+          "link": "/settings"
         },
         "LEAF_TEST_NOTIF": {
           "icon": "science",
           "label": "New test notif"
-        },
-        "RPLUS_BOOKING_CREATION_OWNER": {
-          "icon": "science",
-          "label": "Nouvelle reservation chez vous"
-        },
-        "RPLUS_BOOKING_CANCELLED_OWNER": {
-          "icon": "account_circle",
-          "label": "Réservation annulée",
-          "link": "/settings/avatar"
         },
         "LEAF_ORGANIZATION_INVITATION": {
           "icon": "store",

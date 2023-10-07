@@ -1,16 +1,17 @@
 import { Inject, Injectable } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { filter, map, take } from 'rxjs';
+import { filter, map, skip, take, tap } from 'rxjs';
 
 import { LeafAuthHttpClient, AccountApiClient, SponsoringApiClientService } from '../../../api/clients/index';
 
 import { LeafConfig } from '../../../models/index';
 import { LeafConfigServiceToken } from '../../leaf-config.module';
-import { resetCurrentAccount, resetSessionToken, selectCurrentAccount, selectSessionToken, setCurrentAccountCall, setMailingsUnsubscriptionCall, setResetPasswordCall, setSendResetPasswordKeyCall, setSessionToken, setSessionTokenCall, setUpdatePasswordCall } from '../../../store/core/session/index';
+import { initializationDone, resetCurrentAccount, resetSessionToken, selectCurrentAccount, selectSessionState, selectSessionToken, setCurrentAccountCall, setMailingsUnsubscriptionCall, setResetPasswordCall, setSendResetPasswordKeyCall, setSessionToken, setSessionTokenCall, setUpdatePasswordCall } from '../../../store/core/session/index';
 import { AsyncType } from '../../../store/common/index';
 import { JWTModel, LeafAccountModel } from '../../../api/models/index';
 import { selectSponsorCode, setSetSponsorCall, setSponsorCode } from '../../../store/sponsoring/index';
+import { Actions, ofType } from '@ngrx/effects';
 
 @Injectable()
 export class LeafSessionService {
@@ -20,6 +21,7 @@ export class LeafSessionService {
     private accountApiClient: AccountApiClient,
     private sponsoringApiClientService: SponsoringApiClientService,
     private store: Store,
+    private actions$: Actions,
     public authHttp: LeafAuthHttpClient,
     private router: Router,
     private activeRoute: ActivatedRoute,
@@ -33,6 +35,12 @@ export class LeafSessionService {
       this.store.dispatch(resetSessionToken());
     }
 
+    setTimeout(() => {
+      this.checkSessionToken();
+    });
+  }
+
+  public checkSessionToken() {
     this.store.pipe(
       select(selectSessionToken),
       filter<AsyncType<JWTModel>>((sessionToken) => !sessionToken.status.pending),
@@ -43,7 +51,7 @@ export class LeafSessionService {
           return null;
         }
       })
-    ).subscribe((jwtoken) => {
+    ).subscribe((jwtoken: JWTModel) => {
       if (jwtoken) {
         localStorage.setItem('jwtoken', jwtoken.token);
         this.authHttp.setJwtoken(jwtoken.token);
@@ -53,14 +61,19 @@ export class LeafSessionService {
         .catch(() => {
           this.store.dispatch(resetSessionToken());
           this.store.dispatch(resetCurrentAccount());
+
           if (this.config.navigation.authGuardErrorRedirect) {
             this.router.navigate([this.config.navigation.authGuardErrorRedirect]);
           }
+        })
+        .finally(() => {
+          this.store.dispatch(initializationDone());
         });
 
       } else {
         localStorage.removeItem('jwtoken');
         this.authHttp.setJwtoken(null);
+        this.store.dispatch(initializationDone());
       }
     });
   }

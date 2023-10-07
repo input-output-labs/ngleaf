@@ -6,6 +6,6 @@ import { OrganizationsApiClientService } from './organizations-api-client.servic
   imports: [
     CommonModule
   ],
-  providers: [OrganizationsApiClientService]
+  providers: [OrganizationsApiClientService],
 })
 export class OrganizationsApiClientModule { }

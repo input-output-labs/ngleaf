@@ -1,0 +1,60 @@
+<div class="organization-policies" *ngIf="(organization$ | async) as organization">
+  <mat-list role="list" class="roles-list">
+    <mat-list-item role="listitem">
+      <b>{{ "leaf.organization-policies.roleListTitle" | translate }}</b>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item role="listitem" *ngFor="let role of organization.policies.roles" class="role-list-item">
+      <a mat-button [routerLink]="'../' + role.name" class="role-button" routerLinkActive="active">
+        <mat-icon *ngIf="role.creatorDefault">local_police</mat-icon>
+        <mat-icon *ngIf="role.otherDefault">shield_lock</mat-icon>
+        <mat-icon *ngIf="!role.otherDefault && !role.creatorDefault">admin_panel_settings</mat-icon>
+        <span>{{ role.name }}</span>
+      </a>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item role="listitem">
+      <button mat-flat-button class="role-button" color="primary" (click)="createRole()">
+        <mat-icon>add_moderator</mat-icon>
+        <span>{{ "leaf.organization-policies.addRoleButtonLabel" | translate }}</span>
+      </button>
+    </mat-list-item>
+  </mat-list>
+  <div class="role-configuration">
+    <div class="role-configuration-header">
+      <mat-form-field subscriptSizing="dynamic">
+        <mat-label>{{ "leaf.organization-policies.roleNameFormLabel" | translate }}</mat-label>
+        <input matInput type="text" [(value)]="role.name">
+      </mat-form-field>
+      <button mat-flat-button color="primary" [disabled]="!isRoleEdited()">
+        <mat-icon>save</mat-icon>
+        {{ 'leaf.organization-policies.roleSaveButtonLabel' | translate}}
+      </button>
+    </div>
+    <mat-list role="list" class="role-configuration-policies">
+      <ng-container *ngFor="let right of role.rights;">
+        <mat-list-item role="listitem" class="role-list-item">
+          <div class="role-configuration-policy">
+            <div class="name-and-value-line">
+              <span class="role-name">
+                {{ ("leaf.organization-policies.policies." + right.name + ".name") | translate }}
+              </span>
+              <span class="role-value" [ngSwitch]="right.type">
+                  <some-element *ngSwitchCase="'boolean'">
+                    <mat-slide-toggle [checked]="right.value === 'true'"></mat-slide-toggle>
+                  </some-element>
+                  <some-element *ngSwitchDefault>
+                    other ...
+                  </some-element>
+              </span>
+            </div>
+            <span class="role-description">
+              {{ ("leaf.organization-policies.policies." + right.name + ".description") | translate }}
+            </span>
+          </div>
+        </mat-list-item>
+        <mat-divider class="separator"></mat-divider>
+      </ng-container>
+    </mat-list>
+  </div>
+</div>

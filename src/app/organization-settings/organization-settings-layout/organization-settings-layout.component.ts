@@ -21,7 +21,7 @@ export class OrganizationSettingsLayoutComponent implements OnInit {
         labelKey: "app.organization-settings.layout.policiesLinkLabel",
         link: "./policies",
         index: 1,
-        disabled: true,
+        disabled: false,
       },
     ];
   }

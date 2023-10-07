@@ -1,20 +1,23 @@
 import { createReducer, on } from '@ngrx/store';
-import { asyncTypeFailure, asyncTypeSuccess, createAsyncTypeFromCall, createEmptyAsyncType } from '../../common/index';
-import { resetCurrentAccount, setCurrentAccountCall, setCurrentAccountSuccess, setCurrentAccountFailure, setSessionTokenCall, setSessionTokenSuccess, setSessionTokenFailure, resetSessionToken, resetSendResetPasswordKey, setSendResetPasswordKeyCall, setSendResetPasswordKeySuccess, setSendResetPasswordKeyFailure, resetResetPassword, setResetPasswordCall, setResetPasswordSuccess, setResetPasswordFailure, setSessionToken, resetUpdatePassword, setUpdatePasswordCall, setUpdatePasswordSuccess, setUpdatePasswordFailure, resetMailingsUnsubscription, setMailingsUnsubscriptionCall, setMailingsUnsubscriptionSuccess, setMailingsUnsubscriptionFailure} from './session.actions';
+import { asyncTypeFailure, asyncTypePending, asyncTypeSuccess, createAsyncTypeFromCall, createEmptyAsyncType } from '../../common/index';
+import { resetCurrentAccount, setCurrentAccountCall, setCurrentAccountSuccess, setCurrentAccountFailure, setSessionTokenCall, setSessionTokenSuccess, setSessionTokenFailure, resetSessionToken, resetSendResetPasswordKey, setSendResetPasswordKeyCall, setSendResetPasswordKeySuccess, setSendResetPasswordKeyFailure, resetResetPassword, setResetPasswordCall, setResetPasswordSuccess, setResetPasswordFailure, setSessionToken, resetUpdatePassword, setUpdatePasswordCall, setUpdatePasswordSuccess, setUpdatePasswordFailure, resetMailingsUnsubscription, setMailingsUnsubscriptionCall, setMailingsUnsubscriptionSuccess, setMailingsUnsubscriptionFailure, initializationDone} from './session.actions';
 import { SessionState } from './session.state';
 
 const initialState: SessionState = {
+    initializationOngoing: true,
     currentAccount: createEmptyAsyncType(),
     sessionToken: createEmptyAsyncType(),
     sendResetPasswordKey: createEmptyAsyncType(),
     resetPassword: createEmptyAsyncType(),
     updatePassword: createEmptyAsyncType(),
-    mailingsUnsubscription: createEmptyAsyncType()
+    mailingsUnsubscription: createEmptyAsyncType(),
 };
 
 export function sessionReducer(reducerState, action): SessionState {
   return createReducer(
     initialState,
+    /* Initialization */
+    on(initializationDone, (state: SessionState) => ({...state, initializationOngoing: false})),
     /** Current Account */
     on(resetCurrentAccount, (state: SessionState) => ({...state, currentAccount: createEmptyAsyncType()})),
     on(setCurrentAccountCall, (state: SessionState, {call}) => ({...state, currentAccount: createAsyncTypeFromCall(call)})),

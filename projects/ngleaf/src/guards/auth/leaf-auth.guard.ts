@@ -1,10 +1,10 @@
 import { Inject, Injectable } from '@angular/core';
 import { Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { take, mergeMap, filter, map, withLatestFrom } from 'rxjs/operators';
+import { take, mergeMap, filter, map, withLatestFrom, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 
-import { selectCurrentAccount, selectIsPending } from '../../store/core/session/session.selectors';
+import { selectCurrentAccount, selectInitializationOngoing, } from '../../store/core/session/session.selectors';
 import { LeafConfigServiceToken } from '../../services/leaf-config.module';
 import { LeafConfig } from '../../models/leaf-config.model';
 
@@ -19,16 +19,17 @@ export class LeafAuthGuardService  {
 
   canActivate(_route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
     return this.store.pipe(
-      select(selectIsPending),
-      filter(isPending => !isPending),
+      select(selectInitializationOngoing),
+      filter(initializationOngoing => !initializationOngoing),
       take(1),
       withLatestFrom(this.store.select(selectCurrentAccount)),
       map(([_pending, currentAccount]) => currentAccount.data),
       mergeMap(currentAccount => {
         if (currentAccount) {
+          console.log("[AuthGuard] Fine to go !");
           return of(true);
         } else {
-          console.log('state: ', state);
+          console.log("[AuthGuard] Go to login plz");
           this.router.navigate([this.config.navigation.authGuardErrorRedirect || '/login'], {
             queryParams: {
               return: state.url

@@ -20,7 +20,7 @@ export function storageMetaReducer<S, A extends Action = Action>(reducer: Action
         if (onInit) {
             onInit = false;
             const savedState = getSavedState(localStorageKey);
-            return merge(nextState, savedState);
+            return merge(savedState, nextState);
         }
         // save the next state to the application storage.
         const stateToSave = nextState;

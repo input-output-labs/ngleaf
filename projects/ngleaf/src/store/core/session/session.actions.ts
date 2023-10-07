@@ -5,6 +5,10 @@ import { JWTModel, LeafAccountModel } from '../../../api/models/index';
 export const resetCurrentAccount = createAction(
   '[Session store] Reset current account'
 );
+export const initializationDone = createAction(
+  '[Session store] Initialization done'
+);
+
 export const setCurrentAccountCall = createAction(
   '[Session store] Set current account call',
   props<{call: Observable<LeafAccountModel>}>()

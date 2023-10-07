@@ -21,11 +21,31 @@ export interface OrganizationInvitationData {
   invitation: OrganizationInvitation;
 }
 
+export interface OrganizationPolicy {
+  order: number;
+  name: string;
+  type: string;
+  value: string;
+}
+
+export interface OrganizationRole {
+  creatorDefault: boolean;
+  otherDefault: boolean;
+  name: string;
+  rights: OrganizationPolicy[];
+}
+
+export interface OrganizationPolicies {
+  roles: OrganizationRole[];
+  policies: OrganizationPolicy[];
+}
+
 export interface LeafOrganization {
   id?: string;
   name: string;
   metadata?: any;
   members?: OrganizationMembership[];
   invitations?: OrganizationInvitation[];
+  policies: OrganizationPolicies;
   modules?: {[moduleName: string]: any};
 }

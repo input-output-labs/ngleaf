@@ -13,6 +13,11 @@ export const selectSessionState = createSelector(
   selectSession,
  (state: SessionState) => state
 );
+
+export const selectInitializationOngoing = createSelector(
+  selectSession,
+ (state: SessionState) => state.initializationOngoing
+);
 export const selectCurrentAccount = createSelector(
    selectSession,
   (state: SessionState) => state.currentAccount
@@ -53,5 +58,14 @@ export const selectIsPending = createSelector(
    sendResetPasswordKey: AsyncType<void>,
    resetPassword: AsyncType<void>,
    updatePassword: AsyncType<LeafAccountModel>
- ) => currentAccount.status.pending || sessionToken.status.pending || sendResetPasswordKey.status.pending || resetPassword.status.pending || updatePassword.status.pending
+ ) => (currentAccount.status.pending || sessionToken.status.pending || sendResetPasswordKey.status.pending || resetPassword.status.pending || updatePassword.status.pending) ?? false
+);
+
+export const selectSessionLoadingIsPending = createSelector(
+  selectCurrentAccount,
+  selectSessionToken,
+ (
+   currentAccount: AsyncType<LeafAccountModel>,
+   sessionToken: AsyncType<JWTModel>,
+ ) => (currentAccount.status.pending || sessionToken.status.pending)
 );
