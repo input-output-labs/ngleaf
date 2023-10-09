@@ -8,6 +8,12 @@ export interface OrganizationsState {
   organizationUsers: AsyncType<void>;
   createOrganization: AsyncType<void>;
   addUsersToOrganization: AsyncType<void>;
+  removeUserFromOrganization: AsyncType<void>;
+  setUserRole: AsyncType<void>;
   inviteUserToOrganization: AsyncType<LeafOrganization>;
   invitationData: AsyncType<OrganizationInvitationData>;
+  /* Roles */
+  createRole: AsyncType<LeafOrganization>;
+  updateRole: AsyncType<LeafOrganization>;
+  deleteRole: AsyncType<LeafOrganization>;
 }

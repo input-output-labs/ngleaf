@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
-import { Observable, Subscription, combineLatest, distinctUntilKeyChanged, filter, map, startWith } from 'rxjs';
+import { Observable, Subscription, combineLatest, debounce, interval, filter, map, startWith } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { LeafAccountModel, LeafOrganization, OrganizationMembership, LeafAccountProfile } from '../../../../api';
-import { selectCurrentAccountData, listOrganizationUsers, selectCurrentOrganization } from '../../../../store';
+import { selectCurrentAccountData, listOrganizationUsers, selectCurrentOrganization, removeUserFromOrganization, setUserRole } from '../../../../store';
 import { MatDialog } from '@angular/material/dialog';
 import { OrganizationInvitationsComponent } from '../organization-invitations';
 
@@ -37,7 +37,7 @@ export class OrganizationMembersComponent implements OnInit, OnDestroy {
       map(([organization, searchValue]) => {
         return (organization.members || []).filter((member) => {
           if (!member.user || !member.user.profile) {
-            return false;
+            return true;
           }
           if((member.user.profile.lastname || '').toLowerCase().includes(searchValue.toLowerCase())) {
             return true;
@@ -55,7 +55,7 @@ export class OrganizationMembersComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.organization$.pipe(
         filter(organization => organization.members.every((member) => !member.user)),
-        distinctUntilKeyChanged('id'),
+        debounce((i: any) => interval(i * 2500)),
       ).subscribe((organization) => {
         this.store.dispatch(listOrganizationUsers({organizationId: organization.id}));
       })
@@ -80,5 +80,21 @@ export class OrganizationMembersComponent implements OnInit, OnDestroy {
 
   public openInvationDialog() {
     this.dialog.open(OrganizationInvitationsComponent);
+  }
+
+  public setUserRole(organizationId: string, accountId: string, role: string) {
+    this.store.dispatch(setUserRole({
+      organizationId,
+      accountId,
+      role
+    }));
+  }
+
+  public removeUserFromOrganization(organizationId: string, accountId: string) {
+    this.store.dispatch(removeUserFromOrganization({id: organizationId, accountId: accountId}));
+  }
+
+  public stopPropagation(event) {
+    event.stopPropagation();
   }
 }

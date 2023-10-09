@@ -46,6 +46,6 @@ export interface LeafOrganization {
   metadata?: any;
   members?: OrganizationMembership[];
   invitations?: OrganizationInvitation[];
-  policies: OrganizationPolicies;
+  policies?: OrganizationPolicies;
   modules?: {[moduleName: string]: any};
 }

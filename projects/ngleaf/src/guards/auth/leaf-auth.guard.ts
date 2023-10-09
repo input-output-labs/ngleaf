@@ -26,10 +26,8 @@ export class LeafAuthGuardService  {
       map(([_pending, currentAccount]) => currentAccount.data),
       mergeMap(currentAccount => {
         if (currentAccount) {
-          console.log("[AuthGuard] Fine to go !");
           return of(true);
         } else {
-          console.log("[AuthGuard] Go to login plz");
           this.router.navigate([this.config.navigation.authGuardErrorRedirect || '/login'], {
             queryParams: {
               return: state.url

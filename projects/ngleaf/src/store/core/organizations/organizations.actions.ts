@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { LeafAccountModel, LeafOrganization, OrganizationInvitationData } from '../../../api/models';
+import { LeafAccountModel, LeafOrganization, OrganizationInvitationData, OrganizationRole } from '../../../api/models';
 import { Observable } from 'rxjs';
 
 export const listAllOrganizations = createAction(
@@ -86,6 +86,32 @@ export const addUsersToOrganizationFailure = createAction(
   props<{error: any}>()
 );
 
+export const removeUserFromOrganization = createAction(
+  '[Organizations store] Remove user from organization',
+  props<{id: string, accountId: string}>()
+);
+export const removeUserFromOrganizationSuccess = createAction(
+  '[Organizations store] Remove user from organization success',
+  props<{data: LeafOrganization}>()
+);
+export const removeUserFromOrganizationFailure = createAction(
+  '[Organizations store] Remove user from organization failure',
+  props<{error: any}>()
+);
+
+export const setUserRole = createAction(
+  '[Organizations store] Set user role',
+  props<{organizationId: string, accountId: string, role: string}>()
+);
+export const setUserRoleSuccess = createAction(
+  '[Organizations store] Set user role success',
+  props<{data: LeafOrganization}>()
+);
+export const setUserRoleFailure = createAction(
+  '[Organizations store] Set user role failure',
+  props<{error: any}>()
+);
+
 export const inviteUserToOrganization = createAction(
   '[Organizations store] Invite user to organization',
   props<{id: string, email: string}>()
@@ -117,3 +143,42 @@ export const cancelInvitation = createAction(
   props<{id: string, email: string}>()
 );
 
+
+export const createRole = createAction(
+  '[Organizations store] Create role',
+  props<{organizationId: string, name: string}>()
+);
+export const createRoleSuccess = createAction(
+  '[Organizations store] Create role success',
+  props<{data: LeafOrganization}>()
+);
+export const createRoleFailure = createAction(
+  '[Organizations store] Create role failure',
+  props<{error: any}>()
+);
+
+export const updateRole = createAction(
+  '[Organizations store] Update role',
+  props<{organizationId: string, roleName: string, role: OrganizationRole}>()
+);
+export const updateRoleSuccess = createAction(
+  '[Organizations store] Update role success',
+  props<{data: LeafOrganization}>()
+);
+export const updateRoleFailure = createAction(
+  '[Organizations store] Update role failure',
+  props<{error: any}>()
+);
+
+export const deleteRole = createAction(
+  '[Organizations store] Delete role',
+  props<{organizationId: string, role: OrganizationRole}>()
+);
+export const deleteRoleSuccess = createAction(
+  '[Organizations store] Delete role success',
+  props<{data: LeafOrganization}>()
+);
+export const deleteRoleFailure = createAction(
+  '[Organizations store] Delete role failure',
+  props<{error: any}>()
+);

@@ -14,7 +14,7 @@
     </mat-list-item>
     <mat-divider></mat-divider>
     <mat-list-item role="listitem">
-      <button mat-flat-button class="role-button" color="primary" (click)="createRole()">
+      <button mat-flat-button class="role-button" color="primary" (click)="createRole(organization.id)">
         <mat-icon>add_moderator</mat-icon>
         <span>{{ "leaf.organization-policies.addRoleButtonLabel" | translate }}</span>
       </button>
@@ -24,11 +24,16 @@
     <div class="role-configuration-header">
       <mat-form-field subscriptSizing="dynamic">
         <mat-label>{{ "leaf.organization-policies.roleNameFormLabel" | translate }}</mat-label>
-        <input matInput type="text" [(value)]="role.name">
+        <input matInput type="text" [formControl]="roleNameForm">
       </mat-form-field>
-      <button mat-flat-button color="primary" [disabled]="!isRoleEdited()">
+      <div class="spacer"></div>
+      <button mat-flat-button color="primary" [disabled]="!roleUpdated"(click)="updateRole(organization.id)">
         <mat-icon>save</mat-icon>
         {{ 'leaf.organization-policies.roleSaveButtonLabel' | translate}}
+      </button>
+      <button mat-flat-button color="warn" [disabled]="role.creatorDefault || role.otherDefault" (click)="deleteRole(organization.id)">
+        <mat-icon>delete</mat-icon>
+        {{ 'leaf.organization-policies.roleDeleteButtonLabel' | translate}}
       </button>
     </div>
     <mat-list role="list" class="role-configuration-policies">
@@ -41,7 +46,7 @@
               </span>
               <span class="role-value" [ngSwitch]="right.type">
                   <some-element *ngSwitchCase="'boolean'">
-                    <mat-slide-toggle [checked]="right.value === 'true'"></mat-slide-toggle>
+                    <mat-slide-toggle [checked]="right.value === 'true'" (change)="onRightValueChange(right.name, $event)"></mat-slide-toggle>
                   </some-element>
                   <some-element *ngSwitchDefault>
                     other ...

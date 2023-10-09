@@ -12,6 +12,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { OrganizationMembersComponent } from './organization-members.component';
 import { OrganizationInvitationsModule } from '../organization-invitations';
 import { LeafOrganizationStoreModule } from '../../../../store/core/organizations/index';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   imports: [
@@ -27,6 +29,8 @@ import { LeafOrganizationStoreModule } from '../../../../store/core/organization
     MatTableModule,
     MatChipsModule,
     MatDialogModule,
+    MatMenuModule,
+    MatDividerModule,
     /* Leaf deps*/
     LeafOrganizationStoreModule,
     OrganizationInvitationsModule,

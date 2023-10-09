@@ -1,67 +1,84 @@
-<div class="header">
-  <mat-form-field class="user-search">
-    <input
-      matInput
-      [placeholder]="'leaf.organization-members.search-member-input-label' | translate"
-      [formControl]="searchFormControl"
-    />
-  </mat-form-field>
-  <button mat-flat-button class="open-invitations-button" color="primary" (click)="openInvationDialog()">
-    <mat-icon>person_add_alt_1</mat-icon>
-    {{ 'leaf.organization-members.invite-member-button-label' | translate}}
-  </button>
-</div>
-<table mat-table [dataSource]="filteredMembers$ | async" class="mat-elevation-z0">
-  <ng-container matColumnDef="picture">
-    <th mat-header-cell *matHeaderCellDef> {{ 'leaf.organization-members.userlist-table-column-picture' | translate}} </th>
-    <td mat-cell *matCellDef="let element">
-      <ng-container *ngIf="element?.user; else nouser">
-        <img *ngIf="element?.user.profile.avatarUrl"  class="profile-letters-picture" [src]="element?.user.profile.avatarUrl" />
-        <div *ngIf="!element?.user.profile.avatarUrl" class="profile-letters-picture">{{getProfileShortname(element?.user.profile)}}</div>
-      </ng-container>
-      <ng-template #nouser>Missing data...</ng-template>
-    </td>
-  </ng-container>
+<ng-container  *ngIf="organization$ | async as organization">
+  <div class="header">
+    <mat-form-field class="user-search">
+      <input
+        matInput
+        [placeholder]="'leaf.organization-members.search-member-input-label' | translate"
+        [formControl]="searchFormControl"
+      />
+    </mat-form-field>
+    <button mat-flat-button class="open-invitations-button" color="primary" (click)="openInvationDialog()">
+      <mat-icon>person_add_alt_1</mat-icon>
+      {{ 'leaf.organization-members.invite-member-button-label' | translate}}
+    </button>
+  </div>
 
-  <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef> {{ 'leaf.organization-members.userlist-table-column-name' | translate}} </th>
-    <td mat-cell *matCellDef="let element">
-      <ng-container *ngIf="element?.user; else nouser">
-        <span *ngIf="element?.user.profile.firstname">
-          {{element?.user.profile.firstname}}
-        </span>
-        <span *ngIf="element?.user.profile.lastname">
-          {{element?.user.profile.lastname}}
-        </span>
-        <span *ngIf="!(element?.user.profile.lastname && element?.user.profile.lastname) && element?.user.profile.username">
-          {{element?.user.profile.username}}
-        </span>
-        <span *ngIf="element.accountId === (currentAccount$ | async).id" class="yourself-indicator">(yourself)</span>
-      </ng-container>
-      <ng-template #nouser>Missing data...</ng-template>
-    </td>
-  </ng-container>
+  <table mat-table [dataSource]="filteredMembers$ | async" class="mat-elevation-z0">
+    <ng-container matColumnDef="picture">
+      <th mat-header-cell *matHeaderCellDef> {{ 'leaf.organization-members.userlist-table-column-picture' | translate}} </th>
+      <td mat-cell *matCellDef="let element">
+        <ng-container *ngIf="element?.user; else nouser">
+          <img *ngIf="element?.user.profile.avatarUrl"  class="profile-letters-picture" [src]="element?.user.profile.avatarUrl" />
+          <div *ngIf="!element?.user.profile.avatarUrl" class="profile-letters-picture">{{getProfileShortname(element?.user.profile)}}</div>
+        </ng-container>
+        <ng-template #nouser>Missing data...</ng-template>
+      </td>
+    </ng-container>
 
-  <ng-container matColumnDef="role">
-    <th mat-header-cell *matHeaderCellDef> {{ 'leaf.organization-members.userlist-table-column-roles' | translate}} </th>
-    <td mat-cell *matCellDef="let element">
-      <mat-chip-listbox>
-        <mat-chip-option color="primary" highlighted [selectable]="false" selected>
-          {{element.role | titlecase}}
-        </mat-chip-option>
-      </mat-chip-listbox>
-    </td>
-  </ng-container>
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> {{ 'leaf.organization-members.userlist-table-column-name' | translate}} </th>
+      <td mat-cell *matCellDef="let element">
+        <ng-container *ngIf="element?.user; else nouser">
+          <span *ngIf="element?.user.profile.firstname">
+            {{element?.user.profile.firstname}}
+          </span>
+          <span *ngIf="element?.user.profile.lastname">
+            {{element?.user.profile.lastname}}
+          </span>
+          <span *ngIf="!(element?.user.profile.lastname && element?.user.profile.lastname) && element?.user.profile.username">
+            {{element?.user.profile.username}}
+          </span>
+          <span *ngIf="element.accountId === (currentAccount$ | async).id" class="yourself-indicator">(yourself)</span>
+        </ng-container>
+        <ng-template #nouser>Missing data...</ng-template>
+      </td>
+    </ng-container>
 
-  <ng-container matColumnDef="actions">
-    <th mat-header-cell *matHeaderCellDef>  {{ 'leaf.organization-members.userlist-table-column-actions' | translate}}  </th>
-    <td mat-cell *matCellDef="let element">
-      <button mat-icon-button color="warn">
-        <mat-icon>person_remove</mat-icon>
-      </button>
-    </td>
-  </ng-container>
+    <ng-container matColumnDef="role">
+      <th mat-header-cell *matHeaderCellDef> {{ 'leaf.organization-members.userlist-table-column-roles' | translate}} </th>
+      <td mat-cell *matCellDef="let element">
+        <mat-chip-listbox>
+          <mat-chip color="primary" highlighted [selectable]="false" selected>
+            {{element.role | titlecase}}
+            <button matChipRemove [matMenuTriggerFor]="userRoleSelection">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <mat-menu #userRoleSelection="matMenu">
+              <div mat-menu-item (click)="stopPropagation($event)">Available roles</div>
+              <mat-divider></mat-divider>
+              <button mat-menu-item *ngFor="let role of organization.policies.roles" [disabled]="role.name === element.role" (click)="setUserRole(organization.id, element.accountId, role.name)">
+                <mat-icon *ngIf="role.creatorDefault">local_police</mat-icon>
+                <mat-icon *ngIf="role.otherDefault">shield_lock</mat-icon>
+                <mat-icon *ngIf="!role.otherDefault && !role.creatorDefault">admin_panel_settings</mat-icon>
+                <span>{{role.name}}</span>
+              </button>
+            </mat-menu>
+          </mat-chip>
+        </mat-chip-listbox>
+      </td>
+    </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>  {{ 'leaf.organization-members.userlist-table-column-actions' | translate}}  </th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button color="warn" (click)="removeUserFromOrganization(organization.id, element.accountId)">
+          <mat-icon>person_remove</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+</ng-container>

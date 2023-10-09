@@ -157,7 +157,6 @@ export class AppModule {
     translate.setDefaultLang('en');
     translate.use('en');
 
-    console.log("INIT");
     leafSession.init();
     leafWebSocketService.init();
   }

@@ -85,7 +85,7 @@ export class LeafSessionService {
     return new Promise((resolve, reject) => {
       this.store.pipe(
         select(selectCurrentAccount),
-        filter((currentAccount: AsyncType<LeafAccountModel>) => !currentAccount.status.pending && !!currentAccount.data),
+        filter((currentAccount: AsyncType<LeafAccountModel>) => !currentAccount.status.pending),
         take(1)
       ).subscribe((currentAccountAsync) => {
         if(currentAccountAsync.status.success) {
@@ -156,7 +156,7 @@ export class LeafSessionService {
   }
 
   private returnTo(returnTo: string) {
-    const url = new URL('https://fake.com' + returnTo);
+    const url = new URL('https://fake.com' + decodeURIComponent(returnTo));
     const queryParams = {};
     for (const key of (url.searchParams as any).keys()) {
       queryParams[key] = url.searchParams.get(key);

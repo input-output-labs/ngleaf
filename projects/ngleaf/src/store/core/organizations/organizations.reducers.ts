@@ -18,8 +18,13 @@ const initialState: OrganizationsState = {
   organizationUsers: createEmptyAsyncType(),
   createOrganization: createEmptyAsyncType(),
   addUsersToOrganization: createEmptyAsyncType(),
+  removeUserFromOrganization: createEmptyAsyncType(),
+  setUserRole: createEmptyAsyncType(),
   inviteUserToOrganization: createEmptyAsyncType(),
   invitationData: createEmptyAsyncType(),
+  createRole: createEmptyAsyncType(),
+  updateRole: createEmptyAsyncType(),
+  deleteRole: createEmptyAsyncType(),
 };
 
 export function organizationsReducer(reducerState, action): OrganizationsState {
@@ -139,6 +144,52 @@ export function organizationsReducer(reducerState, action): OrganizationsState {
         addUsersToOrganization: asyncTypeFailure(state.addUsersToOrganization, error),
       })
     ),
+    /* Set user role in organization */
+    on(
+      Actions.setUserRole,
+      (state: OrganizationsState, {}) => ({
+        ...state,
+        setUserRole: asyncTypePending(state.setUserRole),
+      })
+    ),
+    on(
+      Actions.setUserRoleSuccess,
+      (state: OrganizationsState, {data}) => ({
+        ...state,
+        setUserRole: asyncTypeSuccess(state.setUserRole),
+        myOrganizations: asyncUpsert(data, state.myOrganizations),
+      })
+    ),
+    on(
+      Actions.setUserRoleFailure,
+      (state: OrganizationsState, {error}) => ({
+        ...state,
+        setUserRole: asyncTypeFailure(state.setUserRole, error),
+      })
+    ),
+    /* Remove user from organization */
+    on(
+      Actions.removeUserFromOrganization,
+      (state: OrganizationsState, {}) => ({
+        ...state,
+        removeUserFromOrganization: asyncTypePending(state.removeUserFromOrganization),
+      })
+    ),
+    on(
+      Actions.removeUserFromOrganizationSuccess,
+      (state: OrganizationsState, {data}) => ({
+        ...state,
+        removeUserFromOrganization: asyncTypeSuccess(state.removeUserFromOrganization),
+        myOrganizations: asyncUpsert(data, state.myOrganizations),
+      })
+    ),
+    on(
+      Actions.removeUserFromOrganizationFailure,
+      (state: OrganizationsState, {error}) => ({
+        ...state,
+        removeUserFromOrganization: asyncTypeFailure(state.removeUserFromOrganization, error),
+      })
+    ),
     /* Invite user to organization */
     on(
       Actions.inviteUserToOrganization,
@@ -183,6 +234,75 @@ export function organizationsReducer(reducerState, action): OrganizationsState {
       (state: OrganizationsState, {error}) => ({
         ...state,
         invitationData: asyncTypeFailure(state.invitationData, error),
+      })
+    ),
+    /* Create role */
+    on(
+      Actions.createRole,
+      (state: OrganizationsState, {}) => ({
+        ...state,
+        createRole: asyncTypePending(state.createRole),
+      })
+    ),
+    on(
+      Actions.createRoleSuccess,
+      (state: OrganizationsState, {data}) => ({
+        ...state,
+        createRole: asyncTypeSuccess(state.createRole),
+        myOrganizations: asyncUpsert(data, state.myOrganizations),
+      })
+    ),
+    on(
+      Actions.createRoleFailure,
+      (state: OrganizationsState, {error}) => ({
+        ...state,
+        createRole: asyncTypeFailure(state.createRole, error),
+      })
+    ),
+    /* Update role */
+    on(
+      Actions.updateRole,
+      (state: OrganizationsState, {}) => ({
+        ...state,
+        updateRole: asyncTypePending(state.updateRole),
+      })
+    ),
+    on(
+      Actions.updateRoleSuccess,
+      (state: OrganizationsState, {data}) => ({
+        ...state,
+        updateRole: asyncTypeSuccess(state.updateRole),
+        myOrganizations: asyncUpsert(data, state.myOrganizations),
+      })
+    ),
+    on(
+      Actions.updateRoleFailure,
+      (state: OrganizationsState, {error}) => ({
+        ...state,
+        updateRole: asyncTypeFailure(state.updateRole, error),
+      })
+    ),
+    /* Delete role */
+    on(
+      Actions.deleteRole,
+      (state: OrganizationsState, {}) => ({
+        ...state,
+        deleteRole: asyncTypePending(state.deleteRole),
+      })
+    ),
+    on(
+      Actions.deleteRoleSuccess,
+      (state: OrganizationsState, {data}) => ({
+        ...state,
+        deleteRole: asyncTypeSuccess(state.deleteRole),
+        myOrganizations: asyncUpsert(data, state.myOrganizations),
+      })
+    ),
+    on(
+      Actions.deleteRoleFailure,
+      (state: OrganizationsState, {error}) => ({
+        ...state,
+        deleteRole: asyncTypeFailure(state.deleteRole, error),
       })
     ),
   )(reducerState, action);

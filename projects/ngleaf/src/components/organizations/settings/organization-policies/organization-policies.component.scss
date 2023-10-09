@@ -27,7 +27,11 @@
 
         .role-configuration-header {
             display: flex;
-            justify-content: space-between;
+            gap: 0.5rem;
+
+            .spacer {
+              flex: 1;
+            }
         }
 
         .role-configuration-policies {

@@ -7,7 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { OrganizationPoliciesComponent } from './organization-policies.component';
 import { LeafOrganizationStoreModule } from '../../../../store/core/organizations/index';
@@ -19,7 +19,6 @@ import { LeafOrganizationStoreModule } from '../../../../store/core/organization
     TranslateModule,
     RouterModule,
     ReactiveFormsModule,
-    FormsModule,
     /* Material deps */
     MatListModule,
     MatButtonModule,

@@ -6,7 +6,7 @@ import { map, switchMap, catchError, withLatestFrom } from "rxjs/operators";
 import * as OrganizationsActions from "./organizations.actions";
 
 import { OrganizationsApiClientService } from "../../../api/clients";
-import { LeafOrganization } from "../../../api/models";
+import { LeafOrganization, OrganizationRole } from "../../../api/models";
 import { Store } from "@ngrx/store";
 import { selectCurrentOrganizationId } from "./organizations.selectors";
 import { setCurrentAccountSuccess } from "../session";
@@ -134,7 +134,39 @@ export class OrganizationsEffects {
     )
   );
 
-  setCurrentAccountSuccess$ = createEffect(() =>
+  setUserRole$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(OrganizationsActions.setUserRole),
+      switchMap((payload: { organizationId: string; accountId: string; role: string }) =>
+        this.organizationApiClient
+          .setUserRole(payload.organizationId, payload.accountId, payload.role)
+          .pipe(
+            map((organization: LeafOrganization) => OrganizationsActions.setUserRoleSuccess({data: organization})),
+            catchError((error) =>
+              of(OrganizationsActions.setUserRoleFailure({ error }))
+            )
+          )
+      )
+    )
+  );
+
+  removeUserFromOrganization$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(OrganizationsActions.removeUserFromOrganization),
+      switchMap((payload: { id: string; accountId: string }) =>
+        this.organizationApiClient
+          .removeUserFromOrganization(payload.id, payload.accountId)
+          .pipe(
+            map((organization: LeafOrganization) => OrganizationsActions.removeUserFromOrganizationSuccess({data: organization})),
+            catchError((error) =>
+              of(OrganizationsActions.removeUserFromOrganizationFailure({ error }))
+            )
+          )
+      )
+    )
+  );
+
+  listMyOrganizationsTriggers$ = createEffect(() =>
     this.actions$.pipe(
       ofType(setCurrentAccountSuccess),
       map(() => OrganizationsActions.listMyOrganizations())
@@ -181,6 +213,54 @@ export class OrganizationsEffects {
           .cancelInvitation(payload.id, payload.email)
           .pipe(
             map(() => OrganizationsActions.listMyOrganizations())
+          )
+      )
+    )
+  );
+
+  createRole$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(OrganizationsActions.createRole),
+      switchMap((payload: { organizationId: string; name: string }) =>
+        this.organizationApiClient
+          .createRole(payload.organizationId, payload.name)
+          .pipe(
+            map((organization: LeafOrganization) => OrganizationsActions.createRoleSuccess({data: organization})),
+            catchError((error) =>
+              of(OrganizationsActions.createRoleFailure({ error }))
+            )
+          )
+      )
+    )
+  );
+
+  updateRole$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(OrganizationsActions.updateRole),
+      switchMap((payload: { organizationId: string; roleName: string; role: OrganizationRole }) =>
+        this.organizationApiClient
+          .updateRole(payload.organizationId, payload.roleName, payload.role)
+          .pipe(
+            map((organization: LeafOrganization) => OrganizationsActions.updateRoleSuccess({data: organization})),
+            catchError((error) =>
+              of(OrganizationsActions.updateRoleFailure({ error }))
+            )
+          )
+      )
+    )
+  );
+
+  deleteRole$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(OrganizationsActions.deleteRole),
+      switchMap((payload: { organizationId: string; role: OrganizationRole }) =>
+        this.organizationApiClient
+          .deleteRole(payload.organizationId, payload.role)
+          .pipe(
+            map((organization: LeafOrganization) => OrganizationsActions.deleteRoleSuccess({data: organization})),
+            catchError((error) =>
+              of(OrganizationsActions.deleteRoleFailure({ error }))
+            )
           )
       )
     )

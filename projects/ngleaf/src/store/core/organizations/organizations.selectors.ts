@@ -64,3 +64,18 @@ export const selectInvitationData = createSelector(
   selectOrganizationsState,
  (state: OrganizationsState) => state.invitationData
 );
+
+export const selectCreateRole = createSelector(
+  selectOrganizationsState,
+ (state: OrganizationsState) => state.createRole
+);
+
+export const selectUpdateRole = createSelector(
+  selectOrganizationsState,
+ (state: OrganizationsState) => state.updateRole
+);
+
+export const selectDeleteRole = createSelector(
+  selectOrganizationsState,
+ (state: OrganizationsState) => state.deleteRole
+);

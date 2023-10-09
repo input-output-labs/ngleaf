@@ -206,6 +206,8 @@
         "addRoleButtonLabel": "Add role",
         "roleNameFormLabel": "Role's name",
         "roleSaveButtonLabel": "Save role's updates",
+        "roleDeleteButtonLabel": "Delete role",
+        "defaultNewRoleName": "New role",
         "policies" : {
           "seeOrganization": {
             "name": "See organization",

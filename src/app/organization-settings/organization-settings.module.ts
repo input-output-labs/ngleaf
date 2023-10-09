@@ -5,7 +5,6 @@ import { OrganizationMembersComponent, OrganizationMembersModule, OrganizationPo
 import { OrganizationSettingsLayoutComponent } from './organization-settings-layout/organization-settings-layout.component';
 import { OrganizationSettingsLayoutModule } from './organization-settings-layout/organization-settings-layout.module';
 
-
 const routes: Routes = [
   {
     path: '',
