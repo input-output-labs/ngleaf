@@ -1,34 +1,47 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterModule, Routes } from '@angular/router';
-import { AvatarUpdateComponent, AvatarUpdateModule, PasswordUpdateComponent, PasswordUpdateModule, PseudoUpdateComponent, PseudoUpdateModule } from '@input-output-labs/ngleaf';
-import { AccountSettingsLayoutModule } from './account-settings-layout/account-settings-layout.module';
-import { AccountSettingsLayoutComponent } from './account-settings-layout/account-settings-layout.component';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { RouterModule, Routes } from "@angular/router";
+import {
+  ProfileUpdateModule,
+  AccountSettingsProfileComponent,
+  AvatarUpdateComponent,
+  AvatarUpdateModule,
+  PasswordUpdateComponent,
+  AccountSettingsProfileModule,
+  PseudoUpdateComponent,
+  PseudoUpdateModule,
+} from "@input-output-labs/ngleaf";
+import { AccountSettingsLayoutModule } from "./account-settings-layout/account-settings-layout.module";
+import { AccountSettingsLayoutComponent } from "./account-settings-layout/account-settings-layout.component";
 
 const routes: Routes = [
   {
-    path: '',
+    path: "",
     component: AccountSettingsLayoutComponent,
     children: [
       {
-        path: '',
-        redirectTo: 'pseudo',
-        pathMatch: 'full',
+        path: "",
+        redirectTo: "profile",
+        pathMatch: "full",
       },
       {
-        path: 'pseudo',
+        path: "profile",
+        component: AccountSettingsProfileComponent,
+      },
+      {
+        path: "pseudo",
         component: PseudoUpdateComponent,
       },
       {
-        path: 'avatar',
+        path: "avatar",
         component: AvatarUpdateComponent,
       },
       {
-        path: 'password',
+        path: "password",
         component: PasswordUpdateComponent,
       },
     ],
-  }
+  },
 ];
 
 @NgModule({
@@ -36,11 +49,12 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     CommonModule,
     /* Leaf deps */
+    ProfileUpdateModule,
     PseudoUpdateModule,
     AvatarUpdateModule,
-    PasswordUpdateModule,
+    AccountSettingsProfileModule,
     /* App deps */
-    AccountSettingsLayoutModule
+    AccountSettingsLayoutModule,
   ],
 })
-export class AccountSettingsModule { }
+export class AccountSettingsModule {}

@@ -1,0 +1,44 @@
+<form [formGroup]="addressFormGroup" class="address-form">
+  <mat-form-field>
+    <input
+      matInput
+      id="address"
+      [placeholder]="'leaf.address-form.address-input-placeholder' | translate"
+      value=""
+      formControlName="address"
+    />
+    <mat-error *ngIf="addressFormGroup.controls.address.hasError('required')">
+      {{ "leaf.address-form.requiredError" | translate }}
+    </mat-error>
+  </mat-form-field>
+  <div class="line">
+    <mat-form-field>
+      <input
+        matInput
+        id="postalCode"
+        [placeholder]="
+          'leaf.address-form.postalCode-input-placeholder' | translate
+        "
+        value=""
+        formControlName="postalCode"
+      />
+      <mat-error
+        *ngIf="addressFormGroup.controls.postalCode.hasError('required')"
+      >
+        {{ "leaf.address-form.requiredError" | translate }}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        id="city"
+        [placeholder]="'leaf.address-form.city-input-placeholder' | translate"
+        value=""
+        formControlName="city"
+      />
+      <mat-error *ngIf="addressFormGroup.controls.city.hasError('required')">
+        {{ "leaf.address-form.requiredError" | translate }}
+      </mat-error>
+    </mat-form-field>
+  </div>
+</form>

@@ -1,0 +1,52 @@
+
+.profile-update-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  &.row {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .form-part {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    .uploader {
+      width: 15rem;
+      height: 15rem;
+    }
+  }
+}
+
+.information {
+  display: flex;
+  align-items: center;
+
+  .mat-icon {
+    margin-right: 0.3em;
+  }
+
+  .description {
+    font-weight: bold;
+  }
+}
+.form-group-title {
+  font-size: 0.83em;
+  font-weight: bold;
+}
+.row {
+  width: 100%;
+  display: flex;
+
+  .input {
+    padding: 0.25em;
+    flex: 1;
+
+    .mat-mdc-form-field {
+      width: 100%;
+    }
+  }
+}

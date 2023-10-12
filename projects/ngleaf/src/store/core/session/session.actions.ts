@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { JWTModel, LeafAccountModel } from '../../../api/models/index';
+import { JWTModel, LeafAccountModel, LeafAccountProfile } from '../../../api/models/index';
 
 export const resetCurrentAccount = createAction(
   '[Session store] Reset current account'
@@ -103,4 +103,16 @@ export const setMailingsUnsubscriptionFailure = createAction(
   props<{error: any}>()
 );
 
+export const updateProfile = createAction(
+  '[Session store] Update profile',
+  props<{updates: LeafAccountProfile}>()
+);
+export const updateProfileSuccess = createAction(
+  '[Session store] Update profile success',
+  props<{data: LeafAccountModel}>()
+);
+export const updateProfileFailure = createAction(
+  '[Session store] Update profile failure',
+  props<{error: any}>()
+);
 

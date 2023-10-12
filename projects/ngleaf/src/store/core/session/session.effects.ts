@@ -3,9 +3,10 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Observable, of } from 'rxjs';
 import { map, switchMap, catchError } from 'rxjs/operators';
 
-import { JWTModel, LeafAccountModel } from '../../../api/models/index';
-import { setCurrentAccountCall, setCurrentAccountFailure, setCurrentAccountSuccess, setMailingsUnsubscriptionCall, setMailingsUnsubscriptionFailure, setMailingsUnsubscriptionSuccess, setResetPasswordCall, setResetPasswordFailure, setResetPasswordSuccess, setSendResetPasswordKeyCall, setSendResetPasswordKeyFailure, setSendResetPasswordKeySuccess, setSessionToken, setSessionTokenCall, setSessionTokenFailure, setSessionTokenSuccess, setUpdatePasswordCall, setUpdatePasswordFailure, setUpdatePasswordSuccess } from './session.actions';
-import { LeafSessionService } from '../../../services/core/session/leaf-session.service';
+import { JWTModel, LeafAccountModel, LeafAccountProfile } from '../../../api/models/index';
+import { AccountApiClient } from '../../../api/clients/index';
+
+import { setCurrentAccountCall, setCurrentAccountFailure, setCurrentAccountSuccess, setMailingsUnsubscriptionCall, setMailingsUnsubscriptionFailure, setMailingsUnsubscriptionSuccess, setResetPasswordCall, setResetPasswordFailure, setResetPasswordSuccess, setSendResetPasswordKeyCall, setSendResetPasswordKeyFailure, setSendResetPasswordKeySuccess, setSessionToken, setSessionTokenCall, setSessionTokenFailure, setSessionTokenSuccess, setUpdatePasswordCall, setUpdatePasswordFailure, setUpdatePasswordSuccess, updateProfile, updateProfileFailure, updateProfileSuccess } from './session.actions';
 
 @Injectable()
 export class SessionEffects {
@@ -16,6 +17,16 @@ export class SessionEffects {
     payload.call.pipe(
         map(currentAccount => (setCurrentAccountSuccess({data: currentAccount}))),
         catchError((error) => of(setCurrentAccountFailure({error})))
+      ))
+    )
+  );
+
+  updateProfile$ = createEffect(() => this.actions$.pipe(
+    ofType(updateProfile),
+    switchMap((payload: {updates: LeafAccountProfile}) =>
+    this.accountApiClient.updateProfile(payload.updates).pipe(
+        map((account: LeafAccountModel) => (updateProfileSuccess({data: account}))),
+        catchError((error) => of(updateProfileFailure({error})))
       ))
     )
   );
@@ -72,6 +83,6 @@ export class SessionEffects {
 
   constructor(
     private actions$: Actions,
-    private sessionService: LeafSessionService,
+    private accountApiClient: AccountApiClient,
   ) {}
 }

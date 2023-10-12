@@ -8,6 +8,7 @@ const initialState: SessionState = {
     currentAccount: createEmptyAsyncType(),
     sessionToken: createEmptyAsyncType(),
     sendResetPasswordKey: createEmptyAsyncType(),
+    updateProfile: createEmptyAsyncType(),
     resetPassword: createEmptyAsyncType(),
     updatePassword: createEmptyAsyncType(),
     mailingsUnsubscription: createEmptyAsyncType(),

@@ -7,6 +7,7 @@ export interface SessionState {
   sessionToken: AsyncType<JWTModel>;
   sendResetPasswordKey: AsyncType<void>;
   resetPassword: AsyncType<void>;
+  updateProfile: AsyncType<LeafAccountModel>;
   updatePassword: AsyncType<LeafAccountModel>;
   mailingsUnsubscription: AsyncType<void>;
 }

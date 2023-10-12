@@ -12,19 +12,24 @@ export class AccountSettingsLayoutComponent implements OnInit {
   constructor(private router: Router) {
     this.navLinks = [
       {
+        labelKey: "app.account-settings.layout.profileLinkLabel",
+        link: "./profile",
+        index: 0,
+      },
+      {
         labelKey: "app.account-settings.layout.pseudoLinkLabel",
         link: "./pseudo",
-        index: 0,
+        index: 1,
       },
       {
         labelKey: "app.account-settings.layout.avatarLinkLabel",
         link: "./avatar",
-        index: 1,
+        index: 2,
       },
       {
         labelKey: "app.account-settings.layout.passwordLinkLabel",
         link: "./password",
-        index: 2,
+        index: 3,
       },
     ];
   }

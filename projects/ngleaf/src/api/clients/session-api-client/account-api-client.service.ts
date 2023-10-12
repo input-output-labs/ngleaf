@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { LeafAuthHttpClient } from '../auth-http-client/leaf-auth-http-client.service';
-import { JWTModel, LeafAccountModel, LoginModel, PasswordChangingModel, PasswordResettingModel, RegistrationModel } from '../../models/index';
+import { JWTModel, LeafAccountModel, LeafAccountProfile, LoginModel, PasswordChangingModel, PasswordResettingModel, RegistrationModel } from '../../models/index';
 
 import { LeafApiClientConfig, LeafApiClientConfigServiceToken } from '../api-client-config.module';
 import { HttpParams } from '@angular/common/http';
@@ -24,6 +24,10 @@ export class AccountApiClient {
 
   public login(login: LoginModel): Observable<JWTModel> {
     return this.authHttp.post<JWTModel>(this.config.serverUrl + '/account/login', login);
+  }
+
+  public updateProfile(updates: LeafAccountProfile): Observable<LeafAccountModel> {
+    return this.authHttp.post<LeafAccountModel>(this.config.serverUrl + '/account/me/profile', updates);
   }
 
   public changeUsername(newUsername: string): Observable<LeafAccountModel> {

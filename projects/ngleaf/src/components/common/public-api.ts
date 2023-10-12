@@ -1,6 +1,7 @@
 /*
  * Public API Surface of ngleaf
  */
+export * from './address-form/index';
 export * from './confirm-dialog/index';
 export * from './copy-to-clipboard/index';
 export * from './forbidden/index';

@@ -25,7 +25,7 @@ export interface LeafAccountProfile {
   firstname?: string;
   lastname?: string;
   phoneNumber?: string;
-  address?: string;
+  address?: LeafAddress;
 }
 
 export interface LeafAccountModel {

@@ -69,3 +69,8 @@ export const selectSessionLoadingIsPending = createSelector(
    sessionToken: AsyncType<JWTModel>,
  ) => (currentAccount.status.pending || sessionToken.status.pending)
 );
+
+export const selectUpdateProfile = createSelector(
+  selectSession,
+ (state: SessionState) => state.updateProfile
+);

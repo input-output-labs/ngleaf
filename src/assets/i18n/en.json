@@ -26,6 +26,7 @@
         "account-settings": {
           "layout": {
             "title": "Account settings",
+            "profileLinkLabel": "Profile",
             "pseudoLinkLabel": "Pseudo",
             "avatarLinkLabel": "Avatar",
             "passwordLinkLabel": "Password"
@@ -128,6 +129,25 @@
         "requiredError": "This field is mandatory",
         "submitLabel": "Change password",
         "differentPasswordError": "Both password and validation must be identical"
+      },
+      "profile-update": {
+        "username-form-group-title": "Username",
+        "username-input-placeholder": "Username",
+        "identity-form-group-title": "Identity",
+        "firstname-input-placeholder": "Firstname",
+        "lastname-input-placeholder": "Lastname",
+        "phoneNumber-form-group-title": "Phone number",
+        "phoneNumber-input-placeholder": "(+XX) 123456789",
+        "address-form-group-title": "Address",
+        "avatar-form-group-title": "Avatar",
+        "requiredError": "This field is mandatory",
+        "submit-button-label": "Update profile"
+      },
+      "address-form": {
+        "address-input-placeholder": "Street name and number",
+        "postalCode-input-placeholder": "Zip code",
+        "city-input-placeholder": "City",
+        "requiredError": "This field is mandatory"
       },
       "login-page": {
         "title": "Login"
