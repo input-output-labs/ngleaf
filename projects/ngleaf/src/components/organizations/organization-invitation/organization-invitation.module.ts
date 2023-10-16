@@ -6,7 +6,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { LeafOrganizationStoreModule } from '../../../store/core/organizations/organizations-store.module';
-import { OrganizationsApiClientModule } from '../../../api/index';
 
 import { OrganizationInvitationComponent } from './organization-invitation.component';
 
@@ -18,7 +17,6 @@ import { OrganizationInvitationComponent } from './organization-invitation.compo
     RouterModule,
     /* Leaf deps */
     LeafOrganizationStoreModule,
-    OrganizationsApiClientModule,
     /* Material deps */
     MatButtonModule,
     MatIconModule,

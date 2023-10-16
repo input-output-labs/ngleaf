@@ -143,7 +143,6 @@ export const cancelInvitation = createAction(
   props<{id: string, email: string}>()
 );
 
-
 export const createRole = createAction(
   '[Organizations store] Create role',
   props<{organizationId: string, name: string}>()
@@ -180,5 +179,21 @@ export const deleteRoleSuccess = createAction(
 );
 export const deleteRoleFailure = createAction(
   '[Organizations store] Delete role failure',
+  props<{error: any}>()
+);
+
+export const acceptInvitation = createAction(
+  '[Organizations store] Accept invitation',
+  props<{organizationId: string, email: string}>()
+);
+export const declineInvitation = createAction(
+  '[Organizations store] Decline invitation',
+  props<{organizationId: string, email: string}>()
+);
+export const invitationAcceptationOrDeclineSuccess = createAction(
+  '[Organizations store] Set invitation acceptation or decline success',
+);
+export const invitationAcceptationOrDeclineFailure = createAction(
+  '[Organizations store] Set invitation acceptation or decline failure',
   props<{error: any}>()
 );

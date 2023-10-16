@@ -1,9 +1,13 @@
 .organization-selector {
-  min-width: 150px;
-
   .current-organization {
     display: flex;
     align-items: center;
     justify-content: space-between;
   }
+}
+
+.mdc-button.menu-item-link {
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
 }

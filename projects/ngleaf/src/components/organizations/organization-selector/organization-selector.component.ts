@@ -13,6 +13,14 @@ import { selectCurrentAccountData } from '../../../store';
 export class OrganizationSelectorComponent implements OnInit {
   @Input()
   public hideWhenNotLoggedIn: boolean = false;
+
+  @Input()
+  public menuXPosition: string = "before";
+  @Input()
+  public menuYPosition: string = "above";
+  @Input()
+  public reduced: boolean = true;
+
   public currentAccount$: Observable<LeafAccountModel>;
   public organizations$: Observable<LeafOrganization[]>;
   public currentOrganization$: Observable<LeafOrganization>;

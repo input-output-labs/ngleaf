@@ -1,26 +1,37 @@
-<div class="menu">
-  <img src="/assets/images/logo.svg" class="logo" />
+<div class="menu" [class.collapsed]="!(menuExpanded$ | async)">
+  <div class="logo-container">
+    <img src="/assets/images/logo.svg" class="logo" />
+  </div>
 
   <mat-list role="list" class="full-width">
     <mat-list-item role="listitem">
-      <leaf-organization-selector></leaf-organization-selector>
+      <leaf-organization-selector [reduced]="!(menuExpanded$ | async)" menuXPosition="after" menuYPosition="above"></leaf-organization-selector>
     </mat-list-item>
     <mat-divider></mat-divider>
     <mat-list-item role="listitem">
-      <a mat-button routerLink="/dashboard" class="full-width menu-item-link">
+      <a mat-icon-button routerLink="/dashboard" *ngIf="!(menuExpanded$ | async)" [matTooltip]="'app.menu.dashbordLinkLabel' | translate" matTooltipPosition="right">
+        <mat-icon>home</mat-icon>
+      </a>
+      <a mat-button routerLink="/dashboard" class="full-width menu-item-link" *ngIf="(menuExpanded$ | async)">
         <mat-icon>home</mat-icon>
         <span>{{ "app.menu.dashbordLinkLabel" | translate }}</span>
       </a>
     </mat-list-item>
     <mat-list-item role="listitem">
-      <a mat-button routerLink="/leaf-labs" class="full-width menu-item-link">
+      <a mat-icon-button routerLink="/leaf-labs" *ngIf="!(menuExpanded$ | async)" [matTooltip]="'app.menu.leafLabsLinkLabel' | translate" matTooltipPosition="right">
+        <mat-icon>eco</mat-icon>
+      </a>
+      <a mat-button routerLink="/leaf-labs" class="full-width menu-item-link" *ngIf="(menuExpanded$ | async)">
         <mat-icon>eco</mat-icon>
         <span>{{ "app.menu.leafLabsLinkLabel" | translate }}</span>
       </a>
     </mat-list-item>
     <mat-divider></mat-divider>
     <mat-list-item role="listitem">
-      <a mat-button routerLink="/organization" class="full-width menu-item-link">
+      <a mat-icon-button routerLink="/organization" *ngIf="!(menuExpanded$ | async)" [matTooltip]="'app.menu.organizationLinkLabel' | translate" matTooltipPosition="right">
+        <mat-icon>storefront</mat-icon>
+      </a>
+      <a mat-button routerLink="/organization" class="full-width menu-item-link" *ngIf="(menuExpanded$ | async)">
         <mat-icon>storefront</mat-icon>
         <span>{{ "app.menu.organizationLinkLabel" | translate }}</span>
       </a>
@@ -31,17 +42,32 @@
 
   <mat-list role="list" class="full-width">
     <mat-list-item role="listitem">
-      <leaf-notifications-widget [reduced]="false"></leaf-notifications-widget>
-    </mat-list-item>
-    <mat-list-item role="listitem">
-      <a mat-button routerLink="/settings" class="full-width menu-item-link">
+      <a mat-icon-button routerLink="/settings" *ngIf="!(menuExpanded$ | async)" [matTooltip]="'app.menu.settingsLinkLabel' | translate" matTooltipPosition="right">
+        <mat-icon>account_circle</mat-icon>
+      </a>
+      <a mat-button routerLink="/settings" class="full-width menu-item-link" *ngIf="(menuExpanded$ | async)">
         <mat-icon>account_circle</mat-icon>
         <span>{{ "app.menu.settingsLinkLabel" | translate }}</span>
       </a>
     </mat-list-item>
+    <mat-list-item role="listitem">
+      <leaf-notifications-widget [reduced]="!(menuExpanded$ | async)" menuXPosition="after" menuYPosition="above"></leaf-notifications-widget>
+    </mat-list-item>
+    <mat-list-item role="listitem">
+      <a mat-icon-button (click)="setMenuExpanded(true)" *ngIf="!(menuExpanded$ | async)" [matTooltip]="'app.menu.expandButtonLabel' | translate" matTooltipPosition="right">
+        <mat-icon>keyboard_double_arrow_right</mat-icon>
+      </a>
+      <button mat-button (click)="setMenuExpanded(false)" class="full-width menu-item-link" *ngIf="(menuExpanded$ | async)">
+        <mat-icon>keyboard_double_arrow_left</mat-icon>
+        <span>{{ "app.menu.reduceButtonLabel" | translate }}</span>
+      </button>
+    </mat-list-item>
     <mat-divider></mat-divider>
     <mat-list-item role="listitem">
-      <button mat-button (click)="logout()" class="full-width menu-item-link">
+      <a mat-icon-button (click)="logout()" *ngIf="!(menuExpanded$ | async)" [matTooltip]="'app.menu.logoutButtonLabel' | translate" matTooltipPosition="right">
+        <mat-icon>logout</mat-icon>
+      </a>
+      <button mat-button (click)="logout()" class="full-width menu-item-link" *ngIf="(menuExpanded$ | async)">
         <mat-icon>logout</mat-icon>
         <span>{{ "app.menu.logoutButtonLabel" | translate }}</span>
       </button>

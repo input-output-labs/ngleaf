@@ -45,3 +45,14 @@ $ngleaf-app-theme: mat.define-light-theme(
     @include mat.elevation($i);
   }
 }
+
+app-menu mat-list {
+  .menu-item-link {
+    padding: 1rem;
+  }
+
+  .mdc-button__ripple, .mat-mdc-button-ripple {
+    border-radius: 1rem;
+    padding: 1rem;
+  }
+}

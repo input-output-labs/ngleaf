@@ -21,6 +21,9 @@ export class ProfileUpdateComponent implements OnChanges {
   public fields: ProfileUpdateFields[] = ['username', 'avatarUrl', 'firstname', 'lastname', 'phoneNumber', 'address'];
 
   @Input()
+  public mandatoryFields?: ProfileUpdateFields[] = ['username', 'avatarUrl', 'firstname', 'lastname', 'phoneNumber', 'address'];
+
+  @Input()
   public submitTrigger$?: Observable<void>;
 
   @Input()
@@ -60,13 +63,12 @@ export class ProfileUpdateComponent implements OnChanges {
   }
 
   public ngOnChanges(changes: SimpleChanges) {
-    if (changes.fields) {
+    if (changes.mandatoryFields) {
       Object.values(this.profileFormGroup.controls).forEach((control) => {
         control.removeValidators(Validators.required);
         control.setErrors(null);
       });
-      this.profileFormGroup.clearValidators();
-      this.fields.forEach(field => this.profileFormGroup.controls[field].addValidators(Validators.required));
+      (this.mandatoryFields || []).forEach(field => this.profileFormGroup.controls[field].addValidators(Validators.required));
     }
     if (changes.submitTrigger$ && this.submitTrigger$) {
       this.subscriptions.push(

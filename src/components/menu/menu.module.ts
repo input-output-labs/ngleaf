@@ -8,6 +8,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { TranslateModule } from '@ngx-translate/core';
+import { UiStoreModule } from '../../stores/ui-store/ui-store.module';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   imports: [
@@ -20,10 +22,13 @@ import { TranslateModule } from '@ngx-translate/core';
     MatButtonModule,
     MatIconModule,
     MatDividerModule,
+    MatTooltipModule,
     /* Leaf deps */
     LeafSessionModule,
     OrganizationSelectorModule,
     NotificationsWidgetModule,
+    /* Blank deps */
+    UiStoreModule,
   ],
   declarations: [MenuComponent],
   exports: [MenuComponent]

@@ -21,7 +21,9 @@
           "leafLabsLinkLabel": "Leaf labs",
           "organizationLinkLabel": "Organization",
           "settingsLinkLabel": "My account",
-          "logoutButtonLabel": "Logout"
+          "logoutButtonLabel": "Logout",
+          "reduceButtonLabel": "Reduce menu",
+          "expandButtonLabel": "Expand menu"
         },
         "account-settings": {
           "layout": {
@@ -186,6 +188,7 @@
       },
       "organization-selector": {
         "no-organizations": "No organizations",
+        "organization-switch-label": "Organization switch",
         "organization-selector-label": "Select an organization",
         "not-logged-in-disclaimer": "Please loggin"
       },
@@ -217,9 +220,15 @@
       },
       "organization-invitation": {
         "title": "You have been invited to the \"{{ name }}\" organization",
-        "information": "Please accept or decline this invitation.",
+        "information": {
+          "INVITED": "Please accept or decline this invitation.",
+          "DECLINED": "You already declined this invitation.",
+          "CANCELLED": "This invitation was cancelled.",
+          "ACCEPTED": "You already accepted this invitation."
+        },
         "accept-button-label": "Accept",
-        "decline-button-label": "Decline"
+        "decline-button-label": "Decline",
+        "leave-button-label": "Leave"
       },
       "organization-policies": {
         "roleListTitle": "Existing roles",

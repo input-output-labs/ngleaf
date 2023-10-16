@@ -5,13 +5,16 @@ export interface OrganizationsState {
   allOrganizations: AsyncType<LeafOrganization[]>;
   myOrganizations: AsyncType<LeafOrganization[]>;
   currentOrganizationId?: string;
-  organizationUsers: AsyncType<void>;
+  /* Actions */
   createOrganization: AsyncType<void>;
+  /* Membership */
+  organizationUsers: AsyncType<void>;
   addUsersToOrganization: AsyncType<void>;
   removeUserFromOrganization: AsyncType<void>;
   setUserRole: AsyncType<void>;
   inviteUserToOrganization: AsyncType<LeafOrganization>;
   invitationData: AsyncType<OrganizationInvitationData>;
+  invitationAcceptationOrDecline: AsyncType<void>;
   /* Roles */
   createRole: AsyncType<LeafOrganization>;
   updateRole: AsyncType<LeafOrganization>;

@@ -79,3 +79,8 @@ export const selectDeleteRole = createSelector(
   selectOrganizationsState,
  (state: OrganizationsState) => state.deleteRole
 );
+
+export const selectInvitationAcceptationOrDecline = createSelector(
+  selectOrganizationsState,
+ (state: OrganizationsState) => state.invitationAcceptationOrDecline
+);

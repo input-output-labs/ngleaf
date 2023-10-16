@@ -15,13 +15,17 @@ import { setOrganizationUsersById } from './organizations.helper';
 const initialState: OrganizationsState = {
   allOrganizations: createEmptyAsyncType(),
   myOrganizations: createEmptyAsyncType(),
-  organizationUsers: createEmptyAsyncType(),
+  /* Actions */
   createOrganization: createEmptyAsyncType(),
+  /* Membership */
+  organizationUsers: createEmptyAsyncType(),
   addUsersToOrganization: createEmptyAsyncType(),
   removeUserFromOrganization: createEmptyAsyncType(),
   setUserRole: createEmptyAsyncType(),
   inviteUserToOrganization: createEmptyAsyncType(),
   invitationData: createEmptyAsyncType(),
+  invitationAcceptationOrDecline: createEmptyAsyncType(),
+  /* Roles */
   createRole: createEmptyAsyncType(),
   updateRole: createEmptyAsyncType(),
   deleteRole: createEmptyAsyncType(),
@@ -303,6 +307,35 @@ export function organizationsReducer(reducerState, action): OrganizationsState {
       (state: OrganizationsState, {error}) => ({
         ...state,
         deleteRole: asyncTypeFailure(state.deleteRole, error),
+      })
+    ),
+    /* Accept / decline invitation */
+    on(
+      Actions.acceptInvitation,
+      (state: OrganizationsState, {}) => ({
+        ...state,
+        invitationAcceptationOrDecline: asyncTypePending(state.invitationAcceptationOrDecline),
+      })
+    ),
+    on(
+      Actions.declineInvitation,
+      (state: OrganizationsState, {}) => ({
+        ...state,
+        invitationAcceptationOrDecline: asyncTypePending(state.invitationAcceptationOrDecline),
+      })
+    ),
+    on(
+      Actions.invitationAcceptationOrDeclineSuccess,
+      (state: OrganizationsState) => ({
+        ...state,
+        invitationAcceptationOrDecline: asyncTypeSuccess(state.invitationAcceptationOrDecline),
+      })
+    ),
+    on(
+      Actions.invitationAcceptationOrDeclineFailure,
+      (state: OrganizationsState, {error}) => ({
+        ...state,
+        invitationAcceptationOrDecline: asyncTypeFailure(state.invitationAcceptationOrDecline, error),
       })
     ),
   )(reducerState, action);

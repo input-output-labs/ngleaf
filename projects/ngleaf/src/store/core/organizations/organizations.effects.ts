@@ -265,4 +265,36 @@ export class OrganizationsEffects {
       )
     )
   );
+
+  acceptInvitation$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(OrganizationsActions.acceptInvitation),
+      switchMap((payload: { organizationId: string, email: string }) =>
+        this.organizationApiClient
+          .acceptInvitation(payload.organizationId, payload.email)
+          .pipe(
+            map(() => OrganizationsActions.invitationAcceptationOrDeclineSuccess()),
+            catchError((error) =>
+              of(OrganizationsActions.invitationAcceptationOrDeclineFailure({ error }))
+            )
+          )
+      )
+    )
+  );
+
+  declineInvitation$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(OrganizationsActions.declineInvitation),
+      switchMap((payload: { organizationId: string, email: string }) =>
+        this.organizationApiClient
+          .declineInvitation(payload.organizationId, payload.email)
+          .pipe(
+            map(() => OrganizationsActions.invitationAcceptationOrDeclineSuccess()),
+            catchError((error) =>
+              of(OrganizationsActions.invitationAcceptationOrDeclineFailure({ error }))
+            )
+          )
+      )
+    )
+  );
 }

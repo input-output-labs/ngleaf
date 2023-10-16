@@ -1,17 +1,18 @@
 <div class="organization-selector" *ngIf="!!(currentAccount$ | async) ; else notLoggedIn">
   <div *ngIf="(organizations$ | async)?.length; else noOrganizations">
-    <div class="current-organization">
+    <a mat-icon-button [matMenuTriggerFor]="menu" *ngIf="reduced" [matTooltip]="'leaf.organization-selector.organization-switch-label' | translate" matTooltipPosition="right">
+      <mat-icon>sync_alt</mat-icon>
+    </a>
+    <button mat-button [matMenuTriggerFor]="menu" class="full-width menu-item-link" *ngIf="!reduced">
+      <mat-icon>sync_alt</mat-icon>
       <span *ngIf="(currentOrganization$ | async) as currentOrganization; else noCurrentOrganization">
         {{currentOrganization.name}}
       </span>
-      <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="(currentOrganization$ | async) === undefined || (organizations$ | async)?.length > 1">
-        <mat-icon>sync_alt</mat-icon>
-      </button>
-    </div>
+    </button>
   </div>
 </div>
 
-<mat-menu #menu="matMenu" xPosition="before" yPosition="below">
+<mat-menu #menu="matMenu" [xPosition]="menuXPosition" [yPosition]="menuYPosition">
   <button mat-menu-item *ngFor="let organization of organizations$ | async" (click)="selectOrganization(organization)">{{ organization.name }}</button>
 </mat-menu>
 <ng-template #noOrganizations> {{ 'leaf.organization-selector.no-organizations' | translate }} </ng-template>

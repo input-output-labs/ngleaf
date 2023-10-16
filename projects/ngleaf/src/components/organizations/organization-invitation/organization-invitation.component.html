@@ -3,15 +3,26 @@
   <h2 class="title">
     {{ 'leaf.organization-invitation.title' | translate: {name: invitationData.name} }}
   </h2>
-  <div class="information">
-    {{ 'leaf.organization-invitation.information' | translate: {name: invitationData.name} }}
-  </div>
-  <button class="action-button" mat-stroked-button (click)="accept()" color="primary">
-    <mat-icon>thumb_up</mat-icon>
-    {{ 'leaf.organization-invitation.accept-button-label' | translate: {name: invitationData.name} }}
-  </button>
-  <button class="action-button" mat-stroked-button (click)="decline()" color="warn">
-    <mat-icon>thumb_down</mat-icon>
-    {{ 'leaf.organization-invitation.decline-button-label' | translate: {name: invitationData.name} }}
-  </button>
+  <ng-container *ngIf="invitationData.status === 'INVITED'">
+    <div class="information">
+      {{ 'leaf.organization-invitation.information.INVITED' | translate }}
+    </div>
+    <button class="action-button" mat-stroked-button (click)="accept()" color="primary">
+      <mat-icon>thumb_up</mat-icon>
+      {{ 'leaf.organization-invitation.accept-button-label' | translate }}
+    </button>
+    <button class="action-button" mat-stroked-button (click)="decline()" color="warn">
+      <mat-icon>thumb_down</mat-icon>
+      {{ 'leaf.organization-invitation.decline-button-label' | translate }}
+    </button>
+  </ng-container>
+  <ng-container *ngIf="invitationData.status !== 'INVITED'">
+    <div class="information">
+      {{ ('leaf.organization-invitation.information.' + invitationData.status) | translate }}
+    </div>
+    <button class="action-button" mat-stroked-button (click)="leave()">
+      <mat-icon>chevron_left</mat-icon>
+      {{ 'leaf.organization-invitation.leave-button-label' | translate }}
+    </button>
+  </ng-container>
 </div>
