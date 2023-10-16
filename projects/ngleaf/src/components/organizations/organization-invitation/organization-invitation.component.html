@@ -3,7 +3,7 @@
   <h2 class="title">
     {{ 'leaf.organization-invitation.title' | translate: {name: invitationData.name} }}
   </h2>
-  <ng-container *ngIf="invitationData.status === 'INVITED'">
+  <ng-container *ngIf="invitationData.invitation.status === 'INVITED'">
     <div class="information">
       {{ 'leaf.organization-invitation.information.INVITED' | translate }}
     </div>
@@ -16,9 +16,9 @@
       {{ 'leaf.organization-invitation.decline-button-label' | translate }}
     </button>
   </ng-container>
-  <ng-container *ngIf="invitationData.status !== 'INVITED'">
+  <ng-container *ngIf="invitationData.invitation.status !== 'INVITED'">
     <div class="information">
-      {{ ('leaf.organization-invitation.information.' + invitationData.status) | translate }}
+      {{ ('leaf.organization-invitation.information.' + invitationData.invitation.status) | translate }}
     </div>
     <button class="action-button" mat-stroked-button (click)="leave()">
       <mat-icon>chevron_left</mat-icon>
