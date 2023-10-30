@@ -37,14 +37,14 @@ export class OrganizationInvitationsComponent {
     )
   }
 
-  public inviteUser(organizationId: string) {
+  public inviteUser() {
     if (this.inviteEmailFormControl.valid) {
       const email = this.inviteEmailFormControl.value;
-      this.store.dispatch(inviteUserToOrganization({id: organizationId, email}));
+      this.store.dispatch(inviteUserToOrganization({email}));
     }
   }
 
-  public cancelInvitation(organization: LeafOrganization, invitation: OrganizationInvitation) {
-    this.store.dispatch(cancelInvitation({id: organization.id, email: invitation.email}));
+  public cancelInvitation(invitation: OrganizationInvitation) {
+    this.store.dispatch(cancelInvitation({email: invitation.email}));
   }
 }

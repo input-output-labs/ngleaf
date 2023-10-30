@@ -88,7 +88,7 @@ export const addUsersToOrganizationFailure = createAction(
 
 export const removeUserFromOrganization = createAction(
   '[Organizations store] Remove user from organization',
-  props<{id: string, accountId: string}>()
+  props<{accountId: string}>()
 );
 export const removeUserFromOrganizationSuccess = createAction(
   '[Organizations store] Remove user from organization success',
@@ -101,7 +101,7 @@ export const removeUserFromOrganizationFailure = createAction(
 
 export const setUserRole = createAction(
   '[Organizations store] Set user role',
-  props<{organizationId: string, accountId: string, role: string}>()
+  props<{accountId: string, role: string}>()
 );
 export const setUserRoleSuccess = createAction(
   '[Organizations store] Set user role success',
@@ -114,7 +114,7 @@ export const setUserRoleFailure = createAction(
 
 export const inviteUserToOrganization = createAction(
   '[Organizations store] Invite user to organization',
-  props<{id: string, email: string}>()
+  props<{email: string}>()
 );
 export const inviteUserToOrganizationSuccess = createAction(
   '[Organizations store] Invite user to organization success',
@@ -140,12 +140,12 @@ export const getInvitationDataFailure = createAction(
 
 export const cancelInvitation = createAction(
   '[Organizations store] Cancel user invitation to organization',
-  props<{id: string, email: string}>()
+  props<{email: string}>()
 );
 
 export const createRole = createAction(
   '[Organizations store] Create role',
-  props<{organizationId: string, name: string}>()
+  props<{name: string}>()
 );
 export const createRoleSuccess = createAction(
   '[Organizations store] Create role success',
@@ -158,7 +158,7 @@ export const createRoleFailure = createAction(
 
 export const updateRole = createAction(
   '[Organizations store] Update role',
-  props<{organizationId: string, roleName: string, role: OrganizationRole}>()
+  props<{roleName: string, role: OrganizationRole}>()
 );
 export const updateRoleSuccess = createAction(
   '[Organizations store] Update role success',
@@ -171,7 +171,7 @@ export const updateRoleFailure = createAction(
 
 export const deleteRole = createAction(
   '[Organizations store] Delete role',
-  props<{organizationId: string, role: OrganizationRole}>()
+  props<{role: OrganizationRole}>()
 );
 export const deleteRoleSuccess = createAction(
   '[Organizations store] Delete role success',

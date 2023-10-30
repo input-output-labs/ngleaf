@@ -13,7 +13,11 @@
 </div>
 
 <mat-menu #menu="matMenu" [xPosition]="menuXPosition" [yPosition]="menuYPosition">
-  <button mat-menu-item *ngFor="let organization of organizations$ | async" (click)="selectOrganization(organization)">{{ organization.name }}</button>
+  <mat-list role="list">
+    <mat-list-item role="listitem" *ngFor="let organization of organizations$ | async" >
+      <button mat-menu-item (click)="selectOrganization(organization)">{{ organization.name }}</button>
+    </mat-list-item>
+  </mat-list>
 </mat-menu>
 <ng-template #noOrganizations> {{ 'leaf.organization-selector.no-organizations' | translate }} </ng-template>
 <ng-template #noCurrentOrganization> {{ 'leaf.organization-selector.organization-selector-label' | translate }} </ng-template>

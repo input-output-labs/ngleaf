@@ -2,8 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { Observable, Subscription, combineLatest, debounce, interval, filter, map, startWith } from 'rxjs';
 import { Store, select } from '@ngrx/store';
-import { LeafAccountModel, LeafOrganization, OrganizationMembership, LeafAccountProfile } from '../../../../api';
-import { selectCurrentAccountData, listOrganizationUsers, selectCurrentOrganization, removeUserFromOrganization, setUserRole } from '../../../../store';
+import { LeafAccountModel, LeafOrganization, OrganizationMembership, LeafAccountProfile, LeafEligibilities } from '../../../../api';
+import { selectCurrentAccountData, listOrganizationUsers, selectCurrentOrganization, removeUserFromOrganization, setUserRole, selectEligibilities } from '../../../../store';
 import { MatDialog } from '@angular/material/dialog';
 import { OrganizationInvitationsComponent } from '../organization-invitations';
 
@@ -15,6 +15,7 @@ import { OrganizationInvitationsComponent } from '../organization-invitations';
 export class OrganizationMembersComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = ['picture', 'name', 'role', 'actions'];
 
+  public eligibilities$: Observable<LeafEligibilities>;
   public currentAccount$: Observable<LeafAccountModel>;
   public organization$: Observable<LeafOrganization>;
   public filteredMembers$: Observable<OrganizationMembership[]>;
@@ -25,6 +26,7 @@ export class OrganizationMembersComponent implements OnInit, OnDestroy {
 
   constructor(fb: FormBuilder, private store: Store, private dialog: MatDialog) {
     this.currentAccount$ = this.store.select(selectCurrentAccountData);
+    this.eligibilities$ = this.store.select(selectEligibilities);
     this.searchFormControl = fb.control('');
     this.organization$ = this.store.pipe(
       select(selectCurrentOrganization),
@@ -82,16 +84,15 @@ export class OrganizationMembersComponent implements OnInit, OnDestroy {
     this.dialog.open(OrganizationInvitationsComponent);
   }
 
-  public setUserRole(organizationId: string, accountId: string, role: string) {
+  public setUserRole(accountId: string, role: string) {
     this.store.dispatch(setUserRole({
-      organizationId,
       accountId,
       role
     }));
   }
 
-  public removeUserFromOrganization(organizationId: string, accountId: string) {
-    this.store.dispatch(removeUserFromOrganization({id: organizationId, accountId: accountId}));
+  public removeUserFromOrganization(accountId: string) {
+    this.store.dispatch(removeUserFromOrganization({accountId: accountId}));
   }
 
   public stopPropagation(event) {

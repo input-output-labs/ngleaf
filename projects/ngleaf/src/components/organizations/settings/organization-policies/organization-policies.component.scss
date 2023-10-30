@@ -28,6 +28,14 @@
         .role-configuration-header {
             display: flex;
             gap: 0.5rem;
+            align-items: center;
+
+            .role-name {
+              font-weight: bold;
+              text-transform: capitalize;
+              text-decoration: underline;
+              padding-left: 1rem;
+            }
 
             .spacer {
               flex: 1;

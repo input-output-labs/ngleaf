@@ -7,7 +7,7 @@
         [formControl]="searchFormControl"
       />
     </mat-form-field>
-    <button mat-flat-button class="open-invitations-button" color="primary" (click)="openInvationDialog()">
+    <button mat-flat-button class="open-invitations-button" color="primary" (click)="openInvationDialog()"  [disabled]="!(eligibilities$ | async).manageMembers.eligible">
       <mat-icon>person_add_alt_1</mat-icon>
       {{ 'leaf.organization-members.invite-member-button-label' | translate}}
     </button>
@@ -50,13 +50,13 @@
         <mat-chip-listbox>
           <mat-chip color="primary" highlighted [selectable]="false" selected>
             {{element.role | titlecase}}
-            <button matChipRemove [matMenuTriggerFor]="userRoleSelection">
+            <button matChipRemove [matMenuTriggerFor]="userRoleSelection" [disabled]="!(eligibilities$ | async).manageMembers.eligible">
               <mat-icon>edit</mat-icon>
             </button>
             <mat-menu #userRoleSelection="matMenu">
               <div mat-menu-item (click)="stopPropagation($event)">Available roles</div>
               <mat-divider></mat-divider>
-              <button mat-menu-item *ngFor="let role of organization.policies.roles" [disabled]="role.name === element.role" (click)="setUserRole(organization.id, element.accountId, role.name)">
+              <button mat-menu-item *ngFor="let role of organization.policies.roles" [disabled]="role.name === element.role" (click)="setUserRole(element.accountId, role.name)">
                 <mat-icon *ngIf="role.creatorDefault">local_police</mat-icon>
                 <mat-icon *ngIf="role.otherDefault">shield_lock</mat-icon>
                 <mat-icon *ngIf="!role.otherDefault && !role.creatorDefault">admin_panel_settings</mat-icon>
@@ -71,7 +71,7 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef>  {{ 'leaf.organization-members.userlist-table-column-actions' | translate}}  </th>
       <td mat-cell *matCellDef="let element">
-        <button mat-icon-button color="warn" (click)="removeUserFromOrganization(organization.id, element.accountId)">
+        <button mat-icon-button color="warn" (click)="removeUserFromOrganization(element.accountId)" [disabled]="!(eligibilities$ | async).manageMembers.eligible">
           <mat-icon>person_remove</mat-icon>
         </button>
       </td>

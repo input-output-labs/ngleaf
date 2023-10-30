@@ -13,6 +13,6 @@ export class LeafAdminGuardService extends LeafCommonEligibilityGuard {
     store: Store,
     router: Router,
   ) {
-    super(store, router, 'seeAdmin', config.navigation.authGuardErrorRedirect || '/login');
+    super(config, store, router, 'seeAdmin');
   }
 }

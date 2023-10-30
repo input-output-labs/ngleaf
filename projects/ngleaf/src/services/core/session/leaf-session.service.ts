@@ -1,7 +1,8 @@
 import { Inject, Injectable } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { filter, map, skip, take, tap } from 'rxjs';
+import { filter, map, take } from 'rxjs';
+import { Actions } from '@ngrx/effects';
 
 import { LeafAuthHttpClient, AccountApiClient, SponsoringApiClientService } from '../../../api/clients/index';
 
@@ -11,7 +12,7 @@ import { initializationDone, resetCurrentAccount, resetSessionToken, selectCurre
 import { AsyncType } from '../../../store/common/index';
 import { JWTModel, LeafAccountModel } from '../../../api/models/index';
 import { selectSponsorCode, setSetSponsorCall, setSponsorCode } from '../../../store/sponsoring/index';
-import { Actions, ofType } from '@ngrx/effects';
+import { fetchEligibilites } from '../../../store/core/eligibilities';
 
 @Injectable()
 export class LeafSessionService {
@@ -89,6 +90,7 @@ export class LeafSessionService {
         take(1)
       ).subscribe((currentAccountAsync) => {
         if(currentAccountAsync.status.success) {
+          this.store.dispatch(fetchEligibilites());
           resolve();
         }
         if(currentAccountAsync.status.failure) {

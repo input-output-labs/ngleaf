@@ -10,7 +10,7 @@ import {
   take,
   Subject,
 } from "rxjs";
-import { LeafOrganization, OrganizationRole } from "../../../../api";
+import { LeafEligibilities, LeafOrganization, OrganizationRole } from "../../../../api";
 import {
   selectCurrentOrganization,
   createRole,
@@ -20,6 +20,7 @@ import {
   selectDeleteRole,
   updateRole,
   selectUpdateRole,
+  selectEligibilities,
 } from "../../../../store";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
@@ -31,6 +32,7 @@ import { MatSlideToggleChange } from "@angular/material/slide-toggle";
   styleUrls: ["./organization-policies.component.scss"],
 })
 export class OrganizationPoliciesComponent implements OnDestroy {
+  public eligibilities$: Observable<LeafEligibilities>;
   public organization$: Observable<LeafOrganization>;
   public role$: Observable<OrganizationRole>;
   public unmodifiedRole: string;
@@ -48,6 +50,7 @@ export class OrganizationPoliciesComponent implements OnDestroy {
     private activatedRoute: ActivatedRoute,
     private fb: FormBuilder
   ) {
+    this.eligibilities$ = this.store.select(selectEligibilities);
     this.roleNameForm = this.fb.control("", Validators.required);
     this.organization$ = this.store.pipe(
       select(selectCurrentOrganization),
@@ -109,18 +112,12 @@ export class OrganizationPoliciesComponent implements OnDestroy {
     );
   }
 
-  public onRoleNameChanged($event) {
-    console.log($event);
-    this.roleUpdated = true;
-  }
-
-  public createRole(organizationId: string) {
+  public createRole() {
     this.translateService
       .get("leaf.organization-policies.defaultNewRoleName")
       .subscribe((defaultNewRoleName) => {
         this.store.dispatch(
           createRole({
-            organizationId,
             name: defaultNewRoleName,
           })
         );
@@ -146,10 +143,9 @@ export class OrganizationPoliciesComponent implements OnDestroy {
       });
   }
 
-  public deleteRole(organizationId: string) {
+  public deleteRole() {
     this.store.dispatch(
       deleteRole({
-        organizationId,
         role: this.role,
       })
     );
@@ -172,10 +168,9 @@ export class OrganizationPoliciesComponent implements OnDestroy {
       });
   }
 
-  public updateRole(organizationId: string) {
+  public updateRole() {
     this.store.dispatch(
       updateRole({
-        organizationId,
         roleName: this.roleName,
         role: this.role,
       })
@@ -192,7 +187,6 @@ export class OrganizationPoliciesComponent implements OnDestroy {
       )
       .subscribe((updateRole: AsyncType<LeafOrganization>) => {
         if (updateRole.status.success) {
-          console.log(this.role.name);
           this.router.navigate(["..", this.role.name], {
             relativeTo: this.activatedRoute,
           });

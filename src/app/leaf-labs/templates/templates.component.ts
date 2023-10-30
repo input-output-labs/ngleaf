@@ -22,16 +22,13 @@ export class TemplatesComponent {
     slider1: ['75']
   });
 
-  constructor(private dialog: MatDialog, private fb: UntypedFormBuilder) {
-    this.genericFormFormGroup.valueChanges.subscribe(console.log);
-  }
+  constructor(private dialog: MatDialog, private fb: UntypedFormBuilder) {}
 
   openDialog(): void {
     this.dialog.open(LeafWebImagesSeekerDialogComponent, {
       width: '450px',
       data: { prefill: this.name }
     }).afterClosed().subscribe(result => {
-      console.log('you picked: ', result);
       this.selectedImageUrl = result;
     });
   }

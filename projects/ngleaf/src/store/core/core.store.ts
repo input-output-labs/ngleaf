@@ -1,4 +1,5 @@
 import { administrationReducer } from './administration/administration.reducers';
+import { eligibilitiesReducer } from './eligibilities/eligibilities.reducers';
 import { emailingReducer } from './emailing/emailing.reducers';
 import { notificationReducer } from './notifications/notifications.reducers';
 import { organizationsReducer } from './organizations';
@@ -11,5 +12,6 @@ export const leafCoreStore = {
     session: sessionReducer,
     statistics: statisticsReducer,
     emailing: emailingReducer,
-    organizations: organizationsReducer
+    organizations: organizationsReducer,
+    eligibilities: eligibilitiesReducer,
 };

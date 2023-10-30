@@ -36,16 +36,16 @@ export class OrganizationsApiClientService {
       return this.authHttp.post<LeafOrganization>(`${this.config.serverUrl}/organizations/${id}/members`, {accountIds});
     }
 
-    public removeUserFromOrganization(id: string, accountId: string): Observable<LeafOrganization> {
-      return this.authHttp.delete<LeafOrganization>(`${this.config.serverUrl}/organizations/${id}/members/${accountId}`);
+    public removeUserFromOrganization(accountId: string): Observable<LeafOrganization> {
+      return this.authHttp.delete<LeafOrganization>(`${this.config.serverUrl}/organizations/selected/members/${accountId}`);
     }
 
-    public setUserRole(id: string, accountId: string, role: string): Observable<LeafOrganization> {
-      return this.authHttp.put<LeafOrganization>(`${this.config.serverUrl}/organizations/${id}/members/${accountId}/role`, {role});
+    public setUserRole(accountId: string, role: string): Observable<LeafOrganization> {
+      return this.authHttp.put<LeafOrganization>(`${this.config.serverUrl}/organizations/selected/members/${accountId}/role`, {role});
     }
 
-    public inviteUserToOrganization(id: string, email: string): Observable<LeafOrganization> {
-      return this.authHttp.post<LeafOrganization>(`${this.config.serverUrl}/organizations/${id}/invitations`, {email});
+    public inviteUserToOrganization(email: string): Observable<LeafOrganization> {
+      return this.authHttp.post<LeafOrganization>(`${this.config.serverUrl}/organizations/selected/invitations`, {email});
     }
 
     public getInvitationData(organizationId: string, email: string): Observable<OrganizationInvitationData> {
@@ -56,23 +56,23 @@ export class OrganizationsApiClientService {
       return this.authHttp.post<void>(`${this.config.serverUrl}/organizations/${organizationId}/invitations/${email}/accept`, {});
     }
 
-    public cancelInvitation(organizationId: string, email: string): Observable<void> {
-      return this.authHttp.post<void>(`${this.config.serverUrl}/organizations/${organizationId}/invitations/${email}/cancel`, {});
+    public cancelInvitation(email: string): Observable<void> {
+      return this.authHttp.post<void>(`${this.config.serverUrl}/organizations/selected/invitations/${email}/cancel`, {});
     }
 
     public declineInvitation(organizationId: string, email: string): Observable<void> {
       return this.authHttp.post<void>(`${this.config.serverUrl}/organizations/${organizationId}/invitations/${email}/decline`, {});
     }
 
-    public createRole(id: string, name: string): Observable<LeafOrganization> {
-      return this.authHttp.post<LeafOrganization>(`${this.config.serverUrl}/organizations/${id}/policies/roles`, {name});
+    public createRole(name: string): Observable<LeafOrganization> {
+      return this.authHttp.post<LeafOrganization>(`${this.config.serverUrl}/organizations/selected/policies/roles`, {name});
     }
 
-    public updateRole(id: string, roleName: string, role: OrganizationRole): Observable<LeafOrganization> {
-      return this.authHttp.put<LeafOrganization>(`${this.config.serverUrl}/organizations/${id}/policies/roles/${roleName}`, role);
+    public updateRole(roleName: string, role: OrganizationRole): Observable<LeafOrganization> {
+      return this.authHttp.put<LeafOrganization>(`${this.config.serverUrl}/organizations/selected/policies/roles/${roleName}`, role);
     }
 
-    public deleteRole(id: string, role: OrganizationRole): Observable<LeafOrganization> {
-      return this.authHttp.delete<LeafOrganization>(`${this.config.serverUrl}/organizations/${id}/policies/roles/${role.name}`);
+    public deleteRole(role: OrganizationRole): Observable<LeafOrganization> {
+      return this.authHttp.delete<LeafOrganization>(`${this.config.serverUrl}/organizations/selected/policies/roles/${role.name}`);
     }
 }

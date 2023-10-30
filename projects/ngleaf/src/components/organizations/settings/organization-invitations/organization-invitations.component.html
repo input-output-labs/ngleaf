@@ -10,7 +10,7 @@
           [formControl]="inviteEmailFormControl"
         />
       </mat-form-field>
-      <button class="send-invitation-button" mat-flat-button color="primary" (click)="inviteUser(organization.id)" [disabled]="!inviteEmailFormControl.valid">
+      <button class="send-invitation-button" mat-flat-button color="primary" (click)="inviteUser()" [disabled]="!inviteEmailFormControl.valid">
         <mat-icon>send</mat-icon>
         {{ 'leaf.organization-invitations.invite-member-button-label' | translate}}
       </button>
@@ -35,7 +35,7 @@
           <mat-chip-option [color]="invitationStatusToColorMapping[element.status]" highlighted [selectable]="false" *ngIf="element.status !== 'INVITED'">
             {{ ('leaf.organization-invitations.invitation-table-statuses.' + element.status) | translate}}
           </mat-chip-option>
-          <button mat-stroked-button color="warn" *ngIf="element.status === 'INVITED'" (click)="cancelInvitation(organization, element)">
+          <button mat-stroked-button color="warn" *ngIf="element.status === 'INVITED'" (click)="cancelInvitation(element)">
             <mat-icon>delete_forever</mat-icon>
             {{ 'leaf.organization-invitations.cancel-invitation-button-label' | translate}}
           </button>

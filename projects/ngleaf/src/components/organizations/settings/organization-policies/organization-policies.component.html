@@ -14,7 +14,7 @@
     </mat-list-item>
     <mat-divider></mat-divider>
     <mat-list-item role="listitem">
-      <button mat-flat-button class="role-button" color="primary" (click)="createRole(organization.id)">
+      <button mat-flat-button class="role-button" color="primary" (click)="createRole()" [disabled]="!(eligibilities$ | async).managePolicies.eligible">
         <mat-icon>add_moderator</mat-icon>
         <span>{{ "leaf.organization-policies.addRoleButtonLabel" | translate }}</span>
       </button>
@@ -22,16 +22,19 @@
   </mat-list>
   <div class="role-configuration">
     <div class="role-configuration-header">
-      <mat-form-field subscriptSizing="dynamic">
+      <mat-form-field subscriptSizing="dynamic" *ngIf="(eligibilities$ | async).managePolicies.eligible">
         <mat-label>{{ "leaf.organization-policies.roleNameFormLabel" | translate }}</mat-label>
         <input matInput type="text" [formControl]="roleNameForm">
       </mat-form-field>
+      <span *ngIf="!(eligibilities$ | async).managePolicies.eligible" class="role-name">
+        {{role.name}} :
+      </span>
       <div class="spacer"></div>
-      <button mat-flat-button color="primary" [disabled]="!roleUpdated"(click)="updateRole(organization.id)">
+      <button mat-flat-button color="primary" [disabled]="!roleUpdated || !(eligibilities$ | async).managePolicies.eligible"(click)="updateRole()">
         <mat-icon>save</mat-icon>
         {{ 'leaf.organization-policies.roleSaveButtonLabel' | translate}}
       </button>
-      <button mat-flat-button color="warn" [disabled]="role.creatorDefault || role.otherDefault" (click)="deleteRole(organization.id)">
+      <button mat-flat-button color="warn" [disabled]="role.creatorDefault || role.otherDefault || !(eligibilities$ | async).managePolicies.eligible" (click)="deleteRole()">
         <mat-icon>delete</mat-icon>
         {{ 'leaf.organization-policies.roleDeleteButtonLabel' | translate}}
       </button>
@@ -46,7 +49,10 @@
               </span>
               <span class="role-value" [ngSwitch]="right.type">
                   <some-element *ngSwitchCase="'boolean'">
-                    <mat-slide-toggle [checked]="right.value === 'true'" (change)="onRightValueChange(right.name, $event)"></mat-slide-toggle>
+                    <mat-slide-toggle
+                      [checked]="right.value === 'true'"
+                      (change)="onRightValueChange(right.name, $event)"
+                      [disabled]="!(eligibilities$ | async).managePolicies.eligible || (eligibilities$ | async)[right.name] && !(eligibilities$ | async)[right.name].eligible"></mat-slide-toggle>
                   </some-element>
                   <some-element *ngSwitchDefault>
                     other ...

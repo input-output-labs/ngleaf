@@ -37,6 +37,8 @@ import {
   SponsoringEffects,
   NotificationApiClientModule,
   NotificationsWidgetModule,
+  EligibilitiesApiClientModule,
+  EligibilitiesEffects,
 } from '@input-output-labs/ngleaf';
 
 import { StoreModule } from '@ngrx/store';
@@ -108,7 +110,7 @@ export class LocaleDateAdapter extends NativeDateAdapter {
     LeafConfigServiceModule.forRoot(leafConfig),
     LeafApiClientConfigServiceModule.forRoot(leafApiClientConfig),
     // Stores
-    EffectsModule.forRoot([SessionEffects, StatisticsEffects, NotificationsEffects, MessengerEffects, EmailingEffects, SponsoringEffects]),
+    EffectsModule.forRoot([SessionEffects, StatisticsEffects, NotificationsEffects, MessengerEffects, EmailingEffects, SponsoringEffects, EligibilitiesEffects]),
     StoreModule.forRoot(
       {
         ...leafCoreStore,
@@ -126,6 +128,7 @@ export class LocaleDateAdapter extends NativeDateAdapter {
     LeafSessionModule,
     LeafUploadFileModule,
     NotificationApiClientModule,
+    EligibilitiesApiClientModule,
     // Directive
     AdaptiveViewModule,
     // Components
