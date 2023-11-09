@@ -10,6 +10,7 @@ export * from './messenger.model';
 export * from './organizations';
 export * from './password-changing.model';
 export * from './password-resetting.model';
+export * from './payment';
 export * from './registration.model';
 export * from './sponsoring.model';
 export * from './leaf-eligilibities';

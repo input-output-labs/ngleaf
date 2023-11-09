@@ -1,0 +1,12 @@
+<div class="plan-selector">
+  <mat-progress-bar mode="indeterminate" *ngIf="fetchPlansPending$ | async"></mat-progress-bar>
+  <ng-container *ngIf="!(fetchPlansPending$ | async)">
+    <div *ngFor="let plan of (availablePlans$ | async)" class="plan-wrapper">
+      <leaf-plan-viewer
+        [plan]="plan"
+        [selected]="selectedPlan === plan"
+        [selectable]="true"
+        (onSelect)="selectPlan(plan)"></leaf-plan-viewer>
+    </div>
+  </ng-container>
+</div>

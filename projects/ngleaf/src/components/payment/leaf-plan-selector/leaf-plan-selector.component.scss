@@ -1,0 +1,9 @@
+.plan-selector {
+    display: flex;
+    gap: 1rem;
+
+    .plan-wrapper {
+        min-width: 250px;
+        height: 450px;
+    }
+}

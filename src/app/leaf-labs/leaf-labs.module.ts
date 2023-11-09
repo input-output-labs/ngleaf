@@ -15,6 +15,8 @@ import { MessengerComponent } from "./messenger/messenger.component";
 import { SponsoringComponent } from "./sponsoring/sponsoring.component";
 import { MessengerModule } from "./messenger/messenger.module";
 import { SponsoringModule } from "./sponsoring/sponsoring.module";
+import { PaymentComponent } from "./payment/payment.component";
+import { PaymentModule } from "./payment/payment.module";
 
 const routes: Routes = [
   {
@@ -44,6 +46,10 @@ const routes: Routes = [
         path: "statistics",
         component: StatisticsPageComponent,
       },
+      {
+        path: "payment",
+        component: PaymentComponent,
+      },
     ],
   },
 ];
@@ -57,6 +63,7 @@ const routes: Routes = [
     SponsoringModule,
     LeafSponsoringResolverModule,
     LeafSponsorCodeInterceptorGuardModule,
+    PaymentModule,
     /* App deps */
     LeafLabsLayoutModule,
   ],

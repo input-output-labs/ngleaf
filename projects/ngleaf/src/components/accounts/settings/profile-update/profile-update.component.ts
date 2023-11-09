@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from "@angular/core";
+import { Component, Input, OnChanges, OnDestroy, SimpleChanges } from "@angular/core";
 import {
   UntypedFormBuilder,
   UntypedFormGroup,
@@ -16,7 +16,7 @@ export type ProfileUpdateFields = keyof LeafAccountProfile;
   templateUrl: "./profile-update.component.html",
   styleUrls: ["./profile-update.component.scss"],
 })
-export class ProfileUpdateComponent implements OnChanges {
+export class ProfileUpdateComponent implements OnChanges, OnDestroy {
   @Input()
   public fields: ProfileUpdateFields[] = ['username', 'avatarUrl', 'firstname', 'lastname', 'phoneNumber', 'address'];
 
@@ -60,6 +60,10 @@ export class ProfileUpdateComponent implements OnChanges {
         }
       )
     );
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
   public ngOnChanges(changes: SimpleChanges) {

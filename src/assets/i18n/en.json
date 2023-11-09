@@ -47,7 +47,8 @@
             "templatesLinkLabel": "Templates",
             "messengerLinkLabel": "Messenger",
             "sponsoringLinkLabel": "Sponsoring",
-            "statisticsLinkLabel": "Statistics"
+            "statisticsLinkLabel": "Statistics",
+            "paymentLinkLabel": "Payment"
           }
         }
     },
@@ -274,6 +275,23 @@
           "icon": "store",
           "label": "You have been invited to {{payload.organizationName}} !",
           "link": "/welcome/invitation?organizationId={{payload.organizationId}}&email={{payload.invitationEmail}}"
+        }
+      },
+      "payment": {
+        "features": {
+          "userCount": {
+            "description": "Up to {{value}} members"
+          },
+          "cardCount": {
+            "description": "Up to {{value}} visit cards"
+          },
+          "reporting": {
+            "description": "Traffic reporting"
+          }
+        },
+        "period": {
+          "month": "per<br/>month",
+          "year": "per<br/>year"
         }
       }
     }
