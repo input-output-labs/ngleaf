@@ -1,5 +1,5 @@
 <form [formGroup]="addressFormGroup" class="address-form">
-  <mat-form-field>
+  <mat-form-field subscriptSizing="dynamic">
     <input
       matInput
       id="address"
@@ -12,7 +12,7 @@
     </mat-error>
   </mat-form-field>
   <div class="line">
-    <mat-form-field>
+    <mat-form-field subscriptSizing="dynamic">
       <input
         matInput
         id="postalCode"
@@ -28,7 +28,7 @@
         {{ "leaf.address-form.requiredError" | translate }}
       </mat-error>
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field subscriptSizing="dynamic">
       <input
         matInput
         id="city"

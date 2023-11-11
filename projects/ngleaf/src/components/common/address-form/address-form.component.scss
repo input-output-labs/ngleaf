@@ -4,8 +4,13 @@
   gap: 0.5rem;
 
   .line {
+    flex: 1;
     display: flex;
     flex-direction: row;
     gap: 0.5rem;
+
+    &>* {
+      flex: 1;
+    }
   }
 }

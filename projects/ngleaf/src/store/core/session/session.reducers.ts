@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { asyncTypeFailure, asyncTypePending, asyncTypeSuccess, createAsyncTypeFromCall, createEmptyAsyncType } from '../../common/index';
-import { resetCurrentAccount, setCurrentAccountCall, setCurrentAccountSuccess, setCurrentAccountFailure, setSessionTokenCall, setSessionTokenSuccess, setSessionTokenFailure, resetSessionToken, resetSendResetPasswordKey, setSendResetPasswordKeyCall, setSendResetPasswordKeySuccess, setSendResetPasswordKeyFailure, resetResetPassword, setResetPasswordCall, setResetPasswordSuccess, setResetPasswordFailure, setSessionToken, resetUpdatePassword, setUpdatePasswordCall, setUpdatePasswordSuccess, setUpdatePasswordFailure, resetMailingsUnsubscription, setMailingsUnsubscriptionCall, setMailingsUnsubscriptionSuccess, setMailingsUnsubscriptionFailure, initializationDone} from './session.actions';
+import { resetCurrentAccount, setCurrentAccountCall, setCurrentAccountSuccess, setCurrentAccountFailure, setSessionTokenCall, setSessionTokenSuccess, setSessionTokenFailure, resetSessionToken, resetSendResetPasswordKey, setSendResetPasswordKeyCall, setSendResetPasswordKeySuccess, setSendResetPasswordKeyFailure, resetResetPassword, setResetPasswordCall, setResetPasswordSuccess, setResetPasswordFailure, setSessionToken, resetUpdatePassword, setUpdatePasswordCall, setUpdatePasswordSuccess, setUpdatePasswordFailure, resetMailingsUnsubscription, setMailingsUnsubscriptionCall, setMailingsUnsubscriptionSuccess, setMailingsUnsubscriptionFailure, initializationDone, updateProfile, updateProfileSuccess, updateProfileFailure} from './session.actions';
 import { SessionState } from './session.state';
 
 const initialState: SessionState = {
@@ -50,6 +50,15 @@ export function sessionReducer(reducerState, action): SessionState {
         currentAccount: asyncTypeSuccess(state.currentAccount, data)
       })),
     on(setUpdatePasswordFailure, (state: SessionState, {error}) => ({...state, updatePassword: asyncTypeFailure(state.updatePassword, error)})),
+    /** UpdateProfile */
+    on(updateProfile, (state: SessionState) => ({...state, updateProfile: asyncTypePending(state.updateProfile)})),
+    on(updateProfileSuccess, (state: SessionState, {data}) => (
+      {
+        ...state,
+        updateProfile: asyncTypeSuccess(state.updateProfile, data),
+        currentAccount: asyncTypeSuccess(state.currentAccount, data)
+      })),
+    on(updateProfileFailure, (state: SessionState, {error}) => ({...state, updateProfile: asyncTypeFailure(state.updateProfile, error)})),
     /** ResetPassword */
     on(resetMailingsUnsubscription, (state: SessionState) => ({...state, mailingsUnsubscription: createEmptyAsyncType()})),
     on(setMailingsUnsubscriptionCall, (state: SessionState, {call}) => ({...state, mailingsUnsubscription: createAsyncTypeFromCall(call)})),

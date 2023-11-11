@@ -7,6 +7,7 @@ import { LeafRoomModel } from '../../api/models/messenger.model';
 import * as PaymentActions from './payment.actions';
 import { PaymentApiClientService } from '../../api/clients/payment-api-client';
 import { LeafPaymentPlan } from '../../api';
+import { fetchEligibilites } from '../core';
 
 @Injectable()
 export class PaymentEffects {
@@ -28,6 +29,12 @@ export class PaymentEffects {
         map((plan) => (PaymentActions.selectPaymentPlanSuccess({data: plan}))),
         catchError((error) => of(PaymentActions.selectPaymentPlanFailure({error})))
       ))
+    )
+  );
+
+  updateEligibilities$ = createEffect(() => this.actions$.pipe(
+    ofType(PaymentActions.selectPaymentPlanSuccess),
+    map(() => fetchEligibilites())
     )
   );
 

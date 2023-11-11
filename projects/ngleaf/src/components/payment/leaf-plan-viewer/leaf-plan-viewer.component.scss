@@ -42,6 +42,7 @@
             color: white;
             font-weight: bold;
             letter-spacing: 2px;
+            text-transform: capitalize;
         }
 
         .plan-features {
@@ -88,24 +89,24 @@
                 align-items: center;
                 justify-content: center;
                 gap: 0.5rem;
-    
+
                 .divider {
                     height: 100%;
                 }
-    
+
                 .free, .price {
                     font-size: 1.75rem;
                 }
-    
+
                 .free {
                     color: #888;
                 }
-    
+
                 .price {
                     display: flex;
                     justify-content: end;
                 }
-    
+
                 .period {
                     font-weight: bold;
                     font-size: 0.85rem;

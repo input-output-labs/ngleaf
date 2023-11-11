@@ -1,6 +1,6 @@
 <div class="plan-selector">
   <mat-progress-bar mode="indeterminate" *ngIf="fetchPlansPending$ | async"></mat-progress-bar>
-  <ng-container *ngIf="!(fetchPlansPending$ | async)">
+  <div class="plans-list" *ngIf="!(fetchPlansPending$ | async)">
     <div *ngFor="let plan of (availablePlans$ | async)" class="plan-wrapper">
       <leaf-plan-viewer
         [plan]="plan"
@@ -8,5 +8,16 @@
         [selectable]="true"
         (onSelect)="selectPlan(plan)"></leaf-plan-viewer>
     </div>
-  </ng-container>
+  </div>
+  <div class="actions" *ngIf="showSubmitButton">
+    <button
+      class="submit-button"
+      mat-raised-button
+      color="primary"
+      (click)="submit()"
+      [disabled]="!selectedPlan"
+    >
+     Confirm this plan
+    </button>
+  </div>
 </div>

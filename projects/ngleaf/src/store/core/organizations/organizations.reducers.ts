@@ -51,6 +51,13 @@ export function organizationsReducer(reducerState, action): OrganizationsState {
     ),
     /* My organizations */
     on(
+      Actions.listMyOrganizations,
+      (state: OrganizationsState, {}) => ({
+        ...state,
+        myOrganizations: asyncTypePending(state.myOrganizations),
+      })
+    ),
+    on(
       Actions.setMyOrganizationsSuccess,
       (state: OrganizationsState, {data}) => ({
         ...state,

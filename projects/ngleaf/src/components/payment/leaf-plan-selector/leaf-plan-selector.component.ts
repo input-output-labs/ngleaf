@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, Input, EventEmitter, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Output, Input, EventEmitter, OnDestroy } from '@angular/core';
 import { Observable,Subscription,filter, map } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { LeafPaymentPlan } from '../../../api/models';
@@ -9,13 +9,13 @@ import { AsyncType, fetchPlans, selectPaymentPlan, selectPlans } from '../../../
   templateUrl: './leaf-plan-selector.component.html',
   styleUrls: ['./leaf-plan-selector.component.scss']
 })
-export class LeafPlanSelectorComponent implements OnInit, OnChanges, OnDestroy {
+export class LeafPlanSelectorComponent implements OnInit, OnDestroy {
   public availablePlans$: Observable<LeafPaymentPlan[]>;
   public fetchPlansPending$: Observable<boolean>;
   public selectedPlan?: LeafPaymentPlan;
 
   @Input()
-  public submitTrigger$?: Observable<void>;
+  public showSubmitButton: boolean = true;
 
   @Output()
   public onSelect: EventEmitter<LeafPaymentPlan> = new EventEmitter<LeafPaymentPlan>();
@@ -41,15 +41,9 @@ export class LeafPlanSelectorComponent implements OnInit, OnChanges, OnDestroy {
     this.store.dispatch(fetchPlans());
   }
 
-  public ngOnChanges(changes: SimpleChanges) {
-    if (changes.submitTrigger$ && this.submitTrigger$) {
-      this.subscriptions.push(
-        this.submitTrigger$.subscribe(() => {
-          if (this.selectedPlan) {
-            this.store.dispatch(selectPaymentPlan({selectedPlan: this.selectedPlan}));
-          }
-        })
-      );
+  public submit() {
+    if (this.selectedPlan) {
+      this.store.dispatch(selectPaymentPlan({selectedPlan: this.selectedPlan}));
     }
   }
 

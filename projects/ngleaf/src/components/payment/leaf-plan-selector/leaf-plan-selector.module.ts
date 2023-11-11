@@ -4,6 +4,7 @@ import { LeafPlanSelectorComponent } from './leaf-plan-selector.component';
 import { LeafPlanViewerModule } from '../leaf-plan-viewer';
 import { PaymentStoreModule } from '../../../store/payment/payment-store.module';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   imports: [
@@ -11,6 +12,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     CommonModule,
     /* Material deps */
     MatProgressBarModule,
+    MatButtonModule,
     /* Leaf deps */
     LeafPlanViewerModule,
     PaymentStoreModule,
