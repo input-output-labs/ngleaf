@@ -49,5 +49,6 @@ export class LeafPlanSelectorComponent implements OnInit, OnDestroy {
 
   public selectPlan(plan: LeafPaymentPlan) {
     this.selectedPlan = plan;
+    this.onSelect.emit(this.selectedPlan);
   }
 }

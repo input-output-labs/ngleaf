@@ -8,6 +8,7 @@ import { Store, select } from "@ngrx/store";
 import { Observable, filter, map, Subscription } from "rxjs";
 import { LeafAccountProfile } from "../../../../api/models/leaf-account.model";
 import { selectCurrentAccountData, updateProfile } from "../../../../store/core/session/index";
+import { MatFormFieldAppearance } from "@angular/material/form-field";
 
 export type ProfileUpdateFields = keyof LeafAccountProfile;
 
@@ -28,6 +29,12 @@ export class ProfileUpdateComponent implements OnChanges, OnDestroy {
 
   @Input()
   public separateColumnForAvatar: boolean = true;
+
+  @Input()
+  public fieldAppearance: MatFormFieldAppearance = "fill";
+
+  @Input()
+  public hideGroupTitles: boolean = false;
 
   public currentProfile$: Observable<LeafAccountProfile>;
 

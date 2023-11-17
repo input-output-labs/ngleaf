@@ -5,10 +5,10 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 import {
   RoomCreationFormModule,
+  OrganizationSelectorModule,
 } from '@input-output-labs/ngleaf';
 
 import { MessengerComponent } from './messenger.component';
-
 
 @NgModule({
   imports: [
@@ -19,6 +19,7 @@ import { MessengerComponent } from './messenger.component';
     MatSnackBarModule,
     /* Leaf deps */
     RoomCreationFormModule,
+    OrganizationSelectorModule,
   ],
   declarations: [MessengerComponent]
 })

@@ -1,5 +1,6 @@
 <form [formGroup]="addressFormGroup" class="address-form">
-  <mat-form-field subscriptSizing="dynamic">
+  <mat-form-field subscriptSizing="dynamic" [appearance]="fieldAppearance">
+    <mat-label>{{ 'leaf.address-form.address-input-placeholder' | translate }}</mat-label>
     <input
       matInput
       id="address"
@@ -12,7 +13,8 @@
     </mat-error>
   </mat-form-field>
   <div class="line">
-    <mat-form-field subscriptSizing="dynamic">
+    <mat-form-field subscriptSizing="dynamic" [appearance]="fieldAppearance">
+      <mat-label>{{ 'leaf.address-form.postalCode-input-placeholder' | translate }}</mat-label>
       <input
         matInput
         id="postalCode"
@@ -28,7 +30,8 @@
         {{ "leaf.address-form.requiredError" | translate }}
       </mat-error>
     </mat-form-field>
-    <mat-form-field subscriptSizing="dynamic">
+    <mat-form-field subscriptSizing="dynamic" [appearance]="fieldAppearance">
+      <mat-label>{{ 'leaf.address-form.city-input-placeholder' | translate }}</mat-label>
       <input
         matInput
         id="city"

@@ -10,7 +10,9 @@ import {
   StatisticsPageModule,
   MailingAuthorizationsPageComponent,
   MailingAuthorizationsPageModule,
-  LeafAuthGuardService
+  LeafAuthGuardService,
+  LeafOrganizationSelectedGuardModule,
+  LeafOrganizationSelectedGuardService,
 } from '@input-output-labs/ngleaf';
 import { MainLayoutComponent } from '../components/main-layout/main-layout.component';
 import { MainLayoutModule } from '../components/main-layout/main-layout.module';
@@ -32,6 +34,7 @@ const routes: Route[] = [
       },
       {
         path: 'dashboard',
+        canActivate: [LeafOrganizationSelectedGuardService],
         loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
       },
       {
@@ -67,6 +70,7 @@ const routes: Route[] = [
     StatisticsPageModule,
     LeafForbiddenModule,
     MailingAuthorizationsPageModule,
+    LeafOrganizationSelectedGuardModule,
     MainLayoutModule,
   ], // add { enableTracing: true } after routes in forRoot to debug the router
   exports: [RouterModule],

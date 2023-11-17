@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { LeafOrganizationStoreModule } from '../../../store/core/organizations/organizations-store.module';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatListModule } from '@angular/material/list';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   imports: [
@@ -22,6 +23,7 @@ import { MatListModule } from '@angular/material/list';
     MatIconModule,
     MatTooltipModule,
     MatListModule,
+    MatCardModule,
   ],
   declarations: [OrganizationSelectorComponent],
   exports: [OrganizationSelectorComponent]

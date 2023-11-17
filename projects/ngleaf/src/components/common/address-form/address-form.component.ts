@@ -2,9 +2,11 @@ import {
   Component,
   forwardRef,
   ChangeDetectionStrategy,
+  Input,
 } from "@angular/core";
 import { ControlValueAccessor, FormBuilder, NG_VALUE_ACCESSOR, UntypedFormGroup, Validators } from "@angular/forms";
 import { LeafAddress } from "../../../api/models/leaf-account.model";
+import { MatFormFieldAppearance } from "@angular/material/form-field";
 
 const CUSTOM_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -20,6 +22,10 @@ const CUSTOM_VALUE_ACCESSOR: any = {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LeafAddressFormComponent implements ControlValueAccessor {
+
+  @Input()
+  public fieldAppearance: MatFormFieldAppearance = "fill";
+
   // Form control field
   private onChange = (_: any) => {};
   private onTouched = () => {};

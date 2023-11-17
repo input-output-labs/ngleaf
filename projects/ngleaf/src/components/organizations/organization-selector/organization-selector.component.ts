@@ -16,10 +16,15 @@ export class OrganizationSelectorComponent implements OnInit {
 
   @Input()
   public menuXPosition: string = "before";
+
   @Input()
   public menuYPosition: string = "above";
+
   @Input()
   public reduced: boolean = true;
+
+  @Input()
+  public design: 'widget' | 'cards' = 'widget';
 
   public currentAccount$: Observable<LeafAccountModel>;
   public organizations$: Observable<LeafOrganization[]>;
@@ -41,6 +46,20 @@ export class OrganizationSelectorComponent implements OnInit {
 
   public selectOrganization(organization) {
     this.store.dispatch(setCurrentOrganizationId({selectedOrganizationId: organization.id}));
+  }
+  public getProfileShortname(organization: LeafOrganization) {
+    const name = organization.name;
+    const nameParts = name.trim().split(" ");
+    if (nameParts.length >= 2) {
+      return nameParts[0].charAt(0) + nameParts[1].charAt(0);
+    } else if (nameParts.length === 1) {
+      if (nameParts[0].length >= 2) {
+        return nameParts[0].charAt(0) + nameParts[0].charAt(1);
+      }
+      return nameParts[0].charAt(0) + nameParts[0].charAt(0);
+    } else {
+      return "xx";
+    }
   }
 
 }

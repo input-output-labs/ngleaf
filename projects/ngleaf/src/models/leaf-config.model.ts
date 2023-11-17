@@ -1,6 +1,9 @@
 export interface LeafNavigationConfig {
   authGuardErrorRedirect?: string;
   adminGuardErrorRedirect?: string;
+  profileGuardErrorRedirect?: string;
+  organizationSelectedGuardErrorRedirectNoSelectionPossible?: string;
+  organizationSelectedGuardErrorRedirectSelectionPossible?: string;
   loginSuccessRedirect?: string;
   registerSuccessRedirect?: string;
   logoutRedirect?: string;

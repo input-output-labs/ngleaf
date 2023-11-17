@@ -1,28 +1,48 @@
-<div class="organization-selector" *ngIf="!!(currentAccount$ | async) ; else notLoggedIn">
-  <div *ngIf="(organizations$ | async)?.length; else noOrganizations">
-    <a mat-icon-button [matMenuTriggerFor]="menu" *ngIf="reduced" [matTooltip]="'leaf.organization-selector.organization-switch-label' | translate" matTooltipPosition="right">
-      <mat-icon>sync_alt</mat-icon>
-    </a>
-    <button mat-button [matMenuTriggerFor]="menu" class="full-width menu-item-link" *ngIf="!reduced">
-      <mat-icon>sync_alt</mat-icon>
-      <span *ngIf="(currentOrganization$ | async) as currentOrganization; else noCurrentOrganization">
-        {{currentOrganization.name}}
-      </span>
-    </button>
+<ng-container *ngIf="design === 'widget'">
+  <div class="organization-selector" *ngIf="!!(currentAccount$ | async) ; else notLoggedIn">
+    <div *ngIf="(organizations$ | async)?.length; else noOrganizations">
+      <a mat-icon-button [matMenuTriggerFor]="menu" *ngIf="reduced" [matTooltip]="'leaf.organization-selector.organization-switch-label' | translate" matTooltipPosition="right">
+        <mat-icon>sync_alt</mat-icon>
+      </a>
+      <button mat-button [matMenuTriggerFor]="menu" class="full-width menu-item-link" *ngIf="!reduced">
+        <mat-icon>sync_alt</mat-icon>
+        <span *ngIf="(currentOrganization$ | async) as currentOrganization; else noCurrentOrganization">
+          {{currentOrganization.name}}
+        </span>
+      </button>
+    </div>
   </div>
-</div>
 
-<mat-menu #menu="matMenu" [xPosition]="menuXPosition" [yPosition]="menuYPosition">
-  <mat-list role="list">
-    <mat-list-item role="listitem" *ngFor="let organization of organizations$ | async" >
-      <button mat-menu-item (click)="selectOrganization(organization)">{{ organization.name }}</button>
-    </mat-list-item>
-  </mat-list>
-</mat-menu>
-<ng-template #noOrganizations> {{ 'leaf.organization-selector.no-organizations' | translate }} </ng-template>
-<ng-template #noCurrentOrganization> {{ 'leaf.organization-selector.organization-selector-label' | translate }} </ng-template>
-<ng-template #notLoggedIn>
-  <div  *ngIf="!hideWhenNotLoggedIn">
-    {{ 'leaf.organization-selector.not-logged-in-disclaimer' | translate }}
-  </div>
-</ng-template>
+  <mat-menu #menu="matMenu" [xPosition]="menuXPosition" [yPosition]="menuYPosition">
+    <mat-list role="list">
+      <mat-list-item role="listitem" *ngFor="let organization of organizations$ | async" >
+        <button mat-menu-item (click)="selectOrganization(organization)">{{ organization.name }}</button>
+      </mat-list-item>
+    </mat-list>
+  </mat-menu>
+  <ng-template #noOrganizations> {{ 'leaf.organization-selector.no-organizations' | translate }} </ng-template>
+  <ng-template #noCurrentOrganization> {{ 'leaf.organization-selector.organization-selector-label' | translate }} </ng-template>
+  <ng-template #notLoggedIn>
+    <div  *ngIf="!hideWhenNotLoggedIn">
+      {{ 'leaf.organization-selector.not-logged-in-disclaimer' | translate }}
+    </div>
+  </ng-template>
+</ng-container>
+<ng-container>
+</ng-container>
+<mat-list role="list" *ngIf="design === 'cards'" class="organization-selector-cards">
+  <mat-card mat-list-item class="organization-picker-card" *ngFor="let organization of organizations$ | async">
+    <mat-card-header class="header">
+      <div mat-card-avatar class="image profile-letters-picture">{{getProfileShortname(organization)}}</div>
+      <mat-card-title class="title">{{ organization.name }}</mat-card-title>
+      <mat-card-subtitle class="subtitle" *ngIf="organization.members">
+        <mat-icon inline>group</mat-icon>
+        {{ 'leaf.organization-selector.cards.members' | translate: {count: organization.members.length} }}
+      </mat-card-subtitle>
+      <div class="spacer"></div>
+      <button mat-fab extended color="primary" (click)="selectOrganization(organization)" style="--mdc-fab-container-color: var(--organization-card-color, #0a8043)">
+        {{ 'leaf.organization-selector.cards.organization-selector-label' | translate }}
+      </button>
+    </mat-card-header>
+  </mat-card>
+</mat-list>

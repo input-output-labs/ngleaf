@@ -191,7 +191,11 @@
         "no-organizations": "No organizations",
         "organization-switch-label": "Organization switch",
         "organization-selector-label": "Select an organization",
-        "not-logged-in-disclaimer": "Please loggin"
+        "not-logged-in-disclaimer": "Please loggin",
+        "cards": {
+          "organization-selector-label": "Select this organization",
+          "members": "{{count}} members"
+        }
       },
       "organization-members": {
         "search-member-input-label": "Search members",

@@ -1,8 +1,9 @@
 <form class="profile-update-form" [formGroup]="profileFormGroup" [class.row]="separateColumnForAvatar">
   <div class="form-part fields-form-part">
     <ng-container *ngIf="fields.includes('username')">
-      <div class="form-group-title">{{ 'leaf.profile-update.username-form-group-title' | translate }}</div>
-      <mat-form-field subscriptSizing="dynamic">
+      <div class="form-group-title" *ngIf="!hideGroupTitles">{{ 'leaf.profile-update.username-form-group-title' | translate }}</div>
+      <mat-form-field subscriptSizing="dynamic" [appearance]="fieldAppearance">
+        <mat-label>{{ 'leaf.profile-update.username-input-placeholder' | translate }}</mat-label>
         <input
           matInput
           id="username"
@@ -22,11 +23,12 @@
     <ng-container
       *ngIf="fields.includes('firstname') || fields.includes('lastname')"
     >
-    <div class="form-group-title">{{ 'leaf.profile-update.identity-form-group-title' | translate }}</div>
+    <div class="form-group-title" *ngIf="!hideGroupTitles">{{ 'leaf.profile-update.identity-form-group-title' | translate }}</div>
       <mat-form-field
         *ngIf="fields.includes('firstname')"
         subscriptSizing="dynamic"
       >
+        <mat-label>{{ 'leaf.profile-update.firstname-input-placeholder' | translate }}</mat-label>
         <input
           matInput
           id="firstname"
@@ -46,6 +48,7 @@
         *ngIf="fields.includes('lastname')"
         subscriptSizing="dynamic"
       >
+      <mat-label>{{ 'leaf.profile-update.lastname-input-placeholder' | translate }}</mat-label>
         <input
           matInput
           id="lastname"
@@ -63,8 +66,9 @@
       </mat-form-field>
     </ng-container>
     <ng-container *ngIf="fields.includes('phoneNumber')">
-      <div class="form-group-title">{{ 'leaf.profile-update.phoneNumber-form-group-title' | translate }}</div>
-      <mat-form-field subscriptSizing="dynamic">
+      <div class="form-group-title" *ngIf="!hideGroupTitles">{{ 'leaf.profile-update.phoneNumber-form-group-title' | translate }}</div>
+      <mat-form-field subscriptSizing="dynamic" [appearance]="fieldAppearance">
+        <mat-label>{{ 'leaf.profile-update.phoneNumber-input-placeholder' | translate }}</mat-label>
         <input
           matInput
           id="phoneNumber"
@@ -82,17 +86,17 @@
       </mat-form-field>
     </ng-container>
     <ng-container *ngIf="fields.includes('address')">
-      <div class="form-group-title">{{ 'leaf.profile-update.address-form-group-title' | translate }}</div>
-      <leaf-address-form formControlName="address"></leaf-address-form>
+      <div class="form-group-title" *ngIf="!hideGroupTitles">{{ 'leaf.profile-update.address-form-group-title' | translate }}</div>
+      <leaf-address-form formControlName="address" [appearance]="fieldAppearance"></leaf-address-form>
     </ng-container>
   </div>
   <div class="form-part avatar-form-part" *ngIf="fields.includes('avatarUrl')">
-    <div class="form-group-title">{{ 'leaf.profile-update.avatar-form-group-title' | translate }}</div>
+    <div class="form-group-title" *ngIf="!hideGroupTitles">{{ 'leaf.profile-update.avatar-form-group-title' | translate }}</div>
     <div class="uploader">
       <leaf-image-upload formControlName="avatarUrl" [resizeWidth]="250" [resizeHeight]="250"></leaf-image-upload>
     </div>
   </div>
 </form>
-<button mat-button (click)="submit()" [disabled]="!profileFormGroup.valid" *ngIf="!submitTrigger$">
+<button mat-stroked-button (click)="submit()" [disabled]="!profileFormGroup.valid" *ngIf="!submitTrigger$" color="primary">
   {{ "leaf.profile-update.submit-button-label" | translate }}
 </button>
