@@ -209,4 +209,28 @@ export class OrganizationPoliciesComponent implements OnDestroy {
       }
     });
   }
+
+  public onNumberRightValueChange(policyName: string, newValue: string) {
+    this.role.rights.forEach((right) => {
+      if (right.name === policyName) {
+        right.value = newValue;
+        this.roleUpdated = true;
+      }
+    });
+  }
+
+  public addtoNumberRight(policyName: string, addition: number) {
+    this.role.rights.forEach((right) => {
+      if (right.name === policyName) {
+        if (right.type === "number") {
+          const currentValue = Number(right.value);
+          if (!isNaN(currentValue)) {
+            const newValue = currentValue + addition;
+            right.value = `${newValue}`;
+            this.roleUpdated = true;
+          }
+        }
+      }
+    });
+  }
 }

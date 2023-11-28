@@ -3,7 +3,7 @@ import { OrganizationInvitationData } from '../../../api';
 import { Observable, filter, map, take } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { AsyncType } from '../../../store/common/async-type';
-import { acceptInvitation, declineInvitation, getInvitationData, selectInvitationAcceptationOrDecline, selectInvitationData } from '../../../store/core/organizations';
+import { acceptInvitation, declineInvitation, getInvitationData, selectInvitationAcceptationOrDecline, selectInvitationData, setCurrentOrganizationId } from '../../../store/core/organizations';
 import { LeafConfig } from '../../../models/index';
 import { LeafConfigServiceToken } from '../../../services/leaf-config.module';
 import { Router } from '@angular/router';
@@ -59,7 +59,8 @@ export class OrganizationInvitationComponent implements OnInit {
     ).subscribe((asyncItem) => {
       this.acceptationStatus.emit(asyncItem.status.success);
       if (asyncItem.status.success) {
-        this.router.navigate([this.config.navigation.afterInvitationRedirect || '/'])
+        this.router.navigate([this.config.navigation.afterInvitationRedirect || '/']);
+        this.store.dispatch(setCurrentOrganizationId({selectedOrganizationId: this.organizationId}));
       }
     });
   }

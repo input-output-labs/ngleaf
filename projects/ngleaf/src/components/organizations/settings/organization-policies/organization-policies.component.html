@@ -48,15 +48,26 @@
                 {{ ("leaf.organization-policies.policies." + right.name + ".name") | translate }}
               </span>
               <span class="role-value" [ngSwitch]="right.type">
-                  <some-element *ngSwitchCase="'boolean'">
+                  <ng-container *ngSwitchCase="'boolean'">
                     <mat-slide-toggle
                       [checked]="right.value === 'true'"
                       (change)="onRightValueChange(right.name, $event)"
                       [disabled]="!(eligibilities$ | async).managePolicies.eligible || (eligibilities$ | async)[right.name] && !(eligibilities$ | async)[right.name].eligible"></mat-slide-toggle>
-                  </some-element>
-                  <some-element *ngSwitchDefault>
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'number'">
+                    <button mat-mini-fab class="dense" (click)="addtoNumberRight(right.name, -1)">
+                      <mat-icon>remove</mat-icon>
+                    </button>
+                    <mat-form-field class="dense" style="margin-left: -0.75rem; margin-right: -0.75rem; width: 100px;" appearance="outline" subscriptSizing="dynamic">
+                      <input matInput type="number" [value]="right.value" (change)="onNumberRightValueChange(right.name, $event.target.value)">
+                    </mat-form-field>
+                    <button mat-mini-fab class="dense" (click)="addtoNumberRight(right.name, 1)">
+                      <mat-icon>add</mat-icon>
+                    </button>
+                  </ng-container>
+                  <ng-container *ngSwitchDefault>
                     other ...
-                  </some-element>
+                  </ng-container>
               </span>
             </div>
             <span class="role-description">
