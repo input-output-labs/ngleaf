@@ -90,18 +90,25 @@ export class LeafImageUploadComponent implements OnInit, ControlValueAccessor {
         img.src = image;
         that.imageUrl = image;
 
-        if (that.resizeWidth && that.resizeHeight) {
+        if (that.resizeWidth || that.resizeHeight) {
           img.addEventListener("load", function () {
             var canvas = document.createElement("canvas");
 
             var width = img.width;
             var height = img.height;
-
             if (width > that.resizeWidth) {
+              if(!that.resizeHeight) {
+                const sizeDecreaseRatio = that.resizeWidth/width;
+                height = height * sizeDecreaseRatio;
+              }
               width = that.resizeWidth;
             }
 
             if (height > that.resizeHeight) {
+              if(!that.resizeWidth) {
+                const sizeDecreaseRatio = that.resizeHeight/width;
+                width = width * sizeDecreaseRatio;
+              }
               height = that.resizeHeight;
             }
 
