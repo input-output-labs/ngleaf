@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatDividerModule } from '@angular/material/divider';
-import { LeafPlanSelectorModule } from '@input-output-labs/ngleaf';
+import { LeafPlanSelectorModule, LeafSelectedPaymentPlanModule } from '@input-output-labs/ngleaf';
 import { PaymentComponent } from './payment.component';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   imports: [
@@ -10,8 +11,10 @@ import { PaymentComponent } from './payment.component';
     CommonModule,
     /* Material deps */
     MatDividerModule,
+    MatCardModule,
     /* Leaf deps */
-    LeafPlanSelectorModule
+    LeafPlanSelectorModule,
+    LeafSelectedPaymentPlanModule,
   ],
   declarations: [PaymentComponent],
   exports: [PaymentComponent]

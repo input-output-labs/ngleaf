@@ -4,7 +4,7 @@
     <div *ngFor="let plan of (availablePlans$ | async)" class="plan-wrapper">
       <leaf-plan-viewer
         [plan]="plan"
-        [selected]="selectedPlan === plan"
+        [selected]="selectedPlan?.name === plan?.name"
         [selectable]="true"
         (onSelect)="selectPlan(plan)"></leaf-plan-viewer>
     </div>
@@ -17,7 +17,7 @@
       (click)="submit()"
       [disabled]="!selectedPlan"
     >
-     Confirm this plan
+    {{ "leaf.payment.plan-selector.submitButtonLabel" | translate }}
     </button>
   </div>
 </div>

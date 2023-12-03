@@ -296,6 +296,24 @@
         "period": {
           "month": "per<br/>month",
           "year": "per<br/>year"
+        },
+        "selected-payment-plan": {
+          "selectedPlanLabel": "Your plan",
+          "selectedPlanChangeLabel": "Change",
+          "trialLabel": "Trial",
+          "trialLabelOngoing": "ongoing",
+          "trialLabelOver": "Over",
+          "trialLabelNone": "None",
+          "paymentMethodChangeLabel": "Changer",
+          "paymentMethodSetLabel": "Définir mon mode de paiement",
+          "paymentMethodDisclaimer": "Aucun mode de paiment définit !<br/>Veuillez définir un mode de paiement avant la fin de la période d'essai pour éviter sa révocation."
+        },
+        "plan-selector": {
+          "submitButtonLabel": "Confirm this plan"
+        },
+        "plan-selector-dialog": {
+          "title": "Plan selection",
+          "cancel": "Cancel"
         }
       }
     }

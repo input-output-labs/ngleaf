@@ -16,6 +16,9 @@ export class LeafPlanViewerComponent implements OnInit {
   @Input()
   public selectable: boolean = false;
 
+  @Input()
+  public flat: boolean = false;
+
   @Output()
   public onSelect: EventEmitter<void> = new EventEmitter<void>();
 

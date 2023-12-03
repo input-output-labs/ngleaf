@@ -12,6 +12,16 @@ import { fetchEligibilites } from '../core';
 @Injectable()
 export class PaymentEffects {
 
+  fetchSelectedPaymentPlanInfo$ = createEffect(() => this.actions$.pipe(
+    ofType(PaymentActions.fetchSelectedPaymentPlanInfo),
+    switchMap(() =>
+    this.paymentApiClient.fetchSelectedPaymentPlanInfo().pipe(
+        map(paymentPlanInfo => (PaymentActions.fetchSelectedPaymentPlanInfoSuccess({data: paymentPlanInfo}))),
+        catchError((error) => of(PaymentActions.fetchSelectedPaymentPlanInfoFailure({error})))
+      ))
+    )
+  );
+
   fetchPlans$ = createEffect(() => this.actions$.pipe(
     ofType(PaymentActions.fetchPlans),
     switchMap(() =>

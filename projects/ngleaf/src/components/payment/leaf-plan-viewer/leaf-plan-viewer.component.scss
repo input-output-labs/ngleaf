@@ -3,10 +3,17 @@
 .plan-viewer {
     width: calc(100% - 10px);
     height: calc(100% - 10px);
-    background-color: white;
     padding: 5px;
-    border-radius: 10px;
-    @include mat.elevation(1);
+
+    &:not(.flat) {
+        border-radius: 10px;
+        background-color: white;
+        @include mat.elevation(1);
+
+        .plan-viewer-content {
+            background-color: #f9f9f9;
+        }
+    }
 
     &.selectable {
         &:not(.selected):hover {
@@ -27,7 +34,6 @@
         border-radius: 7px;
         width: calc(100%);
         height: calc(100%);
-        background-color: #f9f9f9;
 
         .plan-viewer-header {
             border-radius: 7px;

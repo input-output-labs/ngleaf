@@ -1,7 +1,7 @@
 import { createSelector } from '@ngrx/store';
 import { AsyncType } from '../common/index';
 import { PaymentState } from './payment.state';
-import { LeafPaymentPlan } from '../../api';
+import { LeafPaymentPlan, LeafPaymentPlanInfo } from '../../api';
 
 interface AppState {
   payment: PaymentState;
@@ -17,7 +17,16 @@ export const selectPlans = createSelector(
   selectPaymentFromAppState,
   (state: PaymentState) => state.plans
 );
+export const selectSelectPaymentPlan = createSelector(
+  selectPaymentFromAppState,
+  (state: PaymentState) => state.selectPaymentPlan
+);
 export const selectPlansData = createSelector(
   selectPlans,
   (plans: AsyncType<LeafPaymentPlan[]>) => plans.data
 );
+export const selectSelectedPaymentPlanInfo = createSelector(
+  selectPaymentFromAppState,
+  (state: PaymentState) => state.selectedPaymentPlanInfo
+);
+
