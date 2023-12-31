@@ -7,7 +7,7 @@
     "start": "ng serve",
     "start:prod": "ng serve --configuration production",
     "build": "ng lint && ng build",
-    "build:lib": "ng build ngleaf",
+    "build:lib": "ng build ngleaf --configuration production",
     "build:prod": "ng build --configuration=prod",
     "build:aot": "ng build --configuration production --aot --configuration=production",
     "test": "ng test",
