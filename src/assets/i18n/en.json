@@ -315,6 +315,9 @@
           "title": "Plan selection",
           "cancel": "Cancel"
         }
+      },
+      "select-language": {
+        "menu": "Change language"
       }
     }
 }

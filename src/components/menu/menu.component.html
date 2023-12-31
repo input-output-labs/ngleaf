@@ -42,6 +42,9 @@
 
   <mat-list role="list" class="full-width">
     <mat-list-item role="listitem">
+      <leaf-select-language [reduced]="!(menuExpanded$ | async)"></leaf-select-language>
+    </mat-list-item>
+    <mat-list-item role="listitem">
       <a mat-icon-button routerLink="/settings" *ngIf="!(menuExpanded$ | async)" [matTooltip]="'app.menu.settingsLinkLabel' | translate" matTooltipPosition="right">
         <mat-icon>account_circle</mat-icon>
       </a>

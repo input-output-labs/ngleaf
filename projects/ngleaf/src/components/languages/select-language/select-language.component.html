@@ -1,0 +1,40 @@
+<!-- <button
+  mat-button
+  [matMenuTriggerFor]="menu"
+  aria-label="Example icon-button with a menu"
+>
+  <mat-icon>language</mat-icon>
+  <span *ngIf="!reduced">{{ placeholderTranslationKeyMenu | translate }}</span>
+</button> -->
+
+<a mat-icon-button [matMenuTriggerFor]="menu" *ngIf="reduced">
+  <mat-icon>language</mat-icon>
+</a>
+<button
+  mat-button
+  [matMenuTriggerFor]="menu"
+  class="full-width menu-item-link"
+  *ngIf="!reduced"
+>
+  <mat-icon>language</mat-icon>
+  <span>
+    {{ placeholderTranslationKeyMenu | translate }}
+  </span>
+</button>
+
+<mat-menu #menu="matMenu">
+  <button
+    mat-menu-item
+    *ngFor="let language of availableLanguages"
+    (click)="changeLanguage(language)"
+  >
+    <div class="language-item">
+      <img
+        class="image-flag"
+        [src]="languageCodesPerLangue[language].iconPath"
+        alt="image flag"
+      />
+      <span>{{ languageCodesPerLangue[language].translationKey }}</span>
+    </div>
+  </button>
+</mat-menu>

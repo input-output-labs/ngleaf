@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MenuComponent } from './menu.component';
 import { RouterModule } from '@angular/router';
 import { MatListModule } from '@angular/material/list';
-import { LeafSessionModule, OrganizationSelectorModule, NotificationsWidgetModule } from '@input-output-labs/ngleaf';
+import { LeafSessionModule, OrganizationSelectorModule, NotificationsWidgetModule, SelectLanguageModule } from '@input-output-labs/ngleaf';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
@@ -27,6 +27,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     LeafSessionModule,
     OrganizationSelectorModule,
     NotificationsWidgetModule,
+    SelectLanguageModule,
     /* Blank deps */
     UiStoreModule,
   ],

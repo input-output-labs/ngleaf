@@ -6,6 +6,7 @@ export * from './admin/index';
 export * from './common/index';
 export * from './emailing/index';
 export * from './files/index';
+export * from './languages/index';
 export * from './messenger/index';
 export * from './notifications/index';
 export * from './organizations/index';
