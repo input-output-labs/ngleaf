@@ -48,6 +48,16 @@ export class PaymentEffects {
     )
   );
 
+  fetchInvoices$ = createEffect(() => this.actions$.pipe(
+    ofType(PaymentActions.fetchInvoices),
+    switchMap((payload: {invoicesType: string}) =>
+    this.paymentApiClient.fetchInvoices(payload.invoicesType).pipe(
+        map(invoices => (PaymentActions.fetchInvoicesSuccess({data: invoices}))),
+        catchError((error) => of(PaymentActions.fetchInvoicesFailure({error})))
+      ))
+    )
+  );
+
   constructor(
     private actions$: Actions,
     private paymentApiClient: PaymentApiClientService,

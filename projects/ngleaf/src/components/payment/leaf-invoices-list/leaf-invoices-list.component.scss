@@ -1,0 +1,15 @@
+@use '@angular/material' as mat;
+
+.invoices-list {
+  .no-background {
+    background: transparent;
+  }
+
+  .td-center {
+    text-align: center
+  }
+
+  .mat-column-date {
+    width: 100%;
+  }
+}

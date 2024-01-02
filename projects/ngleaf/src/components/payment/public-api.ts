@@ -1,6 +1,7 @@
 /*
  * Public API Surface of ngleaf
  */
+export * from './leaf-invoices-list/index';
 export * from './leaf-plan-selector/index';
 export * from './leaf-plan-selector-dialog/index';
 export * from './leaf-plan-viewer/index';

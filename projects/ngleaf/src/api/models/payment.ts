@@ -1,3 +1,15 @@
+export interface LeafPrice {
+  currency: string;
+  amount: number;
+}
+
+export interface LeafInvoice {
+  price: LeafPrice;
+  creationDate: Date;
+  paid: boolean;
+  pdfUrl: string;
+}
+
 export interface LeafPaymentPlanFeature {
     name: string;
     type: string;
@@ -16,6 +28,7 @@ export interface LeafPaymentPlan {
     available: boolean;
     defaultPlan: boolean;
     features: LeafPaymentPlanFeature[];
+    descriptions: string[];
     pricing: LeafPaymentPlanPricing;
     suspended: boolean;
     suspensionBackupPlan: LeafPaymentPlan;

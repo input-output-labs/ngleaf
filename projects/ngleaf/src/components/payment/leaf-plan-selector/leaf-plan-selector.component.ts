@@ -1,8 +1,9 @@
 import { Component, OnInit, Output, Input, EventEmitter, OnDestroy } from '@angular/core';
-import { Observable,Subscription,combineLatest,filter, map, take } from 'rxjs';
+import { Observable,ReplaySubject,Subscription,combineLatest,filter, map, take } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { LeafPaymentPlan, LeafPaymentPlanInfo } from '../../../api/models';
 import { AsyncType, fetchPlans, fetchSelectedPaymentPlanInfo, selectPaymentPlan, selectPlans, selectSelectPaymentPlan, selectSelectedPaymentPlanInfo } from '../../../store';
+import { PlanViewerConfig } from '../leaf-plan-viewer';
 
 @Component({
   selector: 'leaf-plan-selector',
@@ -11,11 +12,22 @@ import { AsyncType, fetchPlans, fetchSelectedPaymentPlanInfo, selectPaymentPlan,
 })
 export class LeafPlanSelectorComponent implements OnInit, OnDestroy {
   public availablePlans$: Observable<LeafPaymentPlan[]>;
+  public planClassifications$: Observable<string[]>;
+  public classifiedAvailablePlans$: Observable<{[key: string]: LeafPaymentPlan[]}>;
+  public displayedPlans$: Observable<LeafPaymentPlan[]>;
   public fetchPlansPending$: Observable<boolean>;
   public selectedPlan?: LeafPaymentPlan;
+  public selectedClassification$: ReplaySubject<string | undefined> = new ReplaySubject<string | undefined>();
 
   @Input()
   public showSubmitButton: boolean = true;
+
+  @Input()
+  public planViewerConfig: PlanViewerConfig = {
+    selectableWithButton: false,
+    showFeatures: false,
+    showDescription: true,
+  };
 
   @Output()
   public onSelect: EventEmitter<LeafPaymentPlan> = new EventEmitter<LeafPaymentPlan>();
@@ -43,14 +55,58 @@ export class LeafPlanSelectorComponent implements OnInit, OnDestroy {
       if (selectedPlan) {
         this.selectedPlan = selectedPlan;
       }
+      this.selectedClassification(selectedPlan);
     }));
 
-    this.fetchPlansPending$ = combineLatest(
+    this.fetchPlansPending$ = combineLatest([
       asyncAvailablePlans$,
       asyncSelectedPaymentPlanInfo$,
-    ).pipe(
+    ]).pipe(
       map(([asyncAvailablePlans, asyncSelectedPaymentPlanInfo]) => asyncAvailablePlans.status.pending || asyncSelectedPaymentPlanInfo.status.pending),
     );
+
+    this.planClassifications$ = this.availablePlans$.pipe(
+      map((plans: LeafPaymentPlan[]) => {
+        const periods = new Set<string>();
+        plans.forEach((plan) => periods.add(plan.pricing.period));
+        return Array.from(periods).filter(v => !!v);
+      })
+    );
+
+    this.classifiedAvailablePlans$ = combineLatest([
+      this.availablePlans$,
+      this.planClassifications$
+    ]).pipe(
+      map(([availablePlans, planClassifications]) => {
+        const classifiedAvailablePlans = {};
+        planClassifications.forEach((planClassification) => {
+          classifiedAvailablePlans[planClassification] = availablePlans.filter(availablePlan => planClassification === (availablePlan.pricing.period ?? planClassification));
+        })
+        return classifiedAvailablePlans;
+      })
+    );
+
+    this.displayedPlans$ = combineLatest([
+      this.classifiedAvailablePlans$,
+      this.selectedClassification$
+    ]).pipe(
+      map(([classifiedAvailablePlans, selectedClassification]) => {
+        return classifiedAvailablePlans[selectedClassification];
+      })
+    );
+  }
+
+  selectedClassification(selectedPlan: LeafPaymentPlan) {
+    this.classifiedAvailablePlans$.pipe(take(1)).subscribe((classifiedAvailablePlans) => {
+      for(let planClassification of Object.keys(classifiedAvailablePlans)) {
+        const plans = classifiedAvailablePlans[planClassification];
+        if ((plans || []).some(plan => plan.name === selectedPlan.name)) {
+          this.selectedClassification$.next(planClassification);
+          break;
+        }
+      }
+      this.selectedClassification$.next(Object.keys(classifiedAvailablePlans)[0]);
+    })
   }
 
   ngOnDestroy(): void {

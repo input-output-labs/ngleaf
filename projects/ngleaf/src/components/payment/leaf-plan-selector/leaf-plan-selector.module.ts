@@ -5,6 +5,7 @@ import { LeafPlanViewerModule } from '../leaf-plan-viewer';
 import { PaymentStoreModule } from '../../../store/payment/payment-store.module';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatButtonModule } from '@angular/material/button';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
@@ -15,6 +16,7 @@ import { TranslateModule } from '@ngx-translate/core';
     /* Material deps */
     MatProgressBarModule,
     MatButtonModule,
+    MatButtonToggleModule,
     /* Leaf deps */
     LeafPlanViewerModule,
     PaymentStoreModule,

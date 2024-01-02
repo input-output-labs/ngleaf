@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
+import { Component, Inject, OnInit, OnDestroy, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { LeafPaymentPlanInfo } from '../../../api/models';
 import { AsyncType, fetchSelectedPaymentPlanInfo, selectCurrentOrganization, selectSelectedPaymentPlanInfo } from '../../../store';
@@ -8,6 +8,7 @@ import { DOCUMENT } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { LeafPlanSelectorDialogComponent } from '../leaf-plan-selector-dialog';
 import { isMobile } from '../../../helpers';
+import { PlanViewerConfig } from '../leaf-plan-viewer';
 
 @Component({
   selector: 'leaf-selected-payment-plan',
@@ -18,6 +19,13 @@ export class LeafSelectedPaymentPlanComponent implements OnInit, OnDestroy {
   public paymentPlanInfo$: Observable<LeafPaymentPlanInfo>;
   public isMobile = isMobile();
   private subscriptions: Subscription[] = [];
+
+  @Input()
+  public planViewerConfig: PlanViewerConfig = {
+    selectableWithButton: false,
+    showFeatures: false,
+    showDescription: true,
+  };
 
   constructor(
     private store: Store,
@@ -46,7 +54,9 @@ export class LeafSelectedPaymentPlanComponent implements OnInit, OnDestroy {
   }
 
   public changePaymentPlan() {
-    const dialogRef = this.dialog.open(LeafPlanSelectorDialogComponent);
+    const dialogRef = this.dialog.open(LeafPlanSelectorDialogComponent, {
+      data: this.planViewerConfig
+    });
 
     dialogRef.afterClosed().subscribe(result => {
       this.store.dispatch(fetchSelectedPaymentPlanInfo());

@@ -30,3 +30,7 @@ export const selectSelectedPaymentPlanInfo = createSelector(
   (state: PaymentState) => state.selectedPaymentPlanInfo
 );
 
+export const selectInvoices = createSelector(
+  selectPaymentFromAppState,
+  (state: PaymentState) => state.invoices
+);

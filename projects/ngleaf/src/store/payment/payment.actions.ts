@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { LeafPaymentPlan, LeafPaymentPlanInfo } from '../../api';
+import { LeafInvoice, LeafPaymentPlan, LeafPaymentPlanInfo } from '../../api';
 
 export const fetchPlans = createAction(
   '[Payment store] Fetch plan',
@@ -35,5 +35,18 @@ export const selectPaymentPlanSuccess = createAction(
 );
 export const selectPaymentPlanFailure = createAction(
   '[Payment store] Select plan failure',
+  props<{error: any}>()
+);
+
+export const fetchInvoices = createAction(
+  '[Payment store] Fetch invoices',
+  props<{invoicesType: string}>()
+);
+export const fetchInvoicesSuccess = createAction(
+  '[Payment store] Fetch invoices success',
+  props<{data: LeafInvoice[]}>()
+);
+export const fetchInvoicesFailure = createAction(
+  '[Payment store] Fetch invoices failure',
   props<{error: any}>()
 );

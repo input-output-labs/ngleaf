@@ -3,23 +3,37 @@
   [class.flat]="flat"
   [class.selected]="selected"
   [class.selectable]="selectable"
-  [style.--plan-color]="plan.color">
+  [class.selectable-with-button]="selectableWithButton"
+  [style.--plan-color]="plan.color"
+  (click)="!selectableWithButton && onSelect.emit()">
   <div class="plan-viewer-content">
     <div class="plan-viewer-header">
       {{ plan.name }}
     </div>
-    <ul class="plan-features">
-      <li
-        *ngFor="let feature of plan.features"
-        class="feature"
-        [class.included]="!(feature.type === 'boolean' && feature.value !== 'true')"
-        [class.excluded]="feature.type === 'boolean' && feature.value !== 'true'"
-        >
-        <span>
-          {{ 'leaf.payment.features.' + feature.name + '.description' | translate: {value: feature.value } }}
-        </span>
-      </li>
-    </ul>
+    <div class="plan-contents">
+      <ul class="plan-descriptions" *ngIf="showDescription">
+        <li
+          *ngFor="let description of plan.descriptions"
+          class="description included"
+          >
+          <span>
+            {{ 'leaf.payment.planDescriptions.' + description | translate }}
+          </span>
+        </li>
+      </ul>
+      <ul class="plan-features" *ngIf="showFeatures">
+        <li
+          *ngFor="let feature of plan.features"
+          class="feature"
+          [class.included]="!(feature.type === 'boolean' && feature.value !== 'true')"
+          [class.excluded]="feature.type === 'boolean' && feature.value !== 'true'"
+          >
+          <span>
+            {{ 'leaf.payment.features.' + feature.name + '.description' | translate: {value: feature.value } }}
+          </span>
+        </li>
+      </ul>
+    </div>
     <div class="plan-footer">
       <div class="plan-pricing">
         <div *ngIf="plan.pricing.free" class="free">FREE</div>
@@ -36,7 +50,7 @@
           color="primary"
           [style.--mdc-filled-button-container-color]="plan.color"
           (click)="onSelect.emit()"
-          >Select this plan</button>
+          >{{ "leaf.payment.plan-viewer.selectionButtonLabel" | translate }}</button>
       </div>
     </div>
   </div>

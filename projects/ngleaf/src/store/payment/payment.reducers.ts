@@ -4,84 +4,10 @@ import * as PaymentActions from './payment.actions';
 import { PaymentState } from './payment.state';
 
 const initialState: PaymentState = {
-  plans: createEmptyAsyncType([
-    {
-      name: "Free",
-      color: "lightgrey",
-      features: [
-        {
-          name: "userCount",
-          type: "number",
-          value: "1"
-        },
-        {
-          name: "cardCount",
-          type: "number",
-          value: "1"
-        },
-        {
-          name: "reporting",
-          type: "boolean",
-          value: "false"
-        }
-      ],
-      pricing: {
-        free: true
-      }
-    },
-    {
-      name: "Basic",
-      color: "lightblue",
-      features: [
-        {
-          name: "userCount",
-          type: "number",
-          value: "5"
-        },
-        {
-          name: "cardCount",
-          type: "number",
-          value: "5"
-        },
-        {
-          name: "reporting",
-          type: "boolean",
-          value: "true"
-        }
-      ],
-      pricing: {
-        price: 4.99,
-        period: "month"
-      }
-    },
-    {
-      name: "Pro",
-      color: "lightcoral",
-      features: [
-        {
-          name: "userCount",
-          type: "number",
-          value: "unlimited"
-        },
-        {
-          name: "cardCount",
-          type: "number",
-          value: "unlimited"
-        },
-        {
-          name: "reporting",
-          type: "boolean",
-          value: "true"
-        }
-      ],
-      pricing: {
-        price: 69.99,
-        period: "year"
-      }
-    }
-  ]),
+  plans: createEmptyAsyncType(),
   selectPaymentPlan: createEmptyAsyncType(),
   selectedPaymentPlanInfo: createEmptyAsyncType(),
+  invoices: createEmptyAsyncType(),
 };
 
 export function paymentReducer(reducerState, action): PaymentState {
@@ -99,6 +25,10 @@ export function paymentReducer(reducerState, action): PaymentState {
     on(PaymentActions.fetchSelectedPaymentPlanInfo, (state: PaymentState) => ({...state, selectedPaymentPlanInfo: asyncTypePending(state.selectedPaymentPlanInfo)})),
     on(PaymentActions.fetchSelectedPaymentPlanInfoSuccess, (state: PaymentState, {data}) => ({...state, selectedPaymentPlanInfo: asyncTypeSuccess(state.selectedPaymentPlanInfo, data)})),
     on(PaymentActions.fetchSelectedPaymentPlanInfoFailure, (state: PaymentState, {error}) => ({...state, selectedPaymentPlanInfo: asyncTypeFailure(state.selectedPaymentPlanInfo, error)})),
+    /** Fetch invoices */
+    on(PaymentActions.fetchInvoices, (state: PaymentState) => ({...state, invoices: asyncTypePending(state.invoices)})),
+    on(PaymentActions.fetchInvoicesSuccess, (state: PaymentState, {data}) => ({...state, invoices: asyncTypeSuccess(state.invoices, data)})),
+    on(PaymentActions.fetchInvoicesFailure, (state: PaymentState, {error}) => ({...state, invoices: asyncTypeFailure(state.invoices, error)})),
   )(reducerState, action);
 }
 

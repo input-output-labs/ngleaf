@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { PlanViewerConfig } from '../leaf-plan-viewer';
 
 @Component({
   selector: 'app-leaf-plan-selector-dialog',
@@ -8,7 +9,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class LeafPlanSelectorDialogComponent implements OnInit {
 
-  constructor(public dialogRef: MatDialogRef<LeafPlanSelectorDialogComponent>) { }
+  constructor(public dialogRef: MatDialogRef<LeafPlanSelectorDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: PlanViewerConfig) { }
 
   ngOnInit() {
   }

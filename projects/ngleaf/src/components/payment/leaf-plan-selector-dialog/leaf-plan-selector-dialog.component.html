@@ -1,6 +1,6 @@
 <h2 mat-dialog-title>{{ "leaf.payment.plan-selector-dialog.title" | translate }}</h2>
 <mat-dialog-content class="mat-typography">
-  <leaf-plan-selector (onSubmitted)="onPaymentSelected()"></leaf-plan-selector>
+  <leaf-plan-selector (onSubmitted)="onPaymentSelected()" [planViewerConfig]="data"></leaf-plan-selector>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>{{ "leaf.payment.plan-selector-dialog.cancel" | translate }}</button>

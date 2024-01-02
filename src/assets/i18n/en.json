@@ -296,6 +296,21 @@
             "description": "Gestion de l'organisation"
           }
         },
+        "planDescriptions": {
+          "graphicalCharter": "Your graphical charter",
+          "profile": "Your profile",
+          "contactDetails": "Your contact details",
+          "usefulLinks": "Your useful links",
+          "allFromFree": "All from free pack",
+          "description": "Your description",
+          "products": "Your products",
+          "gallery": "Photo and video gallery",
+          "services": "Your services",
+          "allFromBasic": "All from basic pack",
+          "organization": "Manage your organization",
+          "trafficAnalytics": "Traffic analytics",
+          "sponsoring": "Sponsoring rewards"
+        },
         "period": {
           "month": "per<br/>month",
           "year": "per<br/>year"
@@ -312,11 +327,33 @@
           "paymentMethodDisclaimer": "Aucun mode de paiment définit !<br/>Veuillez définir un mode de paiement avant la fin de la période d'essai pour éviter sa révocation."
         },
         "plan-selector": {
-          "submitButtonLabel": "Confirm this plan"
+          "submitButtonLabel": "Confirm this plan",
+          "classificationLabels": {
+            "month": "Pay each month",
+            "year": "Pay once a year"
+          }
+        },
+        "plan-viewer": {
+          "selectionButtonLabel": "Select this plan"
         },
         "plan-selector-dialog": {
           "title": "Plan selection",
           "cancel": "Cancel"
+        },
+        "invoices-list": {
+          "statuses": {
+            "draft": "Next period forecast",
+            "open": "Open",
+            "paid": "Paid",
+            "uncollectible": "uncollectible",
+            "void": "Void"
+          },
+          "header": {
+            "date": "Date",
+            "amount": "Amount",
+            "status": "Status",
+            "download": "Download"
+          }
         }
       },
       "select-language": {
