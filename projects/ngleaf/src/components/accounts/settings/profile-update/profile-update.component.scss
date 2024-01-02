@@ -1,3 +1,4 @@
+@import "../../../../styling/devices.scss";
 
 .profile-update-form {
   display: flex;
@@ -46,6 +47,31 @@
     flex: 1;
 
     .mat-mdc-form-field {
+      width: 100%;
+    }
+  }
+}
+
+.save {
+  margin-top: 1rem;
+}
+
+@include for-phone-only {
+  .profile-update-form {
+    display: flex;
+    flex-direction: column-reverse;
+
+    &.row {
+      flex-direction: column-reverse;
+    }
+
+    .avatar-form-part {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .form-group-title {
       width: 100%;
     }
   }
