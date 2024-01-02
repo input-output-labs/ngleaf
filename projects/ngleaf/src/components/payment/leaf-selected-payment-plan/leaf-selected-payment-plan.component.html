@@ -1,99 +1,96 @@
-<ng-container  *ngIf="(paymentPlanInfo$ | async) as paymentPlanInfo ">
-
-<div class="selected-payment-plan" [ngClass]="{'mobile-plan': isMobile}">
-  <leaf-plan-viewer
-    class="selected-plan-view"
-    [plan]="paymentPlanInfo.plan"
-    [flat]="true"
-    [selected]="false"
-    [selectable]="false"
+<ng-container *ngIf="paymentPlanInfo$ | async as paymentPlanInfo">
+  <div class="selected-payment-plan" [ngClass]="{ 'mobile-plan': isMobile }">
+    <leaf-plan-viewer
+      class="selected-plan-view"
+      [plan]="paymentPlanInfo.plan"
+      [flat]="true"
+      [selected]="false"
+      [selectable]="false"
     ></leaf-plan-viewer>
-  <mat-divider  [vertical]="!isMobile"></mat-divider>
+    <mat-divider [vertical]="!isMobile"></mat-divider>
 
-  <table class="plan-recap-table">
-    <tr>
-      <td class="first-cell">{{ "leaf.payment.selected-payment-plan.selectedPlanLabel" | translate }}</td>
-      <td class="inline-cell">
-        <mat-chip [style.--mdc-chip-elevated-container-color]="paymentPlanInfo.plan.color">{{paymentPlanInfo.plan.name}}</mat-chip>
-        <button mat-stroked-button (click)="changePaymentPlan()">{{ "leaf.payment.selected-payment-plan.selectedPlanChangeLabel" | translate }}</button>
-      </td>
-    </tr>
-    <tr>
-      <td>{{ "leaf.payment.selected-payment-plan.trialLabel" | translate }}</td>
-      <td>
-        <ng-container *ngIf="!paymentPlanInfo.plan.pricing.free">
-          <ng-container *ngIf="!paymentPlanInfo.trialDone">
-            <i>{{ "leaf.payment.selected-payment-plan.trialLabelOngoing" | translate }}</i>
+    <table class="plan-recap-table">
+      <tr>
+        <td class="first-cell">
+          {{
+            "leaf.payment.selected-payment-plan.selectedPlanLabel" | translate
+          }}
+        </td>
+        <td class="inline-cell">
+          <mat-chip
+            [style.--mdc-chip-elevated-container-color]="
+              paymentPlanInfo.plan.color
+            "
+            >{{ paymentPlanInfo.plan.name }}</mat-chip
+          >
+          <button mat-stroked-button (click)="changePaymentPlan()">
+            {{
+              "leaf.payment.selected-payment-plan.selectedPlanChangeLabel"
+                | translate
+            }}
+          </button>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          {{ "leaf.payment.selected-payment-plan.trialLabel" | translate }}
+        </td>
+        <td>
+          <ng-container *ngIf="!paymentPlanInfo.plan.pricing.free">
+            <ng-container *ngIf="!paymentPlanInfo.trialDone">
+              <i>{{
+                "leaf.payment.selected-payment-plan.trialLabelOngoing"
+                  | translate
+              }}</i>
+            </ng-container>
+            <ng-container *ngIf="paymentPlanInfo.trialDone">
+              <i>{{
+                "leaf.payment.selected-payment-plan.trialLabelOver" | translate
+              }}</i>
+            </ng-container>
           </ng-container>
-          <ng-container *ngIf="paymentPlanInfo.trialDone">
-            <i>{{ "leaf.payment.selected-payment-plan.trialLabelOver" | translate }}</i>
+          <ng-container *ngIf="paymentPlanInfo.plan.pricing.free">
+            <ng-container>
+              <i>{{
+                "leaf.payment.selected-payment-plan.trialLabelNone" | translate
+              }}</i>
+            </ng-container>
           </ng-container>
-        </ng-container>
-        <ng-container *ngIf="paymentPlanInfo.plan.pricing.free">
-          <ng-container>
-            <i>{{ "leaf.payment.selected-payment-plan.trialLabelNone" | translate }}</i>
-          </ng-container>
-        </ng-container>
-      </td>
-    </tr>
-    <tr *ngIf="!paymentPlanInfo.plan.pricing.free">
-      <td colspan="2" class="disclaimer-cell">
-        <div class="disclaimer">
-          <ng-container *ngIf="paymentPlanInfo.paymentMethod">
-            <leaf-credit-card class="credit-card" [paymentMethod]="paymentPlanInfo.paymentMethod"></leaf-credit-card>
-            <button mat-stroked-button (click)="performPlanCheckout()">{{ "leaf.payment.selected-payment-plan.paymentMethodChangeLabel" | translate }}</button>
-          </ng-container>
-          <ng-container *ngIf="!paymentPlanInfo.paymentMethod">
-            <span [innerHTML]="'leaf.payment.selected-payment-plan.paymentMethodDisclaimer' | translate"></span>
-            <button mat-stroked-button (click)="performPlanCheckout()">{{ "leaf.payment.selected-payment-plan.paymentMethodSetLabel" | translate }}</button>
-          </ng-container>
-        </div>
-      </td>
-    </tr>
-  </table>
-</div>
-
-
-<!-- <table class="plan-recap-table" *ngIf="isMobile">
-  <tr>
-    <td class="first-cell">{{ "leaf.payment.selected-payment-plan.selectedPlanLabel" | translate }}</td>
-    <td class="inline-cell">
-      <mat-chip [style.--mdc-chip-elevated-container-color]="paymentPlanInfo.plan.color">{{paymentPlanInfo.plan.name}}</mat-chip>
-      <button mat-stroked-button (click)="changePaymentPlan()">{{ "leaf.payment.selected-payment-plan.selectedPlanChangeLabel" | translate }}</button>
-    </td>
-  </tr>
-  <tr>
-    <td>{{ "leaf.payment.selected-payment-plan.trialLabel" | translate }}</td>
-    <td>
-      <ng-container *ngIf="!paymentPlanInfo.plan.pricing.free">
-        <ng-container *ngIf="!paymentPlanInfo.trialDone">
-          <i>{{ "leaf.payment.selected-payment-plan.trialLabelOngoing" | translate }}</i>
-        </ng-container>
-        <ng-container *ngIf="paymentPlanInfo.trialDone">
-          <i>{{ "leaf.payment.selected-payment-plan.trialLabelOver" | translate }}</i>
-        </ng-container>
-      </ng-container>
-      <ng-container *ngIf="paymentPlanInfo.plan.pricing.free">
-        <ng-container>
-          <i>{{ "leaf.payment.selected-payment-plan.trialLabelNone" | translate }}</i>
-        </ng-container>
-      </ng-container>
-    </td>
-  </tr>
-  <tr *ngIf="!paymentPlanInfo.plan.pricing.free">
-    <td colspan="2" class="disclaimer-cell">
-      <div class="disclaimer">
-        <ng-container *ngIf="paymentPlanInfo.paymentMethod">
-          <leaf-credit-card class="credit-card" [paymentMethod]="paymentPlanInfo.paymentMethod"></leaf-credit-card>
-          <button mat-stroked-button (click)="performPlanCheckout()">{{ "leaf.payment.selected-payment-plan.paymentMethodChangeLabel" | translate }}</button>
-        </ng-container>
-        <ng-container *ngIf="!paymentPlanInfo.paymentMethod">
-          <span [innerHTML]="'leaf.payment.selected-payment-plan.paymentMethodDisclaimer' | translate"></span>
-          <button mat-stroked-button (click)="performPlanCheckout()">{{ "leaf.payment.selected-payment-plan.paymentMethodSetLabel" | translate }}</button>
-        </ng-container>
-      </div>
-    </td>
-  </tr>
-</table> -->
-
+        </td>
+      </tr>
+      <tr *ngIf="!paymentPlanInfo.plan.pricing.free">
+        <td colspan="2" class="disclaimer-cell">
+          <div class="disclaimer">
+            <ng-container *ngIf="paymentPlanInfo.paymentMethod">
+              <leaf-credit-card
+                class="credit-card"
+                [paymentMethod]="paymentPlanInfo.paymentMethod"
+                [creditCardHeight]="'175px'"
+              ></leaf-credit-card>
+              <button mat-stroked-button (click)="performPlanCheckout()">
+                {{
+                  "leaf.payment.selected-payment-plan.paymentMethodChangeLabel"
+                    | translate
+                }}
+              </button>
+            </ng-container>
+            <ng-container *ngIf="!paymentPlanInfo.paymentMethod">
+              <span
+                [innerHTML]="
+                  'leaf.payment.selected-payment-plan.paymentMethodDisclaimer'
+                    | translate
+                "
+              ></span>
+              <button mat-stroked-button (click)="performPlanCheckout()">
+                {{
+                  "leaf.payment.selected-payment-plan.paymentMethodSetLabel"
+                    | translate
+                }}
+              </button>
+            </ng-container>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
 </ng-container>

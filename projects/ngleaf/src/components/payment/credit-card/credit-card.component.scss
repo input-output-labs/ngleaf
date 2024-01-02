@@ -2,14 +2,7 @@
 
 /* CHANGEABLE CARD ELEMENTS */
 .creditcard {
-    height: 255px;
     width: 400px;
-}
-
-@include for-phone-only {
-    .creditcard {
-        height: 175px;
-    }
 }
 
 .creditcard .lightcolor,
