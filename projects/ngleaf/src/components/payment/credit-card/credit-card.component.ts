@@ -11,6 +11,9 @@ export class CreditCardComponent implements OnInit {
   @Input()
   public paymentMethod: PaymentMethod;
 
+  @Input() 
+  public creditCardHeight: string = "255px";
+
   constructor() { }
 
   ngOnInit() {

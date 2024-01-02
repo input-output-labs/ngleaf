@@ -97,6 +97,6 @@
     </div>
   </div>
 </form>
-<button mat-stroked-button (click)="submit()" [disabled]="!profileFormGroup.valid" *ngIf="!submitTrigger$" color="primary">
+<button mat-stroked-button class="save" (click)="submit()" [disabled]="!profileFormGroup.valid" *ngIf="!submitTrigger$" color="primary">
   {{ "leaf.profile-update.submit-button-label" | translate }}
 </button>
