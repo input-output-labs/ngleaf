@@ -291,6 +291,9 @@
           },
           "reporting": {
             "description": "Traffic reporting"
+          },
+          "manageOrganization": {
+            "description": "Gestion de l'organisation"
           }
         },
         "period": {

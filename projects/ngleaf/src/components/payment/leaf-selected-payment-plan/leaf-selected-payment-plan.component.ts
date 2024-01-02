@@ -7,6 +7,7 @@ import { PaymentApiClientService } from '../../../api/clients/payment-api-client
 import { DOCUMENT } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { LeafPlanSelectorDialogComponent } from '../leaf-plan-selector-dialog';
+import { isMobile } from '../../../helpers';
 
 @Component({
   selector: 'leaf-selected-payment-plan',
@@ -15,6 +16,7 @@ import { LeafPlanSelectorDialogComponent } from '../leaf-plan-selector-dialog';
 })
 export class LeafSelectedPaymentPlanComponent implements OnInit, OnDestroy {
   public paymentPlanInfo$: Observable<LeafPaymentPlanInfo>;
+  public isMobile = isMobile();
   private subscriptions: Subscription[] = [];
 
   constructor(
