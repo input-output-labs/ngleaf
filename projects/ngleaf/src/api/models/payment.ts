@@ -32,6 +32,8 @@ export interface LeafPaymentPlan {
     pricing: LeafPaymentPlanPricing;
     suspended: boolean;
     suspensionBackupPlan: LeafPaymentPlan;
+    startedAt: Date;
+    inTrial: boolean;
 }
 
 export interface PaymentMethod {
@@ -44,6 +46,5 @@ export interface PaymentMethod {
 
 export interface LeafPaymentPlanInfo {
 	plan: LeafPaymentPlan;
-	trialDone: boolean;
 	paymentMethod: PaymentMethod;
 }

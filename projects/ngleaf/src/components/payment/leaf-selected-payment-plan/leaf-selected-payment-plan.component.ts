@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit, OnDestroy, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { LeafPaymentPlanInfo } from '../../../api/models';
+import { LeafPaymentPlan, LeafPaymentPlanInfo } from '../../../api/models';
 import { AsyncType, fetchSelectedPaymentPlanInfo, selectCurrentOrganization, selectSelectedPaymentPlanInfo } from '../../../store';
 import { Observable, Subscription, filter, map } from 'rxjs';
 import { PaymentApiClientService } from '../../../api/clients/payment-api-client';
@@ -61,5 +61,17 @@ export class LeafSelectedPaymentPlanComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe(result => {
       this.store.dispatch(fetchSelectedPaymentPlanInfo());
     });
+  }
+
+  public getRemainingDays(plan: LeafPaymentPlan): number {
+    if (plan.inTrial) {
+      const now = new Date();
+      const trialEnd = new Date(plan.startedAt);
+      trialEnd.setDate(trialEnd.getDate() + 30);
+      const diffMillis = trialEnd.getTime() - now.getTime();
+      const diffDays = Math.ceil(diffMillis / (24 * 60 * 60 * 1000));
+      return diffDays;
+    }
+    return 0;
   }
 }

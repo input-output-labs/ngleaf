@@ -282,6 +282,11 @@
         }
       },
       "payment": {
+        "plans": {
+          "free": "Free",
+          "basic": "Basic",
+          "pro": "Pro"
+        },
         "features": {
           "userCount": {
             "description": "Up to {{value}} members"
@@ -318,8 +323,9 @@
         "selected-payment-plan": {
           "selectedPlanLabel": "Your plan",
           "selectedPlanChangeLabel": "Change",
+          "startedAtLabel": "Since",
           "trialLabel": "Trial",
-          "trialLabelOngoing": "ongoing",
+          "trialLabelOngoing": "ongoing ({{remainingDays}} days)",
           "trialLabelOver": "Over",
           "trialLabelNone": "None",
           "paymentMethodChangeLabel": "Changer",
@@ -334,7 +340,8 @@
           }
         },
         "plan-viewer": {
-          "selectionButtonLabel": "Select this plan"
+          "selectionButtonLabel": "Select this plan",
+          "freeLabel": "free"
         },
         "plan-selector-dialog": {
           "title": "Plan selection",

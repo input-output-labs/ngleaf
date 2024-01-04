@@ -23,7 +23,7 @@
             [style.--mdc-chip-elevated-container-color]="
               paymentPlanInfo.plan.color
             "
-            >{{ paymentPlanInfo.plan.name }}</mat-chip
+            >{{ 'leaf.payment.plans.' + paymentPlanInfo.plan.name | translate }}</mat-chip
           >
           <button mat-stroked-button (click)="changePaymentPlan()">
             {{
@@ -35,17 +35,25 @@
       </tr>
       <tr>
         <td>
+          {{ "leaf.payment.selected-payment-plan.startedAtLabel" | translate }}
+        </td>
+        <td>
+          {{ paymentPlanInfo.plan.startedAt | date: "longDate" }}
+        </td>
+      </tr>
+      <tr>
+        <td>
           {{ "leaf.payment.selected-payment-plan.trialLabel" | translate }}
         </td>
         <td>
           <ng-container *ngIf="!paymentPlanInfo.plan.pricing.free">
-            <ng-container *ngIf="!paymentPlanInfo.trialDone">
+            <ng-container *ngIf="paymentPlanInfo.plan.inTrial">
               <i>{{
                 "leaf.payment.selected-payment-plan.trialLabelOngoing"
-                  | translate
+                  | translate: {remainingDays: getRemainingDays(paymentPlanInfo.plan) }
               }}</i>
             </ng-container>
-            <ng-container *ngIf="paymentPlanInfo.trialDone">
+            <ng-container *ngIf="!paymentPlanInfo.plan.inTrial">
               <i>{{
                 "leaf.payment.selected-payment-plan.trialLabelOver" | translate
               }}</i>

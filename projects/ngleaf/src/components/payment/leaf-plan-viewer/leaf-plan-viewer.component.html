@@ -8,7 +8,7 @@
   (click)="!selectableWithButton && onSelect.emit()">
   <div class="plan-viewer-content">
     <div class="plan-viewer-header">
-      {{ plan.name }}
+      {{ 'leaf.payment.plans.' + plan.name | translate }}
     </div>
     <div class="plan-contents">
       <ul class="plan-descriptions" *ngIf="showDescription">
@@ -36,7 +36,7 @@
     </div>
     <div class="plan-footer">
       <div class="plan-pricing">
-        <div *ngIf="plan.pricing.free" class="free">FREE</div>
+        <div *ngIf="plan.pricing.free" class="free">{{ "leaf.payment.plan-viewer.freeLabel" | translate | uppercase }}</div>
         <div *ngIf="plan.pricing.price" class="price">
           <span class="currency">€&nbsp;</span>
           <span class="value">{{ plan.pricing.price }}</span>
