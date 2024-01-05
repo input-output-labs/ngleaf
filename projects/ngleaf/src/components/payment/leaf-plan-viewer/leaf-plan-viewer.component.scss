@@ -38,10 +38,10 @@
             justify-content: center;
             border-bottom-left-radius: 30%;
             border-bottom-right-radius: 30%;
-            color: white;
             font-weight: bold;
             letter-spacing: 2px;
             text-transform: capitalize;
+            color: white;
         }
 
         .plan-contents {
@@ -83,6 +83,13 @@
             flex-direction: column;
             gap: 1rem;
             margin-bottom: 1rem;
+
+            .plan-trial {
+                text-align: center;
+                font-style: italic;
+                font-weight: bold;
+                color: var(--plan-color, grey);
+            }
 
             .plan-pricing {
                 height: 1.75rem;

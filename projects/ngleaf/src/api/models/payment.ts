@@ -32,6 +32,7 @@ export interface LeafPaymentPlan {
     pricing: LeafPaymentPlanPricing;
     suspended: boolean;
     suspensionBackupPlan: LeafPaymentPlan;
+    trialDuration: number;
     startedAt: Date;
     inTrial: boolean;
 }

@@ -20,11 +20,13 @@
 
   .first-cell {
     width: 100%;
+    font-weight: bold;
   }
 
   .inline-cell {
     display: flex;
     gap: 0.5rem;
+    align-items: center;
   }
 
   .disclaimer-cell {

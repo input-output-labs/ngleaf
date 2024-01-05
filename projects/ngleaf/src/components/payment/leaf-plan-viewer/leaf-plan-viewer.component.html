@@ -35,6 +35,9 @@
       </ul>
     </div>
     <div class="plan-footer">
+      <div class="plan-trial" *ngIf="showTrialDuration && plan.trialDuration">
+        {{ "leaf.payment.plan-viewer.trialDurationLabel" | translate: {duration: plan.trialDuration} | uppercase }}
+      </div>
       <div class="plan-pricing">
         <div *ngIf="plan.pricing.free" class="free">{{ "leaf.payment.plan-viewer.freeLabel" | translate | uppercase }}</div>
         <div *ngIf="plan.pricing.price" class="price">
