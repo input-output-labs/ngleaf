@@ -341,7 +341,8 @@
         },
         "plan-viewer": {
           "selectionButtonLabel": "Select this plan",
-          "freeLabel": "free"
+          "freeLabel": "free",
+          "trialDurationLabel": "{{duration}} days trial"
         },
         "plan-selector-dialog": {
           "title": "Plan selection",

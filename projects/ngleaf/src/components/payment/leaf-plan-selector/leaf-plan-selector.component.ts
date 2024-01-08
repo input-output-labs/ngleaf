@@ -27,6 +27,7 @@ export class LeafPlanSelectorComponent implements OnInit, OnDestroy {
     selectableWithButton: false,
     showFeatures: false,
     showDescription: true,
+    showTrialDuration: true,
   };
 
   @Output()

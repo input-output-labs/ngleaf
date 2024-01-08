@@ -5,6 +5,7 @@ export interface PlanViewerConfig {
   selectableWithButton: boolean;
   showFeatures: boolean;
   showDescription: boolean;
+  showTrialDuration: boolean;
 }
 
 @Component({
@@ -33,6 +34,9 @@ export class LeafPlanViewerComponent implements OnInit {
 
   @Input()
   public showDescription: boolean = true;
+
+  @Input()
+  public showTrialDuration: boolean = true;
 
   @Output()
   public onSelect: EventEmitter<void> = new EventEmitter<void>();

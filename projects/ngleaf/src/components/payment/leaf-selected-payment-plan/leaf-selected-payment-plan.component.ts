@@ -25,6 +25,7 @@ export class LeafSelectedPaymentPlanComponent implements OnInit, OnDestroy {
     selectableWithButton: false,
     showFeatures: false,
     showDescription: true,
+    showTrialDuration: false,
   };
 
   constructor(
@@ -67,7 +68,7 @@ export class LeafSelectedPaymentPlanComponent implements OnInit, OnDestroy {
     if (plan.inTrial) {
       const now = new Date();
       const trialEnd = new Date(plan.startedAt);
-      trialEnd.setDate(trialEnd.getDate() + 30);
+      trialEnd.setDate(trialEnd.getDate() + plan.trialDuration);
       const diffMillis = trialEnd.getTime() - now.getTime();
       const diffDays = Math.ceil(diffMillis / (24 * 60 * 60 * 1000));
       return diffDays;
