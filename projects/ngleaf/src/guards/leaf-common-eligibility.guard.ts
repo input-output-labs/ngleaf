@@ -30,7 +30,7 @@ export class LeafCommonEligibilityGuard  {
     ]).pipe(
       map(([_pending, asyncEligibilities]) => asyncEligibilities.data),
       mergeMap(eligibilities => {
-        if (eligibilities && eligibilities[this.eligibilityKey].eligible) {
+        if (eligibilities && eligibilities[this.eligibilityKey] && eligibilities[this.eligibilityKey].eligible) {
           return of(true);
         } else {
           const fallbackUrl = typeof this.fallbackUrl === 'function' ? this.fallbackUrl(eligibilities) : this.fallbackUrl;
