@@ -6,6 +6,7 @@ import { map, switchMap, catchError } from 'rxjs/operators';
 import * as EligibilitiesActions from './eligibilities.actions';
 import * as OrganizationActions from '../organizations/organizations.actions';
 import { EligibilitiesApiClientService } from '../../../api/index';
+import { setSessionTokenSuccess } from '../session';
 
 @Injectable()
 export class EligibilitiesEffects {
@@ -20,8 +21,8 @@ export class EligibilitiesEffects {
     )
   );
 
-  setCurrentOrganizationId$ = createEffect(() => this.actions$.pipe(
-    ofType(OrganizationActions.setCurrentOrganizationId, OrganizationActions.updateRoleSuccess, OrganizationActions.setUserRoleSuccess),
+  fetchEligibilitesForMisceleaousPurposes$ = createEffect(() => this.actions$.pipe(
+    ofType(OrganizationActions.setCurrentOrganizationId, OrganizationActions.updateRoleSuccess, OrganizationActions.setUserRoleSuccess, setSessionTokenSuccess),
     switchMap(() => of(EligibilitiesActions.fetchEligibilites()))
   ));
 
