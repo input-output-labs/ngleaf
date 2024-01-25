@@ -11,7 +11,7 @@
       <ng-container matColumnDef="amount">
         <th mat-header-cell *matHeaderCellDef class="td-center"> {{ 'leaf.payment.invoices-list.header.amount' | translate}} </th>
         <td mat-cell *matCellDef="let element" class="td-center">
-          {{element.price.amount | currency: element.price.currency.toUpperCase(): 'symbol': '1.2-2' }}<br>
+          {{(element.price.amount / 100) | currency: element.price.currency.toUpperCase(): 'symbol': '1.2-2' }}<br>
         </td>
       </ng-container>
       <ng-container matColumnDef="status">
