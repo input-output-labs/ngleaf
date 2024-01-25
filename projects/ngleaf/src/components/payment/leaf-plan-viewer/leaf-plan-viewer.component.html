@@ -4,6 +4,7 @@
   [class.selected]="selected"
   [class.selectable]="selectable"
   [class.selectable-with-button]="selectableWithButton"
+  [class.disabled]="disabled"
   [style.--plan-color]="plan.color"
   (click)="!selectableWithButton && onSelect.emit()">
   <div class="plan-viewer-content">
@@ -53,6 +54,7 @@
           color="primary"
           [style.--mdc-filled-button-container-color]="plan.color"
           (click)="onSelect.emit()"
+          [disabled]="disabled"
           >{{ "leaf.payment.plan-viewer.selectionButtonLabel" | translate }}</button>
       </div>
     </div>

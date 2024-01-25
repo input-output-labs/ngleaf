@@ -131,7 +131,7 @@
     }
 
     &.selectable {
-      &:not(.selectable-with-button) {
+      &:not(.selectable-with-button):not(.disabled) {
         cursor: pointer;
 
         &:not(.selected):hover {

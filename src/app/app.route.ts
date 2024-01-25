@@ -34,7 +34,6 @@ const routes: Route[] = [
       },
       {
         path: 'dashboard',
-        canActivate: [LeafOrganizationSelectedGuardService],
         loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
       },
       {

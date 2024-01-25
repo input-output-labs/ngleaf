@@ -18,6 +18,7 @@ export class LeafPlanSelectorComponent implements OnInit, OnDestroy {
   public fetchPlansPending$: Observable<boolean>;
   public selectedPlan?: LeafPaymentPlan;
   public selectedClassification$: ReplaySubject<string | undefined> = new ReplaySubject<string | undefined>();
+  public planSelectionCallInProgress$: Observable<boolean>;
 
   @Input()
   public showSubmitButton: boolean = true;
@@ -94,6 +95,11 @@ export class LeafPlanSelectorComponent implements OnInit, OnDestroy {
       map(([classifiedAvailablePlans, selectedClassification]) => {
         return classifiedAvailablePlans[selectedClassification];
       })
+    );
+
+    this.planSelectionCallInProgress$ = this.store.pipe(
+      select(selectSelectPaymentPlan),
+      map((asyncItem: AsyncType<LeafPaymentPlan>) => asyncItem?.status.pending)
     );
   }
 

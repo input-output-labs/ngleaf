@@ -38,6 +38,9 @@ export class LeafPlanViewerComponent implements OnInit {
   @Input()
   public showTrialDuration: boolean = true;
 
+  @Input()
+  public disabled: boolean = false;
+
   @Output()
   public onSelect: EventEmitter<void> = new EventEmitter<void>();
 

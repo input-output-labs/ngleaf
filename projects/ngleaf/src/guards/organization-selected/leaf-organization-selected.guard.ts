@@ -35,7 +35,7 @@ export class LeafOrganizationSelectedGuardService  {
               const redirectUrl = myOrganizations.length
                 ? this.config.navigation.organizationSelectedGuardErrorRedirectSelectionPossible
                 : this.config.navigation.organizationSelectedGuardErrorRedirectNoSelectionPossible;
-              this.router.navigate([redirectUrl || '/login'], {
+              this.router.navigate([redirectUrl || this.config.navigation.authGuardErrorRedirect || '//login'], {
                 queryParams: {
                   return: state.url
                 }

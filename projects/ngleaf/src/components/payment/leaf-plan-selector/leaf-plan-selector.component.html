@@ -18,6 +18,7 @@
         [plan]="plan"
         [selected]="selectedPlan?.name === plan?.name"
         [selectable]="true"
+        [disabled]="(planSelectionCallInProgress$ | async)"
         [selectableWithButton]="planViewerConfig.selectableWithButton"
         [showFeatures]="planViewerConfig.showFeatures"
         [showDescription]="planViewerConfig.showDescription"
@@ -31,9 +32,10 @@
       mat-raised-button
       color="primary"
       (click)="submit()"
-      [disabled]="!selectedPlan"
+      [disabled]="!selectedPlan || (planSelectionCallInProgress$ | async)"
     >
-    {{ "leaf.payment.plan-selector.submitButtonLabel" | translate }}
+      {{ "leaf.payment.plan-selector.submitButtonLabel" | translate }}
+    <mat-progress-bar mode="indeterminate" *ngIf="planSelectionCallInProgress$"></mat-progress-bar>
     </button>
   </div>
 </div>

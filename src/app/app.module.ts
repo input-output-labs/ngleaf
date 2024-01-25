@@ -60,7 +60,9 @@ const leafConfig: LeafConfig = {
     authGuardErrorRedirect: '/welcome/login',
     adminGuardErrorRedirect: '/forbidden',
     loginSuccessRedirect: '',
-    registerSuccessRedirect: ''
+    registerSuccessRedirect: '',
+    organizationSelectedGuardErrorRedirectNoSelectionPossible: '/welcome/organization',
+    organizationSelectedGuardErrorRedirectSelectionPossible: '/organization/selection',
   },
   apis: {
     pixabay_api_key: environment.API_KEY_PIXABAY
