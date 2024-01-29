@@ -44,6 +44,7 @@
         <div *ngIf="plan.pricing.price" class="price">
           <span class="currency">€&nbsp;</span>
           <span class="value">{{ plan.pricing.price }}</span>
+          <span *ngIf="!plan.pricing.vatIncluded" class="tax-info">&nbsp;{{ "leaf.payment.plan-viewer.vatNonIncludedLabel" | translate | uppercase }}</span>
         </div>
         <mat-divider *ngIf="plan.pricing.price && plan.pricing.period" [vertical]="true" class="divider"></mat-divider>
         <div *ngIf="plan.pricing.period" class="period" [innerHtml]="'leaf.payment.period.' + plan.pricing.period | translate"></div>

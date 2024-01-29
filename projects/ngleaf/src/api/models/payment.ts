@@ -20,6 +20,7 @@ export interface LeafPaymentPlanPricing {
     price?: number;
     period?: string;
     free?: boolean;
+    vatIncluded?: boolean;
 }
 
 export interface LeafPaymentPlan {
