@@ -1,28 +1,28 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+import { StoreModule } from '@ngrx/store';
 
-import { LoginComponent } from './login.component';
-import { LeafSessionModule } from '../../../../services/core/session/index';
+import { LeafSessionModule } from '../../../../services/index';
+import { LeafLoginComponent } from './login.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
-  declarations: [LoginComponent],
   imports: [
-    /* Code deps */
     CommonModule,
     ReactiveFormsModule,
+    LeafSessionModule,
     TranslateModule,
+    StoreModule,
     /* Material deps */
-    MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
-    /* Leaf deps*/
-    LeafSessionModule
+    MatButtonModule,
   ],
-  exports: [LoginComponent]
+  declarations: [LeafLoginComponent],
+  exports: [LeafLoginComponent]
 })
 export class LeafLoginModule { }

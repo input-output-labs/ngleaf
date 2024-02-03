@@ -1,28 +1,27 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { LeafRegisterComponent } from './register.component';
+import { LeafSessionModule } from '../../../../services/index';
+import { TranslateModule } from '@ngx-translate/core';
+import { StoreModule } from '@ngrx/store';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 
-import { LeafSessionModule } from '../../../../services/core/session/index';
-import { RegisterComponent } from './register.component';
-import { TranslateModule } from '@ngx-translate/core';
-
 @NgModule({
-  declarations: [RegisterComponent],
   imports: [
-    /* Code deps */
     CommonModule,
     ReactiveFormsModule,
+    LeafSessionModule,
     TranslateModule,
+    StoreModule,
     /* Material deps */
-    MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
-    /* Leaf deps*/
-    LeafSessionModule
+    MatButtonModule,
   ],
-  exports: [RegisterComponent]
+  declarations: [LeafRegisterComponent],
+  exports: [LeafRegisterComponent]
 })
 export class LeafRegisterModule { }

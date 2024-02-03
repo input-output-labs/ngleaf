@@ -1,6 +1,15 @@
 :host {
-  .form {
+  form {
     display: flex;
     flex-direction: column;
+
+    .field-wrapper {
+      display: flex;
+      flex-direction: row;
+
+      .field  {
+        flex: auto;
+      }
+    }
   }
 }
