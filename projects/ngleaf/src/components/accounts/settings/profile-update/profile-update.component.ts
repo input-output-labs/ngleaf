@@ -115,7 +115,7 @@ export class ProfileUpdateComponent implements OnChanges, OnDestroy {
       this.fields.forEach((field) => {
         profileUpdates[field] = profileUpdatesRaw[field] ?? undefined;
       });
-      switch(this.target) {
+            switch(this.target) {
         case "account":
           this.store.dispatch(updateProfile({updates: profileUpdates}));
           break;
