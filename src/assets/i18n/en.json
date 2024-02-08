@@ -55,22 +55,11 @@
     },
     "leaf": {
       "login": {
-        "vanilla": {
-          "buttonLabel": "Login",
-          "loginPlaceholder": "Enter email or login",
-          "passwordPlaceholder": "Enter password"
-        },
         "loginLabel": "Login",
         "passwordLabel": "Password",
         "submitLabel": "Log in"
       },
       "register": {
-        "vanilla": {
-          "buttonLabel": "Register",
-          "loginPlaceholder": "Enter email or login",
-          "passwordPlaceholder": "Enter password",
-          "passwordValidationPlaceholder": "Confirm password"
-        },
         "submitLabel": "Register",
         "loginLabel": "Email or login",
         "passwordLabel": "Password",

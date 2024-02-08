@@ -1,29 +1,44 @@
 <div class="plan-selector">
-  <mat-progress-bar mode="indeterminate" *ngIf="fetchPlansPending$ | async"></mat-progress-bar>
+  <mat-progress-bar
+    mode="indeterminate"
+    *ngIf="fetchPlansPending$ | async"
+  ></mat-progress-bar>
   <ng-container *ngIf="planClassifications$ | async as planClassifications">
     <div class="plan-classifications" *ngIf="planClassifications.length > 1">
-      <mat-button-toggle-group class="rounded">
+      <mat-button-toggle-group class="rounded" [vertical]="isMobile">
         <mat-button-toggle
-          *ngFor="let planClassification of planClassifications; let isFirst = first;"
-          [checked]="(selectedClassification$ | async) ? (selectedClassification$ | async) === planClassification : isFirst"
-          (change)="selectedClassification$.next(planClassification)">
-          {{ "leaf.payment.plan-selector.classificationLabels." + planClassification | translate }}
+          *ngFor="
+            let planClassification of planClassifications;
+            let isFirst = first
+          "
+          [checked]="
+            (selectedClassification$ | async)
+              ? (selectedClassification$ | async) === planClassification
+              : isFirst
+          "
+          (change)="selectedClassification$.next(planClassification)"
+        >
+          {{
+            "leaf.payment.plan-selector.classificationLabels." +
+              planClassification | translate
+          }}
         </mat-button-toggle>
       </mat-button-toggle-group>
     </div>
   </ng-container>
   <div class="plans-list" *ngIf="!(fetchPlansPending$ | async)">
-    <div *ngFor="let plan of (displayedPlans$ | async)" class="plan-wrapper">
+    <div *ngFor="let plan of displayedPlans$ | async" class="plan-wrapper">
       <leaf-plan-viewer
         [plan]="plan"
         [selected]="selectedPlan?.name === plan?.name"
         [selectable]="true"
-        [disabled]="(planSelectionCallInProgress$ | async)"
+        [disabled]="planSelectionCallInProgress$ | async"
         [selectableWithButton]="planViewerConfig.selectableWithButton"
         [showFeatures]="planViewerConfig.showFeatures"
         [showDescription]="planViewerConfig.showDescription"
         [showTrialDuration]="planViewerConfig.showTrialDuration"
-        (onSelect)="selectPlan(plan)"></leaf-plan-viewer>
+        (onSelect)="selectPlan(plan)"
+      ></leaf-plan-viewer>
     </div>
   </div>
   <div class="actions" *ngIf="showSubmitButton">
@@ -35,7 +50,10 @@
       [disabled]="!selectedPlan || (planSelectionCallInProgress$ | async)"
     >
       {{ "leaf.payment.plan-selector.submitButtonLabel" | translate }}
-    <mat-progress-bar mode="indeterminate" *ngIf="planSelectionCallInProgress$"></mat-progress-bar>
+      <mat-progress-bar
+        mode="indeterminate"
+        *ngIf="planSelectionCallInProgress$"
+      ></mat-progress-bar>
     </button>
   </div>
 </div>

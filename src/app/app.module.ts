@@ -19,8 +19,6 @@ import {
   leafCoreStore,
   LeafApiClientConfig,
   LeafApiClientConfigServiceModule,
-  LeafLoginVanillaModule,
-  LeafRegisterVanillaModule,
   LeafPasswordForgottenVanillaModule,
   LeafNavigationModule,
   SessionEffects,
@@ -134,8 +132,6 @@ export class LocaleDateAdapter extends NativeDateAdapter {
     // Directive
     AdaptiveViewModule,
     // Components
-    LeafLoginVanillaModule,
-    LeafRegisterVanillaModule,
     LeafPasswordForgottenVanillaModule,
     GenericFormModule,
     LeafNavigationModule,

@@ -1,15 +1,53 @@
-<form class="form" [formGroup]="registerForm" (keyup.enter)="register($event)">
-  <mat-form-field appearance="outline">
-    <mat-label>{{ 'leaf.register.loginLabel' | translate }}</mat-label>
-    <input matInput id="email" value="" formControlName="email">
-  </mat-form-field>
-  <mat-form-field appearance="outline">
-    <mat-label>{{ 'leaf.register.passwordLabel' | translate }}</mat-label>
-    <input matInput id="password" type="password" value="" formControlName="password">
-  </mat-form-field>
-  <mat-form-field appearance="outline">
-    <mat-label>{{ 'leaf.register.passwordValidationLabel' | translate }}</mat-label>
-    <input matInput id="passwordValidation" type="password" value="" formControlName="passwordValidation">
-  </mat-form-field>
-  <button mat-stroked-button (click)="register($event)">{{ 'leaf.register.submitLabel' | translate }}</button>
+<form [formGroup]="registerForm" (keypressed.enter)="register($event)">
+  <ng-container *ngIf="variant === 'material'">
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'leaf.register.loginLabel' | translate }}</mat-label>
+      <input matInput id="email" value="" formControlName="email">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'leaf.register.passwordLabel' | translate }}</mat-label>
+      <input matInput id="password" type="password" value="" formControlName="password">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'leaf.register.passwordValidationLabel' | translate }}</mat-label>
+      <input matInput id="passwordValidation" type="password" value="" formControlName="passwordValidation">
+    </mat-form-field>
+    <button mat-stroked-button (click)="register($event)">{{ 'leaf.register.submitLabel' | translate }}</button>
+  </ng-container>
+  <ng-container *ngIf="variant === 'vanilla'">
+    <div class="field-wrapper login-wrapper">
+      <input class="field login" formControlName="login" [attr.placeholder]="'leaf.register.loginLabel' | translate" />
+    </div>
+    <div class="field-wrapper login-wrapper">
+      <input class="field password" [type]="showPassword ? 'text' : 'password'" formControlName="password" [attr.placeholder]="'leaf.register.passwordLabel' | translate" />
+      <div
+        *ngIf="enablePasswordCheck && passwordCheckClasses && showPassword"
+        class="hide-icon"
+        (click)="showPassword = false">
+        <i [ngClass]="passwordCheckClasses.hide"></i>
+      </div>
+      <div
+        *ngIf="enablePasswordCheck && passwordCheckClasses && !showPassword"
+        class="show-icon"
+        (click)="showPassword = true">
+        <i [ngClass]="passwordCheckClasses.show"></i>
+      </div>
+    </div>
+    <div class="field-wrapper login-wrapper">
+      <input class="field passwordValidation" [type]="showPassword ? 'text' : 'password'" formControlName="passwordValidation" [attr.placeholder]="'leaf.register.passwordValidationLabel' | translate" />
+      <div
+        *ngIf="enablePasswordCheck && passwordCheckClasses && showPassword"
+        class="hide-icon"
+        (click)="showPassword = false">
+        <i [ngClass]="passwordCheckClasses.hide"></i>
+      </div>
+      <div
+        *ngIf="enablePasswordCheck && passwordCheckClasses && !showPassword"
+        class="show-icon"
+        (click)="showPassword = true">
+        <i [ngClass]="passwordCheckClasses.show"></i>
+      </div>
+    </div>
+    <button (click)="register($event)">{{ 'leaf.register.submitLabel' | translate }}</button>
+  </ng-container>
 </form>
