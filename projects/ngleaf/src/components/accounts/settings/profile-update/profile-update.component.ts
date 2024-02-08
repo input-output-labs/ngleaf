@@ -110,13 +110,18 @@ export class ProfileUpdateComponent implements OnChanges, OnDestroy {
   public submit() {
     this.profileFormGroup.updateValueAndValidity();
     if (this.profileFormGroup.valid) {
+      const profileUpdatesRaw = this.profileFormGroup.getRawValue();
+      const profileUpdates = {};
+      this.fields.forEach((field) => {
+        profileUpdates[field] = profileUpdatesRaw[field] ?? undefined;
+      });
       switch(this.target) {
         case "account":
-          this.store.dispatch(updateProfile({updates: this.profileFormGroup.getRawValue()}));
+          this.store.dispatch(updateProfile({updates: profileUpdates}));
           break;
         case "organization":
           this.store.select(selectCurrentOrganizationId).pipe(take(1)).subscribe((organizationId) => {
-            this.store.dispatch(updateOrganizationProfile({organizationId, profile: this.profileFormGroup.getRawValue()}));
+            this.store.dispatch(updateOrganizationProfile({organizationId, profile: profileUpdates}));
           });
           break;
       }

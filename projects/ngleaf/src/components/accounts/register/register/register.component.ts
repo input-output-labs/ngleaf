@@ -42,7 +42,6 @@ export class LeafRegisterComponent implements OnInit {
   constructor(
     private formBuilder: UntypedFormBuilder,
     private leafSessionService: LeafSessionService,
-    private store: Store
   ) {}
 
   ngOnInit() {

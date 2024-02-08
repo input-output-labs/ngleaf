@@ -2,9 +2,9 @@
   <ng-container *ngIf="variant === 'material'">
     <mat-form-field color="primary" appearance="outline">
       <mat-label>{{ 'leaf.login.loginLabel' | translate }}</mat-label>
-      <input matInput id="loginEmail" value="" formControlName="email">
+      <input matInput id="loginEmail" value="" formControlName="login">
     </mat-form-field>
-  
+
     <mat-form-field color="primary" appearance="outline">
       <mat-label>{{ 'leaf.login.passwordLabel' | translate }}</mat-label>
       <input matInput id="loginPassword" type="password" value="" formControlName="password">
@@ -15,7 +15,7 @@
     <div class="field-wrapper login-wrapper">
       <input class="field login" formControlName="login" [attr.placeholder]="'leaf.login.loginLabel' | translate" />
     </div>
-  
+
     <div class="field-wrapper login-wrapper">
       <input class="field password" [type]="showPassword ? 'text' : 'password'" formControlName="password" [attr.placeholder]="'leaf.login.passwordLabel' | translate">
       <div
@@ -31,7 +31,7 @@
         <i [ngClass]="passwordCheckClasses.show"></i>
       </div>
     </div>
-  
+
     <button class="login-button" (click)="login()">{{ 'leaf.login.submitLabel' | translate }}</button>
   </ng-container>
 </form>

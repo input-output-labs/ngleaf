@@ -41,7 +41,6 @@ export class LeafLoginComponent implements OnInit {
   constructor(
     private formBuilder: UntypedFormBuilder,
     private sessionService: LeafSessionService,
-    private store: Store
   ) {}
 
   ngOnInit() {
