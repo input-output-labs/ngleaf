@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { LeafAccountModel, LeafOrganization, OrganizationInvitationData, OrganizationRole } from '../../../api/models';
+import { LeafAccountModel, LeafAccountProfile, LeafOrganization, OrganizationInvitationData, OrganizationRole } from '../../../api/models';
 import { Observable } from 'rxjs';
 
 export const listAllOrganizations = createAction(
@@ -195,5 +195,18 @@ export const invitationAcceptationOrDeclineSuccess = createAction(
 );
 export const invitationAcceptationOrDeclineFailure = createAction(
   '[Organizations store] Set invitation acceptation or decline failure',
+  props<{error: any}>()
+);
+
+export const updateOrganizationProfile = createAction(
+  '[Organizations store] Update organization profile',
+  props<{organizationId: string, profile: LeafAccountProfile}>()
+);
+export const updateOrganizationProfileSuccess = createAction(
+  '[Organizations store] Update organization profile success',
+  props<{data: LeafOrganization}>()
+);
+export const updateOrganizationProfileFailure = createAction(
+  '[Organizations store] Update organization profile failure',
   props<{error: any}>()
 );

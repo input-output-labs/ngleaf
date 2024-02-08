@@ -6,6 +6,7 @@ import { LeafAddressFormComponent } from "./address-form.component";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { ReactiveFormsModule } from "@angular/forms";
+import { MatSelectModule } from "@angular/material/select";
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { ReactiveFormsModule } from "@angular/forms";
     /* Material */
     MatFormFieldModule,
     MatInputModule,
+    MatSelectModule,
   ],
   declarations: [LeafAddressFormComponent],
   exports: [LeafAddressFormComponent],

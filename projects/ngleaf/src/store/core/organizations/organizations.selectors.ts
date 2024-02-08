@@ -55,6 +55,11 @@ export const selectCreateOrganization = createSelector(
  (state: OrganizationsState) => state.createOrganization
 );
 
+export const selectUpdateOrganizationProfile = createSelector(
+  selectOrganizationsState,
+ (state: OrganizationsState) => state.updateProfile
+);
+
 export const selectAddUsersToOrganization = createSelector(
   selectOrganizationsState,
  (state: OrganizationsState) => state.addUsersToOrganization

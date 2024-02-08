@@ -18,6 +18,12 @@ export class OrganizationSettingsLayoutComponent implements OnInit {
         disabled: false,
       },
       {
+        labelKey: "app.organization-settings.layout.profileLinkLabel",
+        link: "./profile",
+        index: 0,
+        disabled: false,
+      },
+      {
         labelKey: "app.organization-settings.layout.policiesLinkLabel",
         link: "./policies",
         index: 1,

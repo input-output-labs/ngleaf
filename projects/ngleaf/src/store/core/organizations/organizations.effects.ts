@@ -6,7 +6,7 @@ import { map, switchMap, catchError, withLatestFrom } from "rxjs/operators";
 import * as OrganizationsActions from "./organizations.actions";
 
 import { OrganizationsApiClientService } from "../../../api/clients";
-import { LeafOrganization, OrganizationRole } from "../../../api/models";
+import { LeafAccountProfile, LeafOrganization, OrganizationRole } from "../../../api/models";
 import { Store } from "@ngrx/store";
 import { selectCurrentOrganizationId } from "./organizations.selectors";
 import { setCurrentAccountSuccess } from "../session";
@@ -105,6 +105,22 @@ export class OrganizationsEffects {
             map(() => OrganizationsActions.createOrganizationSuccess()),
             catchError((error) =>
               of(OrganizationsActions.createOrganizationFailure({ error }))
+            )
+          )
+      )
+    )
+  );
+
+  updateOrganizationProfile$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(OrganizationsActions.updateOrganizationProfile),
+      switchMap((payload: {organizationId: string, profile: LeafAccountProfile}) =>
+        this.organizationApiClient
+          .updateOrganizationProfile(payload.organizationId, payload.profile)
+          .pipe(
+            map((data) => OrganizationsActions.updateOrganizationProfileSuccess({data})),
+            catchError((error) =>
+              of(OrganizationsActions.updateOrganizationProfileFailure({ error }))
             )
           )
       )

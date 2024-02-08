@@ -8,6 +8,8 @@ import { LeafOrganizationGuardService } from '../../services/guards/organization
 import { LeafOrganizationMembersGuardService } from '../../services/guards/organization/leaf-organization-members.guard';
 import { LeafOrganizationPoliciesGuardService } from '../../services/guards/organization/leaf-organization-policies.guard';
 import { LeafOrganizationGuardModule } from '../../services/guards/organization/leaf-organization.guard.module';
+import { OrganizationProfilePageComponent } from './organization-profile-page/organization-profile-page.component';
+import { OrganizationProfilePageModule } from './organization-profile-page/organization-profile-page.module';
 
 const routes: Routes = [
   {
@@ -24,6 +26,10 @@ const routes: Routes = [
         path: 'members',
         canActivate: [LeafOrganizationMembersGuardService],
         component: OrganizationMembersComponent,
+      },
+      {
+        path: "profile",
+        component: OrganizationProfilePageComponent,
       },
       {
         path: 'policies',
@@ -52,7 +58,8 @@ const routes: Routes = [
     OrganizationPoliciesModule,
     LeafOrganizationGuardModule,
     /* App deps */
-    OrganizationSettingsLayoutModule
+    OrganizationSettingsLayoutModule,
+    OrganizationProfilePageModule,
   ],
 })
 export class OrganizationSettingsModule { }

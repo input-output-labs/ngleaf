@@ -44,4 +44,19 @@
       </mat-error>
     </mat-form-field>
   </div>
+  <div class="line">
+    <mat-form-field subscriptSizing="dynamic" [appearance]="fieldAppearance">
+      <mat-label>{{ 'leaf.address-form.country-input-placeholder' | translate }}</mat-label>
+      <mat-select
+        id="country"
+        formControlName="country">
+        <mat-option *ngFor="let country of countries" [value]="country">
+          {{'leaf.countries.' + country | translate}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="addressFormGroup.controls.country.hasError('required')">
+        {{ "leaf.address-form.requiredError" | translate }}
+      </mat-error>
+    </mat-form-field>
+  </div>
 </form>

@@ -17,6 +17,8 @@ const initialState: OrganizationsState = {
   myOrganizations: createEmptyAsyncType(),
   /* Actions */
   createOrganization: createEmptyAsyncType(),
+  /* Profile */
+  updateProfile: createEmptyAsyncType(),
   /* Membership */
   organizationUsers: createEmptyAsyncType(),
   addUsersToOrganization: createEmptyAsyncType(),
@@ -131,6 +133,28 @@ export function organizationsReducer(reducerState, action): OrganizationsState {
       (state: OrganizationsState, {error}) => ({
         ...state,
         createOrganization: asyncTypeFailure(state.createOrganization, error),
+      })
+    ),
+    /* Update profile */
+    on(
+      Actions.updateOrganizationProfile,
+      (state: OrganizationsState, {}) => ({
+        ...state,
+        updateProfile: asyncTypePending(state.updateProfile),
+      })
+    ),
+    on(
+      Actions.updateOrganizationProfileSuccess,
+      (state: OrganizationsState, {data}) => ({
+        ...state,
+        updateProfile: asyncTypeSuccess(state.updateProfile, data),
+      })
+    ),
+    on(
+      Actions.updateOrganizationProfileFailure,
+      (state: OrganizationsState, {error}) => ({
+        ...state,
+        updateProfile: asyncTypeFailure(state.updateProfile, error),
       })
     ),
     /* Add users to organization */

@@ -89,6 +89,27 @@
       <div class="form-group-title" *ngIf="!hideGroupTitles">{{ 'leaf.profile-update.address-form-group-title' | translate }}</div>
       <leaf-address-form formControlName="address" [appearance]="fieldAppearance"></leaf-address-form>
     </ng-container>
+    <ng-container *ngIf="fields.includes('corporate') || fields.includes('taxId')">
+      <div class="form-group-title" *ngIf="!hideGroupTitles">{{ 'leaf.profile-update.corporate-form-group-title' | translate }}</div>
+      <mat-checkbox formControlName="corporate" *ngIf="fields.includes('corporate')">{{ 'leaf.profile-update.corporate-input-placeholder' | translate }}</mat-checkbox>
+      <mat-form-field subscriptSizing="dynamic" [appearance]="fieldAppearance" *ngIf="fields.includes('taxId') && (profileFormGroup.controls.corporate.value || !fields.includes('corporate'))">
+        <mat-label>{{ 'leaf.profile-update.taxId-input-placeholder' | translate }}</mat-label>
+        <input
+          matInput
+          id="taxId"
+          [placeholder]="
+            'leaf.profile-update.taxId-input-placeholder' | translate
+          "
+          value=""
+          formControlName="taxId"
+        />
+        <mat-error
+          *ngIf="profileFormGroup.controls.taxId.hasError('required')"
+        >
+          {{ "leaf.profile-update.requiredError" | translate }}
+        </mat-error>
+      </mat-form-field>
+    </ng-container>
   </div>
   <div class="form-part avatar-form-part" *ngIf="fields.includes('avatarUrl')">
     <div class="form-group-title" *ngIf="!hideGroupTitles">{{ 'leaf.profile-update.avatar-form-group-title' | translate }}</div>

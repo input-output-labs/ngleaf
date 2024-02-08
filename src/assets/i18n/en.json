@@ -38,6 +38,7 @@
           "layout": {
             "title": "Organization",
             "membersLinkLabel": "Members",
+            "profileLinkLabel": "Profile",
             "policiesLinkLabel": "Policies"
           }
         },
@@ -140,8 +141,12 @@
         "firstname-input-placeholder": "Firstname",
         "lastname-input-placeholder": "Lastname",
         "phoneNumber-form-group-title": "Phone number",
-        "phoneNumber-input-placeholder": "(+XX) 123456789",
         "address-form-group-title": "Address",
+        "phoneNumber-input-placeholder": "(+XX) 123456789",
+        "corporate-input-placeholder": "Is corporate",
+        "taxId-input-placeholder": "VAT Tax Id",
+        "corporate-form-group-title": "Corporate",
+        "country-form-group-title": "Country",
         "avatar-form-group-title": "Avatar",
         "requiredError": "This field is mandatory",
         "submit-button-label": "Update profile"
@@ -150,6 +155,7 @@
         "address-input-placeholder": "Street name and number",
         "postalCode-input-placeholder": "Zip code",
         "city-input-placeholder": "City",
+        "country-input-placeholder": "Country",
         "requiredError": "This field is mandatory"
       },
       "login-page": {
@@ -367,6 +373,12 @@
       },
       "select-language": {
         "menu": "Change language"
+      },
+      "countries": {
+        "CH": "Suisse",
+        "FR": "France",
+        "BE": "Belgique",
+        "LU": "Luxembourg"
       }
     }
 }

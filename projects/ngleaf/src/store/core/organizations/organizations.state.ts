@@ -7,6 +7,8 @@ export interface OrganizationsState {
   currentOrganizationId?: string;
   /* Actions */
   createOrganization: AsyncType<void>;
+  /* Profile */
+  updateProfile: AsyncType<LeafOrganization>;
   /* Membership */
   organizationUsers: AsyncType<void>;
   addUsersToOrganization: AsyncType<void>;

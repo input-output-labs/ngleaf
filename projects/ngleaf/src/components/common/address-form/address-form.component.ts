@@ -22,6 +22,7 @@ const CUSTOM_VALUE_ACCESSOR: any = {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LeafAddressFormComponent implements ControlValueAccessor {
+  public readonly countries: string[] = ["CH", "FR", "BE", "LU"];
 
   @Input()
   public fieldAppearance: MatFormFieldAppearance = "fill";
@@ -37,6 +38,7 @@ export class LeafAddressFormComponent implements ControlValueAccessor {
       address: ['', Validators.required],
       postalCode: ['', Validators.required],
       city: ['', Validators.required],
+      country: ['', Validators.required],
     });
     this.addressFormGroup.valueChanges.subscribe((newValue) => {
       this.onChange(newValue);
@@ -48,6 +50,7 @@ export class LeafAddressFormComponent implements ControlValueAccessor {
       address: address?.address ?? '',
       postalCode: address?.postalCode ?? '',
       city: address?.city ?? '',
+      country: address?.country ?? '',
     }, {emitEvent: false});
   }
   registerOnChange(fn: any): void {

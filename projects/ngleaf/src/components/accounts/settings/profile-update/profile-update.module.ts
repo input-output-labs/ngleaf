@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { LeafImageUploadModule } from '../../../files';
 import { LeafAddressFormModule } from '../../../common';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   imports: [
@@ -24,6 +25,7 @@ import { LeafAddressFormModule } from '../../../common';
     LeafSessionModule,
     LeafImageUploadModule,
     LeafAddressFormModule,
+    MatCheckboxModule,
   ],
   declarations: [ProfileUpdateComponent],
   exports: [ProfileUpdateComponent]

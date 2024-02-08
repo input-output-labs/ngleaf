@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { LeafAuthHttpClient } from '../auth-http-client/leaf-auth-http-client.service';
 import { LeafApiClientConfig, LeafApiClientConfigServiceToken } from '../api-client-config.module';
 import { LeafOrganization, OrganizationInvitationData, OrganizationRole } from '../../models/organizations';
-import { LeafAccountModel } from '../../models/leaf-account.model';
+import { LeafAccountModel, LeafAccountProfile } from '../../models/leaf-account.model';
 
 @Injectable()
 export class OrganizationsApiClientService {
@@ -30,6 +30,10 @@ export class OrganizationsApiClientService {
 
     public createOrganization(organization: LeafOrganization): Observable<LeafOrganization> {
       return this.authHttp.post<LeafOrganization>(`${this.config.serverUrl}/organizations`, organization);
+    }
+
+    public updateOrganizationProfile(organizationId: string, profile: LeafAccountProfile) {
+      return this.authHttp.post<LeafOrganization>(`${this.config.serverUrl}/organizations/${organizationId}/profile`, profile);
     }
 
     public addUsersToOrganization(id: string, accountIds: string[]): Observable<LeafOrganization> {

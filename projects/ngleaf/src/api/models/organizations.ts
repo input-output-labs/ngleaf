@@ -1,4 +1,4 @@
-import { LeafAccountModel } from "./leaf-account.model";
+import { LeafAccountModel, LeafAccountProfile } from "./leaf-account.model";
 
 export interface OrganizationMembership {
   accountId: string;
@@ -43,6 +43,7 @@ export interface OrganizationPolicies {
 export interface LeafOrganization {
   id?: string;
   name: string;
+  profile?: LeafAccountProfile;
   metadata?: any;
   members?: OrganizationMembership[];
   invitations?: OrganizationInvitation[];

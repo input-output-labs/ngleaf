@@ -4,10 +4,10 @@ import {
   UntypedFormGroup,
   Validators,
 } from "@angular/forms";
-import { Store, select } from "@ngrx/store";
-import { Observable, filter, map, Subscription } from "rxjs";
+import { Store } from "@ngrx/store";
+import { Observable, filter, map, Subscription, combineLatest, Subject, take } from "rxjs";
 import { LeafAccountProfile } from "../../../../api/models/leaf-account.model";
-import { selectCurrentAccountData, updateProfile } from "../../../../store/core/session/index";
+import { selectCurrentAccountData, selectCurrentOrganization, selectCurrentOrganizationId, updateOrganizationProfile, updateProfile } from "../../../../store/index";
 import { MatFormFieldAppearance } from "@angular/material/form-field";
 
 export type ProfileUpdateFields = keyof LeafAccountProfile;
@@ -19,7 +19,7 @@ export type ProfileUpdateFields = keyof LeafAccountProfile;
 })
 export class ProfileUpdateComponent implements OnChanges, OnDestroy {
   @Input()
-  public fields: ProfileUpdateFields[] = ['username', 'avatarUrl', 'firstname', 'lastname', 'phoneNumber', 'address'];
+  public fields: ProfileUpdateFields[] = ['username', 'avatarUrl', 'firstname', 'lastname', 'phoneNumber', 'address', 'corporate', 'taxId'];
 
   @Input()
   public mandatoryFields?: ProfileUpdateFields[] = ['username', 'avatarUrl', 'firstname', 'lastname', 'phoneNumber', 'address'];
@@ -36,23 +36,34 @@ export class ProfileUpdateComponent implements OnChanges, OnDestroy {
   @Input()
   public hideGroupTitles: boolean = false;
 
+  @Input()
+  public target: "account" | "organization" = "account";
+
   public currentProfile$: Observable<LeafAccountProfile>;
+
+  public target$: Subject<"account" | "organization"> = new Subject();
 
   public profileFormGroup: UntypedFormGroup;
 
   private subscriptions: Subscription[] = [];
 
   constructor(public formBuilder: UntypedFormBuilder, public store: Store) {
-    this.currentProfile$ = this.store.pipe(
-      select(selectCurrentAccountData),
-      filter((account) => !!account),
-      map((account) => account.profile)
+    const target$ = combineLatest([
+      this.target$,
+      this.store.select(selectCurrentAccountData),
+      this.store.select(selectCurrentOrganization)
+    ]).pipe(
+      map(([target, account, organization]) => target === "account" ? account : organization)
+    );
+    this.currentProfile$ = target$.pipe(
+      filter((target) => !!target),
+      map((target) => target.profile)
     );
     this.profileFormGroup = this.formBuilder.group(
       this.fields.reduce(
         (config, field) => ({
           ...config,
-          [field]: ["", Validators.required],
+          [field]: ["", this.mandatoryFields.includes(field) ? Validators.required : null],
         }),
         {}
       )
@@ -91,12 +102,24 @@ export class ProfileUpdateComponent implements OnChanges, OnDestroy {
         })
       );
     }
+    if (changes.target) {
+      this.target$.next(this.target);
+    }
   }
 
   public submit() {
     this.profileFormGroup.updateValueAndValidity();
     if (this.profileFormGroup.valid) {
-      this.store.dispatch(updateProfile({updates: this.profileFormGroup.getRawValue()}));
+      switch(this.target) {
+        case "account":
+          this.store.dispatch(updateProfile({updates: this.profileFormGroup.getRawValue()}));
+          break;
+        case "organization":
+          this.store.select(selectCurrentOrganizationId).pipe(take(1)).subscribe((organizationId) => {
+            this.store.dispatch(updateOrganizationProfile({organizationId, profile: this.profileFormGroup.getRawValue()}));
+          });
+          break;
+      }
     }
   }
 }
