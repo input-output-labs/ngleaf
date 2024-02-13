@@ -11,7 +11,7 @@ import { EmailingPageComponent } from '../../emailing';
 export const adminSettingsPageRoutes: Route[] = [
   {
     path: 'admin',
-    canActivate: [LeafAdminGuardService, LeafAuthGuardService],
+    canActivate: [/*LeafAdminGuardService, LeafAuthGuardService*/],
     component: AdminSettingsPageComponent,
     children: [
       {

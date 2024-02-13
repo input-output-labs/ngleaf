@@ -32,8 +32,10 @@ export class AdminSettingsAdministratorsComponent implements OnInit {
   ngOnInit() {}
 
   addAmin() {
+    console.log(this.addAdminForm);
     if (this.addAdminForm.valid) {
       const { user } = this.addAdminForm.getRawValue();
+      console.log("added user: ", user);
       this.adminService.addAdmin(user.id);
     }
   }

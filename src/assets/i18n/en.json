@@ -364,9 +364,9 @@
         "menu": "Change language"
       },
       "countries": {
-        "CH": "Suisse",
+        "CH": "Swizerland",
         "FR": "France",
-        "BE": "Belgique",
+        "BE": "Belgium",
         "LU": "Luxembourg"
       }
     }

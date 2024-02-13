@@ -83,7 +83,7 @@ export class UserSelectorComponent implements OnInit, ControlValueAccessor {
   selected(event: MatAutocompleteSelectedEvent): void {
     this.users.push(event.option.value);
     this.emitChange();
-    this.userInput.nativeElement.value = this.multiple ? '' : event.option.value.username;
+    this.userInput.nativeElement.value = this.multiple ? '' : event.option.value.profile.username;
     this.inputControler.setValue(null);
   }
 
