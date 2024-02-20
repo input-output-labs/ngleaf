@@ -41,6 +41,6 @@ export class LeafProfileGuardService  {
   }
 
   private profileFilled(account: LeafAccountModel) {
-    return !!(account.profile.firstname && account.profile.lastname && account.profile.address);
-}
+    return !!(account.profile.firstname && account.profile.lastname);
+  }
 }
