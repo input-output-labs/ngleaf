@@ -1,4 +1,5 @@
 {
+<<<<<<< Updated upstream
     "app": {
         "welcome": {
           "login-page": {
@@ -64,30 +65,96 @@
         "loginLabel": "Email or login",
         "passwordLabel": "Password",
         "passwordValidationLabel": "Repeat Password"
+=======
+  "app": {
+    "welcome": {
+      "login-page": {
+        "passwordForgottenLinkLabel": "Forgot Password ?",
+        "registerLinkLabel": "Create Account"
       },
-      "password-forgotten": {
-        "vanilla": {
-          "passwordChangeKeyDisclaimerLabel": "In order to change your password, you will need a password change key. Enter your account email address and then click on the button bellow to receive it in your mailbox.",
-          "emailPlaceholder": "Enter email",
-          "sendPasswordChangeKeyButtonLabel": "Send password change key",
-          "changePasswordButtonLabel": "Change password",
-          "passwordChangeKeyPlaceholder": "Enter password change key",
-          "passwordPlaceholder": "Enter new password",
-          "passwordValidationPlaceholder": "Confirm new password",
-          "resendLinkLabel": "Resend email"
-        },
+      "password-page": {
+        "loginLinkLabel": "< Back to login"
+      },
+      "register-page": {
+        "loginQuestionLabel": "Already have an account?",
+        "loginLinkLabel": "Sign in"
+      },
+      "organization-invitation-page": {
+        "seeLater": "I will decide later"
+      }
+    },
+    "menu": {
+      "dashbordLinkLabel": "Dashboard",
+      "leafLabsLinkLabel": "Leaf labs",
+      "organizationLinkLabel": "Organization",
+      "settingsLinkLabel": "My account",
+      "logoutButtonLabel": "Logout",
+      "reduceButtonLabel": "Reduce menu",
+      "expandButtonLabel": "Expand menu"
+    },
+    "account-settings": {
+      "layout": {
+        "title": "Account settings",
+        "profileLinkLabel": "Profile",
+        "pseudoLinkLabel": "Pseudo",
+        "avatarLinkLabel": "Avatar",
+        "passwordLinkLabel": "Password"
+      }
+    },
+    "organization-settings": {
+      "layout": {
+        "title": "Organization",
+        "membersLinkLabel": "Members",
+        "policiesLinkLabel": "Policies"
+      }
+    },
+    "leaf-labs": {
+      "layout": {
+        "title": "Leaf labs",
+        "templatesLinkLabel": "Templates",
+        "messengerLinkLabel": "Messenger",
+        "sponsoringLinkLabel": "Sponsoring",
+        "statisticsLinkLabel": "Statistics",
+        "paymentLinkLabel": "Payment"
+      }
+    }
+  },
+  "leaf": {
+    "login": {
+      "vanilla": {
+        "buttonLabel": "Login",
+        "loginPlaceholder": "Enter email or login",
+        "passwordPlaceholder": "Enter password"
+      },
+      "loginLabel": "Login",
+      "passwordLabel": "Password",
+      "submitLabel": "Log in"
+    },
+    "register": {
+      "vanilla": {
+        "buttonLabel": "Register",
+        "loginPlaceholder": "Enter email or login",
+        "passwordPlaceholder": "Enter password",
+        "passwordValidationPlaceholder": "Confirm password"
+>>>>>>> Stashed changes
+      },
+      "submitLabel": "Register",
+      "loginLabel": "Email or login",
+      "passwordLabel": "Password",
+      "passwordValidationLabel": "Repeat Password"
+    },
+    "password-forgotten": {
+      "vanilla": {
         "passwordChangeKeyDisclaimerLabel": "In order to change your password, you will need a password change key. Enter your account email address and then click on the button bellow to receive it in your mailbox.",
         "emailPlaceholder": "Enter email",
-        "emailLabel": "Enter email",
         "sendPasswordChangeKeyButtonLabel": "Send password change key",
         "changePasswordButtonLabel": "Change password",
         "passwordChangeKeyPlaceholder": "Enter password change key",
-        "passwordLabel": "New password",
         "passwordPlaceholder": "Enter new password",
-        "passwordValidationLabel": "New password validation",
         "passwordValidationPlaceholder": "Confirm new password",
         "resendLinkLabel": "Resend email"
       },
+<<<<<<< Updated upstream
       "image-upload": {
         "drop-zone-label": "Drag and drop a file or click here"
       },
@@ -368,6 +435,293 @@
         "FR": "France",
         "BE": "Belgium",
         "LU": "Luxembourg"
+=======
+      "passwordChangeKeyDisclaimerLabel": "In order to change your password, you will need a password change key. Enter your account email address and then click on the button bellow to receive it in your mailbox.",
+      "emailPlaceholder": "Enter email",
+      "emailLabel": "Enter email",
+      "sendPasswordChangeKeyButtonLabel": "Send password change key",
+      "changePasswordButtonLabel": "Change password",
+      "passwordChangeKeyPlaceholder": "Enter password change key",
+      "passwordLabel": "New password",
+      "passwordPlaceholder": "Enter new password",
+      "passwordValidationLabel": "New password validation",
+      "passwordValidationPlaceholder": "Confirm new password",
+      "resendLinkLabel": "Resend email"
+    },
+    "image-upload": {
+      "drop-zone-label": "Drag and drop a file or click here"
+    },
+    "mailing-authorization-page": {
+      "title": "Désinscription",
+      "description": "Pour vous désinscrire, veuillez cliquer sur le bouton çi-dessous :",
+      "error": "Erreur ! Email et/ou type de contenu manquant !",
+      "success": "Vous êtes désinscrit !",
+      "failure": "Erreur lors de la désinscription, veuillez réessayer plus tard.",
+      "button-label": "Se désinscrire"
+    },
+    "pseudo-update": {
+      "pseudo-input-placeholder": "Pseudo",
+      "submit-button-label": "Save pseudo"
+    },
+    "avatar-update": {
+      "pseudo-input-placeholder": "Pseudo",
+      "submit-button-label": "Save avatar"
+    },
+    "updatePassword": {
+      "currentPasswordPlaceholder": "Enter current password",
+      "newPassword": "New password",
+      "newPasswordVerify": "Verify new password",
+      "buttonLabel": "Change password",
+      "requiredError": "This field is mandatory",
+      "differentPasswordError": "Both passwords does not match"
+    },
+    "password-update": {
+      "currentPasswordPlaceholder": "Current password",
+      "newPasswordPlaceholder": "New password",
+      "newPasswordValidationPlaceholder": "New password validation",
+      "requiredError": "This field is mandatory",
+      "submitLabel": "Change password",
+      "differentPasswordError": "Both password and validation must be identical"
+    },
+    "profile-update": {
+      "username-form-group-title": "Username",
+      "username-input-placeholder": "Username",
+      "identity-form-group-title": "Identity",
+      "firstname-input-placeholder": "Firstname",
+      "lastname-input-placeholder": "Lastname",
+      "phoneNumber-form-group-title": "Phone number",
+      "phoneNumber-input-placeholder": "(+XX) 123456789",
+      "address-form-group-title": "Address",
+      "avatar-form-group-title": "Avatar",
+      "requiredError": "This field is mandatory",
+      "submit-button-label": "Update profile"
+    },
+    "address-form": {
+      "address-input-placeholder": "Street name and number",
+      "postalCode-input-placeholder": "Zip code",
+      "city-input-placeholder": "City",
+      "requiredError": "This field is mandatory"
+    },
+    "confirm-dialog": {
+      "yes": "Yes",
+      "no": "No"
+    },
+    "login-page": {
+      "title": "Login"
+    },
+    "sponsoring-link": {
+      "affiliation-code": "Affiliation code",
+      "affiliation-link": "Affiliation link",
+      "copy-to-clipboard-tooltip-label": "Copy to clipboard"
+    },
+    "sponsoring-my-sponsor": {
+      "sponsor-disclaimer-label": "You don't have a sponsor yet. Select one with the field bellow.",
+      "my-sponsor-label": "My sponsor: ",
+      "sponsor-selection-field-label": "Code de mon sponsor",
+      "sponsor-selection-submission-tooltip-label": "Choisir ce parrain",
+      "server-error": "Un erreur s'est produite. Si elle persiste, veuillez contacter le support.",
+      "required-field-error": "Un code d'affiliation est nécessaire"
+    },
+    "sponsoring-code-update": {
+      "sponsorcode-disclaimer-label": "Change this user sponsorcode. Make sure the new one is not used already.",
+      "sponsor-code-selection-field-label": "Select sponsor code",
+      "sponsor-selection-submission-tooltip-label": "Choose this sponsor code",
+      "server-error": "An error happened. Make sure this sponsor code is not already in use. If it persists, contact support.",
+      "required-field-error": "Sponsor code is mandatory"
+    },
+    "sponsoring-code-update-dialog": {
+      "title": "Change sponsor code",
+      "cancel-button-label": "Cancel"
+    },
+    "sponsoring-my-affiliates": {
+      "no-affiliates-disclaimer-label": "You do not have any affiliates yet."
+    },
+    "notifications-widget": {
+      "button-label": "Notifications",
+      "title": "Notifications",
+      "markAllAsSeen": "Mark all as seen"
+    },
+    "organization-selector": {
+      "no-organizations": "No organizations",
+      "organization-switch-label": "Organization switch",
+      "organization-selector-label": "Select an organization",
+      "not-logged-in-disclaimer": "Please loggin",
+      "cards": {
+        "organization-selector-label": "Select this organization",
+        "members": "{{count}} members"
+>>>>>>> Stashed changes
       }
+    },
+    "organization-members": {
+      "search-member-input-label": "Search members",
+      "invite-member-button-label": "Invitations",
+      "userlist-table-column-picture": "Photo",
+      "userlist-table-column-name": "Nom",
+      "userlist-table-column-roles": "Rôle(s)",
+      "userlist-table-column-actions": "Actions"
+    },
+    "organization-invitations": {
+      "title": "Manage invitation",
+      "no-selected-organization-disclamer": "You need to select an organization to use this panel.",
+      "email-input-label": "Invite new member",
+      "email-input-placeholder": "john.doe@domain.com",
+      "invite-member-button-label": "Send invitation",
+      "close-dialog-label": "Close",
+      "invitation-table-column-date": "Date",
+      "invitation-table-column-email": "Email",
+      "invitation-table-column-status": "Status",
+      "invitation-table-statuses": {
+        "INVITED": "INVITED",
+        "DECLINED": "DECLINED",
+        "CANCELLED": "CANCELLED",
+        "ACCEPTED": "ACCEPTED"
+      },
+      "cancel-invitation-button-label": "Cancel invitation"
+    },
+    "organization-invitation": {
+      "title": "You have been invited to the \"{{ name }}\" organization",
+      "information": {
+        "INVITED": "Please accept or decline this invitation.",
+        "DECLINED": "You already declined this invitation.",
+        "CANCELLED": "This invitation was cancelled.",
+        "ACCEPTED": "You already accepted this invitation."
+      },
+      "accept-button-label": "Accept",
+      "decline-button-label": "Decline",
+      "leave-button-label": "Leave"
+    },
+    "organization-policies": {
+      "roleListTitle": "Existing roles",
+      "addRoleButtonLabel": "Add role",
+      "roleNameFormLabel": "Role's name",
+      "roleSaveButtonLabel": "Save role's updates",
+      "roleDeleteButtonLabel": "Delete role",
+      "defaultNewRoleName": "New role",
+      "policies": {
+        "seeOrganization": {
+          "name": "See organization",
+          "description": "Allow organization's member to see global organization data. Except members or policies for which specific rules exist."
+        },
+        "seeMembers": {
+          "name": "See organization's members",
+          "description": "Allow organization's member to see the list of members of this organization. Personnal data are still kept safe. Only avatar, name, and roles are visible."
+        },
+        "manageMembers": {
+          "name": "Manage organization's members",
+          "description": "Allow organization's member to invite other user to this organization, to change other member's role, and remove a member from the organization."
+        },
+        "seePolicies": {
+          "name": "See organization's policies",
+          "description": "Allow members to see the existing roles and the rights they have upon the existing policies."
+        },
+        "managePolicies": {
+          "name": "Manage organization's policies",
+          "description": "Allow members to create or delete organization's role. They will also have the possibility to change the rights attach to each existing role."
+        }
+      }
+    },
+    "notification-item": {
+      "LEAF_ACCOUNT_REGISTRATION": {
+        "icon": "account_circle",
+        "label": "Hi {{payload.profile.username}} !<br/>Welcome in the leaf demo app !",
+        "link": "/settings"
+      },
+      "LEAF_TEST_NOTIF": {
+        "icon": "science",
+        "label": "New test notif"
+      },
+      "LEAF_ORGANIZATION_INVITATION": {
+        "icon": "store",
+        "label": "You have been invited to {{payload.organizationName}} !",
+        "link": "/welcome/invitation?organizationId={{payload.organizationId}}&email={{payload.invitationEmail}}"
+      }
+    },
+    "payment": {
+      "plans": {
+        "free": "Free",
+        "basic": "Basic",
+        "pro": "Pro"
+      },
+      "features": {
+        "userCount": {
+          "description": "Up to {{value}} members"
+        },
+        "cardCount": {
+          "description": "Up to {{value}} visit cards"
+        },
+        "reporting": {
+          "description": "Traffic reporting"
+        },
+        "manageOrganization": {
+          "description": "Gestion de l'organisation"
+        }
+      },
+      "planDescriptions": {
+        "graphicalCharter": "Your graphical charter",
+        "profile": "Your profile",
+        "contactDetails": "Your contact details",
+        "usefulLinks": "Your useful links",
+        "allFromFree": "All from free pack",
+        "description": "Your description",
+        "products": "Your products",
+        "gallery": "Photo and video gallery",
+        "services": "Your services",
+        "allFromBasic": "All from basic pack",
+        "organization": "Manage your organization",
+        "trafficAnalytics": "Traffic analytics",
+        "sponsoring": "Sponsoring rewards"
+      },
+      "period": {
+        "month": "per<br/>month",
+        "year": "per<br/>year"
+      },
+      "selected-payment-plan": {
+        "selectedPlanLabel": "Your plan",
+        "selectedPlanChangeLabel": "Change",
+        "startedAtLabel": "Since",
+        "trialLabel": "Trial",
+        "trialLabelOngoing": "ongoing ({{remainingDays}} days)",
+        "trialLabelOver": "Over",
+        "trialLabelNone": "None",
+        "paymentMethodChangeLabel": "Changer",
+        "paymentMethodSetLabel": "Définir mon mode de paiement",
+        "paymentMethodDisclaimer": "Aucun mode de paiment définit !<br/>Veuillez définir un mode de paiement avant la fin de la période d'essai pour éviter sa révocation."
+      },
+      "plan-selector": {
+        "submitButtonLabel": "Confirm this plan",
+        "classificationLabels": {
+          "month": "Pay each month",
+          "year": "Pay once a year"
+        }
+      },
+      "plan-viewer": {
+        "selectionButtonLabel": "Select this plan",
+        "freeLabel": "free",
+        "trialDurationLabel": "{{duration}} days trial",
+        "vatNonIncludedLabel": "EXCL. VAT"
+      },
+      "plan-selector-dialog": {
+        "title": "Plan selection",
+        "cancel": "Cancel"
+      },
+      "invoices-list": {
+        "statuses": {
+          "draft": "Next period forecast",
+          "open": "Open",
+          "paid": "Paid",
+          "uncollectible": "uncollectible",
+          "void": "Void"
+        },
+        "header": {
+          "date": "Date",
+          "amount": "Amount",
+          "status": "Status",
+          "download": "Download"
+        }
+      }
+    },
+    "select-language": {
+      "menu": "Change language"
     }
+  }
 }
