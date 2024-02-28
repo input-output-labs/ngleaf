@@ -1,37 +1,63 @@
 <form [formGroup]="loginForm" (keypressed.enter)="login()">
   <ng-container *ngIf="variant === 'material'">
-    <mat-form-field color="primary" appearance="outline">
-      <mat-label>{{ 'leaf.login.loginLabel' | translate }}</mat-label>
-      <input matInput id="loginEmail" value="" formControlName="login">
+    <mat-form-field [color]="color" appearance="outline">
+      <mat-label>{{ "leaf.login.loginLabel" | translate }}</mat-label>
+      <input matInput id="loginEmail" value="" formControlName="login" />
     </mat-form-field>
 
-    <mat-form-field color="primary" appearance="outline">
-      <mat-label>{{ 'leaf.login.passwordLabel' | translate }}</mat-label>
-      <input matInput id="loginPassword" type="password" value="" formControlName="password">
+    <mat-form-field [color]="color" appearance="outline">
+      <mat-label>{{ "leaf.login.passwordLabel" | translate }}</mat-label>
+      <input
+        matInput
+        id="loginPassword"
+        type="password"
+        value=""
+        formControlName="password"
+      />
     </mat-form-field>
-    <button class="login-button" mat-stroked-button (click)="login()" color="primary">{{ 'leaf.login.submitLabel' | translate }}</button>
+    <button
+      class="login-button"
+      mat-stroked-button
+      (click)="login()"
+      [color]="color"
+    >
+      {{ "leaf.login.submitLabel" | translate }}
+    </button>
   </ng-container>
   <ng-container *ngIf="variant === 'vanilla'">
     <div class="field-wrapper login-wrapper">
-      <input class="field login" formControlName="login" [attr.placeholder]="'leaf.login.loginLabel' | translate" />
+      <input
+        class="field login"
+        formControlName="login"
+        [attr.placeholder]="'leaf.login.loginLabel' | translate"
+      />
     </div>
 
     <div class="field-wrapper login-wrapper">
-      <input class="field password" [type]="showPassword ? 'text' : 'password'" formControlName="password" [attr.placeholder]="'leaf.login.passwordLabel' | translate">
+      <input
+        class="field password"
+        [type]="showPassword ? 'text' : 'password'"
+        formControlName="password"
+        [attr.placeholder]="'leaf.login.passwordLabel' | translate"
+      />
       <div
         *ngIf="enablePasswordCheck && passwordCheckClasses && showPassword"
         class="hide-icon"
-        (click)="showPassword = false">
+        (click)="showPassword = false"
+      >
         <i [ngClass]="passwordCheckClasses.hide"></i>
       </div>
       <div
         *ngIf="enablePasswordCheck && passwordCheckClasses && !showPassword"
         class="show-icon"
-        (click)="showPassword = true">
+        (click)="showPassword = true"
+      >
         <i [ngClass]="passwordCheckClasses.show"></i>
       </div>
     </div>
 
-    <button class="login-button" (click)="login()">{{ 'leaf.login.submitLabel' | translate }}</button>
+    <button class="login-button" (click)="login()">
+      {{ "leaf.login.submitLabel" | translate }}
+    </button>
   </ng-container>
 </form>

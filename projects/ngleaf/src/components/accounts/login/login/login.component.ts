@@ -1,23 +1,28 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { Store } from '@ngrx/store';
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import {
+  UntypedFormBuilder,
+  UntypedFormGroup,
+  ValidationErrors,
+  ValidatorFn,
+  Validators,
+} from "@angular/forms";
 
-import { LeafSessionService } from '../../../../services/index';
+import { LeafSessionService } from "../../../../services/index";
 
 export type LeafLoginError = {
-  login: ValidationErrors,
-  password: ValidationErrors
+  login: ValidationErrors;
+  password: ValidationErrors;
 };
 
 export type LeafLoginPasswordCheckClasses = {
-  show: string[],
-  hide: string[]
+  show: string[];
+  hide: string[];
 };
 
 @Component({
-  selector: 'leaf-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  selector: "leaf-login",
+  templateUrl: "./login.component.html",
+  styleUrls: ["./login.component.scss"],
 })
 export class LeafLoginComponent implements OnInit {
   @Input()
@@ -30,6 +35,8 @@ export class LeafLoginComponent implements OnInit {
   public passwordValidators: ValidatorFn[] = [Validators.required];
   @Input()
   public variant: "vanilla" | "material" = "material";
+  @Input()
+  public color = "primary";
 
   @Output()
   public onError: EventEmitter<LeafLoginError> = new EventEmitter<LeafLoginError>();
@@ -40,13 +47,13 @@ export class LeafLoginComponent implements OnInit {
 
   constructor(
     private formBuilder: UntypedFormBuilder,
-    private sessionService: LeafSessionService,
+    private sessionService: LeafSessionService
   ) {}
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      login: ['', this.loginValidators],
-      password: ['', this.passwordValidators],
+      login: ["", this.loginValidators],
+      password: ["", this.passwordValidators],
     });
   }
 
