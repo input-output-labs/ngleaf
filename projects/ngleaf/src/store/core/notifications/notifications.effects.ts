@@ -3,22 +3,31 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { map, switchMap } from "rxjs/operators";
 import {
   fetchNotifications,
+  fetchNotificationsCall,
   setNotificationsAsSeen,
   upsertNotifications,
 } from "./notifications.actions";
 import { NotificationApiClientService } from "../../../api/clients/notification-api-client";
 import { LeafNotificationModel } from "../../../api/models/notifications.model";
+import { Observable } from "rxjs";
 
 @Injectable()
 export class NotificationsEffects {
   fetchNotifications$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fetchNotifications),
-      switchMap(() =>
-        this.notificationApiClientService
-          .fetchMyNotifications()
-          .pipe(map((notifications: LeafNotificationModel[]) => upsertNotifications({ notifications })))
+      map(
+        () => fetchNotificationsCall({call: this.notificationApiClientService.fetchMyNotifications()})
       )
+    )
+  );
+
+  fetchNotificationsCall$ = createEffect(() => this.actions$.pipe(
+    ofType(fetchNotificationsCall),
+    switchMap((payload: {call: Observable<LeafNotificationModel[]>}) =>
+      payload.call.pipe(
+        map(notifications => upsertNotifications({notifications})),
+      ))
     )
   );
 

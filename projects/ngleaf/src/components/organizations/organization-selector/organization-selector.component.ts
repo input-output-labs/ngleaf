@@ -26,6 +26,9 @@ export class OrganizationSelectorComponent implements OnInit {
   @Input()
   public design: 'widget' | 'cards' = 'widget';
 
+  @Input()
+  public fetchOnInit: boolean = false;
+
   public currentAccount$: Observable<LeafAccountModel>;
   public organizations$: Observable<LeafOrganization[]>;
   public currentOrganization$: Observable<LeafOrganization>;
@@ -41,7 +44,9 @@ export class OrganizationSelectorComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(listMyOrganizations());
+    if (this.fetchOnInit) {
+      this.store.dispatch(listMyOrganizations());
+    }
   }
 
   public selectOrganization(organization) {

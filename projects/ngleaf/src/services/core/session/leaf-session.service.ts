@@ -1,18 +1,19 @@
 import { Inject, Injectable } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { filter, map, take } from 'rxjs';
-import { Actions } from '@ngrx/effects';
+import { Observable, ReplaySubject, Subject, filter, map, shareReplay, take } from 'rxjs';
 
 import { LeafAuthHttpClient, AccountApiClient, SponsoringApiClientService } from '../../../api/clients/index';
 
 import { LeafConfig } from '../../../models/index';
 import { LeafConfigServiceToken } from '../../leaf-config.module';
-import { initializationDone, resetCurrentAccount, resetSessionToken, selectCurrentAccount, selectSessionState, selectSessionToken, setCurrentAccountCall, setMailingsUnsubscriptionCall, setResetPasswordCall, setSendResetPasswordKeyCall, setSessionToken, setSessionTokenCall, setUpdatePasswordCall } from '../../../store/core/session/index';
+import { initializationDone, resetCurrentAccount, resetSessionToken, selectCurrentAccount, selectSessionToken, setCurrentAccountCall, setMailingsUnsubscriptionCall, setResetPasswordCall, setSendResetPasswordKeyCall, setSessionToken, setSessionTokenCall, setUpdatePasswordCall } from '../../../store/core/session/index';
+import { fetchNotificationsCall } from '../../../store/core/notifications/notifications.actions';
+import { listMyOrganizationsCall } from '../../../store/core/organizations/organizations.actions';
+import { fetchEligibilitesCall } from '../../../store/core/eligibilities/eligibilities.actions';
 import { AsyncType } from '../../../store/common/index';
-import { JWTModel, LeafAccountModel } from '../../../api/models/index';
+import { JWTModel, LeafAccountModel, LeafEligibilities, LeafNotificationModel, LeafOrganization, LeafSetupResponse } from '../../../api/models/index';
 import { selectSponsorCode, setSetSponsorCall, setSponsorCode } from '../../../store/sponsoring/index';
-import { fetchEligibilites } from '../../../store/core/eligibilities';
 
 @Injectable()
 export class LeafSessionService {
@@ -22,7 +23,6 @@ export class LeafSessionService {
     private accountApiClient: AccountApiClient,
     private sponsoringApiClientService: SponsoringApiClientService,
     private store: Store,
-    private actions$: Actions,
     public authHttp: LeafAuthHttpClient,
     private router: Router,
     private activeRoute: ActivatedRoute,
@@ -57,7 +57,7 @@ export class LeafSessionService {
         localStorage.setItem('jwtoken', jwtoken.token);
         this.authHttp.setJwtoken(jwtoken.token);
 
-        this.refreshAccount()
+        this.setupAccountInfo()
         .then(() => {})
         .catch(() => {
           this.store.dispatch(resetSessionToken());
@@ -79,9 +79,28 @@ export class LeafSessionService {
     });
   }
 
-  public refreshAccount(): Promise<void> {
-    const call = this.accountApiClient.me();
-    this.store.dispatch(setCurrentAccountCall({call}));
+  public setupAccountInfo(): Promise<void> {
+    const setupConfig = this.config.setupConfig;
+
+    const call$: Observable<LeafSetupResponse> = this.accountApiClient.setup(setupConfig).pipe(shareReplay());
+
+    const accountCall$: Observable<LeafAccountModel> = call$.pipe(map((setupResponse) => setupResponse.user));
+    this.store.dispatch(setCurrentAccountCall({call: accountCall$}));
+
+    if (setupConfig.notifications) {
+      const notificationsCall$: Observable<LeafNotificationModel[]> = call$.pipe(map((setupResponse) => setupResponse.notifications));
+      this.store.dispatch(fetchNotificationsCall({call: notificationsCall$}));
+    }
+
+    if (setupConfig.organizations) {
+      const organizationsCall$: Observable<LeafOrganization[]> = call$.pipe(map((setupResponse) => setupResponse.organizations));
+      this.store.dispatch(listMyOrganizationsCall({call: organizationsCall$}));
+    }
+
+    if (setupConfig.eligibilities) {
+      const eligibilitiesCall$: Observable<LeafEligibilities> = call$.pipe(map((setupResponse) => setupResponse.eligibilities));
+      this.store.dispatch(fetchEligibilitesCall({call: eligibilitiesCall$}));
+    }
 
     return new Promise((resolve, reject) => {
       this.store.pipe(
@@ -90,7 +109,6 @@ export class LeafSessionService {
         take(1)
       ).subscribe((currentAccountAsync) => {
         if(currentAccountAsync.status.success) {
-          this.store.dispatch(fetchEligibilites());
           resolve();
         }
         if(currentAccountAsync.status.failure) {
@@ -98,7 +116,11 @@ export class LeafSessionService {
         }
       });
     });
+  }
 
+  public refreshAccount() {
+    const call = this.accountApiClient.me();
+    this.store.dispatch(setCurrentAccountCall({call}));
   }
 
   private addSponsorIfPossible() {

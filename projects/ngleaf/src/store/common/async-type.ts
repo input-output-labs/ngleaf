@@ -1,5 +1,3 @@
-import { Observable } from 'rxjs';
-
 export function upsert<T extends { id?: string }>(item: T, list: T[] = []): T[] {
   const index = list.findIndex((listItem) => listItem.id === item.id);
   if (index < 0) {
@@ -43,7 +41,6 @@ export function asyncTypeFailure<T>(asyncObject: AsyncType<T>, error: any) {
 export function asyncTypePending<T>(asyncObject: AsyncType<T>) {
   return {
       ...asyncObject,
-      call: undefined,
       status: {
           pending: true,
           failure: false,
@@ -52,11 +49,10 @@ export function asyncTypePending<T>(asyncObject: AsyncType<T>) {
   };
 }
 
-export function createAsyncTypeFromCall<T>(call?: Observable<T>) {
+export function createAsyncTypeFromCall<T>() {
   return {
       data: undefined,
       error: undefined,
-      call,
       status: {
           pending: true,
           failure: undefined,
@@ -69,7 +65,6 @@ export function createEmptyAsyncType(data?: any) {
   return {
       data,
       error: undefined,
-      call: undefined,
       status: {
           pending: false,
           failure: undefined,
@@ -87,6 +82,5 @@ export interface AsyncStatus {
 export interface AsyncType<T> {
   data?: T;
   error?: any;
-  call: Observable<T>;
   status: AsyncStatus;
 }

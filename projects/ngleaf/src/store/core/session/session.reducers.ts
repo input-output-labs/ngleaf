@@ -21,28 +21,28 @@ export function sessionReducer(reducerState, action): SessionState {
     on(initializationDone, (state: SessionState) => ({...state, initializationOngoing: false})),
     /** Current Account */
     on(resetCurrentAccount, (state: SessionState) => ({...state, currentAccount: createEmptyAsyncType()})),
-    on(setCurrentAccountCall, (state: SessionState, {call}) => ({...state, currentAccount: createAsyncTypeFromCall(call)})),
+    on(setCurrentAccountCall, (state: SessionState, {call}) => ({...state, currentAccount: createAsyncTypeFromCall()})),
     on(setCurrentAccountSuccess, (state: SessionState, {data}) => ({...state, currentAccount: asyncTypeSuccess(state.currentAccount, data)})),
     on(setCurrentAccountFailure, (state: SessionState, {error}) => ({...state, currentAccount: asyncTypeFailure(state.currentAccount, error)})),
     /** Session Token */
     on(resetSessionToken, (state: SessionState) => ({...state, sessionToken: createEmptyAsyncType()})),
     on(setSessionToken, (state: SessionState, {sessionToken}) => ({...state, sessionToken: asyncTypeSuccess(state.sessionToken, sessionToken)})),
-    on(setSessionTokenCall, (state: SessionState, {call}) => ({...state, sessionToken: createAsyncTypeFromCall(call)})),
+    on(setSessionTokenCall, (state: SessionState, {call}) => ({...state, sessionToken: createAsyncTypeFromCall()})),
     on(setSessionTokenSuccess, (state: SessionState, {data}) => ({...state, sessionToken: asyncTypeSuccess(state.sessionToken, data)})),
     on(setSessionTokenFailure, (state: SessionState, {error}) => ({...state, sessionToken: asyncTypeFailure(state.sessionToken, error)})),
     /** SendResetPasswordKey */
     on(resetSendResetPasswordKey, (state: SessionState) => ({...state, sendResetPasswordKey: createEmptyAsyncType()})),
-    on(setSendResetPasswordKeyCall, (state: SessionState, {call}) => ({...state, sendResetPasswordKey: createAsyncTypeFromCall(call)})),
+    on(setSendResetPasswordKeyCall, (state: SessionState, {call}) => ({...state, sendResetPasswordKey: createAsyncTypeFromCall()})),
     on(setSendResetPasswordKeySuccess, (state: SessionState) => ({...state, sendResetPasswordKey: asyncTypeSuccess(state.sendResetPasswordKey)})),
     on(setSendResetPasswordKeyFailure, (state: SessionState, {error}) => ({...state, sendResetPasswordKey: asyncTypeFailure(state.sendResetPasswordKey, error)})),
     /** ResetPassword */
     on(resetResetPassword, (state: SessionState) => ({...state, resetPassword: createEmptyAsyncType()})),
-    on(setResetPasswordCall, (state: SessionState, {call}) => ({...state, resetPassword: createAsyncTypeFromCall(call)})),
+    on(setResetPasswordCall, (state: SessionState, {call}) => ({...state, resetPassword: createAsyncTypeFromCall()})),
     on(setResetPasswordSuccess, (state: SessionState) => ({...state, resetPassword: asyncTypeSuccess(state.resetPassword)})),
     on(setResetPasswordFailure, (state: SessionState, {error}) => ({...state, resetPassword: asyncTypeFailure(state.resetPassword, error)})),
     /** UpdatePassword */
     on(resetUpdatePassword, (state: SessionState) => ({...state, updatePassword: createEmptyAsyncType()})),
-    on(setUpdatePasswordCall, (state: SessionState, {call}) => ({...state, updatePassword: createAsyncTypeFromCall(call)})),
+    on(setUpdatePasswordCall, (state: SessionState, {call}) => ({...state, updatePassword: createAsyncTypeFromCall()})),
     on(setUpdatePasswordSuccess, (state: SessionState, {data}) => (
       {
         ...state,
@@ -61,7 +61,7 @@ export function sessionReducer(reducerState, action): SessionState {
     on(updateProfileFailure, (state: SessionState, {error}) => ({...state, updateProfile: asyncTypeFailure(state.updateProfile, error)})),
     /** ResetPassword */
     on(resetMailingsUnsubscription, (state: SessionState) => ({...state, mailingsUnsubscription: createEmptyAsyncType()})),
-    on(setMailingsUnsubscriptionCall, (state: SessionState, {call}) => ({...state, mailingsUnsubscription: createAsyncTypeFromCall(call)})),
+    on(setMailingsUnsubscriptionCall, (state: SessionState, {call}) => ({...state, mailingsUnsubscription: createAsyncTypeFromCall()})),
     on(setMailingsUnsubscriptionSuccess, (state: SessionState) => ({...state, mailingsUnsubscription: asyncTypeSuccess(state.mailingsUnsubscription)})),
     on(setMailingsUnsubscriptionFailure, (state: SessionState, {error}) => ({...state, mailingsUnsubscription: asyncTypeFailure(state.mailingsUnsubscription, error)}))
   )(reducerState, action);

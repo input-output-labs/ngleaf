@@ -3,7 +3,7 @@ import { LeafAccountModel, LeafAccountProfile, LeafOrganization, OrganizationInv
 import { Observable } from 'rxjs';
 
 export const listAllOrganizations = createAction(
-    '[Organizations store] List all organizations'
+  '[Organizations store] List all organizations'
 );
 export const setAllOrganizationsSuccess = createAction(
     '[Organizations store] Set all organizations success',
@@ -16,6 +16,10 @@ export const setAllOrganizationsFailure = createAction(
 
 export const listMyOrganizations = createAction(
     '[Organizations store] List my organizations'
+);
+export const listMyOrganizationsCall = createAction(
+    '[Organizations store] List my organizations call',
+    props<{call: Observable<LeafOrganization[]>}>()
 );
 export const setMyOrganizationsSuccess = createAction(
     '[Organizations store] Set my organizations success',

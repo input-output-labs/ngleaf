@@ -11,7 +11,7 @@ export function eligibilitiesReducer(reducerState, action): EligibilitiesState {
   return createReducer(
     initialState,
     /** Current Account */
-    on(Actions.fetchEligibilites, (state: EligibilitiesState, {}) => ({...state, eligibilities: asyncTypePending(state.eligibilities)})),
+    on(Actions.fetchEligibilitesCall, (state: EligibilitiesState, {}) => ({...state, eligibilities: asyncTypePending(state.eligibilities)})),
     on(Actions.fetchEligibilitesSuccess, (state: EligibilitiesState, {data}) => ({...state, eligibilities: asyncTypeSuccess(state.eligibilities, data)})),
     on(Actions.fetchEligibilitesFailure, (state: EligibilitiesState, {error}) => ({...state, eligibilities: asyncTypeFailure(state.eligibilities, error)}))
   )(reducerState, action);

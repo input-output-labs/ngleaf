@@ -33,6 +33,9 @@ export class NotificationsWidgetComponent implements OnInit {
   @Input()
   public reduced: boolean = true;
 
+  @Input()
+  public fetchOnInit: boolean = false;
+
   public notifications$: Observable<LeafNotificationModel[]>;
   public unseenNotificationsCount$: Observable<number>;
   public notificationIcon$: Observable<string>;
@@ -75,8 +78,11 @@ export class NotificationsWidgetComponent implements OnInit {
       })
     );
   }
+
   ngOnInit(): void {
-    this.store.dispatch(fetchNotifications());
+    if (this.fetchOnInit) {
+      this.store.dispatch(fetchNotifications());
+    }
   }
 
   public markAllAsSeen() {

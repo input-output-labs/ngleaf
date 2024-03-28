@@ -53,7 +53,7 @@ export function organizationsReducer(reducerState, action): OrganizationsState {
     ),
     /* My organizations */
     on(
-      Actions.listMyOrganizations,
+      Actions.listMyOrganizationsCall,
       (state: OrganizationsState, {}) => ({
         ...state,
         myOrganizations: asyncTypePending(state.myOrganizations),

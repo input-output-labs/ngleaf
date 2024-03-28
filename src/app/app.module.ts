@@ -64,6 +64,11 @@ const leafConfig: LeafConfig = {
   },
   apis: {
     pixabay_api_key: environment.API_KEY_PIXABAY
+  },
+  setupConfig: {
+    notifications: true,
+    organizations: true,
+    eligibilities: true,
   }
 };
 

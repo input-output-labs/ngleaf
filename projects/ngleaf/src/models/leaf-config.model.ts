@@ -18,10 +18,17 @@ export interface ApisConfig {
   pixabay_api_key?: string;
 }
 
+export interface LeafSetupConfig {
+  notifications: boolean,
+  organizations: boolean,
+  eligibilities: boolean,
+}
+
 export interface LeafConfig {
   serverUrl: string;
   serverWSBrokerUrl: string;
   navigation: LeafNavigationConfig;
   apis?: ApisConfig;
-  featureActivation?: LeafFeatureActivation
+  featureActivation?: LeafFeatureActivation,
+  setupConfig: LeafSetupConfig;
 }

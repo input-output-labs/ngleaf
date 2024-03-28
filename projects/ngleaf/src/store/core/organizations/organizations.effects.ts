@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { of } from "rxjs";
+import { Observable, of } from "rxjs";
 import { map, switchMap, catchError, withLatestFrom } from "rxjs/operators";
 
 import * as OrganizationsActions from "./organizations.actions";
@@ -9,7 +9,6 @@ import { OrganizationsApiClientService } from "../../../api/clients";
 import { LeafAccountProfile, LeafOrganization, OrganizationRole } from "../../../api/models";
 import { Store } from "@ngrx/store";
 import { selectCurrentOrganizationId } from "./organizations.selectors";
-import { setCurrentAccountSuccess } from "../session";
 
 @Injectable()
 export class OrganizationsEffects {
@@ -40,20 +39,29 @@ export class OrganizationsEffects {
   listMyOrganizations$ = createEffect(() =>
     this.actions$.pipe(
       ofType(OrganizationsActions.listMyOrganizations),
-      switchMap(() =>
-        this.organizationApiClient.listMyOrganizations().pipe(
-          map((organizations) =>
-            OrganizationsActions.setMyOrganizationsSuccess({
-              data: organizations,
-            })
-          ),
-          catchError((error) =>
-            of(OrganizationsActions.setMyOrganizationsFailure({ error }))
-          )
-        )
+      map(
+        () => OrganizationsActions.listMyOrganizationsCall({ call: this.organizationApiClient.listMyOrganizations() })
       )
     )
   );
+
+  listMyOrganizationsCall$ = createEffect(() =>
+  this.actions$.pipe(
+    ofType(OrganizationsActions.listMyOrganizationsCall),
+    switchMap((payload: {call: Observable<LeafOrganization[]>}) =>
+      payload.call.pipe(
+        map((organizations) =>
+          OrganizationsActions.setMyOrganizationsSuccess({
+            data: organizations,
+          })
+        ),
+        catchError((error) =>
+          of(OrganizationsActions.setMyOrganizationsFailure({ error }))
+        )
+      )
+    )
+  )
+);
 
   listCurrentOrganizationUsers$ = createEffect(() =>
     this.actions$.pipe(
@@ -179,13 +187,6 @@ export class OrganizationsEffects {
             )
           )
       )
-    )
-  );
-
-  listMyOrganizationsTriggers$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(setCurrentAccountSuccess),
-      map(() => OrganizationsActions.listMyOrganizations())
     )
   );
 

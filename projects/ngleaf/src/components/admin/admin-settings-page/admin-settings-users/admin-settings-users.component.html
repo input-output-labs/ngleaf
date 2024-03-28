@@ -8,8 +8,30 @@
 
 <div class="container-spacer">
   <ng-content></ng-content>
-  <table mat-table [dataSource]="users$ | async" class="mat-elevation-z8">
-
+  <mat-toolbar>
+    <form [formGroup]="searchFormGroup" class="searchbar">
+      <mat-form-field class="emailFilter" subscriptSizing="dynamic" appearance="outline" floatLabel="always">
+        <mat-label>Filter by email</mat-label>
+        <input matInput type="text" formControlName="emailFilter" placeholder="some@email.com">
+        <button *ngIf="searchFormGroup.controls.emailFilter.value" matSuffix mat-icon-button aria-label="Clear" (click)="searchFormGroup.controls.emailFilter.setValue('')">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+      <mat-form-field subscriptSizing="dynamic" appearance="outline">
+        <mat-label>Order by</mat-label>
+        <mat-select formControlName="sortBy">
+          <mat-option [value]="sortOption.value" *ngFor="let sortOption of sortOptions">{{sortOption.viewValue}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-paginator
+              [length]="searchedUsersCount$ | async"
+              [pageSize]="pageSize$ | async"
+              [pageSizeOptions]="[5, 10, 25, 100]"
+              (page)="onPageEvent($event)">
+      </mat-paginator>
+    </form>
+  </mat-toolbar>
+  <table mat-table [dataSource]="shownUsers$ | async" class="mat-elevation-z8">
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef> ID </th>
       <td mat-cell *matCellDef="let element"> {{element.id}} </td>

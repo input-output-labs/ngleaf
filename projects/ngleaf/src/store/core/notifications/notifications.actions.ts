@@ -1,8 +1,14 @@
 import { createAction, props } from '@ngrx/store';
 import { LeafNotificationModel } from "../../../api/models/notifications.model";
+import { Observable } from 'rxjs';
 
 export const fetchNotifications = createAction(
     '[Nofitications store] Fetch notifications'
+);
+
+export const fetchNotificationsCall = createAction(
+  '[Nofitications store] Fetch notifications call',
+  props<{call: Observable<LeafNotificationModel[]>}>()
 );
 
 export const upsertNotifications = createAction(

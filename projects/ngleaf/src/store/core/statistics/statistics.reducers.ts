@@ -12,7 +12,7 @@ export function statisticsReducer(reducerState, action): StatisticsState {
     initialState,
     /** Current Account */
     on(resetStatistics, (state: StatisticsState) => ({...state, statistics: createEmptyAsyncType()})),
-    on(setStatisticsCall, (state: StatisticsState, {call}) => ({...state, statistics: createAsyncTypeFromCall(call)})),
+    on(setStatisticsCall, (state: StatisticsState, {call}) => ({...state, statistics: createAsyncTypeFromCall()})),
     on(setStatisticsSuccess, (state: StatisticsState, {data}) => ({...state, statistics: asyncTypeSuccess(state.statistics, data)})),
     on(setStatisticsFailure, (state: StatisticsState, {error}) => ({...state, statistics: asyncTypeFailure(state.statistics, error)}))
   )(reducerState, action);

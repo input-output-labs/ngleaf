@@ -12,7 +12,7 @@ export function messengerReducer(reducerState, action): MessengerState {
     initialState,
     /** Current Account */
     on(resetMessenger, (state: MessengerState) => ({...initialState})),
-    on(setRoomCreationCall, (state: MessengerState, {call}) => ({...state, roomCreation: createAsyncTypeFromCall(call)})),
+    on(setRoomCreationCall, (state: MessengerState, {call}) => ({...state, roomCreation: createAsyncTypeFromCall()})),
     on(setRoomCreationSuccess, (state: MessengerState, {data}) => ({...state, roomCreation: asyncTypeSuccess(state.roomCreation, data)})),
     on(setRoomCreationFailure, (state: MessengerState, {error}) => ({...state, roomCreation: asyncTypeFailure(state.roomCreation, error)}))
   )(reducerState, action);

@@ -6,6 +6,8 @@ import { JWTModel, LeafAccountModel, LeafAccountProfile, LoginModel, PasswordCha
 
 import { LeafApiClientConfig, LeafApiClientConfigServiceToken } from '../api-client-config.module';
 import { HttpParams } from '@angular/common/http';
+import { LeafSetupConfig } from '../../../models/leaf-config.model';
+import { LeafSetupResponse } from '../../models/leaf-setup.model';
 
 @Injectable()
 export class AccountApiClient {
@@ -13,6 +15,12 @@ export class AccountApiClient {
     @Inject(LeafApiClientConfigServiceToken) public config: LeafApiClientConfig,
     public authHttp: LeafAuthHttpClient
     ) {}
+
+  public setup(setupConfig: LeafSetupConfig): Observable<LeafSetupResponse> {
+    return this.authHttp.get<LeafSetupResponse>(
+      `${this.config.serverUrl}/setup?user=true&notifications=${setupConfig.notifications}&organizations=${setupConfig.organizations}&eligibilities=${setupConfig.eligibilities}`
+    );
+  }
 
   public me(): Observable<LeafAccountModel> {
     return this.authHttp.get<LeafAccountModel>(this.config.serverUrl + '/account/me');
