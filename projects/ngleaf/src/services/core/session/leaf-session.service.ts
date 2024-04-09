@@ -139,6 +139,15 @@ export class LeafSessionService {
     }
   }
 
+  public registerTemporaryAccount() {
+    const account = {
+      isTemporary: true,
+    };
+
+    const call = this.accountApiClient.register(account);
+    this.store.dispatch(setSessionTokenCall({ call }));
+  }
+
   public register(email, password) {
     const account = {
       email,

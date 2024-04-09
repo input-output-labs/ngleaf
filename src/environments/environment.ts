@@ -2,13 +2,17 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-const USE_LOCAL = true;
+const USE_LOCAL = false;
 
 export const environment = {
   production: false,
-  serverWSBrokerUrl: USE_LOCAL ? 'ws://localhost:8080/ws' : 'wss://blank.io-labs.fr/ws',
-  serverUrl: USE_LOCAL ? 'http://localhost:8080/api' : 'https://blank.io-labs.fr/api',
-  API_KEY_PIXABAY: '21558043-ea93c1b6a6e88758325a9fcb2'
+  serverWSBrokerUrl: USE_LOCAL
+    ? "ws://localhost:8080/ws"
+    : "wss://blank.io-labs.fr/ws",
+  serverUrl: USE_LOCAL
+    ? "http://localhost:8080/api"
+    : "https://api.cioldt.com/api",
+  API_KEY_PIXABAY: "21558043-ea93c1b6a6e88758325a9fcb2",
 };
 
 /*
