@@ -11,9 +11,18 @@ export type LeafPasswordForgotten_PasswordChangeError = {
   password: ValidationErrors;
 };
 
+export type LeafPasswordForgotten_SubmissionError = {
+  submission: boolean;
+};
+
 export type LeafPasswordForgottenError = {
   state: LeafPasswordForgottenState;
 } & (
   | LeafPasswordForgotten_SendPasswordChangeError
   | LeafPasswordForgotten_PasswordChangeError
+  | LeafPasswordForgotten_SubmissionError
 );
+
+export type LeafPasswordForgottenDone = {
+  state: LeafPasswordForgottenState;
+};

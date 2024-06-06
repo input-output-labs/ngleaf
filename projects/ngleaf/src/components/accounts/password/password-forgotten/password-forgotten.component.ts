@@ -12,10 +12,11 @@ import { filter, map, take } from "rxjs";
 import { LeafSessionService } from "../../../../services/index";
 import {
   AsyncType,
-  selectResetPassword,
   selectSendResetPasswordKey,
+  selectResetPassword,
 } from "../../../../store/index";
 import {
+  LeafPasswordForgottenDone,
   LeafPasswordForgottenError,
   LeafPasswordForgottenState,
 } from "../password-forgotten.models";
@@ -38,7 +39,7 @@ export class LeafPasswordForgottenComponent implements OnInit {
   @Output()
   public onError: EventEmitter<LeafPasswordForgottenError> = new EventEmitter<LeafPasswordForgottenError>();
   @Output()
-  public onDone: EventEmitter<void> = new EventEmitter<void>();
+  public onDone: EventEmitter<LeafPasswordForgottenDone> = new EventEmitter<LeafPasswordForgottenDone>();
 
   public state: LeafPasswordForgottenState = "SendPassword";
   public sendPasswordChangeForm: UntypedFormGroup;
@@ -105,7 +106,14 @@ export class LeafPasswordForgottenComponent implements OnInit {
           )
           .subscribe((success) => {
             if (success) {
-              this.onDone.emit();
+              this.onDone.emit({
+                state: this.state,
+              });
+            } else {
+              this.onError.emit({
+                state: this.state,
+                submission: true,
+              });
             }
           });
       }
@@ -113,8 +121,8 @@ export class LeafPasswordForgottenComponent implements OnInit {
       this.onError.emit({
         state: this.state,
         passwordChangeKey:
-          this.sendPasswordChangeForm.controls.passwordChangeKey.errors,
-        password: this.sendPasswordChangeForm.controls.password.errors,
+          this.passwordChangeForm.controls.passwordChangeKey?.errors,
+        password: this.passwordChangeForm.controls.password?.errors,
       });
     }
   }
@@ -138,7 +146,15 @@ export class LeafPasswordForgottenComponent implements OnInit {
       )
       .subscribe((success) => {
         if (success) {
+          this.onDone.emit({
+            state: this.state,
+          });
           this.state = "PasswordChange";
+        } else {
+          this.onError.emit({
+            state: this.state,
+            submission: true,
+          });
         }
       });
   }
