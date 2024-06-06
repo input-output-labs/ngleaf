@@ -6,11 +6,27 @@
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>{{ 'leaf.register.passwordLabel' | translate }}</mat-label>
-      <input matInput id="password" type="password" value="" formControlName="password">
+      <input
+        matInput
+        id="password"
+        [type]="showPassword ? 'text' : 'password'"
+        value=""
+        formControlName="password" />
+      <button *ngIf="enablePasswordCheck" matSuffix mat-icon-button (click)="showPassword = !showPassword">
+        <mat-icon>{{ showPassword ? 'visibility' : 'visibility_off'}}</mat-icon>
+      </button>
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>{{ 'leaf.register.passwordValidationLabel' | translate }}</mat-label>
-      <input matInput id="passwordValidation" type="password" value="" formControlName="passwordValidation">
+      <input
+        matInput
+        id="passwordValidation"
+        [type]="showPassword ? 'text' : 'password'"
+        value=""
+        formControlName="passwordValidation" />
+      <button *ngIf="enablePasswordCheck" matSuffix mat-icon-button (click)="showPassword = !showPassword">
+        <mat-icon>{{ showPassword ? 'visibility' : 'visibility_off'}}</mat-icon>
+      </button>
     </mat-form-field>
     <button mat-stroked-button (click)="register($event)">{{ 'leaf.register.submitLabel' | translate }}</button>
   </ng-container>

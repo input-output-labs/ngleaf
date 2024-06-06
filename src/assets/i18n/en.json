@@ -349,6 +349,7 @@
         "cancel": "Cancel"
       },
       "invoices-list": {
+        "noInvoicesLabel": "No invoices",
         "statuses": {
           "draft": "Next period forecast",
           "open": "Open",
