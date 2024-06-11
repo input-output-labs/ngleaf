@@ -20,19 +20,23 @@ export class LeafAuthGuardService  {
   canActivate(_route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
     return this.store.pipe(
       select(selectInitializationOngoing),
-      filter(initializationOngoing => !initializationOngoing),
-      take(1),
+      filter((initializationOngoing) => !initializationOngoing),
       withLatestFrom(this.store.select(selectCurrentAccount)),
+      filter(([_pending, currentAccount]) => !currentAccount.status.pending),
+      take(1),
       map(([_pending, currentAccount]) => currentAccount.data),
-      mergeMap(currentAccount => {
+      mergeMap((currentAccount) => {
         if (currentAccount) {
           return of(true);
         } else {
-          this.router.navigate([this.config.navigation.authGuardErrorRedirect || '/login'], {
-            queryParams: {
-              return: state.url
+          this.router.navigate(
+            [this.config.navigation.authGuardErrorRedirect || "/login"],
+            {
+              queryParams: {
+                return: state.url,
+              },
             }
-          });
+          );
           return of(false);
         }
       })
