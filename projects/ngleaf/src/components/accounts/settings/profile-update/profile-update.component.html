@@ -109,6 +109,23 @@
           {{ "leaf.profile-update.requiredError" | translate }}
         </mat-error>
       </mat-form-field>
+      <mat-form-field subscriptSizing="dynamic" [appearance]="fieldAppearance" *ngIf="fields.includes('registrationNumber') && (profileFormGroup.controls.corporate.value || !fields.includes('corporate'))">
+        <mat-label>{{ 'leaf.profile-update.registrationNumber-input-placeholder' | translate }}</mat-label>
+        <input
+          matInput
+          id="registrationNumber"
+          [placeholder]="
+            'leaf.profile-update.registrationNumber-input-placeholder' | translate
+          "
+          value=""
+          formControlName="registrationNumber"
+        />
+        <mat-error
+          *ngIf="profileFormGroup.controls.registrationNumber.hasError('required')"
+        >
+          {{ "leaf.profile-update.requiredError" | translate }}
+        </mat-error>
+      </mat-form-field>
     </ng-container>
   </div>
   <div class="form-part avatar-form-part" *ngIf="fields.includes('avatarUrl')">

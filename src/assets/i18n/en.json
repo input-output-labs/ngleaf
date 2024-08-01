@@ -134,6 +134,7 @@
       "phoneNumber-input-placeholder": "(+XX) 123456789",
       "corporate-input-placeholder": "Is corporate",
       "taxId-input-placeholder": "VAT Tax Id",
+      "registrationNumber-input-placeholder": "Registration number",
       "corporate-form-group-title": "Corporate",
       "country-form-group-title": "Country",
       "avatar-form-group-title": "Avatar",

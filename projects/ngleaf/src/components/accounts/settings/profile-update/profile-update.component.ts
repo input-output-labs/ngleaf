@@ -19,7 +19,7 @@ export type ProfileUpdateFields = keyof LeafAccountProfile;
 })
 export class ProfileUpdateComponent implements OnChanges, OnDestroy {
   @Input()
-  public fields: ProfileUpdateFields[] = ['username', 'avatarUrl', 'firstname', 'lastname', 'phoneNumber', 'address', 'corporate', 'taxId'];
+  public fields: ProfileUpdateFields[] = ['username', 'avatarUrl', 'firstname', 'lastname', 'phoneNumber', 'address', 'corporate', 'registrationNumber', 'taxId'];
 
   @Input()
   public mandatoryFields?: ProfileUpdateFields[] = ['username', 'avatarUrl', 'firstname', 'lastname', 'phoneNumber', 'address'];
@@ -95,10 +95,7 @@ export class ProfileUpdateComponent implements OnChanges, OnDestroy {
     if (changes.submitTrigger$ && this.submitTrigger$) {
       this.subscriptions.push(
         this.submitTrigger$.subscribe(() => {
-          this.profileFormGroup.updateValueAndValidity();
-          if (this.profileFormGroup.valid) {
-            this.store.dispatch(updateProfile({updates: this.profileFormGroup.getRawValue()}));
-          }
+          this.submit();
         })
       );
     }
