@@ -14,6 +14,23 @@ export function asyncUpsert<T extends { id?: string }>(item: T, asyncItem: Async
   };
 }
 
+export function asyncInjectInList<T extends { id?: string }, V>(asyncItem: AsyncType<T[]>, itemId: string, key: string, data: V): AsyncType<T[]> {
+  return {
+    ...asyncItem,
+    data: injectInList<T, V>(asyncItem.data || [], itemId, key, data),
+  };
+}
+
+export function injectInList<T extends { id?: string }, V>(list: T[] = [], itemId: string, key: string, data: V): T[] {
+  const index = list.findIndex((listItem) => listItem.id === itemId);
+  if (index >= 0) {
+    return [...list.slice(0, index), {
+      ...list[index],
+      [key]: data,
+    }, ...list.slice(index + 1)];
+  }
+}
+
 export function asyncTypeSuccess<T>(asyncObject: AsyncType<T>, data?: T) {
   return {
       ...asyncObject,

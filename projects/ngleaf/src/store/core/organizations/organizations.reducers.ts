@@ -148,6 +148,8 @@ export function organizationsReducer(reducerState, action): OrganizationsState {
       (state: OrganizationsState, {data}) => ({
         ...state,
         updateProfile: asyncTypeSuccess(state.updateProfile, data),
+        myOrganizations: asyncUpsert(data, state.myOrganizations),
+        allOrganizations: asyncUpsert(data, state.allOrganizations),
       })
     ),
     on(
