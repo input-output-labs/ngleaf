@@ -37,6 +37,9 @@ import {
   NotificationsWidgetModule,
   EligibilitiesApiClientModule,
   EligibilitiesEffects,
+  LanguageModel,
+  LANGUAGE_CODES,
+  LeafLanguageService,
 } from '@input-output-labs/ngleaf';
 
 import { StoreModule } from '@ngrx/store';
@@ -74,6 +77,19 @@ const leafConfig: LeafConfig = {
 
 const leafApiClientConfig: LeafApiClientConfig = {
   serverUrl: environment.serverUrl
+};
+
+const languageDefaultConfig: { [key: string]: LanguageModel } = {
+  en: {
+    languageCode: 'en',
+    translationKey: 'English',
+    iconPath: '/assets/i18n/en.png',
+  },
+  fr: {
+    languageCode: 'fr',
+    translationKey: 'Français',
+    iconPath: '/assets/i18n/fr.png',
+  },
 };
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -154,14 +170,21 @@ export class LocaleDateAdapter extends NativeDateAdapter {
     provide: DateAdapter,
     useClass: LocaleDateAdapter
    },
-   {provide: Window, useValue: window}
+   {provide: Window, useValue: window},
+    { provide: LANGUAGE_CODES, useValue: languageDefaultConfig }
   ],
   bootstrap: [AppComponent],
 })
 export class AppModule {
-  constructor(leafSession: LeafSessionService, leafWebSocketService: LeafWebSocketService, translate: TranslateService) {
+  constructor(
+    leafSession: LeafSessionService,
+    leafWebSocketService: LeafWebSocketService,
+    translate: TranslateService,
+    languageService: LeafLanguageService
+  ) {
     translate.setDefaultLang('en');
     translate.use('en');
+    languageService.initializeLanguage(undefined, 'en', true);
 
     leafSession.init();
     leafWebSocketService.init();

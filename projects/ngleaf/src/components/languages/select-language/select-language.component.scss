@@ -3,6 +3,27 @@
   margin-right: 1em;
 }
 
+.language-icon {
+  height: 1em;
+  margin-right: .5em;
+  vertical-align: middle;
+  transform: scale(0.8);
+}
+
+.reduced-icon .language-icon {
+  transform: scale(1);
+}
+
+.selected-image-flag {
+  height: 1.2em;
+  margin-right: 1.4em;
+  vertical-align: middle;
+}
+
+.reduced-icon .selected-image-flag {
+  height: auto;
+}
+
 .language-item {
     display: flex;
     align-items: center;

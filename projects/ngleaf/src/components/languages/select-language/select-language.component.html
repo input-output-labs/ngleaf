@@ -8,7 +8,15 @@
 </button> -->
 
 <a mat-icon-button [matMenuTriggerFor]="menu" *ngIf="reduced">
-  <mat-icon>language</mat-icon>
+  <div class="reduced-icon">
+    <ng-container
+      *ngTemplateOutlet="languageIconTemplate; context: {
+      showSelectedFlagIcon: showSelectedFlagIcon,
+      selectedLanguage: selectedLanguage,
+      languageCodesPerLangue: languageCodesPerLangue
+    }">
+    </ng-container>
+  </div>
 </a>
 <button
   mat-button
@@ -16,7 +24,13 @@
   class="full-width menu-item-link"
   *ngIf="!reduced"
 >
-  <mat-icon>language</mat-icon>
+  <ng-container
+    *ngTemplateOutlet="languageIconTemplate; context: {
+    showSelectedFlagIcon: showSelectedFlagIcon,
+    selectedLanguage: selectedLanguage,
+    languageCodesPerLangue: languageCodesPerLangue
+  }">
+  </ng-container>
   <span>
     {{ placeholderTranslationKeyMenu | translate }}
   </span>
@@ -38,3 +52,16 @@
     </div>
   </button>
 </mat-menu>
+
+<ng-template #languageIconTemplate let-showSelectedFlagIcon="showSelectedFlagIcon" let-selectedLanguage="selectedLanguage" let-languageCodesPerLangue="languageCodesPerLangue">
+  <ng-container *ngIf="showSelectedFlagIcon && !!selectedLanguage; else languageIcon">
+    <img
+      class="selected-image-flag"
+      [src]="languageCodesPerLangue[selectedLanguage.languageCode].iconPath"
+      alt="image flag"
+    />
+  </ng-container>
+  <ng-template #languageIcon>
+    <mat-icon class="language-icon">language</mat-icon>
+  </ng-template>
+</ng-template>
