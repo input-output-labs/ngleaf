@@ -33,9 +33,7 @@ export class TemplatesComponent {
     });
   }
 
-  onDone() {
-    console.log('password forgotten done');
-  }
+  onDone() {}
 
   public genericFormConfig: GenericFormConfig = {
     titleKey: 'formName',

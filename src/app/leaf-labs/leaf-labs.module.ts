@@ -17,6 +17,8 @@ import { MessengerModule } from "./messenger/messenger.module";
 import { SponsoringModule } from "./sponsoring/sponsoring.module";
 import { PaymentComponent } from "./payment/payment.component";
 import { PaymentModule } from "./payment/payment.module";
+import { RedirectionComponent } from "./redirection/redirection.component";
+import { RedirectionModule } from "./redirection/redirection.module";
 
 const routes: Routes = [
   {
@@ -50,6 +52,10 @@ const routes: Routes = [
         path: "payment",
         component: PaymentComponent,
       },
+      {
+        path: "redirection",
+        component: RedirectionComponent,
+      },
     ],
   },
 ];
@@ -64,6 +70,7 @@ const routes: Routes = [
     LeafSponsoringResolverModule,
     LeafSponsorCodeInterceptorGuardModule,
     PaymentModule,
+    RedirectionModule,
     /* App deps */
     LeafLabsLayoutModule,
   ],

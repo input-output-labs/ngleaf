@@ -13,6 +13,7 @@ export * from './password-changing.model';
 export * from './password-resetting.model';
 export * from './payment';
 export * from './registration.model';
+export * from './redirection.model';
 export * from './leaf-setup.model';
 export * from './sponsoring.model';
 export * from './leaf-eligilibities';

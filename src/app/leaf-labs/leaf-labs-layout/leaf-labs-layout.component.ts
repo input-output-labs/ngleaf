@@ -36,6 +36,11 @@ export class LeafLabsLayoutComponent implements OnInit {
         link: "./payment",
         index: 4,
       },
+      {
+        labelKey: "app.leaf-labs.layout.redirectionLinkLabel",
+        link: "./redirection",
+        index: 5,
+      },
     ];
   }
 

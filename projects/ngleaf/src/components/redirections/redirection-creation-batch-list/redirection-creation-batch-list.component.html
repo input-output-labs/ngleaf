@@ -1,0 +1,14 @@
+<mat-progress-bar mode="indeterminate" *ngIf="!(redirectionCreationBatches$ | async)"></mat-progress-bar>
+<ng-container *ngIf="(redirectionCreationBatches$ | async) as batches">
+  <mat-accordion>
+    <mat-expansion-panel *ngFor="let batch of batches" (opened)="openBatch(batch)">
+      <mat-expansion-panel-header>
+        <mat-panel-title> {{batch.id}} </mat-panel-title>
+        <mat-panel-description>
+          From {{batch.startAt}} to {{batch.endAt}}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <leaf-redirections-list [batchId]="batch.id" [canLoad]="redirectionCreationBatchesOpenState[batch.id]"></leaf-redirections-list>
+    </mat-expansion-panel>
+  </mat-accordion>
+</ng-container>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ValidatorFn, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login-page',
@@ -6,6 +7,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./register-page.component.scss']
 })
 export class RegisterPageComponent {
+
+  public loginValidators: ValidatorFn[] = [Validators.required, Validators.email];
 
   constructor() { }
 
