@@ -1,0 +1,14 @@
+<form [formGroup]="redirectionCreationBatchFormGroup" class="form-group" [class.inline]="inline">
+  <mat-form-field subscriptSizing="dynamic">
+    <mat-label>Comment</mat-label>
+    <input matInput formControlName="comment">
+  </mat-form-field>
+  <mat-form-field subscriptSizing="dynamic">
+    <mat-label>Size</mat-label>
+    <input matInput type="number" step="5" formControlName="size">
+  </mat-form-field>
+  <button mat-stroked-button (click)="submit()" class="submit-button" [disabled]="creationPending$ | async">
+    <span *ngIf="!(creationPending$ | async)">Create</span>
+    <mat-spinner diameter="24" *ngIf="(creationPending$ | async)"></mat-spinner>
+  </button>
+</form>

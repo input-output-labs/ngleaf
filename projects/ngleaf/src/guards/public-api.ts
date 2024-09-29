@@ -5,3 +5,4 @@ export * from './sponsoring/index';
 export * from './profile/index';
 export * from './organization-selected/index';
 export * from './leaf-common-eligibility.guard';
+export * from './redirections/index';

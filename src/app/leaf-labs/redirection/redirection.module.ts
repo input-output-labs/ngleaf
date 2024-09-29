@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RedirectionComponent } from './redirection.component';
-import { RedirectionCreationBatchListModule } from '@input-output-labs/ngleaf';
+import { RedirectionCreationBatchListModule, LeafRedirectionCreationBatchFormModule } from '@input-output-labs/ngleaf';
 import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
@@ -12,6 +12,7 @@ import { MatDividerModule } from '@angular/material/divider';
     MatDividerModule,
     /* leaf deps */
     RedirectionCreationBatchListModule,
+    LeafRedirectionCreationBatchFormModule,
   ],
   declarations: [RedirectionComponent],
   exports: [RedirectionComponent]
