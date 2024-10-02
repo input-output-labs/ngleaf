@@ -24,7 +24,7 @@ export class LeafRedirectionsGuardService  {
     return this.redirectionApiClient.findById(redirectionHexId, true).pipe(
       map((redirection: LeafRedirection) => {
         if (redirection?.redirectUrl) {
-          this.router.navigateByUrl(redirection.redirectUrl);
+          location.replace(redirection.redirectUrl);
           return false;
         } else {
           return true;
