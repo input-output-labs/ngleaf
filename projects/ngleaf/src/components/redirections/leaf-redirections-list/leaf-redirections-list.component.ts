@@ -72,7 +72,7 @@ export class LeafRedirectionsListComponent implements OnInit, OnChanges {
 
   doSubmit(redirection: LeafRedirection) {
     this.ongoingUpdates[redirection.id] = true;
-    lastValueFrom(this.redirectionApiClient.updateById(redirection.id, {redirectUrl: this.controls[redirection.id].value})).then((updatedRedirection) => {
+    lastValueFrom(this.redirectionApiClient.updateById(redirection.id, {redirectUrl: this.controls[redirection.id].value}, false)).then((updatedRedirection) => {
       this.ongoingUpdates[redirection.id] = false;
       this.controls[redirection.id].markAsPristine();
       this.justSaved[redirection.id] = true;
