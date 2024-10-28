@@ -134,6 +134,11 @@
       "submitLabel": "Changer le mot de passe",
       "differentPasswordError": "Le mot de passe et sa validation doivent être identiques"
     },
+    "phone-number-form-field": {
+      "countryLabel": "Pays",
+      "numberLabel": "Numéro",
+      "validityHint": "Exemple: {{example}}"
+    },
     "profile-update": {
       "username-form-group-title": "Nom d'utilisateur",
       "username-input-placeholder": "Nom d'utilisateur",

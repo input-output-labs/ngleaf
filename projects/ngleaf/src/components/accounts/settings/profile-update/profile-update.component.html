@@ -67,23 +67,10 @@
     </ng-container>
     <ng-container *ngIf="fields.includes('phoneNumber')">
       <div class="form-group-title" *ngIf="!hideGroupTitles">{{ 'leaf.profile-update.phoneNumber-form-group-title' | translate }}</div>
-      <mat-form-field subscriptSizing="dynamic" [appearance]="fieldAppearance">
-        <mat-label>{{ 'leaf.profile-update.phoneNumber-input-placeholder' | translate }}</mat-label>
-        <input
-          matInput
-          id="phoneNumber"
-          [placeholder]="
-            'leaf.profile-update.phoneNumber-input-placeholder' | translate
-          "
-          value=""
-          formControlName="phoneNumber"
-        />
-        <mat-error
-          *ngIf="profileFormGroup.controls.phoneNumber.hasError('required')"
-        >
-          {{ "leaf.profile-update.requiredError" | translate }}
-        </mat-error>
-      </mat-form-field>
+      <leaf-phone-number-form-field [countryCodes]="countryCodes" formControlName="phoneNumber" [appearance]="fieldAppearance"></leaf-phone-number-form-field>
+      <mat-error *ngIf="profileFormGroup.controls.phoneNumber.hasError('required')">
+        {{ "leaf.profile-update.requiredError" | translate }}
+      </mat-error>
     </ng-container>
     <ng-container *ngIf="fields.includes('address')">
       <div class="form-group-title" *ngIf="!hideGroupTitles">{{ 'leaf.profile-update.address-form-group-title' | translate }}</div>

@@ -10,6 +10,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { LeafImageUploadModule } from '../../../files';
 import { LeafAddressFormModule } from '../../../common';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { PhoneNumberFormFieldModule } from '../../phone-number-form-field/phone-number-form-field.module';
 
 @NgModule({
   imports: [
@@ -26,6 +27,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     LeafImageUploadModule,
     LeafAddressFormModule,
     MatCheckboxModule,
+    PhoneNumberFormFieldModule,
   ],
   declarations: [ProfileUpdateComponent],
   exports: [ProfileUpdateComponent]

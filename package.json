@@ -41,6 +41,7 @@
     "@ngx-translate/http-loader": "~7.0.0",
     "@stomp/rx-stomp": "~2.0.0",
     "@swimlane/ngx-charts": "~20.1.0",
+    "awesome-phonenumber": "^7.2.0",
     "cookieconsent": "~3.1.1",
     "core-js": "~3.20.2",
     "lodash-es": "~4.17.21",

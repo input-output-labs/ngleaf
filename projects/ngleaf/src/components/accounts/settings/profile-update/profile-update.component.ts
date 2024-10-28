@@ -39,6 +39,9 @@ export class ProfileUpdateComponent implements OnChanges, OnDestroy {
   @Input()
   public target: "account" | "organization" = "account";
 
+  @Input()
+  public countryCodes: string[] | null = null;
+
   public currentProfile$: Observable<LeafAccountProfile>;
 
   public target$: Subject<"account" | "organization"> = new Subject();
@@ -63,7 +66,7 @@ export class ProfileUpdateComponent implements OnChanges, OnDestroy {
       this.fields.reduce(
         (config, field) => ({
           ...config,
-          [field]: ["", this.mandatoryFields.includes(field) ? Validators.required : null],
+          [field]: ["+33687511578", this.mandatoryFields.includes(field) ? Validators.required : null],
         }),
         {}
       )
@@ -73,6 +76,7 @@ export class ProfileUpdateComponent implements OnChanges, OnDestroy {
       this.currentProfile$.subscribe(
         (profile) => {
           this.fields.forEach((field) => {
+            console.log("Field updated: ", field);
             this.profileFormGroup.controls[field].setValue(profile[field]);
           });
         }

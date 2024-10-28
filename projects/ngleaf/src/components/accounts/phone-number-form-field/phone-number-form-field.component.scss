@@ -1,0 +1,13 @@
+.form-wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+
+  .phone_country {
+    flex: 1;
+  }
+
+  .phone_number {
+    flex: 2;
+  }
+}
