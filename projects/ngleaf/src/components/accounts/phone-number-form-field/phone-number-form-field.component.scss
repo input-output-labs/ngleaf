@@ -1,6 +1,7 @@
+@import "../../../styling/flex.scss";
+
 .form-wrapper {
   display: flex;
-  flex-direction: row;
   gap: 0.5rem;
 
   .phone_country {
