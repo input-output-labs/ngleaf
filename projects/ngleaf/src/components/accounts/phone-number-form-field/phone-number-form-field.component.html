@@ -1,5 +1,5 @@
 <form class="profile" [formGroup]="profileForm">
-  <div formGroupName="phone" class="form-wrapper">
+  <div formGroupName="phone" class="form-wrapper" [ngClass]="{'column': !alignHorizontally, 'row': alignHorizontally}">
       <mat-form-field class="phone_country" subscriptSizing="dynamic" [appearance]="appearance">
           <mat-label>{{ 'leaf.phone-number-form-field.countryLabel' | translate }}</mat-label>
           <mat-select formControlName="country" (selectionChange)="formatNumber()">

@@ -30,6 +30,9 @@ export class PhoneNumberFormFieldComponent implements OnChanges, ControlValueAcc
   @Input()
   public appearance: MatFormFieldAppearance = "fill";
 
+  @Input()
+  public alignHorizontally = true;
+
   profileForm = this.fb.group({
     phone: this.fb.group({
       country: ['US'],
