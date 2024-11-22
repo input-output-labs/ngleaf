@@ -29,6 +29,11 @@ export class LeafSessionService {
   ) {}
 
   public init() {
+    const searchParams = new URLSearchParams(window.location.search);
+    if (searchParams.get("l_tkn")) {
+      localStorage.setItem('jwtoken', searchParams.get("l_tkn"));
+    }
+
     const jwtoken = localStorage.getItem('jwtoken');
     if (jwtoken) {
       this.store.dispatch(setSessionToken({sessionToken: {token: jwtoken}}));

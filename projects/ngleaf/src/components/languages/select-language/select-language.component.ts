@@ -34,7 +34,7 @@ export class SelectLanguageComponent {
   @Input()
   public placeholderTranslationKeyMenu = "leaf.select-language.menu";
 
-  @Input() 
+  @Input()
   public reduced = false;
 
   @Output()

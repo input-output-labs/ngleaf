@@ -14,7 +14,7 @@
         value=""
         formControlName="password"
       />
-      <button *ngIf="enablePasswordCheck" matSuffix mat-icon-button (click)="showPassword = !showPassword">
+      <button *ngIf="enablePasswordCheck" matSuffix mat-icon-button (click)="showPassword = !showPassword" type="button">
         <mat-icon>{{ showPassword ? 'visibility' : 'visibility_off'}}</mat-icon>
       </button>
     </mat-form-field>
