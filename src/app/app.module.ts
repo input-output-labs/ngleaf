@@ -83,7 +83,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 @Injectable()
 export class LocaleDateAdapter extends NativeDateAdapter {
   constructor(@Inject(LOCALE_ID) public locale: string) {
-    super(locale, new Platform(0));
+    super(locale);
   }
 
   getFirstDayOfWeek() {
