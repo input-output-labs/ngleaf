@@ -34,9 +34,9 @@
     "@angular/platform-browser-dynamic": "~18.2.13",
     "@angular/router": "~18.2.13",
     "@angular/service-worker": "~18.2.13",
-    "@ngrx/effects": "~17.2.0",
-    "@ngrx/store": "~17.2.0",
-    "@ngrx/store-devtools": "~17.2.0",
+    "@ngrx/effects": "~18.1.1",
+    "@ngrx/store": "~18.1.1",
+    "@ngrx/store-devtools": "~18.1.1",
     "@ngx-translate/core": "~15.0.0",
     "@ngx-translate/http-loader": "~8.0.0",
     "@stomp/rx-stomp": "~2.0.0",
@@ -50,7 +50,8 @@
     "prettier": "~2.5.1",
     "rxjs": "~7.5.2",
     "tslib": "^2.0.0",
-    "zone.js": "~0.14.0"
+    "zone.js": "~0.14.0",
+    "@ngrx/operators": "^18.0.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~18.2.12",
