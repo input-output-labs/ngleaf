@@ -42,7 +42,7 @@ import {
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { CommonModule, getLocaleFirstDayOfWeek } from '@angular/common';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { EffectsModule } from '@ngrx/effects';
@@ -91,73 +91,63 @@ export class LocaleDateAdapter extends NativeDateAdapter {
   }
 }
 
-@NgModule({
-  declarations: [AppComponent],
-  imports: [
-    CommonModule,
-    BrowserModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    AppRouteModule,
-    FormsModule,
-    /* Translation module */
-    TranslateModule.forRoot({
-      defaultLanguage: 'en',
-      loader: {
-          provide: TranslateLoader,
-          useFactory: HttpLoaderFactory,
-          deps: [HttpClient]
-      }
-    }),
-    /* Material design library import */
-    MatNativeDateModule,
-    /* Leaf library import */
-    LeafConfigServiceModule.forRoot(leafConfig),
-    LeafApiClientConfigServiceModule.forRoot(leafApiClientConfig),
-    // Stores
-    EffectsModule.forRoot([SessionEffects, StatisticsEffects, NotificationsEffects, MessengerEffects, EmailingEffects, SponsoringEffects, EligibilitiesEffects]),
-    StoreModule.forRoot(
-      {
-        ...leafCoreStore,
-        messenger: messengerReducer,
-        sponsoring: sponsoringReducer
-      }
-    ),
-    StoreDevtoolsModule.instrument({
-      maxAge: 25, // Retains last 25 states
-      logOnly: environment.production, // Restrict extension to log-only mode
-    }),
-    // Services
-    LeafAdminModule,
-    LeafWebSocketModule,
-    LeafSessionModule,
-    LeafUploadFileModule,
-    NotificationApiClientModule,
-    EligibilitiesApiClientModule,
-    // Directive
-    AdaptiveViewModule,
-    // Components
-    LeafPasswordForgottenVanillaModule,
-    GenericFormModule,
-    LeafNavigationModule,
-    LeafHeaderAccountModule,
-    AdminSettingsPageModule,
-    NotificationsWidgetModule,
-    ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: !isDevMode(),
-      // Register the ServiceWorker as soon as the application is stable
-      // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
-    }),
-  ],
-  providers: [{
-    provide: DateAdapter,
-    useClass: LocaleDateAdapter
-   },
-   {provide: Window, useValue: window}
-  ],
-  bootstrap: [AppComponent],
-})
+@NgModule({ declarations: [AppComponent],
+    bootstrap: [AppComponent], imports: [CommonModule,
+        BrowserModule,
+        BrowserAnimationsModule,
+        AppRouteModule,
+        FormsModule,
+        /* Translation module */
+        TranslateModule.forRoot({
+            defaultLanguage: 'en',
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient]
+            }
+        }),
+        /* Material design library import */
+        MatNativeDateModule,
+        /* Leaf library import */
+        LeafConfigServiceModule.forRoot(leafConfig),
+        LeafApiClientConfigServiceModule.forRoot(leafApiClientConfig),
+        // Stores
+        EffectsModule.forRoot([SessionEffects, StatisticsEffects, NotificationsEffects, MessengerEffects, EmailingEffects, SponsoringEffects, EligibilitiesEffects]),
+        StoreModule.forRoot({
+            ...leafCoreStore,
+            messenger: messengerReducer,
+            sponsoring: sponsoringReducer
+        }),
+        StoreDevtoolsModule.instrument({
+            maxAge: 25, // Retains last 25 states
+            logOnly: environment.production, // Restrict extension to log-only mode
+        }),
+        // Services
+        LeafAdminModule,
+        LeafWebSocketModule,
+        LeafSessionModule,
+        LeafUploadFileModule,
+        NotificationApiClientModule,
+        EligibilitiesApiClientModule,
+        // Directive
+        AdaptiveViewModule,
+        // Components
+        LeafPasswordForgottenVanillaModule,
+        GenericFormModule,
+        LeafNavigationModule,
+        LeafHeaderAccountModule,
+        AdminSettingsPageModule,
+        NotificationsWidgetModule,
+        ServiceWorkerModule.register('ngsw-worker.js', {
+            enabled: !isDevMode(),
+            // Register the ServiceWorker as soon as the application is stable
+            // or after 30 seconds (whichever comes first).
+            registrationStrategy: 'registerWhenStable:30000'
+        })], providers: [{
+            provide: DateAdapter,
+            useClass: LocaleDateAdapter
+        },
+        { provide: Window, useValue: window }, provideHttpClient(withInterceptorsFromDi())] })
 export class AppModule {
   constructor(leafSession: LeafSessionService, leafWebSocketService: LeafWebSocketService, translate: TranslateService) {
     translate.setDefaultLang('en');
