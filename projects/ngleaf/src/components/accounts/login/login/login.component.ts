@@ -37,6 +37,8 @@ export class LeafLoginComponent implements OnInit {
   public variant: "vanilla" | "material" = "material";
   @Input()
   public color = "primary";
+  @Input()
+  public loginInitialValue: "";
 
   @Output()
   public onError: EventEmitter<LeafLoginError> = new EventEmitter<LeafLoginError>();
@@ -52,7 +54,7 @@ export class LeafLoginComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      login: ["", this.loginValidators],
+      login: [this.loginInitialValue, this.loginValidators],
       password: ["", this.passwordValidators],
     });
   }

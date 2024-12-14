@@ -35,6 +35,8 @@ export class LeafPasswordForgottenComponent implements OnInit {
   public passwordValidators: ValidatorFn[] = [Validators.required];
   @Input()
   public color = "primary";
+  @Input()
+  public emailInitialValue = "";
 
   @Output()
   public onError: EventEmitter<LeafPasswordForgottenError> = new EventEmitter<LeafPasswordForgottenError>();
@@ -55,7 +57,7 @@ export class LeafPasswordForgottenComponent implements OnInit {
 
   ngOnInit() {
     this.sendPasswordChangeForm = this.formBuilder.group({
-      email: ["", this.emailValidators],
+      email: [this.emailInitialValue, this.emailValidators],
     });
     this.passwordChangeForm = this.formBuilder.group({
       passwordChangeKey: ["", this.passwordChangeKeyValidators],
