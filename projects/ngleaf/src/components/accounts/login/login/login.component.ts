@@ -39,9 +39,17 @@ export class LeafLoginComponent implements OnInit {
   public color = "primary";
   @Input()
   public loginInitialValue: "";
+  @Input()
+  public skipRedirect: boolean = false;
 
   @Output()
   public onError: EventEmitter<LeafLoginError> = new EventEmitter<LeafLoginError>();
+
+  @Output()
+  public onSuccess: EventEmitter<void> = new EventEmitter<void>();
+
+  @Output()
+  public onFailure: EventEmitter<void> = new EventEmitter<void>();
 
   public loginForm: UntypedFormGroup;
 
@@ -62,7 +70,11 @@ export class LeafLoginComponent implements OnInit {
   login() {
     if (this.loginForm.valid) {
       const { login, password } = this.loginForm.getRawValue();
-      this.sessionService.login(login, password);
+      this.sessionService.login(login, password, {
+        onSuccess: () => this.onSuccess.emit(),
+        onFailure: () => this.onFailure.emit(),
+        skipRedirect: this.skipRedirect
+      });
     } else {
       this.onError.emit({
         login: this.loginForm.controls.login.errors,
