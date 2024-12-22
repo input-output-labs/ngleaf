@@ -49,7 +49,7 @@
         <i [ngClass]="passwordCheckClasses.show"></i>
       </div>
     </div>
-    <div class="field-wrapper login-wrapper">
+    <div class="field-wrapper login-wrapper" *ngIf="passwordConfirmation">
       <input class="field passwordValidation" [type]="showPassword ? 'text' : 'password'" formControlName="passwordValidation" [attr.placeholder]="'leaf.register.passwordValidationLabel' | translate" />
       <div
         *ngIf="enablePasswordCheck && passwordCheckClasses && showPassword"

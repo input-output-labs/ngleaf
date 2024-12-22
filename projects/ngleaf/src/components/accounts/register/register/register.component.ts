@@ -52,7 +52,7 @@ export class LeafRegisterComponent implements OnInit {
     this.registerForm = this.formBuilder.group({
       login: [this.loginInitialValue, this.loginValidators],
       password: ["", this.passwordValidators],
-      passwordValidation: ["", this.passwordValidators],
+      passwordValidation: ["", this.passwordConfirmation ? this.passwordValidators : []],
     });
   }
 
