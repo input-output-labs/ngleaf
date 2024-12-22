@@ -16,9 +16,9 @@ export type LeafRegisterPasswordCheckClasses = {
 };
 
 @Component({
-  selector: 'leaf-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  selector: "leaf-register",
+  templateUrl: "./register.component.html",
+  styleUrls: ["./register.component.scss"],
 })
 export class LeafRegisterComponent implements OnInit {
   @Input()
@@ -31,6 +31,10 @@ export class LeafRegisterComponent implements OnInit {
   public passwordValidators: ValidatorFn[] = [Validators.required];
   @Input()
   public variant: "vanilla" | "material" = "material";
+  @Input()
+  public loginInitialValue: "";
+  @Input()
+  public passwordConfirmation = true;
 
   @Output()
   public onError: EventEmitter<LeafRegisterError> = new EventEmitter<LeafRegisterError>();
@@ -41,14 +45,14 @@ export class LeafRegisterComponent implements OnInit {
 
   constructor(
     private formBuilder: UntypedFormBuilder,
-    private leafSessionService: LeafSessionService,
+    private leafSessionService: LeafSessionService
   ) {}
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
-      login: ['', this.loginValidators],
-      password: ['', this.passwordValidators],
-      passwordValidation: ['', this.passwordValidators],
+      login: [this.loginInitialValue, this.loginValidators],
+      password: ["", this.passwordValidators],
+      passwordValidation: ["", this.passwordValidators],
     });
   }
 
@@ -56,8 +60,9 @@ export class LeafRegisterComponent implements OnInit {
     const inputToControl = this.registerForm.get(inputName);
     return (
       inputToControl &&
-      inputToControl.getError('required') &&
-      (inputToControl.dirty && inputToControl.touched)
+      inputToControl.getError("required") &&
+      inputToControl.dirty &&
+      inputToControl.touched
     );
   }
 
@@ -65,28 +70,27 @@ export class LeafRegisterComponent implements OnInit {
     event.stopPropagation();
     event.preventDefault();
     if (this.registerForm.valid) {
-      const {
-        login,
-        password,
-        passwordValidation,
-      } = this.registerForm.getRawValue();
-      if (password === passwordValidation) {
+      const { login, password, passwordValidation } =
+        this.registerForm.getRawValue();
+      if (password === passwordValidation || this.passwordConfirmation === false) {
         this.leafSessionService.register(login, password);
       } else {
         this.onError.emit({
           login: this.registerForm.controls.login.errors,
           password: {
             ...this.registerForm.controls.password.errors,
-            identical: true
+            identical: true,
           },
-          passwordValidation: this.registerForm.controls.passwordValidation.errors
+          passwordValidation:
+            this.registerForm.controls.passwordValidation.errors,
         });
       }
     } else {
       this.onError.emit({
         login: this.registerForm.controls.login.errors,
         password: this.registerForm.controls.password.errors,
-        passwordValidation: this.registerForm.controls.passwordValidation.errors
+        passwordValidation:
+          this.registerForm.controls.passwordValidation.errors,
       });
     }
   }
