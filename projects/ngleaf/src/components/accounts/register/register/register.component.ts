@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { Store } from '@ngrx/store';
 
 import { LeafSessionService } from '../../../../services/index';
 
@@ -35,9 +34,17 @@ export class LeafRegisterComponent implements OnInit {
   public loginInitialValue: "";
   @Input()
   public passwordConfirmation = true;
+  @Input()
+  public skipRedirect: boolean = false;
 
   @Output()
   public onError: EventEmitter<LeafRegisterError> = new EventEmitter<LeafRegisterError>();
+
+  @Output()
+  public onSuccess: EventEmitter<void> = new EventEmitter<void>();
+
+  @Output()
+  public onFailure: EventEmitter<void> = new EventEmitter<void>();
 
   public registerForm: UntypedFormGroup;
 
@@ -52,7 +59,10 @@ export class LeafRegisterComponent implements OnInit {
     this.registerForm = this.formBuilder.group({
       login: [this.loginInitialValue, this.loginValidators],
       password: ["", this.passwordValidators],
-      passwordValidation: ["", this.passwordConfirmation ? this.passwordValidators : []],
+      passwordValidation: [
+        "",
+        this.passwordConfirmation ? this.passwordValidators : [],
+      ],
     });
   }
 
@@ -72,8 +82,15 @@ export class LeafRegisterComponent implements OnInit {
     if (this.registerForm.valid) {
       const { login, password, passwordValidation } =
         this.registerForm.getRawValue();
-      if (password === passwordValidation || this.passwordConfirmation === false) {
-        this.leafSessionService.register(login, password);
+      if (
+        password === passwordValidation ||
+        this.passwordConfirmation === false
+      ) {
+        this.leafSessionService.register(login, password, {
+          onSuccess: () => this.onSuccess.emit(),
+          onFailure: () => this.onFailure.emit(),
+          skipRedirect: this.skipRedirect,
+        });
       } else {
         this.onError.emit({
           login: this.registerForm.controls.login.errors,
