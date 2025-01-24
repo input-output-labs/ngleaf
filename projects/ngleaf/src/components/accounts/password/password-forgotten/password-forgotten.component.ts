@@ -1,7 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import {
+  AbstractControl,
   UntypedFormBuilder,
   UntypedFormGroup,
+  ValidationErrors,
   ValidatorFn,
   Validators,
 } from "@angular/forms";
@@ -20,6 +22,18 @@ import {
   LeafPasswordForgottenError,
   LeafPasswordForgottenState,
 } from "../password-forgotten.models";
+
+function passwordMatchValidator(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const password = control.get('password');
+    const passwordValidation = control.get('passwordValidation');
+
+    if (password && passwordValidation && password.value !== passwordValidation.value) {
+      return { passwordsMismatch: true };
+    }
+    return null;
+  };
+}
 
 @Component({
   selector: "leaf-password-forgotten",
@@ -60,10 +74,12 @@ export class LeafPasswordForgottenComponent implements OnInit {
       email: [this.emailInitialValue, this.emailValidators],
     });
     this.passwordChangeForm = this.formBuilder.group({
-      passwordChangeKey: ["", this.passwordChangeKeyValidators],
-      password: ["", this.passwordValidators],
-      passwordValidation: ["", this.passwordValidators],
-    });
+        passwordChangeKey: ["", this.passwordChangeKeyValidators],
+        password: ["", this.passwordValidators],
+        passwordValidation: ["", this.passwordValidators],
+      },
+      { validators: passwordMatchValidator() }
+    );
     this.route.queryParams
       .pipe(
         take(1),

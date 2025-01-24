@@ -7,6 +7,7 @@ import { acceptInvitation, declineInvitation, getInvitationData, listMyOrganizat
 import { LeafConfig } from '../../../models/index';
 import { LeafConfigServiceToken } from '../../../services/leaf-config.module';
 import { Router } from '@angular/router';
+import { LeafSessionService } from '../../../services';
 
 @Component({
   selector: 'leaf-organization-invitation',
@@ -31,6 +32,7 @@ export class OrganizationInvitationComponent implements OnInit {
   constructor(
     private store: Store,
     private router: Router,
+    private leafSessionService: LeafSessionService,
     @Inject(LeafConfigServiceToken) public config: LeafConfig,
   ) {}
 
@@ -59,15 +61,16 @@ export class OrganizationInvitationComponent implements OnInit {
     ).subscribe((asyncItem) => {
       this.acceptationStatus.emit(asyncItem.status.success);
       if (asyncItem.status.success) {
-        this.store.dispatch(listMyOrganizations());
-        this.store.dispatch(setCurrentOrganizationId({selectedOrganizationId: this.organizationId}));
+        this.leafSessionService.setupAccountInfo().then(() => {
+          this.store.dispatch(setCurrentOrganizationId({selectedOrganizationId: this.organizationId}));
 
-        this.store.pipe(
-          select(selectMyOrganizations),
-          filter((asyncItem: AsyncType<any>) => !asyncItem.status.pending),
-          take(1)
-        ).subscribe(() => {
-          this.router.navigate([this.config.navigation.afterInvitationRedirect || '/']);
+          this.store.pipe(
+            select(selectMyOrganizations),
+            filter((asyncItem: AsyncType<any>) => !asyncItem.status.pending),
+            take(1)
+          ).subscribe(() => {
+            this.router.navigate([this.config.navigation.afterInvitationRedirect || '/']);
+          });
         });
       }
     });

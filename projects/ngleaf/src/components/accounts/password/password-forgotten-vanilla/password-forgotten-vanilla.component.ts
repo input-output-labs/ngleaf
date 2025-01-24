@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { filter, map, take } from 'rxjs';
@@ -7,6 +7,18 @@ import { filter, map, take } from 'rxjs';
 import { LeafSessionService } from '../../../../services/index';
 import { AsyncType, selectResetPassword, selectSendResetPasswordKey } from '../../../../store/index';
 import { LeafPasswordForgottenError, LeafPasswordForgottenState } from '../password-forgotten.models';
+
+function passwordMatchValidator(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const password = control.get('password');
+    const passwordValidation = control.get('passwordValidation');
+
+    if (password && passwordValidation && password.value !== passwordValidation.value) {
+      return { passwordsMismatch: true };
+    }
+    return null;
+  };
+}
 
 @Component({
   selector: 'leaf-password-forgotten-vanilla',
@@ -45,7 +57,8 @@ export class LeafPasswordForgottenVanillaComponent implements OnInit {
       passwordChangeKey: ['', this.passwordChangeKeyValidators],
       password: ['', this.passwordValidators],
       passwordValidation: ['', this.passwordValidators],
-    });
+    },
+          { validators: passwordMatchValidator() });
     this.route.queryParams
       .pipe(
         take(1),

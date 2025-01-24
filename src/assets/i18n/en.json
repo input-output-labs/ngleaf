@@ -73,6 +73,7 @@
         "changePasswordButtonLabel": "Change password",
         "passwordChangeKeyPlaceholder": "Enter password change key",
         "passwordPlaceholder": "Enter new password",
+        "passwordsMismatchError": "Password mismatch",
         "passwordValidationPlaceholder": "Confirm new password",
         "resendLinkLabel": "Resend email"
       },
@@ -84,6 +85,7 @@
       "passwordChangeKeyPlaceholder": "Enter password change key",
       "passwordLabel": "New password",
       "passwordPlaceholder": "Enter new password",
+      "passwordsMismatchError": "Password mismatch",
       "passwordValidationLabel": "New password validation",
       "passwordValidationPlaceholder": "Confirm new password",
       "resendLinkLabel": "Resend email"

@@ -84,6 +84,7 @@
         "changePasswordButtonLabel": "Changer le mot de passe",
         "passwordChangeKeyPlaceholder": "Entrez la clé de changement de mot de passe",
         "passwordPlaceholder": "Entrez le nouveau mot de passe",
+        "passwordsMismatchError": "Mots de passe differents",
         "passwordValidationPlaceholder": "Confirmer le nouveau mot de passe",
         "resendLinkLabel": "Renvoyer l'email"
       },
@@ -95,6 +96,7 @@
       "passwordChangeKeyPlaceholder": "Entrez la clé de changement de mot de passe",
       "passwordLabel": "Nouveau mot de passe",
       "passwordPlaceholder": "Entrez le nouveau mot de passe",
+      "passwordsMismatchError": "Mots de passe differents",
       "passwordValidationLabel": "Validation du nouveau mot de passe",
       "passwordValidationPlaceholder": "Confirmer le nouveau mot de passe",
       "resendLinkLabel": "Renvoyer l'email"

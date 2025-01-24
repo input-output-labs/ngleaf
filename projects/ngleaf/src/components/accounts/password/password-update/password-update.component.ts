@@ -1,8 +1,19 @@
-import { Component } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { distinctUntilChanged } from 'rxjs';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 
 import { LeafSessionService } from '../../../../services/index';
+
+function passwordMatchValidator(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const password = control.get('newPassword');
+    const passwordValidation = control.get('newPasswordValidation');
+
+    if (password && passwordValidation && password.value !== passwordValidation.value) {
+      return { passwordsMismatch: true };
+    }
+    return null;
+  };
+}
 
 @Component({
   selector: 'leaf-password-update',
@@ -12,26 +23,23 @@ import { LeafSessionService } from '../../../../services/index';
 export class PasswordUpdateComponent {
   public changePasswordForm: UntypedFormGroup;
 
+  @Output()
+  public onSuccess: EventEmitter<void> = new EventEmitter<void>();
+
+  @Output()
+  public onFailure: EventEmitter<void> = new EventEmitter<void>();
+
   constructor(
     public formBuilder: UntypedFormBuilder,
     public sessionService: LeafSessionService
   ) {
-    this.changePasswordForm = this.formBuilder.group({
-      oldPassword: ['', Validators.required],
-      newPassword: ['', Validators.required],
-      newPasswordValidation: ['', Validators.required],
-    });
-    this.changePasswordForm.controls.newPassword.valueChanges.pipe(distinctUntilChanged()).subscribe(
-      () => {
-        this.changePasswordForm.controls.newPassword.setErrors({'different': undefined});
-        this.changePasswordForm.controls.newPassword.updateValueAndValidity();
-      }
-    );
-    this.changePasswordForm.controls.newPasswordValidation.valueChanges.pipe(distinctUntilChanged()).subscribe(
-      () => {
-        this.changePasswordForm.controls.newPasswordValidation.setErrors({'different': undefined});
-        this.changePasswordForm.controls.newPasswordValidation.updateValueAndValidity();
-      }
+    this.changePasswordForm = this.formBuilder.group(
+      {
+        oldPassword: ['', Validators.required],
+        newPassword: ['', Validators.required],
+        newPasswordValidation: ['', Validators.required],
+      },
+      { validators: passwordMatchValidator() }
     );
   }
 
@@ -43,10 +51,14 @@ export class PasswordUpdateComponent {
         newPasswordValidation,
       } = this.changePasswordForm.getRawValue();
       if (newPassword === newPasswordValidation) {
-        this.sessionService.changePassword(oldPassword, newPassword);
-      } else {
-        this.changePasswordForm.controls.newPassword.setErrors({'different': true});
-        this.changePasswordForm.controls.newPasswordValidation.setErrors({'different': true});
+        this.sessionService.changePassword(
+          oldPassword,
+          newPassword,
+          {
+            onSuccess: () => this.onSuccess.emit(),
+            onFailure: () => this.onFailure.emit(),
+          }
+        );
       }
     }
   }

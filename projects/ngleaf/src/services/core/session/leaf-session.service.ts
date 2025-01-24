@@ -7,7 +7,7 @@ import { LeafAuthHttpClient, AccountApiClient, SponsoringApiClientService } from
 
 import { LeafConfig } from '../../../models/index';
 import { LeafConfigServiceToken } from '../../leaf-config.module';
-import { initializationDone, resetCurrentAccount, resetSessionToken, selectCurrentAccount, selectSessionToken, setCurrentAccountCall, setMailingsUnsubscriptionCall, setResetPasswordCall, setSendResetPasswordKeyCall, setSessionToken, setSessionTokenCall, setUpdatePasswordCall } from '../../../store/core/session/index';
+import { initializationDone, resetCurrentAccount, resetSessionToken, selectCurrentAccount, selectSessionToken, selectUpdatePassword, setCurrentAccountCall, setMailingsUnsubscriptionCall, setResetPasswordCall, setSendResetPasswordKeyCall, setSessionToken, setSessionTokenCall, setUpdatePasswordCall } from '../../../store/core/session/index';
 import { fetchNotificationsCall } from '../../../store/core/notifications/notifications.actions';
 import { listMyOrganizationsCall } from '../../../store/core/organizations/organizations.actions';
 import { fetchEligibilitesCall } from '../../../store/core/eligibilities/eligibilities.actions';
@@ -294,7 +294,7 @@ export class LeafSessionService {
     });
   }
 
-  public changePassword(oldPassword, newPassword) {
+  public changePassword(oldPassword, newPassword, options?: {onSuccess?: () => void, onFailure?: () => void}) {
     const passwordChanging = {
       oldPassword,
       newPassword
@@ -303,6 +303,22 @@ export class LeafSessionService {
     this.store.dispatch(setUpdatePasswordCall({
       call: this.accountApiClient.changePassword(passwordChanging)
     }));
+
+    if (options && (options.onSuccess || options.onFailure)) {
+      this.store.pipe(
+        select(selectUpdatePassword),
+        filter(asyncItem => !asyncItem.status.pending),
+        map(asyncItem => asyncItem.status),
+        take(1)
+      ).subscribe((status) => {
+        if (options.onSuccess && status.success) {
+          options.onSuccess();
+        }
+        if (options.onFailure && status.failure) {
+          options.onFailure();
+        }
+      });
+    }
   }
 
   public sendResetPasswordKey(email) {

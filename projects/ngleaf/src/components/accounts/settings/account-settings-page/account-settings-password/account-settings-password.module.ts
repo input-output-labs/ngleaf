@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { LeafSessionModule } from '../../../../../services/index';
 import { AccountSettingsPasswordComponent } from './account-settings-password.component';
 import { PasswordUpdateModule } from '../../../password/index';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [AccountSettingsPasswordComponent],
@@ -19,6 +20,7 @@ import { PasswordUpdateModule } from '../../../password/index';
     MatDividerModule,
     MatFormFieldModule,
     MatButtonModule,
+    MatDialogModule,
     /* Leaf deps*/
     LeafSessionModule,
     PasswordUpdateModule

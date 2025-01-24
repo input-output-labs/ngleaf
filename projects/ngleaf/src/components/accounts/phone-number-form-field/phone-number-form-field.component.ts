@@ -4,7 +4,7 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { ISO_3166_1_CODES } from './country-codes';
 import { getExample, ParsedPhoneNumber, parsePhoneNumber } from 'awesome-phonenumber';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
-import { combineLatest, map, Observable, of, ReplaySubject } from 'rxjs';
+import { map, ReplaySubject } from 'rxjs';
 
 @Component({
   selector: 'leaf-phone-number-form-field',

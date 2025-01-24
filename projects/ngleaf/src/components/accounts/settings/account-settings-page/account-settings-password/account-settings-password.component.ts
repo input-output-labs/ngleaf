@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'leaf-account-settings-password',
@@ -9,7 +10,13 @@ export class AccountSettingsPasswordComponent implements OnInit {
 
   public members: string[] = [];
 
-  constructor() {}
+  constructor(public dialogRef: MatDialogRef<AccountSettingsPasswordComponent>) {}
 
   ngOnInit() {}
+
+  public onPasswordChanged() {
+    if (this.dialogRef) {
+      this.dialogRef.close();
+    }
+  }
 }
