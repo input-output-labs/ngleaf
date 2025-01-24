@@ -15,7 +15,7 @@ import { map, ReplaySubject } from 'rxjs';
       provide: NG_VALUE_ACCESSOR,
       multi:true,
       useExisting: PhoneNumberFormFieldComponent
-    }
+    },
   ]
 })
 export class PhoneNumberFormFieldComponent implements OnChanges, ControlValueAccessor {
@@ -45,14 +45,14 @@ export class PhoneNumberFormFieldComponent implements OnChanges, ControlValueAcc
 
   onTouched = () => {};
 
+  onValidate = () => {};
+
   constructor(private fb: FormBuilder) {
     this.inputCountryCodes$.next(this.countryCodes);
 
     this.profileForm.valueChanges.subscribe(({phone}) => {
       const parsedPhoneNumber = parsePhoneNumber(phone.number, {regionCode: phone.country});
-      if (parsedPhoneNumber.valid) {
-        this.onChange(parsedPhoneNumber.number?.e164);
-      }
+      this.onChange(parsedPhoneNumber.number?.e164);
     });
   }
 
@@ -72,7 +72,6 @@ export class PhoneNumberFormFieldComponent implements OnChanges, ControlValueAcc
     this.onTouched = onTouched;
   }
   setDisabledState?(isDisabled: boolean): void {
-    console.log("setDisabledState: ", isDisabled);
     if (isDisabled) {
       this.profileForm.disable();
     } else {
