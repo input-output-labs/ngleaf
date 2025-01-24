@@ -153,7 +153,7 @@ export class LeafSessionService {
     this.store.dispatch(setSessionTokenCall({ call }));
   }
 
-  public register(email, password) {
+  public register(email, password, options?: {onSuccess?: () => void, onFailure?: () => void, skipRedirect?: boolean}) {
     const account = {
       email,
       password
@@ -162,15 +162,35 @@ export class LeafSessionService {
     const call = this.accountApiClient.register(account);
     this.store.dispatch(setSessionTokenCall({call}));
 
-    this.store.pipe(
-      select(selectCurrentAccount),
-      filter((currentAccount: AsyncType<LeafAccountModel>) => !currentAccount.status.pending && !!currentAccount.data),
-      take(1)
-    ).subscribe(() => {
-      const returnTo = this.activeRoute.snapshot.queryParams.return || this.config.navigation.registerSuccessRedirect || '/';
-      this.addSponsorIfPossible();
-      this.returnTo(returnTo);
-    });
+    if (!options || !options.skipRedirect) {
+      this.store.pipe(
+        select(selectCurrentAccount),
+        filter((currentAccount: AsyncType<LeafAccountModel>) => !currentAccount.status.pending && !!currentAccount.data),
+        take(1)
+      ).subscribe(() => {
+        const returnTo = this.activeRoute.snapshot.queryParams.return || this.config.navigation.registerSuccessRedirect || '/';
+        this.addSponsorIfPossible();
+        this.returnTo(returnTo);
+      });
+    }
+    
+    if (options && (options.onSuccess || options.onFailure)) {
+      this.store
+        .pipe(
+          select(selectSessionToken),
+          filter((sessionToken) => !sessionToken.status.pending),
+          map((sessionToken) => sessionToken.status),
+          take(1)
+        )
+        .subscribe((status) => {
+          if (options.onSuccess && status.success) {
+            options.onSuccess();
+          }
+          if (options.onFailure && status.failure) {
+            options.onFailure();
+          }
+        });
+    }
   }
 
   public login(email, password, options?: {onSuccess?: () => void, onFailure?: () => void, skipRedirect?: boolean}) {

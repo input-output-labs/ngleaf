@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { Store } from '@ngrx/store';
 
 import { LeafSessionService } from '../../../../services/index';
 
@@ -16,9 +15,9 @@ export type LeafRegisterPasswordCheckClasses = {
 };
 
 @Component({
-  selector: 'leaf-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  selector: "leaf-register",
+  templateUrl: "./register.component.html",
+  styleUrls: ["./register.component.scss"],
 })
 export class LeafRegisterComponent implements OnInit {
   @Input()
@@ -31,9 +30,21 @@ export class LeafRegisterComponent implements OnInit {
   public passwordValidators: ValidatorFn[] = [Validators.required];
   @Input()
   public variant: "vanilla" | "material" = "material";
+  @Input()
+  public loginInitialValue: "";
+  @Input()
+  public passwordConfirmation = true;
+  @Input()
+  public skipRedirect: boolean = false;
 
   @Output()
   public onError: EventEmitter<LeafRegisterError> = new EventEmitter<LeafRegisterError>();
+
+  @Output()
+  public onSuccess: EventEmitter<void> = new EventEmitter<void>();
+
+  @Output()
+  public onFailure: EventEmitter<void> = new EventEmitter<void>();
 
   public registerForm: UntypedFormGroup;
 
@@ -41,14 +52,17 @@ export class LeafRegisterComponent implements OnInit {
 
   constructor(
     private formBuilder: UntypedFormBuilder,
-    private leafSessionService: LeafSessionService,
+    private leafSessionService: LeafSessionService
   ) {}
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
-      login: ['', this.loginValidators],
-      password: ['', this.passwordValidators],
-      passwordValidation: ['', this.passwordValidators],
+      login: [this.loginInitialValue, this.loginValidators],
+      password: ["", this.passwordValidators],
+      passwordValidation: [
+        "",
+        this.passwordConfirmation ? this.passwordValidators : [],
+      ],
     });
   }
 
@@ -56,8 +70,9 @@ export class LeafRegisterComponent implements OnInit {
     const inputToControl = this.registerForm.get(inputName);
     return (
       inputToControl &&
-      inputToControl.getError('required') &&
-      (inputToControl.dirty && inputToControl.touched)
+      inputToControl.getError("required") &&
+      inputToControl.dirty &&
+      inputToControl.touched
     );
   }
 
@@ -65,28 +80,34 @@ export class LeafRegisterComponent implements OnInit {
     event.stopPropagation();
     event.preventDefault();
     if (this.registerForm.valid) {
-      const {
-        login,
-        password,
-        passwordValidation,
-      } = this.registerForm.getRawValue();
-      if (password === passwordValidation) {
-        this.leafSessionService.register(login, password);
+      const { login, password, passwordValidation } =
+        this.registerForm.getRawValue();
+      if (
+        password === passwordValidation ||
+        this.passwordConfirmation === false
+      ) {
+        this.leafSessionService.register(login, password, {
+          onSuccess: () => this.onSuccess.emit(),
+          onFailure: () => this.onFailure.emit(),
+          skipRedirect: this.skipRedirect,
+        });
       } else {
         this.onError.emit({
           login: this.registerForm.controls.login.errors,
           password: {
             ...this.registerForm.controls.password.errors,
-            identical: true
+            identical: true,
           },
-          passwordValidation: this.registerForm.controls.passwordValidation.errors
+          passwordValidation:
+            this.registerForm.controls.passwordValidation.errors,
         });
       }
     } else {
       this.onError.emit({
         login: this.registerForm.controls.login.errors,
         password: this.registerForm.controls.password.errors,
-        passwordValidation: this.registerForm.controls.passwordValidation.errors
+        passwordValidation:
+          this.registerForm.controls.passwordValidation.errors,
       });
     }
   }
