@@ -66,7 +66,7 @@ export class ProfileUpdateComponent implements OnChanges, OnDestroy {
       this.fields.reduce(
         (config, field) => ({
           ...config,
-          [field]: ["+33687511578", this.mandatoryFields.includes(field) ? Validators.required : null],
+          [field]: ["", this.mandatoryFields.includes(field) ? Validators.required : null],
         }),
         {}
       )
@@ -76,7 +76,6 @@ export class ProfileUpdateComponent implements OnChanges, OnDestroy {
       this.currentProfile$.subscribe(
         (profile) => {
           this.fields.forEach((field) => {
-            console.log("Field updated: ", field);
             this.profileFormGroup.controls[field].setValue(profile[field]);
           });
         }
