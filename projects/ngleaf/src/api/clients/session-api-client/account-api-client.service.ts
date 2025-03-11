@@ -121,14 +121,14 @@ export class AccountApiClient {
   }
 
   public sendEmailVerificationCode() {
-    return this.authHttp.post<void>(
+    return this.authHttp.post<LeafAccountModel>(
       this.config.serverUrl + "/account/me/verification/email/send",
       {}
     );
   }
 
   public validateEmailVerificationCode(code: string) {
-    return this.authHttp.post<void>(
+    return this.authHttp.post<LeafAccountModel>(
       this.config.serverUrl + "/account/me/verification",
       {
         type: "email",

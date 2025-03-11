@@ -84,7 +84,7 @@ export class SessionEffects {
   sendEmailVerificationCode$ = createEffect(() => this.actions$.pipe(
     ofType(sendEmailVerificationCode),
     switchMap(() => this.accountApiClient.sendEmailVerificationCode().pipe(
-      map(() => (setSendEmailVerificationCodeSuccess())),
+      map((data) => (setSendEmailVerificationCodeSuccess({data}))),
         catchError((error) => of(setSendEmailVerificationCodeFailure({error})))
       ))
     )
@@ -93,7 +93,7 @@ export class SessionEffects {
   validateEmailVerificationCode$ = createEffect(() => this.actions$.pipe(
     ofType(validateEmailVerificationCode),
     switchMap((payload: {code: string}) => this.accountApiClient.validateEmailVerificationCode(payload.code).pipe(
-      map(() => (setValidateEmailVerificationCodeSuccess())),
+      map((data) => (setValidateEmailVerificationCodeSuccess({data}))),
         catchError((error) => of(setValidateEmailVerificationCodeFailure({error})))
       ))
     )

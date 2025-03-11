@@ -68,11 +68,19 @@ export function sessionReducer(reducerState, action): SessionState {
     on(setMailingsUnsubscriptionFailure, (state: SessionState, {error}) => ({...state, mailingsUnsubscription: asyncTypeFailure(state.mailingsUnsubscription, error)})),
     /** SendEmailVerificationCode */
     on(sendEmailVerificationCode, (state: SessionState) => ({...state, sendEmailVerificationCode: createAsyncTypeFromCall()})),
-    on(setSendEmailVerificationCodeSuccess, (state: SessionState) => ({...state, sendEmailVerificationCode: asyncTypeSuccess(state.sendEmailVerificationCode)})),
+    on(setSendEmailVerificationCodeSuccess, (state: SessionState, {data}) => ({
+      ...state,
+      sendEmailVerificationCode: asyncTypeSuccess(state.sendEmailVerificationCode),
+      currentAccount: asyncTypeSuccess(state.currentAccount, data)
+    })),
     on(setSendEmailVerificationCodeFailure, (state: SessionState, {error}) => ({...state, sendEmailVerificationCode: asyncTypeFailure(state.sendEmailVerificationCode, error)})),
     /** ValidateEmailVerificationCode */
     on(validateEmailVerificationCode, (state: SessionState) => ({...state, validateEmailVerificationCode: createAsyncTypeFromCall()})),
-    on(setValidateEmailVerificationCodeSuccess, (state: SessionState) => ({...state, validateEmailVerificationCode: asyncTypeSuccess(state.validateEmailVerificationCode)})),
+    on(setValidateEmailVerificationCodeSuccess, (state: SessionState, {data}) => ({
+      ...state,
+      validateEmailVerificationCode: asyncTypeSuccess(state.validateEmailVerificationCode),
+      currentAccount: asyncTypeSuccess(state.currentAccount, data)
+    })),
     on(setValidateEmailVerificationCodeFailure, (state: SessionState, {error}) => ({...state, validateEmailVerificationCode: asyncTypeFailure(state.validateEmailVerificationCode, error)})),
   )(reducerState, action);
 }

@@ -120,7 +120,8 @@ export const sendEmailVerificationCode = createAction(
   '[Session store] SendEmailVerificationCode'
 );
 export const setSendEmailVerificationCodeSuccess = createAction(
-  '[Session store] Set SendEmailVerificationCode success'
+  '[Session store] Set SendEmailVerificationCode success',
+  props<{data: LeafAccountModel}>()
 );
 export const setSendEmailVerificationCodeFailure = createAction(
   '[Session store] Set SendEmailVerificationCode failure',
@@ -133,7 +134,8 @@ export const validateEmailVerificationCode = createAction(
 );
 
 export const setValidateEmailVerificationCodeSuccess = createAction(
-  '[Session store] Set ValidateEmailVerificationCode success'
+  '[Session store] Set ValidateEmailVerificationCode success',
+  props<{data: LeafAccountModel}>()
 );
 export const setValidateEmailVerificationCodeFailure = createAction(
   '[Session store] Set ValidateEmailVerificationCode failure',
