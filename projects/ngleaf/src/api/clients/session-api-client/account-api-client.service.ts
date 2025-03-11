@@ -119,4 +119,21 @@ export class AccountApiClient {
         })
       );
   }
+
+  public sendEmailVerificationCode() {
+    return this.authHttp.post<void>(
+      this.config.serverUrl + "/account/me/verification/email/send",
+      {}
+    );
+  }
+
+  public validateEmailVerificationCode(code: string) {
+    return this.authHttp.post<void>(
+      this.config.serverUrl + "/account/me/verification",
+      {
+        type: "email",
+        code
+      }
+    );
+  }
 }

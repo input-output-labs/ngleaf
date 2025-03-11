@@ -6,7 +6,7 @@ import { map, switchMap, catchError } from 'rxjs/operators';
 import { JWTModel, LeafAccountModel, LeafAccountProfile } from '../../../api/models/index';
 import { AccountApiClient } from '../../../api/clients/index';
 
-import { setCurrentAccountCall, setCurrentAccountFailure, setCurrentAccountSuccess, setMailingsUnsubscriptionCall, setMailingsUnsubscriptionFailure, setMailingsUnsubscriptionSuccess, setResetPasswordCall, setResetPasswordFailure, setResetPasswordSuccess, setSendResetPasswordKeyCall, setSendResetPasswordKeyFailure, setSendResetPasswordKeySuccess, setSessionToken, setSessionTokenCall, setSessionTokenFailure, setSessionTokenSuccess, setUpdatePasswordCall, setUpdatePasswordFailure, setUpdatePasswordSuccess, updateProfile, updateProfileFailure, updateProfileSuccess } from './session.actions';
+import { sendEmailVerificationCode, setCurrentAccountCall, setCurrentAccountFailure, setCurrentAccountSuccess, setMailingsUnsubscriptionCall, setMailingsUnsubscriptionFailure, setMailingsUnsubscriptionSuccess, setResetPasswordCall, setResetPasswordFailure, setResetPasswordSuccess, setSendEmailVerificationCodeFailure, setSendEmailVerificationCodeSuccess, setSendResetPasswordKeyCall, setSendResetPasswordKeyFailure, setSendResetPasswordKeySuccess, setSessionToken, setSessionTokenCall, setSessionTokenFailure, setSessionTokenSuccess, setUpdatePasswordCall, setUpdatePasswordFailure, setUpdatePasswordSuccess, updateProfile, updateProfileFailure, updateProfileSuccess, validateEmailVerificationCode, setValidateEmailVerificationCodeFailure, setValidateEmailVerificationCodeSuccess } from './session.actions';
 
 @Injectable()
 export class SessionEffects {
@@ -77,6 +77,24 @@ export class SessionEffects {
     payload.call.pipe(
         map(() => (setMailingsUnsubscriptionSuccess())),
         catchError((error) => of(setMailingsUnsubscriptionFailure({error})))
+      ))
+    )
+  );
+
+  sendEmailVerificationCode$ = createEffect(() => this.actions$.pipe(
+    ofType(sendEmailVerificationCode),
+    switchMap(() => this.accountApiClient.sendEmailVerificationCode().pipe(
+      map(() => (setSendEmailVerificationCodeSuccess())),
+        catchError((error) => of(setSendEmailVerificationCodeFailure({error})))
+      ))
+    )
+  );
+
+  validateEmailVerificationCode$ = createEffect(() => this.actions$.pipe(
+    ofType(validateEmailVerificationCode),
+    switchMap((payload: {code: string}) => this.accountApiClient.validateEmailVerificationCode(payload.code).pipe(
+      map(() => (setValidateEmailVerificationCodeSuccess())),
+        catchError((error) => of(setValidateEmailVerificationCodeFailure({error})))
       ))
     )
   );

@@ -1,0 +1,34 @@
+<div class="container">
+  <ng-container *ngIf="state === 'SendCode'">
+    <p>
+      {{ 'leaf.email-verification.sendCodeMessage' | translate }} <i>{{ (currentAccount$ | async)?.email }}</i>
+    </p>
+
+    <button mat-raised-button color="primary" (click)="doSendEmailVerificationCode()">
+      {{ 'leaf.email-verification.sendCodeButton' | translate }}
+    </button>
+
+    <button mat-button color="primary" class="w-100" (click)="state = 'Validation'">
+      {{ 'leaf.email-verification.alreadyHaveCode' | translate }}
+    </button>
+  </ng-container>
+
+  <ng-container *ngIf="state === 'Validation'">
+    <p>
+      {{ 'leaf.email-verification.enterCodeMessage' | translate }} <i>{{ (currentAccount$ | async)?.email }}</i>
+    </p>
+
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>{{ 'leaf.email-verification.codeLabel' | translate }}</mat-label>
+      <input matInput [formControl]="codeFormControl" placeholder="{{ 'leaf.email-verification.codePlaceholder' | translate }}">
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" class="w-100" (click)="doValidateEmailVerificationCode()" [disabled]="!codeFormControl.valid">
+      {{ 'leaf.email-verification.validateCodeButton' | translate }}
+    </button>
+
+    <button mat-button color="primary" (click)="doSendEmailVerificationCode()">
+      {{ 'leaf.email-verification.resendCodeButton' | translate }}
+    </button>
+  </ng-container>
+</div>

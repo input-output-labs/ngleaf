@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { asyncTypeFailure, asyncTypePending, asyncTypeSuccess, createAsyncTypeFromCall, createEmptyAsyncType } from '../../common/index';
-import { resetCurrentAccount, setCurrentAccountCall, setCurrentAccountSuccess, setCurrentAccountFailure, setSessionTokenCall, setSessionTokenSuccess, setSessionTokenFailure, resetSessionToken, resetSendResetPasswordKey, setSendResetPasswordKeyCall, setSendResetPasswordKeySuccess, setSendResetPasswordKeyFailure, resetResetPassword, setResetPasswordCall, setResetPasswordSuccess, setResetPasswordFailure, setSessionToken, resetUpdatePassword, setUpdatePasswordCall, setUpdatePasswordSuccess, setUpdatePasswordFailure, resetMailingsUnsubscription, setMailingsUnsubscriptionCall, setMailingsUnsubscriptionSuccess, setMailingsUnsubscriptionFailure, initializationDone, updateProfile, updateProfileSuccess, updateProfileFailure} from './session.actions';
+import { resetCurrentAccount, setCurrentAccountCall, setCurrentAccountSuccess, setCurrentAccountFailure, setSessionTokenCall, setSessionTokenSuccess, setSessionTokenFailure, resetSessionToken, resetSendResetPasswordKey, setSendResetPasswordKeyCall, setSendResetPasswordKeySuccess, setSendResetPasswordKeyFailure, resetResetPassword, setResetPasswordCall, setResetPasswordSuccess, setResetPasswordFailure, setSessionToken, resetUpdatePassword, setUpdatePasswordCall, setUpdatePasswordSuccess, setUpdatePasswordFailure, resetMailingsUnsubscription, setMailingsUnsubscriptionCall, setMailingsUnsubscriptionSuccess, setMailingsUnsubscriptionFailure, initializationDone, updateProfile, updateProfileSuccess, updateProfileFailure, setSendEmailVerificationCodeFailure, setSendEmailVerificationCodeSuccess, sendEmailVerificationCode, validateEmailVerificationCode, setValidateEmailVerificationCodeSuccess, setValidateEmailVerificationCodeFailure} from './session.actions';
 import { SessionState } from './session.state';
 
 const initialState: SessionState = {
@@ -12,6 +12,8 @@ const initialState: SessionState = {
     resetPassword: createEmptyAsyncType(),
     updatePassword: createEmptyAsyncType(),
     mailingsUnsubscription: createEmptyAsyncType(),
+    sendEmailVerificationCode: createEmptyAsyncType(),
+    validateEmailVerificationCode: createEmptyAsyncType(),
 };
 
 export function sessionReducer(reducerState, action): SessionState {
@@ -63,6 +65,14 @@ export function sessionReducer(reducerState, action): SessionState {
     on(resetMailingsUnsubscription, (state: SessionState) => ({...state, mailingsUnsubscription: createEmptyAsyncType()})),
     on(setMailingsUnsubscriptionCall, (state: SessionState, {call}) => ({...state, mailingsUnsubscription: createAsyncTypeFromCall()})),
     on(setMailingsUnsubscriptionSuccess, (state: SessionState) => ({...state, mailingsUnsubscription: asyncTypeSuccess(state.mailingsUnsubscription)})),
-    on(setMailingsUnsubscriptionFailure, (state: SessionState, {error}) => ({...state, mailingsUnsubscription: asyncTypeFailure(state.mailingsUnsubscription, error)}))
+    on(setMailingsUnsubscriptionFailure, (state: SessionState, {error}) => ({...state, mailingsUnsubscription: asyncTypeFailure(state.mailingsUnsubscription, error)})),
+    /** SendEmailVerificationCode */
+    on(sendEmailVerificationCode, (state: SessionState) => ({...state, sendEmailVerificationCode: createAsyncTypeFromCall()})),
+    on(setSendEmailVerificationCodeSuccess, (state: SessionState) => ({...state, sendEmailVerificationCode: asyncTypeSuccess(state.sendEmailVerificationCode)})),
+    on(setSendEmailVerificationCodeFailure, (state: SessionState, {error}) => ({...state, sendEmailVerificationCode: asyncTypeFailure(state.sendEmailVerificationCode, error)})),
+    /** ValidateEmailVerificationCode */
+    on(validateEmailVerificationCode, (state: SessionState) => ({...state, validateEmailVerificationCode: createAsyncTypeFromCall()})),
+    on(setValidateEmailVerificationCodeSuccess, (state: SessionState) => ({...state, validateEmailVerificationCode: asyncTypeSuccess(state.validateEmailVerificationCode)})),
+    on(setValidateEmailVerificationCodeFailure, (state: SessionState, {error}) => ({...state, validateEmailVerificationCode: asyncTypeFailure(state.validateEmailVerificationCode, error)})),
   )(reducerState, action);
 }

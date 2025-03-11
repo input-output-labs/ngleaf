@@ -10,6 +10,8 @@ import {
   AccountSettingsProfileModule,
   PseudoUpdateComponent,
   PseudoUpdateModule,
+  EmailVerificationComponent,
+  EmailVerificationModule,
 } from "@input-output-labs/ngleaf";
 import { AccountSettingsLayoutModule } from "./account-settings-layout/account-settings-layout.module";
 import { AccountSettingsLayoutComponent } from "./account-settings-layout/account-settings-layout.component";
@@ -40,6 +42,10 @@ const routes: Routes = [
         path: "password",
         component: PasswordUpdateComponent,
       },
+      {
+        path: "email-verification",
+        component: EmailVerificationComponent,
+      },
     ],
   },
 ];
@@ -53,6 +59,7 @@ const routes: Routes = [
     PseudoUpdateModule,
     AvatarUpdateModule,
     AccountSettingsProfileModule,
+    EmailVerificationModule,
     /* App deps */
     AccountSettingsLayoutModule,
   ],

@@ -74,3 +74,15 @@ export const selectUpdateProfile = createSelector(
   selectSession,
  (state: SessionState) => state.updateProfile
 );
+
+export const selectSendEmailVerificationCode = createSelector(
+  selectSession,
+ (state: SessionState) => state.sendEmailVerificationCode
+);
+
+export const selectValidateEmailVerificationCode = createSelector(
+  selectSession,
+ (state: SessionState) => state.validateEmailVerificationCode
+);
+
+

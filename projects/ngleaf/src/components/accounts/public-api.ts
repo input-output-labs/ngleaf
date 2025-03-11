@@ -2,6 +2,7 @@
  * Public API Surface of ngleaf
  */
 
+export * from './email-verification/index';
 export * from './header-account/index';
 export * from './login/index';
 export * from './password/index';

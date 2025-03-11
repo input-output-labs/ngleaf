@@ -116,3 +116,27 @@ export const updateProfileFailure = createAction(
   props<{error: any}>()
 );
 
+export const sendEmailVerificationCode = createAction(
+  '[Session store] SendEmailVerificationCode'
+);
+export const setSendEmailVerificationCodeSuccess = createAction(
+  '[Session store] Set SendEmailVerificationCode success'
+);
+export const setSendEmailVerificationCodeFailure = createAction(
+  '[Session store] Set SendEmailVerificationCode failure',
+  props<{error: any}>()
+);
+
+export const validateEmailVerificationCode = createAction(
+  '[Session store] ValidateEmailVerificationCode',
+  props<{code: string}>()
+);
+
+export const setValidateEmailVerificationCodeSuccess = createAction(
+  '[Session store] Set ValidateEmailVerificationCode success'
+);
+export const setValidateEmailVerificationCodeFailure = createAction(
+  '[Session store] Set ValidateEmailVerificationCode failure',
+  props<{error: any}>()
+);
+

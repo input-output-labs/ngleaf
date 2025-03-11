@@ -31,7 +31,8 @@
         "profileLinkLabel": "Profil",
         "pseudoLinkLabel": "Pseudo",
         "avatarLinkLabel": "Avatar",
-        "passwordLinkLabel": "Mot de passe"
+        "passwordLinkLabel": "Mot de passe",
+        "emailVerificationLinkLabel": "Vérification email"
       }
     },
     "organization-settings": {
@@ -54,6 +55,16 @@
     }
   },
   "leaf": {
+    "email-verification": {
+      "sendCodeMessage": "Un code de vérification sera envoyé à : ",
+      "sendCodeButton": "Envoyer le code de vérification",
+      "alreadyHaveCode": "J'ai déjà un code de vérification",
+      "enterCodeMessage": "Veuillez entrer le code de vérification envoyé à : ",
+      "codeLabel": "Code de vérification",
+      "codePlaceholder": "Entrez le code de vérification",
+      "validateCodeButton": "Valider le code de vérification",
+      "resendCodeButton": "Renvoyer un code de vérification"
+    },
     "login": {
       "vanilla": {
         "buttonLabel": "Connexion",
