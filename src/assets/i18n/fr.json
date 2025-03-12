@@ -301,6 +301,10 @@
       }
     },
     "payment": {
+      "customer-default-payment-card": {
+        "changeDefaultPaymentCardLabel": "Changer de carte",
+        "registerDefaultPaymentCardLabel": "Enregistrer ma carte"
+      },
       "features": {
         "userCount": {
           "description": "Up to {{value}} members"

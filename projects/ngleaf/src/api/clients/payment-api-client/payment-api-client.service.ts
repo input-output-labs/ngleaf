@@ -27,6 +27,10 @@ export class PaymentApiClientService {
       return this.authHttp.post<{checkout_url: string}>(this.config.serverUrl + '/payment/plans/paymentmethod', {});
     }
 
+    public performCustomerDefaultPaymentCardCheckout(): Observable<{checkout_url: string}> {
+      return this.authHttp.post<{checkout_url: string}>(this.config.serverUrl + '/payment/customer/paymentmethod', {});
+    }
+
     public fetchInvoices(invoicesType: string): Observable<LeafInvoice[]> {
       return this.authHttp.get<LeafInvoice[]>(`${this.config.serverUrl}/payment/invoices?type=${invoicesType}`);
     }

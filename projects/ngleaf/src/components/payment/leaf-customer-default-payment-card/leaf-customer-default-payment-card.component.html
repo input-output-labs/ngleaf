@@ -1,0 +1,23 @@
+<div class="leaf-customer-default-payment-card">
+  <div *ngIf="defaultPaymentCard$ | async as defaultPaymentCard; else noDefaultPaymentCard" class="default-payment-card-provided">
+    <leaf-credit-card class="credit-card" [paymentMethod]="defaultPaymentCard"></leaf-credit-card>
+    <div class="button-wrapper">
+      <button mat-stroked-button (click)="performCustomerDefaultPaymentCardCheckout()">
+      {{
+        "leaf.payment.customer-default-payment-card.changeDefaultPaymentCardLabel"
+          | translate
+        }}
+      </button>
+    </div>
+  </div>
+  <ng-template #noDefaultPaymentCard>
+    <div class="default-payment-card-missing">
+      <button class="credit-card" mat-stroked-button (click)="performCustomerDefaultPaymentCardCheckout()">
+        {{
+          "leaf.payment.customer-default-payment-card.registerDefaultPaymentCardLabel"
+            | translate
+        }}
+      </button>
+    </div>
+  </ng-template>
+</div>

@@ -1,6 +1,7 @@
 /*
  * Public API Surface of ngleaf
  */
+export * from './leaf-customer-default-payment-card/index';
 export * from './leaf-invoices-list/index';
 export * from './leaf-plan-selector/index';
 export * from './leaf-plan-selector-dialog/index';
