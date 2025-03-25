@@ -72,6 +72,7 @@ export const createOrganization = createAction(
 );
 export const createOrganizationSuccess = createAction(
   '[Organizations store] Create organization success',
+  props<{data: LeafOrganization}>()
 );
 export const createOrganizationFailure = createAction(
   '[Organizations store] Create organization failure',
