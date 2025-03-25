@@ -110,7 +110,7 @@ export class OrganizationsEffects {
         this.organizationApiClient
           .createOrganization(payload.organization)
           .pipe(
-            map(() => OrganizationsActions.createOrganizationSuccess()),
+            map((data) => OrganizationsActions.createOrganizationSuccess({data})),
             catchError((error) =>
               of(OrganizationsActions.createOrganizationFailure({ error }))
             )

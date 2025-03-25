@@ -123,9 +123,10 @@ export function organizationsReducer(reducerState, action): OrganizationsState {
     ),
     on(
       Actions.createOrganizationSuccess,
-      (state: OrganizationsState) => ({
+      (state: OrganizationsState, {data}) => ({
         ...state,
         createOrganization: asyncTypeSuccess(state.createOrganization),
+        myOrganizations: asyncUpsert(data, state.myOrganizations),
       })
     ),
     on(
