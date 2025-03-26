@@ -5,7 +5,7 @@
       <mat-expansion-panel-header>
         <mat-panel-title> {{batch.id}} </mat-panel-title>
         <mat-panel-description>
-          {{batch.comment}} (From {{batch.startAt}} to {{batch.endAt}})
+          {{batch.comment}} (From {{toHex(batch.startAt)}} to {{toHex(batch.endAt)}})
         </mat-panel-description>
       </mat-expansion-panel-header>
       <leaf-redirections-list [batchId]="batch.id" [canLoad]="redirectionCreationBatchesOpenState[batch.id]"></leaf-redirections-list>

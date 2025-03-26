@@ -24,4 +24,12 @@ export class RedirectionCreationBatchListComponent implements OnInit {
   public openBatch(batch: LeafRedirectionCreationBatch) {
     this.redirectionCreationBatchesOpenState[batch.id] = true;
   }
+
+  toHex(id: number) {
+    let hexStr = id.toString(16);
+    while (hexStr.length < 5) {
+      hexStr = '0' + hexStr;
+    }
+    return hexStr;
+  }
 }
