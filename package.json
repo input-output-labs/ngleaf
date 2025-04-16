@@ -6,6 +6,7 @@
     "clean": "rm -rf dist node_modules",
     "start": "ng serve",
     "start:prod": "ng serve --configuration production",
+    "start:local": "ng serve --configuration local",
     "build": "ng lint && ng build",
     "build:lib": "ng build ngleaf --configuration production",
     "build:prod": "ng build --configuration=prod",

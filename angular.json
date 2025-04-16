@@ -64,6 +64,20 @@
                 }
               ]
             },
+            "local": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.local.ts"
+                }
+              ],
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ]
+            },
             "prod": {
               "budgets": [
                 {
@@ -89,6 +103,9 @@
           "configurations": {
             "production": {
               "buildTarget": "ngleaf-app:build:production"
+            },
+            "local": {
+              "buildTarget": "ngleaf-app:build:local"
             }
           }
         },

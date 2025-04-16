@@ -1,0 +1,10 @@
+.searchbar {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  width: 100%;
+
+  &>* {
+    flex: 1;
+  }
+}

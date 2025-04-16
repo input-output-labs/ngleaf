@@ -1,8 +1,10 @@
 <mat-progress-bar mode="indeterminate" *ngIf="(loading$ | async) === null"></mat-progress-bar>
-<ng-container *ngIf="!(loading$ | async) && redirections as redirections">
+<ng-container *ngIf="!(loading$ | async) && (redirections$ | async) as redirections">
   <table mat-table [dataSource]="redirections">  <!-- Position Column -->
     <ng-container matColumnDef="id">
-      <td mat-cell *matCellDef="let redirection"> {{toHex(redirection.id)}} </td>
+      <td mat-cell *matCellDef="let redirection" [class.highlighted]="highlightedRedirection && highlightedRedirection === redirection.id">
+        {{toHex(redirection.id)}}
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="input">

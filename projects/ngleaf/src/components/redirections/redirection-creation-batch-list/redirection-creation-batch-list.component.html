@@ -1,3 +1,13 @@
+<div class="searchbar">
+  <mat-form-field>
+    <mat-label>Search by redirection ID (hex)</mat-label>
+    <input matInput [formControl]="searchFormControlHex">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Search by redirection ID (decimal)</mat-label>
+    <input matInput [formControl]="searchFormControl">
+  </mat-form-field>
+</div>
 <mat-progress-bar mode="indeterminate" *ngIf="!(redirectionCreationBatches$ | async)"></mat-progress-bar>
 <ng-container *ngIf="(redirectionCreationBatches$ | async) as batches">
   <mat-accordion>
@@ -8,7 +18,7 @@
           {{batch.comment}} (From {{toHex(batch.startAt)}} to {{toHex(batch.endAt)}})
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <leaf-redirections-list [batchId]="batch.id" [canLoad]="redirectionCreationBatchesOpenState[batch.id]"></leaf-redirections-list>
+      <leaf-redirections-list [batchId]="batch.id" [canLoad]="redirectionCreationBatchesOpenState[batch.id]" [highlightedRedirection]="(searchId$ | async)"></leaf-redirections-list>
     </mat-expansion-panel>
   </mat-accordion>
 </ng-container>
