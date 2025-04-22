@@ -12,7 +12,6 @@ import {
   MailingAuthorizationsPageModule,
   LeafAuthGuardService,
   LeafOrganizationSelectedGuardModule,
-  LeafOrganizationSelectedGuardService,
 } from '@input-output-labs/ngleaf';
 import { MainLayoutComponent } from '../components/main-layout/main-layout.component';
 import { MainLayoutModule } from '../components/main-layout/main-layout.module';

@@ -284,6 +284,25 @@
         }
       }
     },
+    "payment-plan-information-for-admin": {
+      "updatePlanButtonLabel": "Update plan features",
+      "planUpdatedSuccessfully": "Plan updated successfully",
+      "planFeaturesUpdatedSuccessfully": "Plan features updated successfully",
+      "features": {
+        "userCount": {
+          "name": "User count",
+          "description": "Define the number of members allowed for this plan."
+        },
+        "cardCount": {
+          "name": "Card count",
+          "description": "Define the number of visit cards allowed for this plan."
+        },
+        "reporting": {
+          "name": "Reporting",
+          "description": "Enable traffic reporting"
+        }
+      }
+    },
     "notification-item": {
       "LEAF_ACCOUNT_REGISTRATION": {
         "icon": "account_circle",
@@ -304,6 +323,17 @@
       "customer-default-payment-card": {
         "changeDefaultPaymentCardLabel": "Changer de carte",
         "registerDefaultPaymentCardLabel": "Enregistrer ma carte"
+      },
+      "plans": {
+        "noService": "Aucun accès",
+        "basic_month": "Basic",
+        "specialbasic": "Special Basic",
+        "startup_month": "Startup",
+        "pro_month": "Pro",
+        "basic_year": "Basic",
+        "startup_year": "Startup",
+        "pro_year": "Pro",
+        "custom_plan": "Sur mesure"
       },
       "features": {
         "userCount": {

@@ -1,0 +1,117 @@
+<div class="container">
+  <ng-container *ngIf="planCopy">
+    <leaf-plan-viewer
+      [plan]="planCopy"
+      [flat]="true"
+      [selected]="false"
+      [selectable]="false"
+      [showFeatures]="true"
+      [showDescription]="true"
+      [showTrialDuration]="true"
+    ></leaf-plan-viewer>
+    <mat-divider [vertical]="true" class="vertical-divider"></mat-divider>
+    <table class="plan-recap-table">
+      <tr>
+        <td class="first-cell">
+          Selected plan
+        </td>
+        <td class="inline-cell">
+          <ng-container *ngIf="updatingPlan">
+            <mat-spinner [diameter]="20"></mat-spinner>
+          </ng-container>
+          <mat-form-field [subscriptSizing]="'dynamic'">
+            <mat-select [value]="planCopy.name" (selectionChange)="onPlanChange($event)" [disabled]="updatingPlan">
+              <mat-option *ngFor="let plan of allPlans$ | async" [value]="plan.name" [style.background-color]="plan.color">
+                {{ 'leaf.payment.plans.' + plan.name | translate }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          {{ "leaf.payment.selected-payment-plan.startedAtLabel" | translate }}
+        </td>
+        <td>
+          {{ planCopy.startedAt | date: "longDate" }}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          {{ "leaf.payment.selected-payment-plan.trialLabel" | translate }}
+        </td>
+        <td>
+          <ng-container *ngIf="!planCopy.pricing.free">
+            <ng-container *ngIf="planCopy.inTrial">
+              <i>{{
+                "leaf.payment.selected-payment-plan.trialLabelOngoing"
+                  | translate: {remainingDays: getRemainingDays(planCopy) }
+              }}</i>
+            </ng-container>
+            <ng-container *ngIf="!planCopy.inTrial">
+              <i>{{
+                "leaf.payment.selected-payment-plan.trialLabelOver" | translate
+              }}</i>
+            </ng-container>
+          </ng-container>
+          <ng-container *ngIf="planCopy.pricing.free">
+            <ng-container>
+              <i>{{
+                "leaf.payment.selected-payment-plan.trialLabelNone" | translate
+              }}</i>
+            </ng-container>
+          </ng-container>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <mat-list role="list" class="plan-configuration-features">
+            <ng-container *ngFor="let feature of planCopy.features;">
+              <mat-list-item role="listitem" class="plan-configuration-feature">
+                <div class="name-and-value-line">
+                  <span class="feature-name">
+                    {{ ("leaf.payment-plan-information-for-admin.features." + feature.name + ".name") | translate }}
+                  </span>
+                  <span class="feature-value" [ngSwitch]="feature.type">
+                      <ng-container *ngSwitchCase="'boolean'">
+                        <mat-slide-toggle
+                          [checked]="feature.value === 'true'"
+                          (change)="onRightValueChange(feature.name, $event)"
+                          ></mat-slide-toggle>
+                      </ng-container>
+                      <ng-container *ngSwitchCase="'number'">
+                        <button mat-mini-fab class="dense" (click)="addtoNumberRight(feature.name, -1)">
+                          <mat-icon>remove</mat-icon>
+                        </button>
+                        <mat-form-field class="dense" style="margin-left: -0.75rem; margin-right: -0.75rem; width: 100px;" appearance="outline" subscriptSizing="dynamic">
+                          <input matInput type="number" [value]="feature.value" (change)="onNumberRightValueChange(feature.name, $event.target.value)">
+                        </mat-form-field>
+                        <button mat-mini-fab class="dense" (click)="addtoNumberRight(feature.name, 1)">
+                          <mat-icon>add</mat-icon>
+                        </button>
+                      </ng-container>
+                      <ng-container *ngSwitchDefault>
+                        other ...
+                      </ng-container>
+                  </span>
+                </div>
+                <span class="feature-description">
+                  {{ ("leaf.payment-plan-information-for-admin.features." + feature.name + ".description") | translate }}
+                </span>
+              </mat-list-item>
+              <mat-divider class="separator"></mat-divider>
+            </ng-container>
+          </mat-list>
+          <button mat-stroked-button (click)="updatePlanFeatures()" [disabled]="!featuresTouched || updatingFeatures" color="warn" class="update-plan-button">
+            <div class="inline-flex">
+              <ng-container *ngIf="updatingFeatures">
+                <mat-spinner [diameter]="20"></mat-spinner>
+              </ng-container>
+              <span>{{ "leaf.payment-plan-information-for-admin.updatePlanButtonLabel" | translate }}</span>
+            </div>
+          </button>
+        </td>
+      </tr>
+    </table>
+  </ng-container>
+</div>

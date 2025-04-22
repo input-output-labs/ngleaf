@@ -15,3 +15,6 @@
 
 <h2>Customer default payment card</h2>
 <leaf-customer-default-payment-card></leaf-customer-default-payment-card>
+
+<h2>Organization plan information for admin</h2>
+<app-leaf-plan-information-for-admin *ngIf="(currentOrganization$ | async) as organization" [organizationId]="organization.id"></app-leaf-plan-information-for-admin>
