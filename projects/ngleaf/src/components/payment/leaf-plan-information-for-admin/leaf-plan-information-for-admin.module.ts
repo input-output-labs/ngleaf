@@ -16,6 +16,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { LeafConfirmDialogModule } from '../../common/confirm-dialog/confirm-dialog.module';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { PaymentApiClientModule } from '../../../api/clients/payment-api-client';
+
 @NgModule({
   imports: [
     /* Core deps */
@@ -37,6 +39,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     /* Leaf deps */
     LeafPlanViewerModule,
     LeafConfirmDialogModule,
+    PaymentApiClientModule,
   ],
   declarations: [LeafPlanInformationForAdminComponent],
   exports: [LeafPlanInformationForAdminComponent]
