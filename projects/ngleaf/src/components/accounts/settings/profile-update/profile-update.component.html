@@ -1,5 +1,25 @@
 <form class="profile-update-form" [formGroup]="profileFormGroup" [class.row]="separateColumnForAvatar">
   <div class="form-part fields-form-part">
+    <ng-container *ngIf="fields.includes('companyName')">
+      <div class="form-group-title" *ngIf="!hideGroupTitles">{{ 'leaf.profile-update.companyName-form-group-title' | translate }}</div>
+      <mat-form-field subscriptSizing="dynamic" [appearance]="fieldAppearance">
+        <mat-label>{{ 'leaf.profile-update.companyName-input-placeholder' | translate }}</mat-label>
+        <input
+          matInput
+          id="companyName"
+          [placeholder]="
+            'leaf.profile-update.companyName-input-placeholder' | translate
+          "
+          value=""
+          formControlName="companyName"
+        />
+        <mat-error
+          *ngIf="profileFormGroup.controls.companyName.hasError('required')"
+        >
+          {{ "leaf.profile-update.requiredError" | translate }}
+        </mat-error>
+      </mat-form-field>
+    </ng-container>
     <ng-container *ngIf="fields.includes('username')">
       <div class="form-group-title" *ngIf="!hideGroupTitles">{{ 'leaf.profile-update.username-form-group-title' | translate }}</div>
       <mat-form-field subscriptSizing="dynamic" [appearance]="fieldAppearance">

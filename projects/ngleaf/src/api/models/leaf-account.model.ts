@@ -21,6 +21,7 @@ export interface LeafAddress {
 
 export interface LeafAccountProfile {
   username?: string;
+  companyName?: string;
   avatarUrl?: string;
   firstname?: string;
   lastname?: string;
