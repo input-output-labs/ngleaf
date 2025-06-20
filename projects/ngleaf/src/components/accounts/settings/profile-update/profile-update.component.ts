@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnDestroy, SimpleChanges } from "@angular/core";
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, Output, SimpleChanges } from "@angular/core";
 import {
   UntypedFormBuilder,
   UntypedFormGroup,
@@ -37,14 +37,17 @@ export class ProfileUpdateComponent implements OnChanges, OnDestroy {
   public hideGroupTitles: boolean = false;
 
   @Input()
-  public target: "account" | "organization" = "account";
+  public target: "account" | "organization" | {profile: Partial<LeafAccountProfile>} = "account";
 
   @Input()
   public countryCodes: string[] | null = null;
 
+  @Output()
+  public profileUpdated = new EventEmitter<Partial<LeafAccountProfile>>();
+
   public currentProfile$: Observable<LeafAccountProfile>;
 
-  public target$: Subject<"account" | "organization"> = new Subject();
+  public target$: Subject<"account" | "organization" | {profile: Partial<LeafAccountProfile>}> = new Subject();
 
   public profileFormGroup: UntypedFormGroup;
 
@@ -56,13 +59,20 @@ export class ProfileUpdateComponent implements OnChanges, OnDestroy {
       this.store.select(selectCurrentAccountData),
       this.store.select(selectCurrentOrganization)
     ]).pipe(
-      map(([target, account, organization]) => target === "account" ? account : organization)
+      map(([target, account, organization]) => {
+        if (target === "account") {
+          return account;
+        } else if (target === "organization") {
+          return organization;
+        } else {
+          return target;
+        }
+      })
     );
     this.currentProfile$ = target$.pipe(
       filter((target) => !!target),
       map((target) => target.profile)
     );
-    console.log(this.fields);
     this.profileFormGroup = this.formBuilder.group(
       this.fields.reduce(
         (config, field) => ({
@@ -72,7 +82,6 @@ export class ProfileUpdateComponent implements OnChanges, OnDestroy {
         {}
       )
     );
-    console.log(this.profileFormGroup.controls);
 
     this.subscriptions.push(
       this.currentProfile$.subscribe(
@@ -125,6 +134,9 @@ export class ProfileUpdateComponent implements OnChanges, OnDestroy {
           this.store.select(selectCurrentOrganizationId).pipe(take(1)).subscribe((organizationId) => {
             this.store.dispatch(updateOrganizationProfile({organizationId, profile: profileUpdates}));
           });
+          break;
+        default:
+          this.profileUpdated.emit(profileUpdates as Partial<LeafAccountProfile>);
           break;
       }
     }
