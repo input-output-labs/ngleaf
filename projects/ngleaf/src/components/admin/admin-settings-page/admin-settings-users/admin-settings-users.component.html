@@ -78,6 +78,23 @@
       </td>
     </ng-container>
 
+    <ng-container matColumnDef="genericDataHelper" *ngIf="!!showGenericDataHelper">
+      <th mat-header-cell *matHeaderCellDef> Generic data helper </th>
+      <td mat-cell *matCellDef="let element">
+        <div class="generic-data-helper-container">
+          <ng-container *ngIf="getMissingGenericDataKeys(element) as missingKeys">
+            <mat-chip [matTooltip]="missingKeys | json">{{missingKeys.length}} missing</mat-chip>
+          </ng-container>
+          <ng-container *ngIf="!getMissingGenericDataKeys(element)s">
+            <mat-icon matTooltip="No missing data">check</mat-icon>
+          </ng-container>
+          <button mat-icon-button (click)="fillGenericData(element)" matTooltip="See and edit generic data" (click)="openGenericDataDialog(element)">
+            <mat-icon>view_list</mat-icon>
+          </button>
+        </div>
+      </td>
+    </ng-container>
+
     <ng-container matColumnDef="isAdmin">
       <th mat-header-cell *matHeaderCellDef> Administrateur ? </th>
       <td mat-cell *matCellDef="let element"> {{!!element.admin ? 'Oui': 'Non'}} </td>

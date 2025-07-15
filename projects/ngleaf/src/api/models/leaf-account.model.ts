@@ -40,4 +40,7 @@ export interface LeafAccountModel {
   admin?: boolean;
   modules?: {[moduleName: string]: any};
   metadata?: ResourceMetadata;
+  genericData?: {
+    [key: string]: string;
+  };
 }

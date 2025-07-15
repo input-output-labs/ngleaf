@@ -17,6 +17,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { LeafGenericDataDialogComponent } from '../../leaf-generic-data-dialog/leaf-generic-data-dialog.component';
 
 @NgModule({
   declarations: [AdminSettingsUsersComponent],
@@ -37,9 +40,12 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatToolbarModule,
     MatFormFieldModule,
     MatPaginatorModule,
+    MatChipsModule,
+    MatTooltipModule,
     /* Leaf deps*/
     LeafAdminModule,
-    LeafConfirmDialogModule
+    LeafConfirmDialogModule,
+    LeafGenericDataDialogComponent
   ],
   exports: [AdminSettingsUsersComponent]
 })

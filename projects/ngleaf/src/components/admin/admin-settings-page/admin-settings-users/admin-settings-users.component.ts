@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { LeafConfirmDialogComponent, ConfirmDialogModel } from '../../../common/confirm-dialog/confirm-dialog.component';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
+import { LeafGenericDataDialogComponent } from '../../leaf-generic-data-dialog/leaf-generic-data-dialog.component';
 
 interface SortOption {
   value: string;
@@ -38,6 +39,12 @@ export class AdminSettingsUsersComponent implements OnInit {
 
   @Input()
   extraDataTemplate?: TemplateRef<any>;
+
+  @Input()
+  expectedGenericDataKeys: string[];
+
+  @Input()
+  showGenericDataHelper: boolean = false;
 
   @Input()
   extraActionTemplate?: TemplateRef<any>;
@@ -124,6 +131,7 @@ export class AdminSettingsUsersComponent implements OnInit {
     return [
       ...['id', 'email', 'profile', 'registrationDate'],
       ...!!this.extraDataTemplate ? ['extraData']: [],
+      ...!!this.showGenericDataHelper ? ['genericDataHelper']: [],
       ...['isAdmin', 'actions']
     ];
   }
@@ -144,6 +152,28 @@ export class AdminSettingsUsersComponent implements OnInit {
     dialogRef.afterClosed().subscribe(confirmed => {
       if (confirmed) {
         this.adminService.deleteAccount(account.id);
+      }
+    });
+  }
+
+  public getMissingGenericDataKeys(element: LeafAccountModel) {
+    const missingKeys = (this.expectedGenericDataKeys || []).filter(key => !element.genericData[key]);
+    return missingKeys.length > 0 ? missingKeys : null;
+  }
+
+  public openGenericDataDialog(element: LeafAccountModel) {
+    const dialogRef = this.dialog.open(LeafGenericDataDialogComponent, {
+      data: {
+        genericData: element.genericData,
+        targetType: "account",
+        targetId: element.id,
+        expectedGenericDataKeys: this.expectedGenericDataKeys,
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.adminService.fetchUsers();
       }
     });
   }

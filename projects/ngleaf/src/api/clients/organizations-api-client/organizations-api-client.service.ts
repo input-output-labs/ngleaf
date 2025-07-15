@@ -79,4 +79,11 @@ export class OrganizationsApiClientService {
     public deleteRole(role: OrganizationRole): Observable<LeafOrganization> {
       return this.authHttp.delete<LeafOrganization>(`${this.config.serverUrl}/organizations/selected/policies/roles/${role.name}`);
     }
+
+    public updateGenericData(targetId: string, genericData: { [key: string]: string }): Observable<LeafAccountModel> {
+      return this.authHttp.post<LeafAccountModel>(
+        this.config.serverUrl + "/organizations/" + targetId + "/genericData",
+        genericData
+      );
+    }
 }

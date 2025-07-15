@@ -49,4 +49,7 @@ export interface LeafOrganization {
   invitations?: OrganizationInvitation[];
   policies?: OrganizationPolicies;
   modules?: {[moduleName: string]: any};
+  genericData?: {
+    [key: string]: string;
+  };
 }

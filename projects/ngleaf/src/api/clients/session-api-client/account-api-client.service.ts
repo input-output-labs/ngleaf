@@ -136,4 +136,11 @@ export class AccountApiClient {
       }
     );
   }
+
+  public updateGenericData(targetId: string, genericData: { [key: string]: string }): Observable<LeafAccountModel> {
+    return this.authHttp.post<LeafAccountModel>(
+      this.config.serverUrl + "/account/" + targetId + "/genericData",
+      genericData
+    );
+  }
 }

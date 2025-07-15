@@ -1,0 +1,36 @@
+<h2 mat-dialog-title>Generic Data</h2>
+
+<mat-dialog-content>
+  <div class="generic-data-dialog-container">
+    <div *ngFor="let pair of keyValuePairs; let i = index" style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+      <mat-form-field appearance="outline" [subscriptSizing]="'dynamic'">
+        <mat-label>Key</mat-label>
+        <input matInput [(ngModel)]="keyValuePairs[i].key" (ngModelChange)="updateKey(i, $event)">
+      </mat-form-field>
+      <mat-form-field appearance="outline" [subscriptSizing]="'dynamic'">
+        <mat-label>Value</mat-label>
+        <input matInput [(ngModel)]="keyValuePairs[i].value" (ngModelChange)="updateValue(i, $event)">
+      </mat-form-field>
+      <button mat-icon-button color="warn" (click)="deletePair(i)" *ngIf="!(expectedGenericDataKeys || []).includes(keyValuePairs[i].key)">
+        <mat-icon>delete</mat-icon>
+      </button>
+      <mat-icon matTooltip="This key is required" color="warn" *ngIf="(expectedGenericDataKeys || []).includes(keyValuePairs[i].key) && !keyValuePairs[i].value">warning</mat-icon>
+      <mat-icon matTooltip="This key is required" color="info" *ngIf="(expectedGenericDataKeys || []).includes(keyValuePairs[i].key) && keyValuePairs[i].value">info</mat-icon>
+    </div>
+    <div *ngIf="keyValuePairs.length === 0" style="text-align: center; padding: 16px;">
+      <mat-icon color="warn">warning</mat-icon>
+      <p>No generic data available</p>
+    </div>
+    <div style="text-align: center; margin-top: 16px;">
+      <button mat-stroked-button color="primary" (click)="addPair()">
+        <mat-icon>add</mat-icon>
+        Add new pair
+      </button>
+    </div>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-flat-button [mat-dialog-close]="true" color="primary" (click)="submit()">Submit</button>
+</mat-dialog-actions>
