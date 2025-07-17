@@ -207,6 +207,7 @@
       "markAllAsSeen": "Mark all as seen"
     },
     "organization-selector": {
+      "search-placeholder": "Chercher organisation",
       "no-organizations": "No organizations",
       "organization-switch-label": "Organization switch",
       "organization-selector-label": "Select an organization",

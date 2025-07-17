@@ -8,10 +8,10 @@ export const environment = {
   production: false,
   serverWSBrokerUrl: USE_LOCAL
     ? "ws://localhost:8080/ws"
-    : "wss://blank.io-labs.fr/ws",
+    : "wss://uat.rechargeplus.fr/ws",
   serverUrl: USE_LOCAL
     ? "http://localhost:8080/api"
-    : "https://blank.io-labs.fr/api",
+    : "https://uat.rechargeplus.fr/api",
   API_KEY_PIXABAY: "21558043-ea93c1b6a6e88758325a9fcb2",
 };
 

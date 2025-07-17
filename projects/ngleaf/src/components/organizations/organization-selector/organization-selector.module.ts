@@ -9,12 +9,16 @@ import { LeafOrganizationStoreModule } from '../../../store/core/organizations/o
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   imports: [
     /* Core deps */
     CommonModule,
     TranslateModule,
+    ReactiveFormsModule,
     /* Leaf deps */
     LeafOrganizationStoreModule,
     /* Material deps */
@@ -24,6 +28,8 @@ import { MatCardModule } from '@angular/material/card';
     MatTooltipModule,
     MatListModule,
     MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
   ],
   declarations: [OrganizationSelectorComponent],
   exports: [OrganizationSelectorComponent]

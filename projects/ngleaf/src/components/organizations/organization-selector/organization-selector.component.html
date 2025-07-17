@@ -1,10 +1,15 @@
 <ng-container *ngIf="design === 'widget'">
   <div class="organization-selector" *ngIf="!!(currentAccount$ | async) ; else notLoggedIn">
     <div *ngIf="(organizations$ | async)?.length; else noOrganizations">
-      <a mat-icon-button [matMenuTriggerFor]="menu" *ngIf="reduced" [matTooltip]="'leaf.organization-selector.organization-switch-label' | translate" matTooltipPosition="right">
+      <a
+        mat-icon-button
+        *ngIf="reduced" 
+        [matMenuTriggerFor]="menu"
+        #menuTrigger="matMenuTrigger"
+        [matTooltip]="'leaf.organization-selector.organization-switch-label' | translate" matTooltipPosition="right">
         <mat-icon>sync_alt</mat-icon>
       </a>
-      <button mat-button [matMenuTriggerFor]="menu" class="full-width menu-item-link" *ngIf="!reduced">
+      <button mat-button [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger" class="full-width menu-item-link" *ngIf="!reduced">
         <mat-icon>sync_alt</mat-icon>
         <span *ngIf="(currentOrganization$ | async) as currentOrganization; else noCurrentOrganization">
           {{currentOrganization.name}}
@@ -14,11 +19,25 @@
   </div>
 
   <mat-menu #menu="matMenu" [xPosition]="menuXPosition" [yPosition]="menuYPosition">
-    <mat-list role="list">
-      <mat-list-item role="listitem" *ngFor="let organization of organizations$ | async" >
-        <button mat-menu-item (click)="selectOrganization(organization)">{{ organization.name }}</button>
-      </mat-list-item>
-    </mat-list>
+    <div class="organization-selector-menu" (click)="$event.stopPropagation()">
+      <div class="search-container">
+        <mat-form-field class="full-width" subscriptSizing="dynamic" appearance="outline">
+          <mat-icon matPrefix>search</mat-icon>
+          <input
+            matInput
+            type="text"
+            [placeholder]="'leaf.organization-selector.search-placeholder' | translate"
+            [formControl]="searchField"
+            (keydown)="$event.stopPropagation()"
+            (keyup)="$event.stopPropagation()">
+        </mat-form-field>
+      </div>
+      <mat-list role="list" class="organization-list" *ngIf="(filteredOrganizations$ | async)?.length; else noOrganizations">
+        <mat-list-item role="listitem" *ngFor="let organization of filteredOrganizations$ | async" >
+          <button mat-menu-item (click)="selectOrganization(organization)">{{ organization.name }}</button>
+        </mat-list-item>
+      </mat-list>
+    </div>
   </mat-menu>
   <ng-template #noOrganizations> {{ 'leaf.organization-selector.no-organizations' | translate }} </ng-template>
   <ng-template #noCurrentOrganization> {{ 'leaf.organization-selector.organization-selector-label' | translate }} </ng-template>

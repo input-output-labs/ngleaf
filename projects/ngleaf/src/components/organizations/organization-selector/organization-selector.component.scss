@@ -8,6 +8,24 @@
   }
 }
 
+.organization-selector-menu {
+  max-height: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+
+  .search-container {
+    padding: 0 0.5rem;
+    flex: 0;
+  }
+
+  .organization-list {
+    padding: 0;
+    overflow-y: auto;
+    flex: 1;
+  }
+}
+
 .full-width {
   width: 100%;
 }
