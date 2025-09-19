@@ -217,9 +217,34 @@
         "members": "{{count}} members"
       }
     },
+    "organization-candidature": {
+      "title": "Gestion des candidatures",
+      "placeholder": "Gestion des candidatures",
+      "close-button": "Fermer",
+      "enable-candidature-management": "Activer la gestion des candidatures",
+      "toggle-description": "Permet aux utilisateurs de candidater à votre organisation",
+      "invitation-section-title": "Lien d'invitation",
+      "candidatures-section-title": "Candidatures reçues",
+      "role-label": "Rôle",
+      "invitation-link-label": "Lien d'invitation",
+      "invitation-link-placeholder": "Sélectionnez un rôle pour générer le lien",
+      "copy-link-tooltip": "Copier le lien",
+      "table-date": "Date",
+      "table-email": "Email",
+      "table-role": "Rôle",
+      "table-status": "Statut",
+      "accept": "Accepter",
+      "decline": "Refuser",
+      "no-candidatures": "Aucune candidature en attente",
+      "confirm-accept-title": "Accepter la candidature",
+      "confirm-accept-message": "Êtes-vous sûr de vouloir accepter cette candidature ?",
+      "confirm-decline-title": "Refuser la candidature",
+      "confirm-decline-message": "Êtes-vous sûr de vouloir refuser cette candidature ?"
+    },
     "organization-members": {
-      "search-member-input-label": "Search members",
+      "search-member-input-label": "Rechercher des membres",
       "invite-member-button-label": "Invitations",
+      "candidature-button-label": "Candidatures",
       "userlist-table-column-picture": "Photo",
       "userlist-table-column-name": "Nom",
       "userlist-table-column-roles": "Rôle(s)",
@@ -254,6 +279,20 @@
       "accept-button-label": "Accept",
       "decline-button-label": "Decline",
       "leave-button-label": "Leave"
+    },
+    "organization-candidature-page": {
+      "title": "Candidature à l'organisation \"{{name}}\"",
+      "information": "Vous souhaitez candidater pour le rôle de {{role}}",
+      "candidate-button-label": "Candidater",
+      "cancel-button-label": "Annuler",
+      "loading": "Validation de la candidature en cours...",
+      "error-title": "Impossible de candidater",
+      "missing-params-title": "Paramètres manquants",
+      "missing-params-message": "Les paramètres organizationId et role doivent être fournis dans l'URL",
+      "submitting": "Envoi en cours...",
+      "success-title": "Candidature envoyée !",
+      "success-message": "Votre candidature a été envoyée avec succès. L'organisation examinera votre demande.",
+      "leave-button-label": "Quitter"
     },
     "organization-policies": {
       "roleListTitle": "Existing roles",

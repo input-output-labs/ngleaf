@@ -12,4 +12,9 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
   }
 
+  onCandidatureStatus(status: boolean) {
+    console.log('Candidature status:', status);
+    // TODO: Handle candidature status (success/failure)
+  }
+
 }

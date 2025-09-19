@@ -9,6 +9,8 @@ export interface OrganizationMembership {
 
 export type OrganizationInvitationStatus = 'INVITED' | 'DECLINED' | 'CANCELLED' | 'ACCEPTED';
 
+export type OrganizationCandidatureStatus = 'PENDING' | 'CANDIDATED' | 'ACCEPTED' | 'DECLINED';
+
 export interface OrganizationInvitation {
   accountId: string;
   email: string;
@@ -19,6 +21,21 @@ export interface OrganizationInvitation {
 export interface OrganizationInvitationData {
   name: string;
   invitation: OrganizationInvitation;
+}
+
+export interface OrganizationCandidature {
+  accountId: string;
+  email: string;
+  role: string;
+  metadata: any;
+  status: OrganizationCandidatureStatus;
+  createdAt?: Date;
+  user?: LeafAccountModel;
+}
+
+export interface OrganizationCandidatureData {
+  organizationName: string;
+  error?: "MISSING_ORGANIZATION" | "CANDIDATURE_DISABLED" | "INVALID_ROLE";
 }
 
 export interface OrganizationPolicy {
@@ -40,6 +57,16 @@ export interface OrganizationPolicies {
   policies: OrganizationPolicy[];
 }
 
+export interface CandidatureManagement {
+  enabled: boolean;
+  candidatures: OrganizationCandidature[];
+}
+
+export interface OrganizationCandidatureData {
+  organizationName: string;
+  error?: "MISSING_ORGANIZATION" | "CANDIDATURE_DISABLED" | "INVALID_ROLE";
+}
+
 export interface LeafOrganization {
   id?: string;
   name: string;
@@ -47,6 +74,7 @@ export interface LeafOrganization {
   metadata?: any;
   members?: OrganizationMembership[];
   invitations?: OrganizationInvitation[];
+  candidatureManagement?: CandidatureManagement;
   policies?: OrganizationPolicies;
   modules?: {[moduleName: string]: any};
   genericData?: {

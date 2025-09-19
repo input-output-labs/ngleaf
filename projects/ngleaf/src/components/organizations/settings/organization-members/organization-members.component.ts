@@ -6,6 +6,7 @@ import { LeafAccountModel, LeafOrganization, OrganizationMembership, LeafAccount
 import { selectCurrentAccountData, listOrganizationUsers, selectCurrentOrganization, removeUserFromOrganization, setUserRole, selectEligibilities } from '../../../../store';
 import { MatDialog } from '@angular/material/dialog';
 import { OrganizationInvitationsComponent } from '../organization-invitations';
+import { OrganizationCandidaturesComponent } from '../organization-candidatures';
 
 @Component({
   selector: 'leaf-organization-members',
@@ -82,6 +83,14 @@ export class OrganizationMembersComponent implements OnInit, OnDestroy {
 
   public openInvationDialog() {
     this.dialog.open(OrganizationInvitationsComponent);
+  }
+
+  public openCandidatureDialog() {
+    this.dialog.open(OrganizationCandidaturesComponent, {
+      width: '600px',
+      maxWidth: '90vw',
+      maxHeight: '80vh'
+    });
   }
 
   public setUserRole(accountId: string, role: string) {

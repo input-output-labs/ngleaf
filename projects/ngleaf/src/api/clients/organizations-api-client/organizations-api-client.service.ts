@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { LeafAuthHttpClient } from '../auth-http-client/leaf-auth-http-client.service';
 import { LeafApiClientConfig, LeafApiClientConfigServiceToken } from '../api-client-config.module';
-import { LeafOrganization, OrganizationInvitationData, OrganizationRole } from '../../models/organizations';
+import { LeafOrganization, OrganizationInvitationData, OrganizationRole, OrganizationCandidatureData } from '../../models/organizations';
 import { LeafAccountModel, LeafAccountProfile } from '../../models/leaf-account.model';
 
 @Injectable()
@@ -86,4 +86,25 @@ export class OrganizationsApiClientService {
         genericData
       );
     }
+
+    // Candidature Management Endpoints
+    public enableCandidatureManagement(enable: boolean): Observable<LeafOrganization> {
+      return this.authHttp.post<LeafOrganization>(`${this.config.serverUrl}/organizations/selected/candidature-management/enable`, enable);
+    }
+
+    public candidateToOrganization(organizationId: string, role: string): Observable<void> {
+      return this.authHttp.post<void>(`${this.config.serverUrl}/organizations/${organizationId}/candidature-management/candidate`, role);
+    }
+
+    public acceptCandidature(email: string): Observable<void> {
+      return this.authHttp.post<void>(`${this.config.serverUrl}/organizations/selected/candidature-management/candidatures/${email}/accept`, {});
+    }
+
+    public declineCandidature(email: string): Observable<void> {
+      return this.authHttp.post<void>(`${this.config.serverUrl}/organizations/selected/candidature-management/candidatures/${email}/decline`, {});
+    }
+
+  public getCandidatureData(organizationId: string, role: string): Observable<OrganizationCandidatureData> {
+    return this.authHttp.get<OrganizationCandidatureData>(`${this.config.serverUrl}/organizations/${organizationId}/candidature-management/${role}`);
+  }
 }

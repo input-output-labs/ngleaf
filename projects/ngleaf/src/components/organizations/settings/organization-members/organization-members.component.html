@@ -7,10 +7,16 @@
         [formControl]="searchFormControl"
       />
     </mat-form-field>
-    <button mat-flat-button class="open-invitations-button" color="primary" (click)="openInvationDialog()"  [disabled]="!(eligibilities$ | async).manageMembers.eligible">
-      <mat-icon>person_add_alt_1</mat-icon>
-      {{ 'leaf.organization-members.invite-member-button-label' | translate}}
-    </button>
+    <div class="buttons-container">
+      <button mat-flat-button class="open-invitations-button" color="primary" (click)="openInvationDialog()"  [disabled]="!(eligibilities$ | async).manageMembers.eligible">
+        <mat-icon>person_add_alt_1</mat-icon>
+        {{ 'leaf.organization-members.invite-member-button-label' | translate}}
+      </button>
+      <button mat-flat-button class="open-candidature-button" color="primary" (click)="openCandidatureDialog()" [disabled]="!(eligibilities$ | async).manageMembers.eligible">
+        <mat-icon>how_to_reg</mat-icon>
+        {{ 'leaf.organization-members.candidature-button-label' | translate}}
+      </button>
+    </div>
   </div>
 
   <table mat-table [dataSource]="filteredMembers$ | async" class="mat-elevation-z0">

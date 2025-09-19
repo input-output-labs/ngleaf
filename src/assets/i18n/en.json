@@ -202,10 +202,35 @@
     "organization-members": {
       "search-member-input-label": "Search members",
       "invite-member-button-label": "Invitations",
+      "candidature-button-label": "Candidatures",
       "userlist-table-column-picture": "Photo",
-      "userlist-table-column-name": "Nom",
-      "userlist-table-column-roles": "Rôle(s)",
+      "userlist-table-column-name": "Name",
+      "userlist-table-column-roles": "Role(s)",
       "userlist-table-column-actions": "Actions"
+    },
+    "organization-candidature": {
+      "title": "Candidature Management",
+      "placeholder": "Candidature Management",
+      "close-button": "Close",
+      "enable-candidature-management": "Enable candidature management",
+      "toggle-description": "Allows users to apply to your organization",
+      "invitation-section-title": "Invitation Link",
+      "candidatures-section-title": "Received Candidatures",
+      "role-label": "Role",
+      "invitation-link-label": "Invitation Link",
+      "invitation-link-placeholder": "Select a role to generate the link",
+      "copy-link-tooltip": "Copy link",
+      "table-date": "Date",
+      "table-email": "Email",
+      "table-role": "Role",
+      "table-status": "Status",
+      "accept": "Accept",
+      "decline": "Decline",
+      "no-candidatures": "No pending candidatures",
+      "confirm-accept-title": "Accept candidature",
+      "confirm-accept-message": "Are you sure you want to accept this candidature?",
+      "confirm-decline-title": "Decline candidature",
+      "confirm-decline-message": "Are you sure you want to decline this candidature?"
     },
     "organization-invitations": {
       "title": "Manage invitation",
@@ -235,6 +260,20 @@
       },
       "accept-button-label": "Accept",
       "decline-button-label": "Decline",
+      "leave-button-label": "Leave"
+    },
+    "organization-candidature-page": {
+      "title": "Candidature to organization \"{{name}}\"",
+      "information": "You want to apply for the {{role}} role",
+      "candidate-button-label": "Apply",
+      "cancel-button-label": "Cancel",
+      "loading": "Validating candidature...",
+      "error-title": "Cannot apply",
+      "missing-params-title": "Missing parameters",
+      "missing-params-message": "The organizationId and role parameters must be provided in the URL",
+      "submitting": "Submitting...",
+      "success-title": "Application submitted!",
+      "success-message": "Your application has been submitted successfully. The organization will review your request.",
       "leave-button-label": "Leave"
     },
     "organization-policies": {

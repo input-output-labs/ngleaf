@@ -8,6 +8,7 @@ export interface LeafNavigationConfig {
   registerSuccessRedirect?: string;
   logoutRedirect?: string;
   afterInvitationRedirect?: string;
+  candidatureUri?: string;
 }
 
 export interface LeafFeatureActivation {

@@ -1,0 +1,67 @@
+<div class="candidature">
+  <!-- Missing Parameters Error State -->
+  <div *ngIf="missingParametersError" class="error-state">
+    <mat-icon color="warn">error</mat-icon>
+    <h2 class="error-title">{{ 'leaf.organization-candidature-page.missing-params-title' | translate }}</h2>
+    <p class="error-message">{{ 'leaf.organization-candidature-page.missing-params-message' | translate }}</p>
+    <button class="action-button" mat-stroked-button (click)="cancel()">
+      <mat-icon>close</mat-icon>
+      {{ 'leaf.organization-candidature-page.cancel-button-label' | translate }}
+    </button>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading && !missingParametersError" class="loading-state">
+    <mat-spinner diameter="40"></mat-spinner>
+    <p>{{ 'leaf.organization-candidature-page.loading' | translate }}</p>
+  </div>
+
+  <!-- Validation Error State -->
+  <div *ngIf="validationError && !isLoading && !missingParametersError" class="error-state">
+    <mat-icon color="warn">error</mat-icon>
+    <h2 class="error-title">{{ 'leaf.organization-candidature-page.error-title' | translate }}</h2>
+    <p class="error-message">{{ validationError }}</p>
+    <button class="action-button" mat-stroked-button (click)="cancel()">
+      <mat-icon>close</mat-icon>
+      {{ 'leaf.organization-candidature-page.cancel-button-label' | translate }}
+    </button>
+  </div>
+
+  <!-- Success State -->
+  <div *ngIf="!isLoading && !validationError && !missingParametersError && validationResponse && !submissionSuccess" class="success-state">
+    <h2 class="title">
+      {{ 'leaf.organization-candidature-page.title' | translate: {name: organizationName} }}
+    </h2>
+    <div class="information">
+      {{ 'leaf.organization-candidature-page.information' | translate: {role: selectedRole} }}
+    </div>
+    
+    <!-- Submission Error -->
+    <div *ngIf="submissionError" class="submission-error">
+      <mat-icon color="warn">error</mat-icon>
+      <p>{{ submissionError }}</p>
+    </div>
+    
+    <button class="action-button" 
+        mat-flat-button 
+        (click)="candidate()" 
+        color="primary"
+        [disabled]="isSubmitting">
+      <mat-spinner *ngIf="isSubmitting" diameter="20"></mat-spinner>
+      <mat-icon *ngIf="!isSubmitting">how_to_reg</mat-icon>
+      {{ isSubmitting ? ('leaf.organization-candidature-page.submitting' | translate) : ('leaf.organization-candidature-page.candidate-button-label' | translate) }}
+    </button>
+  </div>
+
+  <!-- Submission Success State -->
+  <div *ngIf="submissionSuccess" class="success-submission-state">
+    <mat-icon color="primary">check_circle</mat-icon>
+    <h2 class="success-title">{{ 'leaf.organization-candidature-page.success-title' | translate }}</h2>
+    <p class="success-message">{{ 'leaf.organization-candidature-page.success-message' | translate }}</p>
+  </div>
+
+  <button class="action-button" mat-stroked-button (click)="leave()">
+    <mat-icon>chevron_left</mat-icon>
+    {{ 'leaf.organization-candidature-page.leave-button-label' | translate }}
+  </button>
+</div>

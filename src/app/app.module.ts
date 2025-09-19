@@ -61,6 +61,7 @@ const leafConfig: LeafConfig = {
     registerSuccessRedirect: '',
     organizationSelectedGuardErrorRedirectNoSelectionPossible: '/welcome/organization',
     organizationSelectedGuardErrorRedirectSelectionPossible: '/organization/selection',
+    candidatureUri: '/organizations/candidature',
   },
   apis: {
     pixabay_api_key: environment.API_KEY_PIXABAY
