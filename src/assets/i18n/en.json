@@ -266,7 +266,6 @@
       "title": "Candidature to organization \"{{name}}\"",
       "information": "You want to apply for the {{role}} role",
       "candidate-button-label": "Apply",
-      "cancel-button-label": "Cancel",
       "loading": "Validating candidature...",
       "error-title": "Cannot apply",
       "missing-params-title": "Missing parameters",

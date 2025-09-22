@@ -284,7 +284,6 @@
       "title": "Candidature à l'organisation \"{{name}}\"",
       "information": "Vous souhaitez candidater pour le rôle de {{role}}",
       "candidate-button-label": "Candidater",
-      "cancel-button-label": "Annuler",
       "loading": "Validation de la candidature en cours...",
       "error-title": "Impossible de candidater",
       "missing-params-title": "Paramètres manquants",

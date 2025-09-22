@@ -12,7 +12,7 @@ import {
   OrganizationsApiClientService 
 } from '../../../../api';
 import { LeafConfirmDialogComponent, ConfirmDialogModel } from '../../../common/confirm-dialog';
-import { selectCurrentOrganization } from '../../../../store';
+import { listMyOrganizations, selectCurrentOrganization } from '../../../../store';
 import { TranslateService } from '@ngx-translate/core';
 import { LeafConfigServiceToken } from '../../../../services/leaf-config.module';
 
@@ -192,6 +192,7 @@ export class OrganizationCandidaturesComponent implements OnInit, OnDestroy {
           horizontalPosition: 'center',
           verticalPosition: 'bottom'
         });
+        this.store.dispatch(listMyOrganizations());
         this.updateCandidatureStatus(email, 'ACCEPTED');
         // Refresh organization data to reflect the changes
         this.onClose();
@@ -215,6 +216,7 @@ export class OrganizationCandidaturesComponent implements OnInit, OnDestroy {
           horizontalPosition: 'center',
           verticalPosition: 'bottom'
         });
+        this.store.dispatch(listMyOrganizations());
         this.updateCandidatureStatus(email, 'DECLINED');
         // Refresh organization data to reflect the changes
         this.onClose();

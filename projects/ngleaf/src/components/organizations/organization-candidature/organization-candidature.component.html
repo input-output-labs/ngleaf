@@ -4,10 +4,6 @@
     <mat-icon color="warn">error</mat-icon>
     <h2 class="error-title">{{ 'leaf.organization-candidature-page.missing-params-title' | translate }}</h2>
     <p class="error-message">{{ 'leaf.organization-candidature-page.missing-params-message' | translate }}</p>
-    <button class="action-button" mat-stroked-button (click)="cancel()">
-      <mat-icon>close</mat-icon>
-      {{ 'leaf.organization-candidature-page.cancel-button-label' | translate }}
-    </button>
   </div>
 
   <!-- Loading State -->
@@ -21,10 +17,6 @@
     <mat-icon color="warn">error</mat-icon>
     <h2 class="error-title">{{ 'leaf.organization-candidature-page.error-title' | translate }}</h2>
     <p class="error-message">{{ validationError }}</p>
-    <button class="action-button" mat-stroked-button (click)="cancel()">
-      <mat-icon>close</mat-icon>
-      {{ 'leaf.organization-candidature-page.cancel-button-label' | translate }}
-    </button>
   </div>
 
   <!-- Success State -->

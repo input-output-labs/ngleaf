@@ -113,16 +113,6 @@ export class OrganizationCandidatureComponent implements OnInit {
     });
   }
 
-  public cancel() {
-    // Reset submission state
-    this.submissionSuccess = false;
-    this.submissionError = '';
-    this.isSubmitting = false;
-    
-    console.log('Candidature cancelled');
-    this.candidatureStatus.emit(false);
-  }
-
   public leave() {
     this.router.navigate([this.config.navigation.afterInvitationRedirect || '/']);
   }
