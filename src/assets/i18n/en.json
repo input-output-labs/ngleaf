@@ -404,10 +404,64 @@
           "status": "Status",
           "download": "Download"
         }
+      },
+      "create-service": {
+        "serviceKey": "Service Key",
+        "enterKey": "Enter service key...",
+        "keyRequired": "Service key is required",
+        "keyMinLength": "Service key must be at least 1 character",
+        "icon": "Icon",
+        "iconHint": "Material icon name (e.g., 'settings', 'star', 'favorite')",
+        "unitPrice": "Unit Price (in cents)",
+        "priceRequired": "Unit price is required",
+        "priceMin": "Unit price must be 0 or greater",
+        "priceHint": "Price per unit in cents (e.g., 100 = $1.00)",
+        "quantity": "Quantity",
+        "quantityRequired": "Quantity is required",
+        "quantityMin": "Quantity must be 1 or greater",
+        "create": "Create Service",
+        "creating": "Creating..."
+      },
+      "services-list": {
+        "loading": "Loading services...",
+        "error": "Error loading services",
+        "noServices": "No services found"
+      },
+      "service-item": {
+        "key": "Key",
+        "icon": "Icon",
+        "price": "Price",
+        "quantity": "Quantity",
+        "total": "Total",
+        "edit": "Edit",
+        "save": "Save",
+        "cancel": "Cancel",
+        "delete": "Delete",
+        "keyRequired": "Key is required",
+        "keyMinLength": "Key must be at least 1 character",
+        "priceRequired": "Price is required",
+        "priceMin": "Price must be 0 or greater",
+        "quantityRequired": "Quantity is required",
+        "quantityMin": "Quantity must be 1 or greater",
+        "deleteConfirmTitle": "Delete Service",
+        "deleteConfirmMessage": "Are you sure you want to delete this service? This action cannot be undone.",
+        "titles": {
+          "premium-support": "Premium Support",
+          "api-access": "API Access",
+          "analytics": "Analytics Dashboard"
+        },
+        "descriptions": {
+          "premium-support": "24/7 premium customer support with dedicated account manager",
+          "api-access": "Full API access with advanced features and higher rate limits",
+          "analytics": "Comprehensive analytics dashboard with detailed reporting and insights"
+        }
       }
     },
     "select-language": {
       "menu": "Change language"
+    },
+    "common": {
+      "cancel": "Cancel"
     },
     "countries": {
       "CH": "Swizerland",

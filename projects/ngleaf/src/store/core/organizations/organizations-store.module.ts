@@ -4,6 +4,7 @@ import { StoreModule } from '@ngrx/store';
 import { OrganizationsEffects } from './organizations.effects';
 import { organizationsReducer } from './organizations.reducers';
 import { OrganizationsApiClientModule } from '../../../api/clients/organizations-api-client/index';
+import { ServicesApiClientModule } from '../../../api/clients/services-api-client/index';
 import { storageMetaReducer } from '../../common/storage.metareducer';
 
 @NgModule({
@@ -17,6 +18,7 @@ import { storageMetaReducer } from '../../common/storage.metareducer';
             }
         ),
         OrganizationsApiClientModule,
+        ServicesApiClientModule,
     ]
 })
 export class LeafOrganizationStoreModule { }

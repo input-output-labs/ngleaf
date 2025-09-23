@@ -1,0 +1,46 @@
+.leaf-icon-input-field {
+  width: 100%;
+  
+  .clear-button {
+    margin-right: 8px;
+    
+    mat-icon {
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+    }
+  }
+}
+
+.autocomplete-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  
+  .option-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    color: rgba(0, 0, 0, 0.6);
+  }
+  
+  .option-text {
+    font-size: 14px;
+  }
+}
+
+// Dark theme support
+@media (prefers-color-scheme: dark) {
+  .autocomplete-option .option-icon {
+    color: rgba(255, 255, 255, 0.6);
+  }
+}
+
+// Material theme overrides
+::ng-deep {
+  .leaf-icon-input-field {
+    .mat-mdc-form-field-subscript-wrapper {
+      display: none; // Hide the subscript to make room for icon
+    }
+  }
+}

@@ -1,0 +1,41 @@
+<mat-form-field [appearance]="fieldAppearance" class="leaf-icon-input-field" subscriptSizing="dynamic">
+  <mat-label>{{ placeholder }}</mat-label>
+  
+  <input
+    matInput
+    [formControl]="formControl"
+    [placeholder]="placeholder"
+    [required]="required"
+    [disabled]="isDisabled"
+    (focus)="onInputFocus()"
+    [matAutocomplete]="auto"
+    class="leaf-icon-input"
+    #inputElement>
+  
+  <!-- Icon display inside input -->
+    <mat-icon matPrefix *ngIf="selectedIcon && !isDisabled">{{ selectedIcon }}</mat-icon>
+  
+  <!-- Clear button -->
+  <button
+    matSuffix
+    mat-icon-button
+    type="button"
+    *ngIf="selectedIcon && !isDisabled"
+    (click)="clearSelection()"
+    class="clear-button"
+    aria-label="Clear selection">
+    <mat-icon>close</mat-icon>
+  </button>
+  
+  <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayWith">
+    <mat-option
+      *ngFor="let option of filteredOptions | async"
+      [value]="option"
+      (onSelectionChange)="onOptionSelected(option)">
+      <div class="autocomplete-option">
+        <mat-icon class="option-icon">{{ option }}</mat-icon>
+        <span class="option-text">{{ option }}</span>
+      </div>
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>

@@ -406,10 +406,64 @@
       "plan-selector-dialog": {
         "title": "Plan selection",
         "cancel": "Cancel"
+      },
+      "create-service": {
+        "serviceKey": "Clé du Service",
+        "enterKey": "Entrer la clé du service...",
+        "keyRequired": "La clé du service est requise",
+        "keyMinLength": "La clé du service doit contenir au moins 1 caractère",
+        "icon": "Icône",
+        "iconHint": "Nom de l'icône Material (ex: 'settings', 'star', 'favorite')",
+        "unitPrice": "Prix Unitaire (en centimes)",
+        "priceRequired": "Le prix unitaire est requis",
+        "priceMin": "Le prix unitaire doit être 0 ou plus",
+        "priceHint": "Prix par unité en centimes (ex: 100 = 1,00€)",
+        "quantity": "Quantité",
+        "quantityRequired": "La quantité est requise",
+        "quantityMin": "La quantité doit être 1 ou plus",
+        "create": "Créer le Service",
+        "creating": "Création en cours..."
+      },
+      "services-list": {
+        "loading": "Chargement des services...",
+        "error": "Erreur lors du chargement des services",
+        "noServices": "Aucun service trouvé"
+      },
+      "service-item": {
+        "key": "Clé",
+        "icon": "Icône",
+        "price": "Prix",
+        "quantity": "Quantité",
+        "total": "Total",
+        "edit": "Modifier",
+        "save": "Enregistrer",
+        "cancel": "Annuler",
+        "delete": "Supprimer",
+        "keyRequired": "La clé est requise",
+        "keyMinLength": "La clé doit contenir au moins 1 caractère",
+        "priceRequired": "Le prix est requis",
+        "priceMin": "Le prix doit être 0 ou plus",
+        "quantityRequired": "La quantité est requise",
+        "quantityMin": "La quantité doit être 1 ou plus",
+        "deleteConfirmTitle": "Supprimer le Service",
+        "deleteConfirmMessage": "Êtes-vous sûr de vouloir supprimer ce service ? Cette action ne peut pas être annulée.",
+        "titles": {
+          "premium-support": "Support Premium",
+          "api-access": "Accès API",
+          "analytics": "Tableau de Bord Analytics"
+        },
+        "descriptions": {
+          "premium-support": "Support client premium 24/7 avec gestionnaire de compte dédié",
+          "api-access": "Accès API complet avec fonctionnalités avancées et limites de débit plus élevées",
+          "analytics": "Tableau de bord d'analyses complet avec rapports détaillés et insights"
+        }
       }
     },
     "select-language": {
       "menu": "Changer de langue"
+    },
+    "common": {
+      "cancel": "Annuler"
     },
     "redirections-list": {
       "url": "http://localhost:4200/r/{{id}}"

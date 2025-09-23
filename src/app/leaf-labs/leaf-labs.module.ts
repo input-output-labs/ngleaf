@@ -7,6 +7,7 @@ import {
   LeafSponsorCodeInterceptorGuard,
   StatisticsPageComponent,
   LeafSponsoringResolver,
+  LeafServicesListComponentModule,
 } from "@input-output-labs/ngleaf";
 import { LeafLabsLayoutComponent } from "./leaf-labs-layout/leaf-labs-layout.component";
 import { LeafLabsLayoutModule } from "./leaf-labs-layout/leaf-labs-layout.module";
@@ -71,6 +72,7 @@ const routes: Routes = [
     LeafSponsorCodeInterceptorGuardModule,
     PaymentModule,
     RedirectionModule,
+    LeafServicesListComponentModule,
     /* App deps */
     LeafLabsLayoutModule,
   ],

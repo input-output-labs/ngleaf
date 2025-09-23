@@ -1,0 +1,102 @@
+<div class="leaf-service-item">
+  <div class="leaf-service-item__content">
+    <mat-icon *ngIf="!isEditMode" class="leaf-service-item__key-icon">{{ service.icon || 'settings' }}</mat-icon>
+
+    <div class="leaf-service-item__info">
+      <!-- Display Mode -->
+      <div *ngIf="!isEditMode" class="leaf-service-item__display">
+        <div class="leaf-service-item__main-info">
+            <div class="leaf-service-item__key">
+              <span class="leaf-service-item__key-text">{{ serviceTitle }}</span>
+            </div>
+          <div class="leaf-service-item__quantity">
+            <span class="leaf-service-item__quantity-label">{{ 'leaf.payment.service-item.quantity' | translate }}:</span>
+            <span class="leaf-service-item__quantity-value">{{ service.quantity }}</span>
+          </div>
+          <div class="leaf-service-item__price">
+            <span class="leaf-service-item__price-label">{{ 'leaf.payment.service-item.price' | translate }}:</span>
+            <span class="leaf-service-item__price-value">{{ formattedPrice }}</span>
+          </div>
+          <div class="leaf-service-item__total">
+            <span class="leaf-service-item__total-label">{{ 'leaf.payment.service-item.total' | translate }}:</span>
+            <span class="leaf-service-item__total-value">{{ formattedTotalPrice }}</span>
+          </div>
+        </div>
+        <div class="leaf-service-item__secondary-info" *ngIf="serviceDescription as description">
+          <div class="leaf-service-item__description">
+            <span class="leaf-service-item__description-text">{{ description }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Edit Mode -->
+      <div *ngIf="isEditMode" class="leaf-service-item__edit" [formGroup]="editForm">
+        <div class="leaf-service-item__form-row">
+          <mat-form-field appearance="outline" class="leaf-service-item__form-field">
+            <mat-label>{{ 'leaf.payment.service-item.key' | translate }}</mat-label>
+            <input matInput formControlName="key" [placeholder]="'Enter service key...'">
+            <mat-error *ngIf="keyControl?.invalid && keyControl?.touched">
+              <span *ngIf="keyControl?.errors?.['required']">{{ 'leaf.payment.service-item.keyRequired' | translate }}</span>
+              <span *ngIf="keyControl?.errors?.['minlength']">{{ 'leaf.payment.service-item.keyMinLength' | translate }}</span>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="leaf-service-item__form-row">
+          <leaf-icon-input formControlName="icon" fieldAppearance="outline"></leaf-icon-input>
+        </div>
+
+        <div class="leaf-service-item__form-row">
+          <mat-form-field appearance="outline" class="leaf-service-item__form-field">
+            <mat-label>{{ 'leaf.payment.service-item.price' | translate }}</mat-label>
+            <input matInput type="number" formControlName="unitPrice" [placeholder]="'0'" min="0" step="1">
+            <mat-error *ngIf="unitPriceControl?.invalid && unitPriceControl?.touched">
+              <span *ngIf="unitPriceControl?.errors?.['required']">{{ 'leaf.payment.service-item.priceRequired' | translate }}</span>
+              <span *ngIf="unitPriceControl?.errors?.['min']">{{ 'leaf.payment.service-item.priceMin' | translate }}</span>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="leaf-service-item__form-row">
+          <mat-form-field appearance="outline" class="leaf-service-item__form-field">
+            <mat-label>{{ 'leaf.payment.service-item.quantity' | translate }}</mat-label>
+            <input matInput type="number" formControlName="quantity" [placeholder]="'1'" min="1" step="1">
+            <mat-error *ngIf="quantityControl?.invalid && quantityControl?.touched">
+              <span *ngIf="quantityControl?.errors?.['required']">{{ 'leaf.payment.service-item.quantityRequired' | translate }}</span>
+              <span *ngIf="quantityControl?.errors?.['min']">{{ 'leaf.payment.service-item.quantityMin' | translate }}</span>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <!-- Display Mode Actions -->
+    <div class="leaf-service-item__actions" *ngIf="(currentAccount$ | async)?.admin && !isEditMode">
+      <button mat-icon-button [matMenuTriggerFor]="menu" class="leaf-service-item__menu-button">
+        <mat-icon class="leaf-service-item__menu-icon">more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu" class="leaf-service-item__menu">
+        <button mat-menu-item class="leaf-service-item__menu-item leaf-service-item__menu-item--edit" (click)="onEditService()">
+          <mat-icon class="leaf-service-item__menu-item-icon">edit</mat-icon>
+          <span class="leaf-service-item__menu-item-text">{{ 'leaf.payment.service-item.edit' | translate }}</span>
+        </button>
+        <button mat-menu-item class="leaf-service-item__menu-item leaf-service-item__menu-item--delete" (click)="onDeleteService()">
+          <mat-icon class="leaf-service-item__menu-item-icon">delete</mat-icon>
+          <span class="leaf-service-item__menu-item-text">{{ 'leaf.payment.service-item.delete' | translate }}</span>
+        </button>
+      </mat-menu>
+    </div>
+
+    <!-- Edit Mode Actions -->
+    <div class="leaf-service-item__actions" *ngIf="(currentAccount$ | async)?.admin && isEditMode">
+      <button mat-button class="leaf-service-item__action-button leaf-service-item__action-button--cancel" (click)="onCancelEdit()">
+        <mat-icon class="leaf-service-item__action-icon">close</mat-icon>
+        {{ 'leaf.payment.service-item.cancel' | translate }}
+      </button>
+      <button mat-raised-button color="primary" class="leaf-service-item__action-button leaf-service-item__action-button--save" 
+              (click)="onSaveService()" [disabled]="editForm.invalid">
+        <mat-icon class="leaf-service-item__action-icon">save</mat-icon>
+        {{ 'leaf.payment.service-item.save' | translate }}
+      </button>
+    </div>
+  </div>
+</div>

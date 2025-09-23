@@ -6,7 +6,8 @@ import { map, switchMap, catchError } from 'rxjs/operators';
 import { LeafRoomModel } from '../../api/models/messenger.model';
 import * as PaymentActions from './payment.actions';
 import { PaymentApiClientService } from '../../api/clients/payment-api-client';
-import { LeafPaymentPlan } from '../../api';
+import { ServicesApiClientService } from '../../api/clients/services-api-client';
+import { LeafPaymentPlan, LeafService } from '../../api';
 import { fetchEligibilites } from '../core';
 
 @Injectable()
@@ -58,8 +59,74 @@ export class PaymentEffects {
     )
   );
 
+  /* Services Effects */
+  createService$ = createEffect(() => this.actions$.pipe(
+    ofType(PaymentActions.createService),
+    map((payload: {service: LeafService}) => PaymentActions.setCreateServiceCall({
+      call: this.servicesApiClient.createService(payload.service)
+    })),
+  ));
+
+  createServiceCall$ = createEffect(() => this.actions$.pipe(
+    ofType(PaymentActions.setCreateServiceCall),
+    switchMap((payload: {call: Observable<LeafService>}) =>
+      payload.call.pipe(
+        map(service => PaymentActions.setCreateServiceSuccess({data: service})),
+        catchError((error) => of(PaymentActions.setCreateServiceFailure({error})))
+      )
+    )
+  ));
+
+  updateService$ = createEffect(() => this.actions$.pipe(
+    ofType(PaymentActions.updateService),
+    map((payload: {id: string, service: LeafService}) => PaymentActions.setUpdateServiceCall({
+      call: this.servicesApiClient.updateService(payload.id, payload.service)
+    })),
+  ));
+
+  updateServiceCall$ = createEffect(() => this.actions$.pipe(
+    ofType(PaymentActions.setUpdateServiceCall),
+    switchMap((payload: {call: Observable<LeafService>}) =>
+      payload.call.pipe(
+        map(service => PaymentActions.setUpdateServiceSuccess({data: service})),
+        catchError((error) => of(PaymentActions.setUpdateServiceFailure({error})))
+      )
+    )
+  ));
+
+  deleteService$ = createEffect(() => this.actions$.pipe(
+    ofType(PaymentActions.deleteService),
+    switchMap((payload: {id: string}) =>
+      this.servicesApiClient.deleteService(payload.id).pipe(
+        map(() => PaymentActions.setDeleteServiceSuccess({data: {id: payload.id} as LeafService})),
+        catchError((error) => of(PaymentActions.setDeleteServiceFailure({error})))
+      )
+    )
+  ));
+
+  listOrganizationServices$ = createEffect(() => this.actions$.pipe(
+    ofType(PaymentActions.listOrganizationServices),
+    map((payload: {organizationId?: string}) => PaymentActions.setListOrganizationServicesCall({
+      call: (payload.organizationId
+        ? this.servicesApiClient.getServicesByOrganization(payload.organizationId)
+        : this.servicesApiClient.getMyOrganizationServices()
+      )
+    })),
+  ));
+
+  listOrganizationServicesCall$ = createEffect(() => this.actions$.pipe(
+    ofType(PaymentActions.setListOrganizationServicesCall),
+    switchMap((payload: {call: Observable<LeafService[]>}) =>
+      payload.call.pipe(
+        map(services => PaymentActions.setListOrganizationServicesSuccess({data: services})),
+        catchError((error) => of(PaymentActions.setListOrganizationServicesFailure({error})))
+      )
+    )
+  ));
+
   constructor(
     private actions$: Actions,
     private paymentApiClient: PaymentApiClientService,
+    private servicesApiClient: ServicesApiClientService,
   ) {}
 }

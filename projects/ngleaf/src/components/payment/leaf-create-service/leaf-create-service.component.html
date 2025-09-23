@@ -1,0 +1,81 @@
+<div class="leaf-create-service">
+  <form [formGroup]="createServiceForm" (ngSubmit)="onSubmit()" class="service-form">
+    <div class="form-row">
+        <mat-form-field appearance="outline" class="full-width" subscriptSizing="dynamic">
+          <mat-label>{{ 'leaf.payment.create-service.serviceKey' | translate }}</mat-label>
+          <div *ngIf="hasAvailableServices; else textKeyInput">
+            <mat-select formControlName="key" (selectionChange)="onServiceSelected($event.value)">
+              <mat-option *ngFor="let service of availableServices" [value]="service.key">{{ service.key }}</mat-option>
+            </mat-select>
+          </div>
+          <ng-template #textKeyInput>
+            <input 
+              matInput 
+              formControlName="key" 
+              [placeholder]="'leaf.payment.create-service.enterKey' | translate">
+          </ng-template>
+          <mat-error *ngIf="keyControl?.invalid && keyControl?.touched">
+            <span *ngIf="keyControl?.errors?.['required']">{{ 'leaf.payment.create-service.keyRequired' | translate }}</span>
+            <span *ngIf="keyControl?.errors?.['minlength']">{{ 'leaf.payment.create-service.keyMinLength' | translate }}</span>
+          </mat-error>
+        </mat-form-field>
+    </div>
+
+    <div class="form-row">
+      <leaf-icon-input formControlName="icon" class="full-width" fieldAppearance="outline"></leaf-icon-input>
+    </div>
+
+    <div class="form-row">
+      <mat-form-field appearance="outline" class="full-width" subscriptSizing="dynamic">
+        <mat-label>{{ 'leaf.payment.create-service.unitPrice' | translate }}</mat-label>
+        <input 
+          matInput 
+          type="number" 
+          formControlName="unitPrice" 
+          [placeholder]="'0'"
+          min="0"
+          step="1">
+        <mat-error *ngIf="unitPriceControl?.invalid && unitPriceControl?.touched">
+          <span *ngIf="unitPriceControl?.errors?.['required']">{{ 'leaf.payment.create-service.priceRequired' | translate }}</span>
+          <span *ngIf="unitPriceControl?.errors?.['min']">{{ 'leaf.payment.create-service.priceMin' | translate }}</span>
+        </mat-error>
+        <mat-hint>{{ 'leaf.payment.create-service.priceHint' | translate }}</mat-hint>
+      </mat-form-field>
+    </div>
+
+    <div class="form-row">
+      <mat-form-field appearance="outline" class="full-width" subscriptSizing="dynamic">
+        <mat-label>{{ 'leaf.payment.create-service.quantity' | translate }}</mat-label>
+        <input 
+          matInput 
+          type="number" 
+          formControlName="quantity" 
+          [placeholder]="'1'"
+          min="1"
+          step="1">
+        <mat-error *ngIf="quantityControl?.invalid && quantityControl?.touched">
+          <span *ngIf="quantityControl?.errors?.['required']">{{ 'leaf.payment.create-service.quantityRequired' | translate }}</span>
+          <span *ngIf="quantityControl?.errors?.['min']">{{ 'leaf.payment.create-service.quantityMin' | translate }}</span>
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-actions">
+      <button 
+        mat-button 
+        type="button" 
+        (click)="onCancel()"
+        [disabled]="isSubmitting">
+        {{ 'leaf.common.cancel' | translate }}
+      </button>
+      <button 
+        mat-raised-button 
+        color="primary" 
+        type="submit" 
+        [disabled]="createServiceForm.invalid || isSubmitting">
+        <mat-spinner *ngIf="isSubmitting" diameter="20" class="button-spinner"></mat-spinner>
+        {{ isSubmitting ? ('leaf.payment.create-service.creating' | translate) : ('leaf.payment.create-service.create' | translate) }}
+      </button>
+    </div>
+  </form>
+</div>

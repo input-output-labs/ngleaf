@@ -7,10 +7,25 @@ export function upsert<T extends { id?: string }>(item: T, list: T[] = []): T[] 
   }
 }
 
+export function remove<T extends { id?: string }>(itemId: string, list: T[] = []): T[] {
+  const index = list.findIndex((listItem) => listItem.id === itemId);
+  if (index >= 0) {
+    return [...list.slice(0, index), ...list.slice(index + 1)];
+  }
+  return list;
+}
+
 export function asyncUpsert<T extends { id?: string }>(item: T, asyncItem: AsyncType<T[]>): AsyncType<T[]> {
   return {
     ...asyncItem,
     data: upsert<T>(item, asyncItem.data),
+  };
+}
+
+export function asyncRemove<T extends { id?: string }>(itemId: string, asyncItem: AsyncType<T[]>): AsyncType<T[]> {
+  return {
+    ...asyncItem,
+    data: remove<T>(itemId, asyncItem.data),
   };
 }
 

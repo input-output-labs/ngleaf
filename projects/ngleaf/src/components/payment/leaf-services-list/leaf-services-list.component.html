@@ -1,0 +1,37 @@
+<div class="leaf-services-list">
+  <div *ngIf="services$ | async as servicesState" class="leaf-services-list__container">
+    <!-- Loading state -->
+    <div *ngIf="servicesState.status.pending" class="leaf-services-list__loading">
+      <div class="leaf-services-list__loading-content">
+        <mat-spinner diameter="30" class="leaf-services-list__spinner"></mat-spinner>
+        <p class="leaf-services-list__loading-text">{{ 'leaf.payment.services-list.loading' | translate }}</p>
+      </div>
+    </div>
+
+    <!-- Error state -->
+    <div *ngIf="servicesState.status.failure" class="leaf-services-list__error">
+      <div class="leaf-services-list__error-content">
+        <mat-icon class="leaf-services-list__error-icon">error</mat-icon>
+        <p class="leaf-services-list__error-text">{{ 'leaf.payment.services-list.error' | translate }}</p>
+      </div>
+    </div>
+
+    <!-- Services list -->
+    <div *ngIf="servicesState.status.success && servicesState.data && servicesState.data.length > 0" class="leaf-services-list__items">
+      <div *ngFor="let service of servicesState.data; trackBy: trackByServiceId" class="leaf-services-list__item-wrapper">
+        <leaf-service-item 
+          [service]="service"
+          class="leaf-services-list__service-item">
+        </leaf-service-item>
+      </div>
+    </div>
+
+    <!-- Empty state -->
+    <div *ngIf="servicesState.status.success && (!servicesState.data || servicesState.data.length === 0)" class="leaf-services-list__empty">
+      <div class="leaf-services-list__empty-content">
+        <mat-icon class="leaf-services-list__empty-icon">inbox</mat-icon>
+        <p class="leaf-services-list__empty-text">{{ 'leaf.payment.services-list.noServices' | translate }}</p>
+      </div>
+    </div>
+  </div>
+</div>

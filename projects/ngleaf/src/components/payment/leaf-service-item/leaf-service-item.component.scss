@@ -1,0 +1,200 @@
+.leaf-service-item {
+  &__content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 1;
+  }
+
+  &__display {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  &__main-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  &__secondary-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  &__key {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  &__key-icon {
+    color: #666;
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
+  }
+
+  &__key-text {
+    font-weight: 500;
+    color: #333;
+    font-size: 1rem;
+  }
+
+  &__description {
+    flex: 1;
+  }
+
+  &__description-text {
+    color: #666;
+    font-size: 0.9rem;
+    font-style: italic;
+  }
+
+  &__details {
+    display: flex;
+    gap: 1.5rem;
+    color: #666;
+    font-size: 0.9rem;
+  }
+
+  &__price,
+  &__quantity,
+  &__total {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  &__price-label,
+  &__quantity-label,
+  &__total-label {
+    font-weight: 500;
+  }
+
+  &__price-value {
+    color: #2e7d32;
+    font-weight: 600;
+  }
+
+  &__quantity-value {
+    color: #1976d2;
+    font-weight: 600;
+  }
+
+  &__total-value {
+    color: #ff6b35;
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  &__action-button {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+
+    &--cancel {
+      color: #666;
+    }
+
+    &--save {
+      // Primary button styling handled by Material
+    }
+  }
+
+  &__action-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
+
+  &__edit {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  &__form-row {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__form-field {
+    width: 100%;
+  }
+
+  &__menu-button {
+    // Menu button - can be customized
+  }
+
+  &__menu-icon {
+    // Menu icon - can be customized
+  }
+
+  &__menu {
+    // Menu container - can be customized
+  }
+
+  &__menu-item {
+    // Menu item - can be customized
+
+    &--edit {
+      // Edit menu item - can be customized
+    }
+
+    &--delete {
+      // Delete menu item - can be customized
+    }
+  }
+
+  &__menu-item-icon {
+    // Menu item icon - can be customized
+  }
+
+  &__menu-item-text {
+    // Menu item text - can be customized
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .leaf-service-item {
+    &__content {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    &__info {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+
+    &__details {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    &__actions {
+      align-self: flex-end;
+    }
+  }
+}

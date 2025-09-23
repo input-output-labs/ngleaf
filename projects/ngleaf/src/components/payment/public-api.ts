@@ -9,3 +9,6 @@ export * from './leaf-plan-selector-dialog/index';
 export * from './leaf-plan-viewer/index';
 export * from './leaf-selected-payment-plan/index';
 export * from './credit-card/index';
+export * from './leaf-create-service/index';
+export * from './leaf-services-list/index';
+export * from './leaf-service-item/index';

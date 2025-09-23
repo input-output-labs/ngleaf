@@ -1,0 +1,75 @@
+.leaf-services-list {
+  &__container {
+    // Container for all states
+  }
+
+  &__loading,
+  &__error,
+  &__empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+
+  &__loading-content,
+  &__error-content,
+  &__empty-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  &__spinner {
+    margin-bottom: 1rem;
+  }
+
+  &__loading-text,
+  &__error-text,
+  &__empty-text {
+    margin: 0;
+    font-size: 1rem;
+  }
+
+  &__loading-text {
+    color: #666;
+  }
+
+  &__error-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 1rem;
+    color: #d32f2f;
+  }
+
+  &__error-text {
+    color: #d32f2f;
+  }
+
+  &__empty-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 1rem;
+    color: #ccc;
+  }
+
+  &__empty-text {
+    color: #666;
+  }
+
+  &__items {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__item-wrapper {
+    // Wrapper for each service item - can be customized
+  }
+
+  &__service-item {
+    // Service item component - can be customized
+  }
+}

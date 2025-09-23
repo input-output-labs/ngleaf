@@ -18,3 +18,18 @@
 
 <h2>Organization plan information for admin</h2>
 <app-leaf-plan-information-for-admin *ngIf="(currentOrganization$ | async) as organization" [organizationId]="organization.id"></app-leaf-plan-information-for-admin>
+
+<h2>Create service</h2>
+<leaf-create-service
+  attachmentType="ORGANIZATION"
+  [attachedTo]="(currentOrganization$ | async)?.id"
+  [availableServices]="availableServices"
+  (serviceCreated)="onServiceCreated($event)"
+  (serviceCreationError)="onServiceCreationError($event)">
+</leaf-create-service>
+
+<h2>Services list</h2>
+<leaf-services-list
+  attachmentType="ORGANIZATION"
+  [attachedTo]="(currentOrganization$ | async)?.id">
+</leaf-services-list>
