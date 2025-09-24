@@ -52,7 +52,7 @@
       {{ "leaf.payment.plan-selector.submitButtonLabel" | translate }}
       <mat-progress-bar
         mode="indeterminate"
-        *ngIf="planSelectionCallInProgress$"
+        *ngIf="planSelectionCallInProgress$ | async"
       ></mat-progress-bar>
     </button>
   </div>

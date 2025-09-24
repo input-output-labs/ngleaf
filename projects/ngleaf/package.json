@@ -1,6 +1,6 @@
 {
   "name": "@input-output-labs/ngleaf",
-  "version": "2.19.0",
+  "version": "2.19.1",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },

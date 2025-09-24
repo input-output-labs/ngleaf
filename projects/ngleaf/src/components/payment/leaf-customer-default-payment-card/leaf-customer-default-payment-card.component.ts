@@ -24,7 +24,7 @@ export class LeafCustomerDefaultPaymentCardComponent {
     this.defaultPaymentCard$ = this.store.pipe(
       select(selectCurrentAccountData),
       filter((account) => !!account),
-      map((account) => account.modules?.paymentcustomermodule?.defaultPaymentMethod)
+      map((account) => account.modules?.paymentmodule?.defaultPaymentMethod)
     );
   }
   
