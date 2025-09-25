@@ -410,6 +410,7 @@
         "enterKey": "Enter service key...",
         "keyRequired": "Service key is required",
         "keyMinLength": "Service key must be at least 1 character",
+        "stripeProductId": "Stripe Product ID",
         "icon": "Icon",
         "iconHint": "Material icon name (e.g., 'settings', 'star', 'favorite')",
         "unitPrice": "Unit Price (in cents)",
@@ -432,6 +433,7 @@
       "service-item": {
         "key": "Key",
         "keyReadonlyHint": "Service key cannot be changed",
+        "stripeProductId": "Stripe Product ID",
         "icon": "Icon",
         "price": "Price",
         "quantity": "Quantity",

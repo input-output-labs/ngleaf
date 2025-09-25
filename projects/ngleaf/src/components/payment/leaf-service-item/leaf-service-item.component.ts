@@ -31,6 +31,7 @@ export class LeafServiceItemComponent implements OnInit {
     this.currentAccount$ = this.store.select(selectCurrentAccountData);
     this.editForm = this.formBuilder.group({
       key: [{value: '', disabled: true}], // Key field is always disabled
+      stripeProductId: [''],
       icon: [''],
       unitPrice: [0, [Validators.required, Validators.min(0)]],
       quantity: [1, [Validators.required, Validators.min(1)]],
@@ -96,6 +97,10 @@ export class LeafServiceItemComponent implements OnInit {
     return this.editForm.get('key');
   }
 
+  get stripeProductIdControl() {
+    return this.editForm.get('stripeProductId');
+  }
+
   get iconControl() {
     return this.editForm.get('icon');
   }
@@ -119,6 +124,7 @@ export class LeafServiceItemComponent implements OnInit {
   private initializeForm(): void {
     this.editForm.patchValue({
       key: this.service.key,
+      stripeProductId: this.service.stripeProductId || '',
       icon: this.service.icon || '',
       unitPrice: this.service.unitPrice,
       quantity: this.service.quantity,
@@ -143,6 +149,7 @@ export class LeafServiceItemComponent implements OnInit {
       const updatedService: LeafService = {
         ...this.service,
         key: this.service.key, // Keep the original key, don't allow changes
+        stripeProductId: formValue.stripeProductId || undefined,
         icon: formValue.icon || undefined,
         unitPrice: formValue.unitPrice,
         quantity: formValue.automaticQuantities ? 1 : formValue.quantity, // Use 1 as default when automatic quantities is enabled

@@ -412,6 +412,7 @@
         "enterKey": "Entrer la clé du service...",
         "keyRequired": "La clé du service est requise",
         "keyMinLength": "La clé du service doit contenir au moins 1 caractère",
+        "stripeProductId": "ID Produit Stripe",
         "icon": "Icône",
         "iconHint": "Nom de l'icône Material (ex: 'settings', 'star', 'favorite')",
         "unitPrice": "Prix Unitaire (en centimes)",
@@ -434,6 +435,7 @@
       "service-item": {
         "key": "Clé",
         "keyReadonlyHint": "La clé du service ne peut pas être modifiée",
+        "stripeProductId": "ID Produit Stripe",
         "icon": "Icône",
         "price": "Prix",
         "quantity": "Quantité",

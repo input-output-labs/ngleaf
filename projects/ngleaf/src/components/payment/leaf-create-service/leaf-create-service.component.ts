@@ -31,6 +31,7 @@ export class LeafCreateServiceComponent implements OnInit {
   ) {
     this.createServiceForm = this.formBuilder.group({
       key: ['', [Validators.required, Validators.minLength(1)]],
+      stripeProductId: [''],
       icon: [''],
       unitPrice: [0, [Validators.required, Validators.min(0)]],
       quantity: [1, [Validators.required, Validators.min(1)]],
@@ -64,6 +65,10 @@ export class LeafCreateServiceComponent implements OnInit {
     return this.createServiceForm.get('key');
   }
 
+  get stripeProductIdControl() {
+    return this.createServiceForm.get('stripeProductId');
+  }
+
   get iconControl() {
     return this.createServiceForm.get('icon');
   }
@@ -91,6 +96,9 @@ export class LeafCreateServiceComponent implements OnInit {
         if (selectedService.unitPrice !== undefined) {
           this.unitPriceControl?.setValue(selectedService.unitPrice);
         }
+        if (selectedService.stripeProductId !== undefined) {
+          this.stripeProductIdControl?.setValue(selectedService.stripeProductId);
+        }
         if (selectedService.icon !== undefined) {
           this.iconControl?.setValue(selectedService.icon);
         }
@@ -112,6 +120,7 @@ export class LeafCreateServiceComponent implements OnInit {
         attachmentType: this.attachmentType,
         attachedTo: this.attachedTo,
         key: formValue.key,
+        stripeProductId: formValue.stripeProductId || undefined,
         icon: formValue.icon || undefined,
         unitPrice: formValue.unitPrice,
         quantity: formValue.automaticQuantities ? 1 : formValue.quantity, // Use 1 as default when automatic quantities is enabled

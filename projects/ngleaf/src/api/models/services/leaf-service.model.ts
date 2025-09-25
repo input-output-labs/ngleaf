@@ -10,6 +10,7 @@ export interface LeafService {
   attachmentType: PlanAttachment;
   attachedTo: string;
   key: string;
+  stripeProductId?: string;
   icon?: string;
   unitPrice: number; // in cents
   quantity: number;
