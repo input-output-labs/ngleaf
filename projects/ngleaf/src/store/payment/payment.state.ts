@@ -11,4 +11,5 @@ export interface PaymentState {
   updateService: AsyncType<LeafService>;
   deleteService: AsyncType<LeafService>;
   allServices: AsyncType<LeafService[]>;
+  availableServices: AsyncType<LeafService[]>;
 }

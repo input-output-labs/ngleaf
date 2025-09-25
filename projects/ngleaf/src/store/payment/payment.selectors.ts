@@ -78,3 +78,13 @@ export const selectDeleteService = createSelector(
   selectPaymentFromAppState,
   (state: PaymentState) => state.deleteService
 );
+
+export const selectAvailableServices = createSelector(
+  selectPaymentFromAppState,
+  (state: PaymentState) => state.availableServices
+);
+
+export const selectAvailableServicesData = createSelector(
+  selectAvailableServices,
+  (availableServices: AsyncType<LeafService[]>) => availableServices?.data
+);

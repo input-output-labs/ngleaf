@@ -13,6 +13,7 @@ const initialState: PaymentState = {
   updateService: createEmptyAsyncType(),
   deleteService: createEmptyAsyncType(),
   allServices: createEmptyAsyncType(),
+  availableServices: createEmptyAsyncType(),
 };
 
 export function paymentReducer(reducerState, action): PaymentState {
@@ -63,6 +64,10 @@ export function paymentReducer(reducerState, action): PaymentState {
     on(PaymentActions.setListOrganizationServicesCall, (state: PaymentState, {call}) => ({...state, allServices: asyncTypePending(state.allServices)})),
     on(PaymentActions.setListOrganizationServicesSuccess, (state: PaymentState, {data}) => ({...state, allServices: asyncTypeSuccess(state.allServices, data)})),
     on(PaymentActions.setListOrganizationServicesFailure, (state: PaymentState, {error}) => ({...state, allServices: asyncTypeFailure(state.allServices, error)})),
+    /** Fetch available services */
+    on(PaymentActions.setFetchAvailableServicesCall, (state: PaymentState, {call}) => ({...state, availableServices: asyncTypePending(state.availableServices)})),
+    on(PaymentActions.setFetchAvailableServicesSuccess, (state: PaymentState, {data}) => ({...state, availableServices: asyncTypeSuccess(state.availableServices, data)})),
+    on(PaymentActions.setFetchAvailableServicesFailure, (state: PaymentState, {error}) => ({...state, availableServices: asyncTypeFailure(state.availableServices, error)})),
   )(reducerState, action);
 }
 

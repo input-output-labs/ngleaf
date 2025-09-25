@@ -23,7 +23,6 @@
 <leaf-create-service
   attachmentType="ORGANIZATION"
   [attachedTo]="(currentOrganization$ | async)?.id"
-  [availableServices]="availableServices"
   (serviceCreated)="onServiceCreated($event)"
   (serviceCreationError)="onServiceCreationError($event)">
 </leaf-create-service>

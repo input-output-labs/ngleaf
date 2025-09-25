@@ -116,3 +116,19 @@ export const setListOrganizationServicesFailure = createAction(
   '[Payment store] Set list organization services failure',
   props<{error: any}>()
 );
+
+export const fetchAvailableServices = createAction(
+  '[Payment store] Fetch available services'
+);
+export const setFetchAvailableServicesCall = createAction(
+  '[Payment store] Set fetch available services call',
+  props<{call: Observable<LeafService[]>}>()
+);
+export const setFetchAvailableServicesSuccess = createAction(
+  '[Payment store] Set fetch available services success',
+  props<{data: LeafService[]}>()
+);
+export const setFetchAvailableServicesFailure = createAction(
+  '[Payment store] Set fetch available services failure',
+  props<{error: any}>()
+);

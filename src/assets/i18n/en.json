@@ -419,6 +419,8 @@
         "quantity": "Quantity",
         "quantityRequired": "Quantity is required",
         "quantityMin": "Quantity must be 1 or greater",
+        "automaticQuantities": "Automatic Quantities",
+        "useSubscription": "Use Subscription",
         "create": "Create Service",
         "creating": "Creating..."
       },
@@ -429,10 +431,13 @@
       },
       "service-item": {
         "key": "Key",
+        "keyReadonlyHint": "Service key cannot be changed",
         "icon": "Icon",
         "price": "Price",
         "quantity": "Quantity",
         "total": "Total",
+        "automaticQuantities": "Automatic Quantities",
+        "useSubscription": "Added to Subscription",
         "edit": "Edit",
         "save": "Save",
         "cancel": "Cancel",

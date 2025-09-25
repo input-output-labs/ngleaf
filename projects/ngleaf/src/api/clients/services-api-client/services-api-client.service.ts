@@ -86,4 +86,11 @@ export class ServicesApiClientService {
   public getAllServices(): Observable<LeafService[]> {
     return this.authHttp.get<LeafService[]>(`${this.config.serverUrl}/payment/services`);
   }
+
+  /**
+   * Get available services options
+   */
+  public fetchAvailableServices(): Observable<LeafService[]> {
+    return this.authHttp.get<LeafService[]>(`${this.config.serverUrl}/payment/services/options`);
+  }
 }

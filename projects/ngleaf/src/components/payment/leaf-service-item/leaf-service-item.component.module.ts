@@ -7,6 +7,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { LeafServiceItemComponent } from './leaf-service-item.component';
@@ -29,6 +31,8 @@ import { LeafIconInputModule } from '../../common';
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
+    MatTooltipModule,
+    MatCheckboxModule,
     /* Leaf deps */
     LeafIconInputModule,
   ],

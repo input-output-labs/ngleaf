@@ -124,6 +124,23 @@ export class PaymentEffects {
     )
   ));
 
+  fetchAvailableServices$ = createEffect(() => this.actions$.pipe(
+    ofType(PaymentActions.fetchAvailableServices),
+    map(() => PaymentActions.setFetchAvailableServicesCall({
+      call: this.servicesApiClient.fetchAvailableServices()
+    })),
+  ));
+
+  fetchAvailableServicesCall$ = createEffect(() => this.actions$.pipe(
+    ofType(PaymentActions.setFetchAvailableServicesCall),
+    switchMap((payload: {call: Observable<LeafService[]>}) =>
+      payload.call.pipe(
+        map(services => PaymentActions.setFetchAvailableServicesSuccess({data: services})),
+        catchError((error) => of(PaymentActions.setFetchAvailableServicesFailure({error})))
+      )
+    )
+  ));
+
   constructor(
     private actions$: Actions,
     private paymentApiClient: PaymentApiClientService,

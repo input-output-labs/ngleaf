@@ -421,6 +421,8 @@
         "quantity": "Quantité",
         "quantityRequired": "La quantité est requise",
         "quantityMin": "La quantité doit être 1 ou plus",
+        "automaticQuantities": "Quantités Automatiques",
+        "useSubscription": "Utiliser l'Abonnement",
         "create": "Créer le Service",
         "creating": "Création en cours..."
       },
@@ -431,10 +433,13 @@
       },
       "service-item": {
         "key": "Clé",
+        "keyReadonlyHint": "La clé du service ne peut pas être modifiée",
         "icon": "Icône",
         "price": "Prix",
         "quantity": "Quantité",
         "total": "Total",
+        "automaticQuantities": "Quantités Automatiques",
+        "useSubscription": "Ajouté à l'Abonnement",
         "edit": "Modifier",
         "save": "Enregistrer",
         "cancel": "Annuler",

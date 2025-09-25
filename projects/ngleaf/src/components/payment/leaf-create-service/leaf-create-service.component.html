@@ -3,8 +3,8 @@
     <div class="form-row">
         <mat-form-field appearance="outline" class="full-width" subscriptSizing="dynamic">
           <mat-label>{{ 'leaf.payment.create-service.serviceKey' | translate }}</mat-label>
-          <div *ngIf="hasAvailableServices; else textKeyInput">
-            <mat-select formControlName="key" (selectionChange)="onServiceSelected($event.value)">
+          <div *ngIf="(availableServices$ | async) as availableServices; else textKeyInput">
+            <mat-select formControlName="key" (selectionChange)="onServiceSelected($event.value, availableServices)">
               <mat-option *ngFor="let service of availableServices" [value]="service.key">{{ service.key }}</mat-option>
             </mat-select>
           </div>
@@ -44,6 +44,18 @@
     </div>
 
     <div class="form-row">
+      <mat-checkbox formControlName="automaticQuantities">
+        {{ 'leaf.payment.create-service.automaticQuantities' | translate }}
+      </mat-checkbox>
+    </div>
+
+    <div class="form-row">
+      <mat-checkbox formControlName="useSubscription">
+        {{ 'leaf.payment.create-service.useSubscription' | translate }}
+      </mat-checkbox>
+    </div>
+
+    <div class="form-row" *ngIf="!automaticQuantitiesControl?.value">
       <mat-form-field appearance="outline" class="full-width" subscriptSizing="dynamic">
         <mat-label>{{ 'leaf.payment.create-service.quantity' | translate }}</mat-label>
         <input 

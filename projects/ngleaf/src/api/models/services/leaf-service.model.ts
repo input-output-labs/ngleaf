@@ -13,5 +13,7 @@ export interface LeafService {
   icon?: string;
   unitPrice: number; // in cents
   quantity: number;
+  automaticQuantities: boolean;
+  useSubscription: boolean;
   metadata?: ResourceMetadata;
 }

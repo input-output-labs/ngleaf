@@ -11,11 +11,6 @@ import { Observable } from 'rxjs';
 })
 export class PaymentComponent implements OnInit {
   public currentOrganization$: Observable<LeafOrganization>;
-  public availableServices: Partial<LeafService>[] = [
-    { key: 'premium-support', icon: 'support_agent', unitPrice: 5000 }, // $50.00
-    { key: 'api-access', icon: 'api', unitPrice: 2500 },                // $25.00
-    { key: 'analytics', icon: 'analytics', unitPrice: 1000 }            // $10.00
-  ];
 
   constructor(private store: Store) {
     this.currentOrganization$ = this.store.pipe(

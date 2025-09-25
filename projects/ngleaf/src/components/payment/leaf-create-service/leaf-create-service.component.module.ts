@@ -11,6 +11,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { LeafCreateServiceComponent } from './leaf-create-service.component';
 import { PaymentStoreModule } from '../../../store';
 import { LeafIconInputModule } from '../../common';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { LeafIconInputModule } from '../../common';
     MatInputModule,
     MatSelectModule,
     MatProgressSpinnerModule,
+    MatCheckboxModule,
     /* Leaf deps */
     PaymentStoreModule,
     MatInputModule,

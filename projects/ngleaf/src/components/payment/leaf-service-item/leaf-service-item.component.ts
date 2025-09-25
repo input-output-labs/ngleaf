@@ -30,15 +30,30 @@ export class LeafServiceItemComponent implements OnInit {
   ) {
     this.currentAccount$ = this.store.select(selectCurrentAccountData);
     this.editForm = this.formBuilder.group({
-      key: ['', [Validators.required, Validators.minLength(1)]],
+      key: [{value: '', disabled: true}], // Key field is always disabled
       icon: [''],
       unitPrice: [0, [Validators.required, Validators.min(0)]],
-      quantity: [1, [Validators.required, Validators.min(1)]]
+      quantity: [1, [Validators.required, Validators.min(1)]],
+      automaticQuantities: [{value: false, disabled: true}],
+      useSubscription: [{value: false, disabled: true}]
     });
   }
 
   ngOnInit(): void {
     this.initializeForm();
+    
+    // Watch for automaticQuantities changes to handle quantity field validation
+    this.automaticQuantitiesControl?.valueChanges.subscribe(automaticQuantities => {
+      if (automaticQuantities) {
+        // Clear quantity validation when automatic quantities is enabled
+        this.quantityControl?.clearValidators();
+        this.quantityControl?.updateValueAndValidity();
+      } else {
+        // Restore quantity validation when automatic quantities is disabled
+        this.quantityControl?.setValidators([Validators.required, Validators.min(1)]);
+        this.quantityControl?.updateValueAndValidity();
+      }
+    });
   }
 
   get formattedPrice(): string {
@@ -93,12 +108,22 @@ export class LeafServiceItemComponent implements OnInit {
     return this.editForm.get('quantity');
   }
 
+  get automaticQuantitiesControl() {
+    return this.editForm.get('automaticQuantities');
+  }
+
+  get useSubscriptionControl() {
+    return this.editForm.get('useSubscription');
+  }
+
   private initializeForm(): void {
     this.editForm.patchValue({
       key: this.service.key,
       icon: this.service.icon || '',
       unitPrice: this.service.unitPrice,
-      quantity: this.service.quantity
+      quantity: this.service.quantity,
+      automaticQuantities: this.service.automaticQuantities,
+      useSubscription: this.service.useSubscription
     });
   }
 
@@ -117,10 +142,12 @@ export class LeafServiceItemComponent implements OnInit {
       const formValue = this.editForm.value;
       const updatedService: LeafService = {
         ...this.service,
-        key: formValue.key,
+        key: this.service.key, // Keep the original key, don't allow changes
         icon: formValue.icon || undefined,
         unitPrice: formValue.unitPrice,
-        quantity: formValue.quantity
+        quantity: formValue.automaticQuantities ? 1 : formValue.quantity, // Use 1 as default when automatic quantities is enabled
+        automaticQuantities: formValue.automaticQuantities,
+        useSubscription: formValue.useSubscription
       };
 
       this.store.dispatch(updateService({ id: this.service.id, service: updatedService }));
