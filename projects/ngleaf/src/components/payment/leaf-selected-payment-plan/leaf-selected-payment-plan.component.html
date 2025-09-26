@@ -26,7 +26,7 @@
             "
             >{{ 'leaf.payment.plans.' + paymentPlanInfo.plan.name | translate }}</mat-chip
           >
-          <button mat-stroked-button (click)="changePaymentPlan()" [disabled]="canChangePaymentPlan">
+          <button mat-stroked-button (click)="changePaymentPlan()" [disabled]="!canChangePaymentPlan">
             {{
               "leaf.payment.selected-payment-plan.selectedPlanChangeLabel"
                 | translate
