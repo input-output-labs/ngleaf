@@ -30,6 +30,7 @@ export interface LeafAccountProfile {
   corporate?: boolean;
   taxId?: string;
   registrationNumber?: string;
+  billingEmail?: string;
 }
 
 export interface LeafAccountModel {

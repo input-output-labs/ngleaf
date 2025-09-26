@@ -92,6 +92,26 @@
         {{ "leaf.profile-update.requiredError" | translate }}
       </mat-error>
     </ng-container>
+    <ng-container *ngIf="fields.includes('billingEmail')">
+      <div class="form-group-title" *ngIf="!hideGroupTitles">{{ 'leaf.profile-update.billingEmail-form-group-title' | translate }}</div>
+      <mat-form-field subscriptSizing="dynamic" [appearance]="fieldAppearance">
+        <mat-label>{{ 'leaf.profile-update.billingEmail-input-placeholder' | translate }}</mat-label>
+        <input
+          matInput
+          id="billingEmail"
+          [placeholder]="
+            'leaf.profile-update.billingEmail-input-placeholder' | translate
+          "
+          value=""
+          formControlName="billingEmail"
+        />
+        <mat-error
+          *ngIf="profileFormGroup.controls.billingEmail.hasError('required')"
+        >
+          {{ "leaf.profile-update.requiredError" | translate }}
+        </mat-error>
+      </mat-form-field>
+    </ng-container>
     <ng-container *ngIf="fields.includes('address')">
       <div class="form-group-title" *ngIf="!hideGroupTitles">{{ 'leaf.profile-update.address-form-group-title' | translate }}</div>
       <leaf-address-form formControlName="address" [appearance]="fieldAppearance"></leaf-address-form>

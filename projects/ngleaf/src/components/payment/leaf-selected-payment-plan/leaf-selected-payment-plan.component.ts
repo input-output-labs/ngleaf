@@ -28,6 +28,9 @@ export class LeafSelectedPaymentPlanComponent implements OnInit, OnDestroy {
     showTrialDuration: false,
   };
 
+  @Input()
+  public canChangePaymentPlan: boolean = true;
+
   constructor(
     private store: Store,
     private paymentApiClientService: PaymentApiClientService,
