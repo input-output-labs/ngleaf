@@ -396,6 +396,7 @@
         "trialLabelOngoing": "ongoing",
         "trialLabelOver": "Over",
         "trialLabelNone": "None",
+        "paymentMethodSendInvoiceLabel": "Une facture sera envoyée périodiquement à votre adresse de facturation",
         "paymentMethodChangeLabel": "Changer",
         "paymentMethodSetLabel": "Définir mon mode de paiement",
         "paymentMethodDisclaimer": "Aucun mode de paiment définit !<br/>Veuillez définir un mode de paiement avant la fin de la période d'essai pour éviter sa révocation."

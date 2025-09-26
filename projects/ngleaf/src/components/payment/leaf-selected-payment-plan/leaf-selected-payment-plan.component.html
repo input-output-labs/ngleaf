@@ -71,7 +71,7 @@
       </tr>
       <tr *ngIf="!paymentPlanInfo.plan.pricing.free">
         <td colspan="2" class="disclaimer-cell">
-          <div class="disclaimer">
+          <div class="disclaimer" *ngIf="paymentPlanInfo.plan.paymentMode !== 'send_invoice'">
             <ng-container *ngIf="paymentPlanInfo.paymentMethod">
               <leaf-credit-card
                 class="credit-card"
@@ -98,6 +98,9 @@
                 }}
               </button>
             </ng-container>
+          </div>
+          <div class="disclaimer" *ngIf="paymentPlanInfo.plan.paymentMode === 'send_invoice'">
+            <span>{{ "leaf.payment.selected-payment-plan.paymentMethodSendInvoiceLabel" | translate }}</span>
           </div>
         </td>
       </tr>
