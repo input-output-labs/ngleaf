@@ -27,6 +27,7 @@ import { TranslateService } from "@ngx-translate/core";
 import { MatSlideToggleChange } from "@angular/material/slide-toggle";
 
 @Component({
+  standalone: false,
   selector: "app-organization-policies",
   templateUrl: "./organization-policies.component.html",
   styleUrls: ["./organization-policies.component.scss"],

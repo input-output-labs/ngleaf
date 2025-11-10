@@ -5,6 +5,7 @@ import { Observable, filter, map } from 'rxjs';
 import { AsyncType, fetchInvoices, selectInvoices } from '../../../store';
 
 @Component({
+  standalone: false,
   selector: 'leaf-invoices-list',
   templateUrl: './leaf-invoices-list.component.html',
   styleUrls: ['./leaf-invoices-list.component.scss']

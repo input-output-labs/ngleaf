@@ -8,6 +8,7 @@ import { PaymentApiClientService } from '../../../api/clients/payment-api-client
 import { selectCurrentAccountData } from '../../../store';
 
 @Component({
+  standalone: false,
   selector: 'leaf-customer-default-payment-card',
   templateUrl: './leaf-customer-default-payment-card.component.html',
   styleUrls: ['./leaf-customer-default-payment-card.component.scss']

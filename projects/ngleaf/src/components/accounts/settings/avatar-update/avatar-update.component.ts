@@ -3,6 +3,7 @@ import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms
 import { LeafSessionService } from '../../../../services/core/session/leaf-session.service';
 
 @Component({
+  standalone: false,
   selector: 'leaf-avatar-update',
   templateUrl: './avatar-update.component.html',
   styleUrls: ['./avatar-update.component.scss']

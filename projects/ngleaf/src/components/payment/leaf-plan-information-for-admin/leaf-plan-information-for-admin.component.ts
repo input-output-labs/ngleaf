@@ -8,6 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
+  standalone: false,
   selector: 'app-leaf-plan-information-for-admin',
   templateUrl: './leaf-plan-information-for-admin.component.html',
   styleUrls: ['./leaf-plan-information-for-admin.component.scss']

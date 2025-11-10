@@ -13,6 +13,7 @@ import { MatFormFieldAppearance } from "@angular/material/form-field";
 export type ProfileUpdateFields = keyof LeafAccountProfile;
 
 @Component({
+  standalone: false,
   selector: "leaf-profile-update",
   templateUrl: "./profile-update.component.html",
   styleUrls: ["./profile-update.component.scss"],

@@ -11,6 +11,7 @@ import { Validators } from '@angular/forms';
 export type LeafEmailVerificationState = "SendCode" | "Validation";
 
 @Component({
+  standalone: false,
   selector: 'leaf-email-verification',
   templateUrl: './email-verification.component.html',
   styleUrls: ['./email-verification.component.scss']

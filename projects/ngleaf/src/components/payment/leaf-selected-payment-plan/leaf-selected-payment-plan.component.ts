@@ -11,6 +11,7 @@ import { isMobile } from '../../../helpers';
 import { PlanViewerConfig } from '../leaf-plan-viewer';
 
 @Component({
+  standalone: false,
   selector: 'leaf-selected-payment-plan',
   templateUrl: './leaf-selected-payment-plan.component.html',
   styleUrls: ['./leaf-selected-payment-plan.component.scss']

@@ -3,6 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { PlanViewerConfig } from '../leaf-plan-viewer';
 
 @Component({
+  standalone: false,
   selector: 'app-leaf-plan-selector-dialog',
   templateUrl: './leaf-plan-selector-dialog.component.html',
   styleUrls: ['./leaf-plan-selector-dialog.component.scss']

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
+  standalone: false,
   selector: 'leaf-account-settings-profile',
   templateUrl: './account-settings-profile.component.html',
   styleUrls: ['./account-settings-profile.component.scss'],

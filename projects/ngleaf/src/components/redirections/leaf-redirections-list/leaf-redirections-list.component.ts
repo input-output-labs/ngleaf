@@ -6,6 +6,7 @@ import { RedirectionApiClientService } from '../../../api/clients/redirection-ap
 import { FormControl } from '@angular/forms';
 
 @Component({
+  standalone: false,
   selector: 'leaf-redirections-list',
   templateUrl: './leaf-redirections-list.component.html',
   styleUrls: ['./leaf-redirections-list.component.scss']

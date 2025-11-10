@@ -7,6 +7,7 @@ import { AsyncType, selectEmailingCategories, selectEmailingCategoryAction, setE
 import { GenericFormConfig } from "../../common/generic-form/generic-form.component";
 
 @Component({
+  standalone: false,
   selector: "leaf-emailing-categories-page",
   templateUrl: "./emailing-categories-page.component.html",
   styleUrls: ["./emailing-categories-page.component.scss"],

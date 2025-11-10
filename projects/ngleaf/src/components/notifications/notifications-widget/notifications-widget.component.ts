@@ -19,6 +19,7 @@ const NOTIFICATIONS_SORTING_MAP = {
 };
 
 @Component({
+  standalone: false,
   selector: "leaf-notifications-widget",
   templateUrl: "./notifications-widget.component.html",
   styleUrls: ["./notifications-widget.component.scss"],

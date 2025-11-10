@@ -7,6 +7,7 @@ import { LeafConfigServiceToken } from '../../../services/leaf-config.module';
 import { OrganizationsApiClientService, OrganizationCandidatureData } from '../../../api';
 
 @Component({
+  standalone: false,
   selector: 'leaf-organization-candidature',
   templateUrl: './organization-candidature.component.html',
   styleUrls: ['./organization-candidature.component.scss']

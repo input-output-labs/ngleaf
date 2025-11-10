@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
+  standalone: false,
   selector: 'leaf-account-settings-password',
   templateUrl: './account-settings-password.component.html',
   styleUrls: ['./account-settings-password.component.scss'],

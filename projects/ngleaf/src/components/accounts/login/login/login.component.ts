@@ -20,6 +20,7 @@ export type LeafLoginPasswordCheckClasses = {
 };
 
 @Component({
+  standalone: false,
   selector: "leaf-login",
   templateUrl: "./login.component.html",
   styleUrls: ["./login.component.scss"],

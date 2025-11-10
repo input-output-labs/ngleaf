@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 
 @Component({
+  standalone: false,
   selector: "app-account-settings-layout",
   templateUrl: "./account-settings-layout.component.html",
   styleUrls: ["./account-settings-layout.component.scss"],

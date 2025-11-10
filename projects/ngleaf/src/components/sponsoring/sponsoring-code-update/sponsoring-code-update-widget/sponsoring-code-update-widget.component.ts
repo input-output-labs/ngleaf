@@ -4,6 +4,7 @@ import { LeafAccountModel } from '../../../../api/models/leaf-account.model';
 import { SponsoringCodeUpdateDialogComponent } from '../sponsoring-code-update-dialog/sponsoring-code-update-dialog.component';
 
 @Component({
+  standalone: false,
   selector: 'leaf-sponsoring-code-update-widget',
   templateUrl: './sponsoring-code-update-widget.component.html',
   styleUrls: ['./sponsoring-code-update-widget.component.scss']

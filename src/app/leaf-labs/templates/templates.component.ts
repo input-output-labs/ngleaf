@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { LeafWebImagesSeekerDialogComponent, GenericFormConfig } from '@input-output-labs/ngleaf';
 
 @Component({
+  standalone: false,
   selector: 'app-templates',
   templateUrl: './templates.component.html',
   styleUrls: ['./templates.component.css'],

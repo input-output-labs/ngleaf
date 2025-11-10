@@ -11,6 +11,7 @@ import { interval, take } from "rxjs";
 import { copyToClipboard } from "./copy-to-clipboard.helper";
 
 @Component({
+  standalone: false,
   selector: "leaf-copy-to-clipboard",
   templateUrl: "./copy-to-clipboard.component.html",
   styleUrls: ["./copy-to-clipboard.component.scss"],

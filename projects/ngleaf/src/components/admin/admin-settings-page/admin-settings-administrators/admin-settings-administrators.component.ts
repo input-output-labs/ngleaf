@@ -7,6 +7,7 @@ import { LeafAdminService } from '../../../../services/index';
 import { selectAdministrators } from '../../../../store/core/administration/administration.selectors';
 
 @Component({
+  standalone: false,
   selector: 'leaf-admin-settings-administrators',
   templateUrl: './admin-settings-administrators.component.html',
   styleUrls: ['./admin-settings-administrators.component.scss'],

@@ -3,6 +3,7 @@ import { TranslateService } from "@ngx-translate/core";
 import { LanguageModel } from "./language.model";
 
 @Component({
+  standalone: false,
   selector: "leaf-select-language",
   templateUrl: "./select-language.component.html",
   styleUrls: ["./select-language.component.scss"],

@@ -7,6 +7,7 @@ import { LeafAccountModel } from '../../../api/models/index';
 import { selectCurrentAccountData } from '../../../store/core/session/session.selectors';
 
 @Component({
+  standalone: false,
   selector: 'leaf-header-account',
   templateUrl: './header-account.component.html',
   styleUrls: ['./header-account.component.scss'],

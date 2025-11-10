@@ -7,6 +7,7 @@ export interface SponsoringCodeUpdateDialogData {
 }
 
 @Component({
+  standalone: false,
   selector: "app-sponsoring-code-update-dialog",
   templateUrl: "./sponsoring-code-update-dialog.component.html",
   styleUrls: ["./sponsoring-code-update-dialog.component.scss"],

@@ -8,6 +8,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
 
 @Component({
+  standalone: false,
   selector: 'leaf-organization-selector',
   templateUrl: './organization-selector.component.html',
   styleUrls: ['./organization-selector.component.scss']

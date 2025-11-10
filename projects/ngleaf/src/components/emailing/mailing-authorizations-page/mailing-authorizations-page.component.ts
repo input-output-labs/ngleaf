@@ -6,6 +6,7 @@ import { LeafSessionService } from '../../../services/core/session';
 import { filter } from 'rxjs';
 
 @Component({
+  standalone: false,
   selector: 'leaf-mailing-authorizations-page',
   templateUrl: './mailing-authorizations-page.component.html',
   styleUrls: ['./mailing-authorizations-page.component.scss']

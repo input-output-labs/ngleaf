@@ -7,6 +7,7 @@ import { selectMenuExpanded } from '../../stores/ui-store/ui-store.selectors';
 import { setMenuExpanded } from '../../stores/ui-store/ui-store.actions';
 
 @Component({
+  standalone: false,
   selector: 'app-menu',
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss']

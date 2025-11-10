@@ -15,6 +15,7 @@ export type LeafRegisterPasswordCheckClasses = {
 };
 
 @Component({
+  standalone: false,
   selector: "leaf-register",
   templateUrl: "./register.component.html",
   styleUrls: ["./register.component.scss"],

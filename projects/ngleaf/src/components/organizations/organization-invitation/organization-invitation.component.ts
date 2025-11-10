@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { LeafSessionService } from '../../../services';
 
 @Component({
+  standalone: false,
   selector: 'leaf-organization-invitation',
   templateUrl: './organization-invitation.component.html',
   styleUrls: ['./organization-invitation.component.scss']

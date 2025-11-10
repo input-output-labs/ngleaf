@@ -4,6 +4,7 @@ import { LeafRedirectionCreationBatch, LeafRedirectionCreationBatchCreation, Red
 import { map, Observable, shareReplay, startWith } from 'rxjs';
 
 @Component({
+  standalone: false,
   selector: 'leaf-redirection-creation-batch-form',
   templateUrl: './leaf-redirection-creation-batch-form.component.html',
   styleUrls: ['./leaf-redirection-creation-batch-form.component.scss']

@@ -10,6 +10,7 @@ interface Data {
 }
 
 @Component({
+  standalone: false,
   templateUrl: './leaf-web-images-seeker-dialog.component.html',
   styleUrls: ['./leaf-web-images-seeker-dialog.component.scss']
 })

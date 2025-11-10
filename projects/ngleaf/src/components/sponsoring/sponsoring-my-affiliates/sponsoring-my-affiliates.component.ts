@@ -8,6 +8,7 @@ import { selectSponsoringProfiles } from '../../../store/index';
 import { getModule } from '../../../helpers/index';
 
 @Component({
+  standalone: false,
   selector: 'leaf-sponsoring-my-affiliates',
   templateUrl: './sponsoring-my-affiliates.component.html',
   styleUrls: ['./sponsoring-my-affiliates.component.scss']

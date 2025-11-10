@@ -74,6 +74,7 @@ export interface GenericFormConfig {
 }
 
 @Component({
+  standalone: false,
   selector: 'leaf-generic-form',
   templateUrl: './generic-form.component.html',
   styleUrls: ['./generic-form.component.scss']

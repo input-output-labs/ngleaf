@@ -7,6 +7,7 @@ import { selectAllServices } from '../../../store/payment/payment.selectors';
 import { AsyncType } from '../../../store/common';
 
 @Component({
+  standalone: false,
   selector: 'leaf-services-list',
   templateUrl: './leaf-services-list.component.html',
   styleUrls: ['./leaf-services-list.component.scss']

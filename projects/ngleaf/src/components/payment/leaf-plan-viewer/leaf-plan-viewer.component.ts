@@ -9,6 +9,7 @@ export interface PlanViewerConfig {
 }
 
 @Component({
+  standalone: false,
   selector: 'leaf-plan-viewer',
   templateUrl: './leaf-plan-viewer.component.html',
   styleUrls: ['./leaf-plan-viewer.component.scss']

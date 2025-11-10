@@ -30,6 +30,7 @@ import { PlanViewerConfig } from "../leaf-plan-viewer";
 import { isMobile } from "../../../helpers";
 
 @Component({
+  standalone: false,
   selector: "leaf-plan-selector",
   templateUrl: "./leaf-plan-selector.component.html",
   styleUrls: ["./leaf-plan-selector.component.scss"],

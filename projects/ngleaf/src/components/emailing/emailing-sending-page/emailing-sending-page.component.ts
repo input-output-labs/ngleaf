@@ -24,6 +24,7 @@ import {
 } from "../../../api/models/emailing/index";
 
 @Component({
+  standalone: false,
   selector: "leaf-emailing-sending-page",
   templateUrl: "./emailing-sending-page.component.html",
   styleUrls: ["./emailing-sending-page.component.scss"],

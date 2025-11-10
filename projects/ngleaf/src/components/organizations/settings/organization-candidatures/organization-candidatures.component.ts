@@ -17,6 +17,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { LeafConfigServiceToken } from '../../../../services/leaf-config.module';
 
 @Component({
+  standalone: false,
   selector: 'leaf-organization-candidatures',
   templateUrl: './organization-candidatures.component.html',
   styleUrls: ['./organization-candidatures.component.scss']

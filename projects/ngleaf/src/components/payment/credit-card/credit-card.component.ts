@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { PaymentMethod } from '../../../api';
 
 @Component({
+  standalone: false,
   selector: 'leaf-credit-card',
   templateUrl: './credit-card.component.html',
   styleUrls: ['./credit-card.component.scss']

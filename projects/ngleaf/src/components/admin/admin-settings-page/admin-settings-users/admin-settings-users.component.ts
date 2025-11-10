@@ -17,6 +17,7 @@ interface SortOption {
 }
 
 @Component({
+  standalone: false,
   selector: 'leaf-admin-settings-users',
   templateUrl: './admin-settings-users.component.html',
   styleUrls: ['./admin-settings-users.component.scss']

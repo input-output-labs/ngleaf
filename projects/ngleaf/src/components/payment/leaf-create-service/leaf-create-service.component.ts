@@ -8,6 +8,7 @@ import { selectCreateService, selectAvailableServicesData, selectAvailableServic
 import { AsyncType } from '../../../store/common';
 
 @Component({
+  standalone: false,
   selector: 'leaf-create-service',
   templateUrl: './leaf-create-service.component.html',
   styleUrls: ['./leaf-create-service.component.scss']

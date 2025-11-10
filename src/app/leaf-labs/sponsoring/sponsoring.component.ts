@@ -4,6 +4,7 @@ import { LeafAccountModel, selectCurrentAccountData } from '@input-output-labs/n
 import { Observable, filter, map } from 'rxjs';
 
 @Component({
+  standalone: false,
   selector: 'app-sponsoring',
   templateUrl: './sponsoring.component.html',
   styleUrls: ['./sponsoring.component.scss']

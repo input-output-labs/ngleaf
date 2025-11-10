@@ -16,6 +16,7 @@ function passwordMatchValidator(): ValidatorFn {
 }
 
 @Component({
+  standalone: false,
   selector: 'leaf-password-update',
   templateUrl: './password-update.component.html',
   styleUrls: ['./password-update.component.scss']

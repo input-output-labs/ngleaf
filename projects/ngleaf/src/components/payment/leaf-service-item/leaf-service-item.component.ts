@@ -11,6 +11,7 @@ import { deleteService, updateService } from '../../../store/payment/payment.act
 import { LeafConfirmDialogComponent, ConfirmDialogModel } from '../../../components/common/confirm-dialog/confirm-dialog.component';
 
 @Component({
+  standalone: false,
   selector: 'leaf-service-item',
   templateUrl: './leaf-service-item.component.html',
   styleUrls: ['./leaf-service-item.component.scss']

@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 
 @Component({
+  standalone: false,
   selector: "app-leaf-labs-layout",
   templateUrl: "./leaf-labs-layout.component.html",
   styleUrls: ["./leaf-labs-layout.component.scss"],

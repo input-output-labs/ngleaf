@@ -6,6 +6,7 @@ export interface NavigationItem {
 }
 
 @Component({
+  standalone: false,
   selector: 'leaf-navigation',
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.scss']

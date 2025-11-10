@@ -15,6 +15,7 @@ const CUSTOM_VALUE_ACCESSOR: any = {
 };
 
 @Component({
+  standalone: false,
   selector: "leaf-address-form",
   templateUrl: "./address-form.component.html",
   styleUrls: ["./address-form.component.scss"],

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { LeafSessionService } from '../../../../services/index';
 
 @Component({
+  standalone: false,
   selector: 'leaf-account-popover-content',
   templateUrl: './account-popover-content.component.html',
   styleUrls: ['./account-popover-content.component.scss'],

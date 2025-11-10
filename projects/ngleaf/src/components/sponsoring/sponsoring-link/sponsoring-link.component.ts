@@ -5,6 +5,7 @@ import { selectCurrentAccount } from '../../../store/core/session/session.select
 import { getModule } from '../../../helpers/index';
 
 @Component({
+  standalone: false,
   selector: 'leaf-sponsoring-link',
   templateUrl: './sponsoring-link.component.html',
   styleUrls: ['./sponsoring-link.component.scss']

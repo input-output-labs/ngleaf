@@ -19,6 +19,7 @@ const CUSTOM_VALUE_ACCESSOR: any = {
 };
 
 @Component({
+  standalone: false,
   selector: "leaf-image-upload",
   templateUrl: "./imageUpload.component.html",
   styleUrls: ["./imageUpload.component.scss"],

@@ -5,6 +5,7 @@ import { RedirectionApiClientService } from '../../../api/clients/redirection-ap
 import { FormControl } from '@angular/forms';
 
 @Component({
+  standalone: false,
   selector: 'leaf-redirection-creation-batch-list',
   templateUrl: './redirection-creation-batch-list.component.html',
   styleUrls: ['./redirection-creation-batch-list.component.scss']

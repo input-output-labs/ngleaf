@@ -7,6 +7,7 @@ import { ChartSerie } from './chart.model';
 import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
+  standalone: false,
   selector: 'leaf-statistics-viewer',
   templateUrl: './statistics-viewer.component.html',
   styleUrls: ['./statistics-viewer.component.scss']

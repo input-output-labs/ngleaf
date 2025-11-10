@@ -9,6 +9,7 @@ import { startWith, switchMap } from 'rxjs/operators';
 import { LeafAccountModel, AccountApiClient } from '../../../api/index';
 
 @Component({
+  standalone: false,
   selector: 'leaf-user-selector',
   templateUrl: './user-selector.component.html',
   styleUrls: ['./user-selector.component.scss'],

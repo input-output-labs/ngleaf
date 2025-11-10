@@ -8,6 +8,7 @@ import { LeafAuthorizedEmailModel } from '../../../../api/models/index';
 import { selectAuthorizedEmails } from '../../../../store/core/administration/administration.selectors';
 
 @Component({
+  standalone: false,
   selector: 'leaf-admin-settings-whitelist',
   templateUrl: './admin-settings-whitelist.component.html',
   styleUrls: ['./admin-settings-whitelist.component.scss'],

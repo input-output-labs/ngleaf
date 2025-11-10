@@ -5,6 +5,7 @@ import { LeafService } from '../../../../projects/ngleaf/src/api';
 import { Observable } from 'rxjs';
 
 @Component({
+  standalone: false,
   selector: 'app-payment',
   templateUrl: './payment.component.html',
   styleUrls: ['./payment.component.scss']

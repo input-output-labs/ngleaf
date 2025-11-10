@@ -36,6 +36,7 @@ function passwordMatchValidator(): ValidatorFn {
 }
 
 @Component({
+  standalone: false,
   selector: "leaf-password-forgotten",
   templateUrl: "./password-forgotten.component.html",
   styleUrls: ["./password-forgotten.component.scss"],

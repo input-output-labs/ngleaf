@@ -7,6 +7,7 @@ import { selectCurrentAccountData, listOrganizationUsers, selectCurrentOrganizat
 
 
 @Component({
+  standalone: false,
   selector: 'leaf-organization-invitations',
   templateUrl: './organization-invitations.component.html',
   styleUrls: ['./organization-invitations.component.scss']

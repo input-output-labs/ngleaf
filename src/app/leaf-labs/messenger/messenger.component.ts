@@ -6,6 +6,7 @@ import { selectRoomCreation, AsyncType, LeafRoomModel } from '@input-output-labs
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
+  standalone: false,
   selector: 'app-messenger',
   templateUrl: './messenger.component.html',
   styleUrls: ['./messenger.component.scss']

@@ -26,6 +26,7 @@ const CUSTOM_VALUE_ACCESSOR: any = {
 };
 
 @Component({
+  standalone: false,
   selector: "leaf-icon-input",
   templateUrl: "./leaf-icon-input.component.html",
   styleUrls: ["./leaf-icon-input.component.scss"],

@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 
 @Component({
+  standalone: false,
   selector: "leaf-emailing-page",
   templateUrl: "./emailing-page.component.html",
   styleUrls: ["./emailing-page.component.scss"],

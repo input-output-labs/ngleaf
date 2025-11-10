@@ -3,6 +3,7 @@ import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms
 import { LeafSessionService } from '../../../../services/core/session/leaf-session.service';
 
 @Component({
+  standalone: false,
   selector: 'leaf-pseudo-update',
   templateUrl: './pseudo-update.component.html',
   styleUrls: ['./pseudo-update.component.scss']

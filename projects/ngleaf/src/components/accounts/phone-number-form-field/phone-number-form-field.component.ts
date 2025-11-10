@@ -7,6 +7,7 @@ import { MatFormFieldAppearance } from '@angular/material/form-field';
 import { map, ReplaySubject } from 'rxjs';
 
 @Component({
+  standalone: false,
   selector: 'leaf-phone-number-form-field',
   templateUrl: './phone-number-form-field.component.html',
   styleUrls: ['./phone-number-form-field.component.scss'],

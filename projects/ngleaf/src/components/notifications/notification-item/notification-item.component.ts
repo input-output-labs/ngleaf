@@ -2,6 +2,7 @@ import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { LeafNotificationModel } from '../../../api/models/notifications.model';
 
 @Component({
+  standalone: false,
   selector: 'leaf-notification-item',
   templateUrl: './notification-item.component.html',
   styleUrls: ['./notification-item.component.scss'],

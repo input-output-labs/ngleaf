@@ -9,6 +9,7 @@ import { OrganizationInvitationsComponent } from '../organization-invitations';
 import { OrganizationCandidaturesComponent } from '../organization-candidatures';
 
 @Component({
+  standalone: false,
   selector: 'leaf-organization-members',
   templateUrl: './organization-members.component.html',
   styleUrls: ['./organization-members.component.scss']

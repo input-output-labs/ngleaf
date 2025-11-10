@@ -8,6 +8,7 @@ import { setUpdateSponsorCodeCall, selectUpdateSponsorCode } from '../../../../s
 import { filter, take } from 'rxjs';
 
 @Component({
+  standalone: false,
   selector: 'leaf-sponsoring-code-update',
   templateUrl: './sponsoring-code-update.component.html',
   styleUrls: ['./sponsoring-code-update.component.scss']

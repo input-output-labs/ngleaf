@@ -10,6 +10,7 @@ import { selectCurrentAccountData } from '../../../store/index';
 import { LeafMessengerService } from '../../../services/index';
 
 @Component({
+  standalone: false,
   selector: 'leaf-room-creation-form',
   templateUrl: './room-creation-form.component.html',
   styleUrls: ['./room-creation-form.component.scss']

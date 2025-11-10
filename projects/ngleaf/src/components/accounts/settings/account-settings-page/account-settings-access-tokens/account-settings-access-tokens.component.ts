@@ -8,6 +8,7 @@ import { LeafAccountModel } from '../../../../../api/models/index';
 import { selectCurrentAccountData } from '../../../../../store/core/session/session.selectors';
 
 @Component({
+  standalone: false,
   selector: 'leaf-account-settings-access-tokens',
   templateUrl: './account-settings-access-tokens.component.html',
   styleUrls: ['./account-settings-access-tokens.component.scss']

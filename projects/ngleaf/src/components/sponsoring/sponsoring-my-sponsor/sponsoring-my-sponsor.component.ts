@@ -10,6 +10,7 @@ import { selectSetSponsor, selectSponsoringProfiles, setSetSponsorCall } from '.
 import { SponsoringApiClientService } from '../../../api/clients/index';
 
 @Component({
+  standalone: false,
   selector: 'leaf-sponsoring-my-sponsor',
   templateUrl: './sponsoring-my-sponsor.component.html',
   styleUrls: ['./sponsoring-my-sponsor.component.scss']
