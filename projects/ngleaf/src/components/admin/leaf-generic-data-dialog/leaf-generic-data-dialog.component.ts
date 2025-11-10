@@ -10,20 +10,19 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { AccountApiClient, OrganizationsApiClientService } from '../../../api/clients/index';
 
 @Component({
-  selector: 'app-leaf-generic-data-dialog',
-  templateUrl: './leaf-generic-data-dialog.component.html',
-  styleUrls: ['./leaf-generic-data-dialog.component.scss'],
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatDialogModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    FormsModule,
-    MatIconModule,
-    MatTooltipModule
-  ]
+    selector: 'app-leaf-generic-data-dialog',
+    templateUrl: './leaf-generic-data-dialog.component.html',
+    styleUrls: ['./leaf-generic-data-dialog.component.scss'],
+    imports: [
+        CommonModule,
+        MatDialogModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        FormsModule,
+        MatIconModule,
+        MatTooltipModule
+    ]
 })
 export class LeafGenericDataDialogComponent implements OnInit {
   public genericData: { [key: string]: string };

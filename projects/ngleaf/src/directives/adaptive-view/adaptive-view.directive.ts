@@ -9,7 +9,8 @@ export type AdaptiveViewParameters =
   | 'except-desktop';
 
 @Directive({
-  selector: '[leafAdaptiveView]'
+    selector: '[leafAdaptiveView]',
+    standalone: false
 })
 export class AdaptiveViewDirective {
   private readonly MOBILE_TABLET_SEPARATOR = 480;
