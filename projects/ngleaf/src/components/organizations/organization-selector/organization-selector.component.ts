@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { LeafAccountModel, LeafOrganization } from '../../../api';
 import { combineLatest, map, Observable, startWith } from 'rxjs';
 import { Store, select } from '@ngrx/store';
@@ -32,6 +32,9 @@ export class OrganizationSelectorComponent implements OnInit {
   @Input()
   public fetchOnInit: boolean = false;
 
+  @Output()
+  public onSelect: EventEmitter<LeafOrganization> = new EventEmitter<LeafOrganization>();
+  
   @ViewChild('menuTrigger')
   public menuTrigger!: MatMenuTrigger;
 
@@ -72,6 +75,7 @@ export class OrganizationSelectorComponent implements OnInit {
     if (this.menuTrigger) {
       this.menuTrigger.closeMenu();
     }
+    this.onSelect.emit(organization);
   }
 
   public getProfileShortname(organization: LeafOrganization) {
