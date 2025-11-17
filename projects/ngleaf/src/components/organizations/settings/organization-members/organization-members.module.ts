@@ -20,6 +20,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { LeafConfirmDialogModule } from '../../../../components/common/confirm-dialog/confirm-dialog.module';
+import { MatBadgeModule } from '@angular/material/badge';
 
 @NgModule({
   imports: [
@@ -42,6 +43,7 @@ import { LeafConfirmDialogModule } from '../../../../components/common/confirm-d
     MatSnackBarModule,
     MatTooltipModule,
     MatSlideToggleModule,
+    MatBadgeModule,
     /* Leaf deps*/
     LeafOrganizationStoreModule,
     OrganizationInvitationsModule,

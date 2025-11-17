@@ -22,6 +22,8 @@ export class OrganizationMembersComponent implements OnInit, OnDestroy {
   public organization$: Observable<LeafOrganization>;
   public filteredMembers$: Observable<OrganizationMembership[]>;
 
+  public untreatedCandidaturesCount$: Observable<number>;
+
   public searchFormControl: FormControl;
 
   private subscriptions: Subscription[] = [];
@@ -55,6 +57,9 @@ export class OrganizationMembersComponent implements OnInit, OnDestroy {
           return false;
         })
       })
+    );
+    this.untreatedCandidaturesCount$ = this.organization$.pipe(
+      map(organization => organization.candidatureManagement?.candidatures.filter(candidature => candidature.status === 'CANDIDATED').length)
     );
     this.subscriptions.push(
       this.organization$.pipe(

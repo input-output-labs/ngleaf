@@ -12,7 +12,15 @@
         <mat-icon>person_add_alt_1</mat-icon>
         {{ 'leaf.organization-members.invite-member-button-label' | translate}}
       </button>
-      <button mat-flat-button class="open-candidature-button" color="primary" (click)="openCandidatureDialog()" [disabled]="!(eligibilities$ | async).manageMembers.eligible">
+      <button
+        mat-flat-button
+        class="open-candidature-button" 
+        color="primary"
+        [matBadge]="(untreatedCandidaturesCount$ | async) || undefined"
+        matBadgeColor="warn"
+        matBadgePosition="before"
+        (click)="openCandidatureDialog()"
+        [disabled]="!(eligibilities$ | async).manageMembers.eligible">
         <mat-icon>how_to_reg</mat-icon>
         {{ 'leaf.organization-members.candidature-button-label' | translate}}
       </button>
