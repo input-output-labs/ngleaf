@@ -11,11 +11,13 @@ export class LeafCommonEligibilityGuard  {
   constructor(
     private store: Store,
     private router: Router,
-    private eligibilityKey: string,
-    private fallbackUrl: (string | ((eligibilities: LeafEligibilities) => string))
+    private eligibilityKey: string | string[],
+    private fallbackUrl: (string | ((eligibilities: LeafEligibilities) => string)),
+    private operation: 'and' | 'or' = 'and'
   ){}
 
   canActivate(state: RouterStateSnapshot): Observable<boolean> {
+    const eligibilityKeys = Array.isArray(this.eligibilityKey) ? this.eligibilityKey : [this.eligibilityKey];
     return combineLatest([
       this.store.pipe(
         select(selectInitializationOngoing),
@@ -30,7 +32,11 @@ export class LeafCommonEligibilityGuard  {
     ]).pipe(
       map(([_pending, asyncEligibilities]) => asyncEligibilities.data),
       mergeMap(eligibilities => {
-        if (eligibilities && eligibilities[this.eligibilityKey] && eligibilities[this.eligibilityKey].eligible) {
+        function isKeyEligible(key: string) {
+          return eligibilities && eligibilities[key]?.eligible;
+        }
+
+        if (this.operation === 'and' ? eligibilityKeys.every(isKeyEligible) : eligibilityKeys.some(isKeyEligible)) {
           return of(true);
         } else {
           const fallbackUrl = typeof this.fallbackUrl === 'function' ? this.fallbackUrl(eligibilities) : this.fallbackUrl;
