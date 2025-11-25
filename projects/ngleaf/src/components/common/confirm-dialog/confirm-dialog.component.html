@@ -6,9 +6,9 @@
 
 <mat-dialog-actions>
   <button mat-button (click)="onDismiss()">
-    {{ "leaf.confirm-dialog.no" | translate }}
+    {{ dismissButtonLabel | translate }}
   </button>
   <button mat-raised-button color="warn" (click)="onConfirm()">
-    {{ "leaf.confirm-dialog.yes" | translate }}
+    {{ confirmButtonLabel | translate }}
   </button>
 </mat-dialog-actions>

@@ -20,7 +20,9 @@ export class OrganizationMembersComponent implements OnInit, OnDestroy {
   public eligibilities$: Observable<LeafEligibilities>;
   public currentAccount$: Observable<LeafAccountModel>;
   public organization$: Observable<LeafOrganization>;
+  public creatorRole$: Observable<string | undefined>;
   public filteredMembers$: Observable<OrganizationMembership[]>;
+  public memberWithCreatorRoleCount$: Observable<number>;
 
   public untreatedCandidaturesCount$: Observable<number>;
 
@@ -35,6 +37,17 @@ export class OrganizationMembersComponent implements OnInit, OnDestroy {
     this.organization$ = this.store.pipe(
       select(selectCurrentOrganization),
       filter(organization => !!organization)
+    );
+    this.creatorRole$ = this.organization$.pipe(
+      map(organization => {
+        return organization.policies.roles.find(role => role.creatorDefault)?.name;
+      })
+    );
+    this.memberWithCreatorRoleCount$ = this.organization$.pipe(
+      map(organization => {
+        const creatorRole = organization.policies.roles.find(role => role.creatorDefault);
+        return organization.members.filter(member => member.role === creatorRole.name).length;
+      })
     );
     this.filteredMembers$ = combineLatest([
       this.organization$,

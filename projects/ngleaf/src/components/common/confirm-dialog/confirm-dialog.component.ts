@@ -10,12 +10,16 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class LeafConfirmDialogComponent implements OnInit {
   title: string;
   message: string;
+  confirmButtonLabel: string = 'leaf.confirm-dialog.yes';
+  dismissButtonLabel: string = 'leaf.confirm-dialog.no';
 
   constructor(public dialogRef: MatDialogRef<LeafConfirmDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ConfirmDialogModel) {
     // Update view with given values
     this.title = data.title;
     this.message = data.message;
+    if (data.confirmButtonLabel) this.confirmButtonLabel = data.confirmButtonLabel;
+    if (data.dismissButtonLabel) this.dismissButtonLabel = data.dismissButtonLabel;
   }
 
   ngOnInit() {
@@ -39,6 +43,6 @@ export class LeafConfirmDialogComponent implements OnInit {
  */
 export class ConfirmDialogModel {
 
-  constructor(public title: string, public message: string) {
+  constructor(public title: string, public message: string, public confirmButtonLabel?: string, public dismissButtonLabel?: string) {
   }
 }
