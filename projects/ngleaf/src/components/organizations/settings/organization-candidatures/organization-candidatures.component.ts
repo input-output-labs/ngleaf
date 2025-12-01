@@ -100,22 +100,20 @@ export class OrganizationCandidaturesComponent implements OnInit, OnDestroy, Aft
       if (organization?.id) {
         this.organizationsApiClient.enableCandidatureManagement(this.candidatureManagementEnabled).subscribe({
           next: (updatedOrganization) => {
-            this.snackBar.open(
+            const snackbarMessage = 
               this.candidatureManagementEnabled 
-                ? 'Candidature management enabled successfully' 
-                : 'Candidature management disabled successfully', 
-              'Close', 
-              {
-                duration: 3000,
-                horizontalPosition: 'center',
-                verticalPosition: 'bottom'
-              }
-            );
+                ? 'leaf.organization-candidature.candidature-management-enabled-successfully' 
+                : 'leaf.organization-candidature.candidature-management-disabled-successfully';
+            this.snackBar.open(this.translateService.instant(snackbarMessage), 'Close', {
+              duration: 3000,
+              horizontalPosition: 'center',
+              verticalPosition: 'bottom'
+            });
             this.isUpdating = false;
           },
           error: (error) => {
             console.error('Error updating candidature management:', error);
-            this.snackBar.open('Failed to update candidature management', 'Close', {
+            this.snackBar.open(this.translateService.instant('leaf.organization-candidature.failed-to-update-candidature-management'), 'Close', {
               duration: 3000,
               horizontalPosition: 'center',
               verticalPosition: 'bottom'
@@ -145,14 +143,16 @@ export class OrganizationCandidaturesComponent implements OnInit, OnDestroy, Aft
   public copyInvitationLink(): void {
     if (this.invitationLink) {
       navigator.clipboard.writeText(this.invitationLink).then(() => {
-        this.snackBar.open('Invitation link copied to clipboard!', 'Close', {
+        const snackbarMessage = 'leaf.organization-candidature.invitation-link-copied-to-clipboard';
+        this.snackBar.open(this.translateService.instant(snackbarMessage), 'Close', {
           duration: 3000,
           horizontalPosition: 'center',
           verticalPosition: 'bottom'
         });
       }).catch(err => {
         console.error('Failed to copy text: ', err);
-        this.snackBar.open('Failed to copy to clipboard', 'Close', {
+        const snackbarMessage = 'leaf.organization-candidature.failed-to-copy-to-clipboard';
+        this.snackBar.open(this.translateService.instant(snackbarMessage), 'Close', {
           duration: 3000,
           horizontalPosition: 'center',
           verticalPosition: 'bottom'
@@ -200,7 +200,8 @@ export class OrganizationCandidaturesComponent implements OnInit, OnDestroy, Aft
   private performAcceptCandidature(email: string): void {
     this.organizationsApiClient.acceptCandidature(email).subscribe({
       next: () => {
-        this.snackBar.open('Candidature accepted successfully', 'Close', {
+        const snackbarMessage = 'leaf.organization-candidature.candidature-accepted-successfully';
+        this.snackBar.open(this.translateService.instant(snackbarMessage), 'Close', {
           duration: 3000,
           horizontalPosition: 'center',
           verticalPosition: 'bottom'
@@ -212,7 +213,8 @@ export class OrganizationCandidaturesComponent implements OnInit, OnDestroy, Aft
       },
       error: (error) => {
         console.error('Error accepting candidature:', error);
-        this.snackBar.open('Failed to accept candidature', 'Close', {
+        const snackbarMessage = 'leaf.organization-candidature.failed-to-accept-candidature';
+        this.snackBar.open(this.translateService.instant(snackbarMessage), 'Close', {
           duration: 3000,
           horizontalPosition: 'center',
           verticalPosition: 'bottom'
@@ -224,7 +226,8 @@ export class OrganizationCandidaturesComponent implements OnInit, OnDestroy, Aft
   private performDeclineCandidature(email: string): void {
     this.organizationsApiClient.declineCandidature(email).subscribe({
       next: () => {
-        this.snackBar.open('Candidature declined successfully', 'Close', {
+        const snackbarMessage = 'leaf.organization-candidature.candidature-declined-successfully';
+        this.snackBar.open(this.translateService.instant(snackbarMessage), 'Close', {
           duration: 3000,
           horizontalPosition: 'center',
           verticalPosition: 'bottom'
@@ -236,7 +239,8 @@ export class OrganizationCandidaturesComponent implements OnInit, OnDestroy, Aft
       },
       error: (error) => {
         console.error('Error declining candidature:', error);
-        this.snackBar.open('Failed to decline candidature', 'Close', {
+        const snackbarMessage = 'leaf.organization-candidature.failed-to-decline-candidature';
+        this.snackBar.open(this.translateService.instant(snackbarMessage), 'Close', {
           duration: 3000,
           horizontalPosition: 'center',
           verticalPosition: 'bottom'
