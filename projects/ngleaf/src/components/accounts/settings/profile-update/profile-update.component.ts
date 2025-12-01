@@ -88,7 +88,6 @@ export class ProfileUpdateComponent implements OnChanges, OnDestroy {
       this.currentProfile$.subscribe(
         (profile) => {
           this.fields.forEach((field) => {
-            console.log(field, profile[field]);
             this.profileFormGroup.controls[field].setValue(profile[field]);
           });
         }

@@ -1,10 +1,12 @@
-import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject, AfterViewInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { 
   LeafOrganization, 
   OrganizationCandidature, 
@@ -22,7 +24,7 @@ import { LeafConfigServiceToken } from '../../../../services/leaf-config.module'
   templateUrl: './organization-candidatures.component.html',
   styleUrls: ['./organization-candidatures.component.scss']
 })
-export class OrganizationCandidaturesComponent implements OnInit, OnDestroy {
+export class OrganizationCandidaturesComponent implements OnInit, OnDestroy, AfterViewInit {
   public invitationForm: FormGroup;
   public candidatures: OrganizationCandidature[] = [];
   public availableRoles: OrganizationRole[] = [];
@@ -31,6 +33,8 @@ export class OrganizationCandidaturesComponent implements OnInit, OnDestroy {
   public candidatureManagementEnabled: boolean = false;
   public isUpdating: boolean = false;
   public organizationId: string = '';
+  public dataSource = new MatTableDataSource<OrganizationCandidature>([]);
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
   
   public organization$: Observable<LeafOrganization>;
   private subscriptions: Subscription[] = [];
@@ -63,7 +67,8 @@ export class OrganizationCandidaturesComponent implements OnInit, OnDestroy {
           if (defaultRole) {
             this.invitationForm.get('role')?.setValue(defaultRole.name);
           }
-          this.candidatures = organization.candidatureManagement?.candidatures || [];
+          this.candidatures = [...(organization.candidatureManagement?.candidatures || [])].sort((a, b) => new Date(b.metadata.creationDate).getTime() - new Date(a.metadata.creationDate).getTime());
+          this.dataSource.data = this.candidatures;
           this.candidatureManagementEnabled = organization.candidatureManagement?.enabled || false;
           this.generateInvitationLink();
         }
@@ -76,6 +81,13 @@ export class OrganizationCandidaturesComponent implements OnInit, OnDestroy {
         this.generateInvitationLink();
       }) || new Subscription()
     );
+  }
+
+  ngAfterViewInit(): void {
+    if (this.paginator) {
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.paginator.pageSize = 5;
+    }
   }
 
   ngOnDestroy(): void {
@@ -238,6 +250,7 @@ export class OrganizationCandidaturesComponent implements OnInit, OnDestroy {
     if (candidature) {
       candidature.status = status;
     }
+    this.dataSource.data = [...this.candidatures];
   }
 
   public getStatusColor(status: string): 'primary' | 'accent' | 'warn' {

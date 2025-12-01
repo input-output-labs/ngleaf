@@ -57,7 +57,7 @@
       <div class="candidatures-section" [class.disabled]="!candidatureManagementEnabled">
         <h3>{{ 'leaf.organization-candidature.candidatures-section-title' | translate }}</h3>
         <div class="table-container">
-          <table mat-table [dataSource]="candidatures" class="candidatures-table" *ngIf="candidatures.length !== 0">
+          <table mat-table [dataSource]="dataSource" class="candidatures-table" *ngIf="candidatures.length !== 0">
             <!-- Date Column -->
             <ng-container matColumnDef="date">
               <th mat-header-cell *matHeaderCellDef>{{ 'leaf.organization-candidature.table-date' | translate }}</th>
@@ -108,7 +108,7 @@
                 </ng-container>
                 <ng-template #statusChip>
                   <mat-chip [color]="getStatusColor(candidature.status)" highlighted [selectable]="false">
-                    {{ candidature.status | titlecase }}
+                    {{ 'leaf.organization-candidature.statuses.' + candidature.status | translate | titlecase }}
                   </mat-chip>
                 </ng-template>
               </td>
@@ -117,6 +117,12 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
           </table>
+          <mat-paginator
+            *ngIf="candidatures.length > 0"
+            [pageSize]="5"
+            [pageSizeOptions]="[5, 10]"
+            [showFirstLastButtons]="true">
+          </mat-paginator>
           
           <div class="no-candidatures" *ngIf="candidatures.length === 0">
             <mat-icon>inbox</mat-icon>

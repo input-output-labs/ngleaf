@@ -239,7 +239,22 @@
       "confirm-accept-title": "Accepter la candidature",
       "confirm-accept-message": "Êtes-vous sûr de vouloir accepter cette candidature ?",
       "confirm-decline-title": "Refuser la candidature",
-      "confirm-decline-message": "Êtes-vous sûr de vouloir refuser cette candidature ?"
+      "confirm-decline-message": "Êtes-vous sûr de vouloir refuser cette candidature ?",
+      "statuses": {
+        "PENDING": "En attente",
+        "CANDIDATED": "Candidaté",
+        "ACCEPTED": "Accepté",
+        "DECLINED": "Refusé"
+      },
+      "pagination": {
+        "page-size": "Éléments par page :",
+        "previous-page": "Page précédente",
+        "next-page": "Page suivante",
+        "first-page": "Première page",
+        "last-page": "Dernière page",
+        "range-label": "{{start}} - {{end}} sur {{length}}",
+        "range-label-zero": "0 sur {{length}}"
+      }
     },
     "organization-members": {
       "search-member-input-label": "Rechercher des membres",
@@ -356,6 +371,11 @@
         "icon": "store",
         "label": "You have been invited to {{payload.organizationName}} !",
         "link": "/welcome/invitation?organizationId={{payload.organizationId}}&email={{payload.invitationEmail}}"
+      },
+      "LEAF_ORGANIZATION_CANDIDATURE_RECEIVED": {
+        "icon": "store",
+        "label": "Nouvelle candidature pour {{payload.organizationName}} !",
+        "link": "/organization/members"
       }
     },
     "payment": {

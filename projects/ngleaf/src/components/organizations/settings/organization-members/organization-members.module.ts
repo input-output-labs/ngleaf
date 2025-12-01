@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDialogModule } from '@angular/material/dialog';
 import { OrganizationMembersComponent } from './organization-members.component';
@@ -21,6 +22,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { LeafConfirmDialogModule } from '../../../../components/common/confirm-dialog/confirm-dialog.module';
 import { MatBadgeModule } from '@angular/material/badge';
+import { MatPaginatorIntl } from '@angular/material/paginator';
+import { TranslatedMatPaginatorIntl } from './translated-mat-paginator-intl.service';
 
 @NgModule({
   imports: [
@@ -35,6 +38,7 @@ import { MatBadgeModule } from '@angular/material/badge';
     MatButtonModule,
     MatIconModule,
     MatTableModule,
+    MatPaginatorModule,
     MatChipsModule,
     MatDialogModule,
     MatMenuModule,
@@ -50,6 +54,12 @@ import { MatBadgeModule } from '@angular/material/badge';
     LeafConfirmDialogModule,
   ],
   declarations: [OrganizationMembersComponent, OrganizationCandidaturesComponent],
-  exports: [OrganizationMembersComponent]
+  exports: [OrganizationMembersComponent],
+  providers: [
+    {
+      provide: MatPaginatorIntl,
+      useClass: TranslatedMatPaginatorIntl
+    }
+  ]
 })
 export class OrganizationMembersModule { }
