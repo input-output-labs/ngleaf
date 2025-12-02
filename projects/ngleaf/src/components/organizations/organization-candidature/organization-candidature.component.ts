@@ -23,7 +23,7 @@ export class OrganizationCandidatureComponent implements OnInit {
 
   public organizationName: string = '';
   public selectedRole: string = '';
-  public validationError: string = '';
+  public validationError: string | null = null;
   public isLoading: boolean = false;
   public validationResponse: OrganizationCandidatureData | null = null;
   public missingParametersError: string = '';
@@ -63,12 +63,12 @@ export class OrganizationCandidatureComponent implements OnInit {
 
   private validateCandidature(): void {
     if (!this.organizationId || !this.selectedRole) {
-      this.validationError = 'Missing organization ID or role';
+      this.validationError = 'MISSING_ORGANIZATION_ID_OR_ROLE';
       return;
     }
 
     this.isLoading = true;
-    this.validationError = '';
+    this.validationError = null;
 
     this.organizationsApiClient.getCandidatureData(this.organizationId, this.selectedRole).subscribe({
       next: (response: OrganizationCandidatureData) => {
@@ -77,12 +77,12 @@ export class OrganizationCandidatureComponent implements OnInit {
         this.isLoading = false;
         
         if (response.error) {
-          this.validationError = response.error;
+          this.validationError = response.error as string;
         }
       },
       error: (error) => {
         console.error('Error validating candidature:', error);
-        this.validationError = 'Failed to validate candidature. Please try again.';
+        this.validationError = 'ERROR_VALIDATING_CANDIDATURE';
         this.isLoading = false;
       }
     });

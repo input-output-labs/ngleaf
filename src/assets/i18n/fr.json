@@ -305,6 +305,14 @@
       "leave-button-label": "Leave"
     },
     "organization-candidature-page": {
+      "errors": {
+        "MISSING_ORGANIZATION_ID_OR_ROLE": "Paramètres manquants",
+        "ERROR_VALIDATING_CANDIDATURE": "Erreur lors de la validation de la candidature",
+        "ALREADY_MEMBER_OF_ORGANIZATION": "Vous êtes déjà membre de cette organisation",
+        "MISSING_ORGANIZATION": "Cette organisation n'existe pas",
+        "CANDIDATURE_DISABLED": "La gestion des candidatures est désactivée pour cette organisation",
+        "INVALID_ROLE": "Ce rôle n'existe pas"
+      },
       "title": "Candidature à l'organisation \"{{name}}\"",
       "information": "Vous souhaitez candidater pour le rôle de {{role}}",
       "candidate-button-label": "Candidater",

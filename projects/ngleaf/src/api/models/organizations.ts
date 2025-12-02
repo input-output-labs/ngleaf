@@ -35,7 +35,7 @@ export interface OrganizationCandidature {
 
 export interface OrganizationCandidatureData {
   organizationName: string;
-  error?: "MISSING_ORGANIZATION" | "CANDIDATURE_DISABLED" | "INVALID_ROLE";
+  error?: "MISSING_ORGANIZATION" | "CANDIDATURE_DISABLED" | "INVALID_ROLE" | "ALREADY_MEMBER_OF_ORGANIZATION";
 }
 
 export interface OrganizationPolicy {
@@ -64,7 +64,7 @@ export interface CandidatureManagement {
 
 export interface OrganizationCandidatureData {
   organizationName: string;
-  error?: "MISSING_ORGANIZATION" | "CANDIDATURE_DISABLED" | "INVALID_ROLE";
+  error?: "MISSING_ORGANIZATION" | "CANDIDATURE_DISABLED" | "INVALID_ROLE" | "ALREADY_MEMBER_OF_ORGANIZATION";
 }
 
 export interface LeafOrganization {

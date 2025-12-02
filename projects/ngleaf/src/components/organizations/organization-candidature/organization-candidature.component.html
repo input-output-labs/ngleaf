@@ -16,7 +16,7 @@
   <div *ngIf="validationError && !isLoading && !missingParametersError" class="error-state">
     <mat-icon color="warn">error</mat-icon>
     <h2 class="error-title">{{ 'leaf.organization-candidature-page.error-title' | translate }}</h2>
-    <p class="error-message">{{ validationError }}</p>
+    <p class="error-message">{{ ('leaf.organization-candidature-page.errors.' + validationError) | translate }}</p>
   </div>
 
   <!-- Success State -->
