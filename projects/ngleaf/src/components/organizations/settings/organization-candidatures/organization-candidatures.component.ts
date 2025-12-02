@@ -67,7 +67,7 @@ export class OrganizationCandidaturesComponent implements OnInit, OnDestroy, Aft
           if (defaultRole) {
             this.invitationForm.get('role')?.setValue(defaultRole.name);
           }
-          this.candidatures = [...(organization.candidatureManagement?.candidatures || [])].sort((a, b) => new Date(b.metadata.creationDate).getTime() - new Date(a.metadata.creationDate).getTime());
+          this.candidatures = [...(organization.candidatureManagement?.candidatures || [])].sort((a, b) => new Date(b.metadata.lastModification).getTime() - new Date(a.metadata.lastModification).getTime());
           this.dataSource.data = this.candidatures;
           this.candidatureManagementEnabled = organization.candidatureManagement?.enabled || false;
           this.generateInvitationLink();
