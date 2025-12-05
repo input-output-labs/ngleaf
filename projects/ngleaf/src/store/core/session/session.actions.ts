@@ -62,7 +62,7 @@ export const resetResetPassword = createAction(
 );
 export const setResetPasswordCall = createAction(
   '[Session store] Set ResetPassword call',
-  props<{call: Observable<void>}>()
+  props<{call: Observable<JWTModel>}>()
 );
 export const setResetPasswordSuccess = createAction(
   '[Session store] Set ResetPassword success'

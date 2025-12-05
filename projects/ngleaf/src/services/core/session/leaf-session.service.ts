@@ -203,6 +203,10 @@ export class LeafSessionService {
       call: this.accountApiClient.login(credentials)
     }));
 
+    this.executePostLoginActions(options);
+  }
+
+  public executePostLoginActions(options?: {onSuccess?: () => void, onFailure?: () => void, skipRedirect?: boolean}) {
     if (!options || !options.skipRedirect) {
       this.store.pipe(
         select(selectCurrentAccount),
@@ -353,6 +357,8 @@ export class LeafSessionService {
     };
     const call = this.accountApiClient.resetPassword(passwordResetting);
     this.store.dispatch(setResetPasswordCall({call}));
+
+    this.executePostLoginActions();
   }
 
   public unsubscribeFromEmail(email: string, type: string) {

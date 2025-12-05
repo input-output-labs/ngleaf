@@ -76,8 +76,8 @@ export class AccountApiClient {
 
   public resetPassword(
     passwordResetting: PasswordResettingModel
-  ): Observable<void> {
-    return this.authHttp.post<void>(
+  ): Observable<JWTModel> {
+    return this.authHttp.post<JWTModel>(
       this.config.serverUrl + "/account/resetPassword",
       passwordResetting
     );

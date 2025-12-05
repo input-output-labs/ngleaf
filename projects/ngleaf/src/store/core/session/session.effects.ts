@@ -53,10 +53,20 @@ export class SessionEffects {
 
   setResetPasswordCall$ = createEffect(() => this.actions$.pipe(
     ofType(setResetPasswordCall),
-    switchMap((payload: {call: Observable<void>}) =>
+    switchMap((payload: {call: Observable<JWTModel>}) =>
     payload.call.pipe(
         map(() => (setResetPasswordSuccess())),
         catchError((error) => of(setResetPasswordFailure({error})))
+      ))
+    )
+  );
+
+  setResetPasswordCall2$ = createEffect(() => this.actions$.pipe(
+    ofType(setResetPasswordCall),
+    switchMap((payload: {call: Observable<JWTModel>}) =>
+    payload.call.pipe(
+        map((sessionToken) => (setSessionTokenSuccess({data: sessionToken}))),
+        catchError((error) => of(setSessionTokenFailure({error})))
       ))
     )
   );
