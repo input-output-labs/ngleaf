@@ -63,7 +63,22 @@
       "submitLabel": "Register",
       "loginLabel": "Email or login",
       "passwordLabel": "Password",
-      "passwordValidationLabel": "Repeat Password"
+      "passwordValidationLabel": "Repeat Password",
+      "passwordSecurity": {
+        "weak": "Weak",
+        "medium": "Medium",
+        "strong": "Strong",
+        "veryStrong": "Very strong",
+        "minimumRequired": "Password must have a security level of {{required}} or higher. Current level: {{actual}}.{{tips}}",
+        "tips": {
+          "prefix": "Tips:",
+          "minLength": "at least {{count}} characters",
+          "uppercase": "uppercase letters",
+          "lowercase": "lowercase letters",
+          "numbers": "numbers",
+          "specialChars": "special characters"
+        }
+      }
     },
     "password-forgotten": {
       "vanilla": {

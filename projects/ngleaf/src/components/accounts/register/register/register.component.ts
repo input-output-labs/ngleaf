@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 
 import { LeafSessionService } from '../../../../services/index';
+import { LeafPasswordSecurityLevel, LeafPasswordSecurityService } from '../../../common/password-security';
 
 export type LeafRegisterError = {
   login: ValidationErrors,
@@ -37,6 +38,10 @@ export class LeafRegisterComponent implements OnInit {
   public passwordConfirmation = true;
   @Input()
   public skipRedirect: boolean = false;
+  @Input()
+  public showPasswordSecurityLevel: boolean = true;
+  @Input()
+  public minimumPasswordSecurity: LeafPasswordSecurityLevel | null = "strong";
 
   @Output()
   public onError: EventEmitter<LeafRegisterError> = new EventEmitter<LeafRegisterError>();
@@ -53,16 +58,25 @@ export class LeafRegisterComponent implements OnInit {
 
   constructor(
     private formBuilder: UntypedFormBuilder,
-    private leafSessionService: LeafSessionService
+    private leafSessionService: LeafSessionService,
+    private passwordSecurityService: LeafPasswordSecurityService
   ) {}
 
   ngOnInit() {
+    // Build password validators array
+    const passwordValidatorsArray = [...this.passwordValidators];
+    
+    // Add minimum security level validator if specified
+    if (this.minimumPasswordSecurity) {
+      passwordValidatorsArray.push(this.passwordSecurityService.createPasswordSecurityValidator(this.minimumPasswordSecurity));
+    }
+
     this.registerForm = this.formBuilder.group({
       login: [this.loginInitialValue, this.loginValidators],
-      password: ["", this.passwordValidators],
+      password: ["", passwordValidatorsArray],
       passwordValidation: [
         "",
-        this.passwordConfirmation ? this.passwordValidators : [],
+        this.passwordConfirmation ? passwordValidatorsArray : [],
       ],
     });
   }
@@ -74,6 +88,31 @@ export class LeafRegisterComponent implements OnInit {
       inputToControl.getError("required") &&
       inputToControl.dirty &&
       inputToControl.touched
+    );
+  }
+
+  hasMinimumPasswordSecurityError(): boolean {
+    const passwordControl = this.registerForm.get('password');
+    return !!(
+      passwordControl &&
+      passwordControl.getError('minimumPasswordSecurity') &&
+      passwordControl.dirty &&
+      passwordControl.touched
+    );
+  }
+
+  getMinimumPasswordSecurityErrorMessage(): string {
+    const passwordControl = this.registerForm.get('password');
+    const error = passwordControl?.getError('minimumPasswordSecurity');
+    if (!error) {
+      return '';
+    }
+
+    const password = passwordControl?.value || '';
+    return this.passwordSecurityService.getMinimumPasswordSecurityErrorMessage(
+      password,
+      error.required,
+      error.actual
     );
   }
 

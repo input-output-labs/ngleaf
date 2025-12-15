@@ -9,6 +9,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { MatIconModule } from '@angular/material/icon';
 
 import { LeafSessionModule } from '../../../../services/index';
+import { LeafPasswordSecurityModule } from '../../../common/password-security';
 
 @NgModule({
   imports: [
@@ -23,6 +24,7 @@ import { LeafSessionModule } from '../../../../services/index';
     MatIconModule,
     /* Leaf deps */
     LeafSessionModule,
+    LeafPasswordSecurityModule,
   ],
   declarations: [PasswordUpdateComponent],
   exports: [PasswordUpdateComponent]

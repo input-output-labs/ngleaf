@@ -1,10 +1,10 @@
 <form [formGroup]="registerForm" (keypressed.enter)="register($event)">
   <ng-container *ngIf="variant === 'material'">
-    <mat-form-field appearance="outline">
+    <mat-form-field appearance="outline" [subscriptSizing]="'dynamic'">
       <mat-label>{{ 'leaf.register.loginLabel' | translate }}</mat-label>
       <input matInput id="login" value="" formControlName="login">
     </mat-form-field>
-    <mat-form-field appearance="outline">
+    <mat-form-field appearance="outline" [subscriptSizing]="'dynamic'">
       <mat-label>{{ 'leaf.register.passwordLabel' | translate }}</mat-label>
       <input
         matInput
@@ -15,8 +15,16 @@
       <button *ngIf="enablePasswordCheck" matSuffix mat-icon-button (click)="showPassword = !showPassword" type="button">
         <mat-icon>{{ showPassword ? 'visibility' : 'visibility_off'}}</mat-icon>
       </button>
+      <mat-error *ngIf="hasMinimumPasswordSecurityError()">
+        {{ getMinimumPasswordSecurityErrorMessage() }}
+      </mat-error>
     </mat-form-field>
-    <mat-form-field appearance="outline" *ngIf="passwordConfirmation">
+    <leaf-password-security-indicator
+      *ngIf="showPasswordSecurityLevel"
+      [passwordControl]="registerForm.get('password')"
+      [minimumPasswordSecurity]="minimumPasswordSecurity">
+    </leaf-password-security-indicator>
+    <mat-form-field appearance="outline" *ngIf="passwordConfirmation" [subscriptSizing]="'dynamic'">
       <mat-label>{{ 'leaf.register.passwordValidationLabel' | translate }}</mat-label>
       <input
         matInput
@@ -49,6 +57,11 @@
         <i [ngClass]="passwordCheckClasses.show"></i>
       </div>
     </div>
+    <leaf-password-security-indicator
+      *ngIf="showPasswordSecurityLevel"
+      [passwordControl]="registerForm.get('password')"
+      [minimumPasswordSecurity]="minimumPasswordSecurity">
+    </leaf-password-security-indicator>
     <div class="field-wrapper login-wrapper" *ngIf="passwordConfirmation">
       <input class="field passwordValidation" [type]="showPassword ? 'text' : 'password'" formControlName="passwordValidation" [attr.placeholder]="'leaf.register.passwordValidationLabel' | translate" />
       <div

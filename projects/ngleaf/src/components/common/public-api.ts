@@ -8,3 +8,4 @@ export * from './forbidden/index';
 export * from './generic-form/index';
 export * from './leaf-icon-input/index';
 export * from './navigation/index';
+export * from './password-security/index';

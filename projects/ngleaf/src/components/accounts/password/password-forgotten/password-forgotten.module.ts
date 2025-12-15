@@ -7,6 +7,7 @@ import { StoreModule } from '@ngrx/store';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { LeafPasswordSecurityModule } from '../../../common/password-security';
 
 @NgModule({
   imports: [
@@ -19,6 +20,8 @@ import { MatButtonModule } from '@angular/material/button';
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
+    /* Leaf deps */
+    LeafPasswordSecurityModule,
   ],
   declarations: [LeafPasswordForgottenComponent],
   exports: [LeafPasswordForgottenComponent]

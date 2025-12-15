@@ -85,7 +85,22 @@
       "submitLabel": "S'inscrire",
       "loginLabel": "Email ou login",
       "passwordLabel": "Mot de passe",
-      "passwordValidationLabel": "Répéter le mot de passe"
+      "passwordValidationLabel": "Répéter le mot de passe",
+      "passwordSecurity": {
+        "weak": "Faible",
+        "medium": "Moyen",
+        "strong": "Fort",
+        "veryStrong": "Très fort",
+        "minimumRequired": "Le mot de passe doit avoir un niveau de sécurité {{required}} ou supérieur. Niveau actuel : {{actual}}.{{tips}}",
+        "tips": {
+          "prefix": "Conseils :",
+          "minLength": "au moins {{count}} caractères",
+          "uppercase": "des majuscules",
+          "lowercase": "des minuscules",
+          "numbers": "des chiffres",
+          "specialChars": "des caractères spéciaux"
+        }
+      }
     },
     "password-forgotten": {
       "vanilla": {

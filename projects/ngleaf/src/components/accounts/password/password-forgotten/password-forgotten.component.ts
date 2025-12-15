@@ -22,6 +22,7 @@ import {
   LeafPasswordForgottenError,
   LeafPasswordForgottenState,
 } from "../password-forgotten.models";
+import { LeafPasswordSecurityLevel, LeafPasswordSecurityService } from "../../../common/password-security";
 
 function passwordMatchValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
@@ -52,6 +53,10 @@ export class LeafPasswordForgottenComponent implements OnInit {
   public color = "primary";
   @Input()
   public emailInitialValue = "";
+  @Input()
+  public showPasswordSecurityLevel: boolean = true;
+  @Input()
+  public minimumPasswordSecurity: LeafPasswordSecurityLevel | null = "medium";
 
   @Output()
   public onError: EventEmitter<LeafPasswordForgottenError> = new EventEmitter<LeafPasswordForgottenError>();
@@ -67,17 +72,27 @@ export class LeafPasswordForgottenComponent implements OnInit {
     private formBuilder: UntypedFormBuilder,
     private leafSessionService: LeafSessionService,
     private route: ActivatedRoute,
-    private store: Store
+    private store: Store,
+    private passwordSecurityService: LeafPasswordSecurityService
   ) {}
 
   ngOnInit() {
     this.sendPasswordChangeForm = this.formBuilder.group({
       email: [this.emailInitialValue, this.emailValidators],
     });
+
+    // Build password validators array
+    const passwordValidatorsArray = [...this.passwordValidators];
+    
+    // Add minimum security level validator if specified
+    if (this.minimumPasswordSecurity) {
+      passwordValidatorsArray.push(this.passwordSecurityService.createPasswordSecurityValidator(this.minimumPasswordSecurity));
+    }
+
     this.passwordChangeForm = this.formBuilder.group({
         passwordChangeKey: ["", this.passwordChangeKeyValidators],
-        password: ["", this.passwordValidators],
-        passwordValidation: ["", this.passwordValidators],
+        password: ["", passwordValidatorsArray],
+        passwordValidation: ["", passwordValidatorsArray],
       },
       { validators: passwordMatchValidator() }
     );
@@ -149,6 +164,31 @@ export class LeafPasswordForgottenComponent implements OnInit {
   public resendEmail(event) {
     event.preventDefault();
     this.sendPasswordChangeKey();
+  }
+
+  hasMinimumPasswordSecurityError(): boolean {
+    const passwordControl = this.passwordChangeForm.get('password');
+    return !!(
+      passwordControl &&
+      passwordControl.getError('minimumPasswordSecurity') &&
+      passwordControl.dirty &&
+      passwordControl.touched
+    );
+  }
+
+  getMinimumPasswordSecurityErrorMessage(): string {
+    const passwordControl = this.passwordChangeForm.get('password');
+    const error = passwordControl?.getError('minimumPasswordSecurity');
+    if (!error) {
+      return '';
+    }
+
+    const password = passwordControl?.value || '';
+    return this.passwordSecurityService.getMinimumPasswordSecurityErrorMessage(
+      password,
+      error.required,
+      error.actual
+    );
   }
 
   public sendEmail() {
