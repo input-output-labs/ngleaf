@@ -67,6 +67,8 @@ export class LeafPasswordForgottenComponent implements OnInit {
   public sendPasswordChangeForm: UntypedFormGroup;
   public passwordChangeForm: UntypedFormGroup;
   public emailToResendTo?: string;
+  public showPassword: boolean = false;
+  public showPasswordValidation: boolean = false;
 
   constructor(
     private formBuilder: UntypedFormBuilder,

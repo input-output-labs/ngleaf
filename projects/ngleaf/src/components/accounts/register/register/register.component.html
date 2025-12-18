@@ -15,15 +15,15 @@
       <button *ngIf="enablePasswordCheck" matSuffix mat-icon-button (click)="showPassword = !showPassword" type="button">
         <mat-icon>{{ showPassword ? 'visibility' : 'visibility_off'}}</mat-icon>
       </button>
-      <mat-error *ngIf="hasMinimumPasswordSecurityError()">
-        {{ getMinimumPasswordSecurityErrorMessage() }}
-      </mat-error>
     </mat-form-field>
     <leaf-password-security-indicator
       *ngIf="showPasswordSecurityLevel"
       [passwordControl]="registerForm.get('password')"
       [minimumPasswordSecurity]="minimumPasswordSecurity">
     </leaf-password-security-indicator>
+    <mat-error *ngIf="hasMinimumPasswordSecurityError()" class="form-error">
+      {{getMinimumPasswordSecurityErrorMessage()}}
+    </mat-error>
     <mat-form-field appearance="outline" *ngIf="passwordConfirmation" [subscriptSizing]="'dynamic'">
       <mat-label>{{ 'leaf.register.passwordValidationLabel' | translate }}</mat-label>
       <input
@@ -36,7 +36,7 @@
         <mat-icon>{{ showPassword ? 'visibility' : 'visibility_off'}}</mat-icon>
       </button>
     </mat-form-field>
-    <button mat-stroked-button (click)="register($event)">{{ 'leaf.register.submitLabel' | translate }}</button>
+    <button mat-stroked-button (click)="register($event)" [disabled]="registerForm.invalid">{{ 'leaf.register.submitLabel' | translate }}</button>
   </ng-container>
   <ng-container *ngIf="variant === 'vanilla'">
     <div class="field-wrapper login-wrapper">
@@ -77,6 +77,6 @@
         <i [ngClass]="passwordCheckClasses.show"></i>
       </div>
     </div>
-    <button (click)="register($event)">{{ 'leaf.register.submitLabel' | translate }}</button>
+    <button (click)="register($event)" [disabled]="registerForm.invalid">{{ 'leaf.register.submitLabel' | translate }}</button>
   </ng-container>
 </form>

@@ -135,7 +135,7 @@ export class LeafPasswordSecurityService {
     
     const tipsText = tips ? ` ${tipsPrefix} ${tips}` : '';
     
-    return this.translateService.instant(messageKey, { required, actual, tips: tipsText });
+    return this.translateService.instant(messageKey, { required });
   }
 }
 

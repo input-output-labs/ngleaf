@@ -69,7 +69,7 @@
         "medium": "Medium",
         "strong": "Strong",
         "veryStrong": "Very strong",
-        "minimumRequired": "Password must have a security level of {{required}} or higher. Current level: {{actual}}.{{tips}}",
+        "minimumRequired": "Password must have a security level of {{required}} or higher.",
         "tips": {
           "prefix": "Tips:",
           "minLength": "at least {{count}} characters",

@@ -91,7 +91,7 @@
         "medium": "Moyen",
         "strong": "Fort",
         "veryStrong": "Très fort",
-        "minimumRequired": "Le mot de passe doit avoir un niveau de sécurité {{required}} ou supérieur. Niveau actuel : {{actual}}.{{tips}}",
+        "minimumRequired": "Le mot de passe doit avoir un niveau de sécurité {{required}} ou supérieur.",
         "tips": {
           "prefix": "Conseils :",
           "minLength": "au moins {{count}} caractères",
