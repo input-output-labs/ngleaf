@@ -208,8 +208,6 @@ export class OrganizationCandidaturesComponent implements OnInit, OnDestroy, Aft
         });
         this.store.dispatch(listMyOrganizations());
         this.updateCandidatureStatus(email, 'ACCEPTED');
-        // Refresh organization data to reflect the changes
-        this.onClose();
       },
       error: (error) => {
         console.error('Error accepting candidature:', error);
@@ -234,8 +232,6 @@ export class OrganizationCandidaturesComponent implements OnInit, OnDestroy, Aft
         });
         this.store.dispatch(listMyOrganizations());
         this.updateCandidatureStatus(email, 'DECLINED');
-        // Refresh organization data to reflect the changes
-        this.onClose();
       },
       error: (error) => {
         console.error('Error declining candidature:', error);
