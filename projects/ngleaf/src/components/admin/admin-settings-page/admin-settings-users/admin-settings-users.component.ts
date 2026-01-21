@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, TemplateRef } from '@angular/core';
+import { Component, Input, OnInit, TemplateRef, Inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import { LeafAdminService } from '../../../../services/core/admin/leaf-admin.service';
@@ -10,6 +10,8 @@ import { LeafConfirmDialogComponent, ConfirmDialogModel } from '../../../common/
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 import { LeafGenericDataDialogComponent } from '../../leaf-generic-data-dialog/leaf-generic-data-dialog.component';
+import { LeafConfigServiceToken } from '../../../../services/leaf-config.module';
+import { LeafConfig } from '../../../../models';
 
 interface SortOption {
   value: string;
@@ -57,6 +59,7 @@ export class AdminSettingsUsersComponent implements OnInit {
     private adminService: LeafAdminService,
     public dialog: MatDialog,
     fb: FormBuilder,
+    @Inject(LeafConfigServiceToken) private config: LeafConfig
   ) {
       this.searchFormGroup = fb.group({
         emailFilter: [''],
@@ -142,11 +145,12 @@ export class AdminSettingsUsersComponent implements OnInit {
   }
 
   public deleteAccount(account) {
-
     const dialogData = new ConfirmDialogModel("Delete user ?", `Are you sure you want to delete user ${account.login || account.email}`);
+    const dialogWidth = this.config?.uiCustomization?.dialogWidth?.small || '400px';
 
     const dialogRef = this.dialog.open(LeafConfirmDialogComponent, {
-      maxWidth: "400px",
+      width: dialogWidth,
+      maxWidth: dialogWidth,
       data: dialogData
     });
 
@@ -163,7 +167,10 @@ export class AdminSettingsUsersComponent implements OnInit {
   }
 
   public openGenericDataDialog(element: LeafAccountModel) {
+    const dialogWidth = this.config?.uiCustomization?.dialogWidth?.medium || '600px';
     const dialogRef = this.dialog.open(LeafGenericDataDialogComponent, {
+      width: dialogWidth,
+      maxWidth: dialogWidth,
       data: {
         genericData: element.genericData,
         targetType: "account",

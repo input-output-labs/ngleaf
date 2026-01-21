@@ -166,10 +166,12 @@ export class OrganizationCandidaturesComponent implements OnInit, OnDestroy, Aft
     const message = this.translateService.instant('leaf.organization-candidature.confirm-accept-message');
     
     const dialogData = new ConfirmDialogModel(title, message);
+    const dialogWidth = this.config?.uiCustomization?.dialogWidth?.small || '400px';
 
     const dialogRef = this.dialog.open(LeafConfirmDialogComponent, {
       data: dialogData,
-      width: '400px'
+      width: dialogWidth,
+      maxWidth: dialogWidth
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -184,10 +186,12 @@ export class OrganizationCandidaturesComponent implements OnInit, OnDestroy, Aft
     const message = this.translateService.instant('leaf.organization-candidature.confirm-decline-message');
     
     const dialogData = new ConfirmDialogModel(title, message);
+    const dialogWidth = this.config?.uiCustomization?.dialogWidth?.small || '400px';
 
     const dialogRef = this.dialog.open(LeafConfirmDialogComponent, {
       data: dialogData,
-      width: '400px'
+      width: dialogWidth,
+      maxWidth: dialogWidth
     });
 
     dialogRef.afterClosed().subscribe(result => {

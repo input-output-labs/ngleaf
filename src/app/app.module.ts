@@ -70,6 +70,13 @@ const leafConfig: LeafConfig = {
     notifications: true,
     organizations: true,
     eligibilities: true,
+  },
+  uiCustomization: {
+    dialogWidth: {
+      small: '400px',
+      medium: '600px',
+      large: '800px'
+    }
   }
 };
 

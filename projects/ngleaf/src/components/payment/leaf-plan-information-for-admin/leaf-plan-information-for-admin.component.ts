@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, Inject } from '@angular/core';
 import { PaymentApiClientService } from '../../../api/clients/payment-api-client';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { LeafPaymentPlan, LeafPaymentPlanFeature, LeafPaymentPlanInfo } from '../../../api';
@@ -6,6 +6,8 @@ import { ConfirmDialogModel, LeafConfirmDialogComponent } from '../../common';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { LeafConfigServiceToken } from '../../../services/leaf-config.module';
+import { LeafConfig } from '../../../models';
 
 @Component({
   standalone: false,
@@ -27,7 +29,13 @@ export class LeafPlanInformationForAdminComponent implements OnInit, OnDestroy {
   public updatingPlan: boolean = false;
   private subscriptions: Subscription[] = [];
 
-  constructor(private paymentApiClient: PaymentApiClientService, private dialog: MatDialog, private snackBar: MatSnackBar, private translate: TranslateService) {
+  constructor(
+    private paymentApiClient: PaymentApiClientService,
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar,
+    private translate: TranslateService,
+    @Inject(LeafConfigServiceToken) private config: LeafConfig
+  ) {
     this.subscriptions.push(this.paymentPlanInfo$.subscribe((planInfo) => {
       if (planInfo) {
         this.planCopy = JSON.parse(JSON.stringify(planInfo.plan));
@@ -87,9 +95,11 @@ export class LeafPlanInformationForAdminComponent implements OnInit, OnDestroy {
   public updatePlanFeatures() {
     if (this.featuresTouched) {
       // this.paymentApiClient.updatePlan(this.planCopy).subscribe();
+      const dialogWidth = this.config?.uiCustomization?.dialogWidth?.small || '400px';
       
       const dialogRef = this.dialog.open(LeafConfirmDialogComponent, {
-        maxWidth: "400px",
+        width: dialogWidth,
+        maxWidth: dialogWidth,
         data: new ConfirmDialogModel(
           "Update plan's features",
           "Are you sure you want to update the plan's features?"
@@ -116,8 +126,10 @@ export class LeafPlanInformationForAdminComponent implements OnInit, OnDestroy {
   }
 
   public onPlanChange(event: any) {
+    const dialogWidth = this.config?.uiCustomization?.dialogWidth?.small || '400px';
     const dialogRef = this.dialog.open(LeafConfirmDialogComponent, {
-      maxWidth: "400px",
+      width: dialogWidth,
+      maxWidth: dialogWidth,
       data: new ConfirmDialogModel(
         `Update Plan to ${event.value}`,
         "Are you sure you want to change the plan?"

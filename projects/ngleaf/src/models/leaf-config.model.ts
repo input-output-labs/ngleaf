@@ -25,6 +25,16 @@ export interface LeafSetupConfig {
   eligibilities: boolean,
 }
 
+export interface LeafDialogWidthConfig {
+  small: string;
+  medium: string;
+  large: string;
+}
+
+export interface LeafUICustomizationConfig {
+  dialogWidth: LeafDialogWidthConfig;
+}
+
 export interface LeafConfig {
   serverUrl: string;
   serverWSBrokerUrl: string;
@@ -32,4 +42,5 @@ export interface LeafConfig {
   apis?: ApisConfig;
   featureActivation?: LeafFeatureActivation,
   setupConfig: LeafSetupConfig;
+  uiCustomization?: LeafUICustomizationConfig;
 }

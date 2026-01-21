@@ -9,6 +9,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { LeafPlanSelectorDialogComponent } from '../leaf-plan-selector-dialog';
 import { isMobile } from '../../../helpers';
 import { PlanViewerConfig } from '../leaf-plan-viewer';
+import { LeafConfigServiceToken } from '../../../services/leaf-config.module';
+import { LeafConfig } from '../../../models';
 
 @Component({
   standalone: false,
@@ -36,7 +38,8 @@ export class LeafSelectedPaymentPlanComponent implements OnInit, OnDestroy {
     private store: Store,
     private paymentApiClientService: PaymentApiClientService,
     public dialog: MatDialog,
-    @Inject(DOCUMENT) private document: Document
+    @Inject(DOCUMENT) private document: Document,
+    @Inject(LeafConfigServiceToken) private config: LeafConfig
   ) {
     this.paymentPlanInfo$ = store.select(selectSelectedPaymentPlanInfo).pipe(
       filter((asyncItem: AsyncType<LeafPaymentPlanInfo>) => !asyncItem.status.pending),
@@ -59,7 +62,10 @@ export class LeafSelectedPaymentPlanComponent implements OnInit, OnDestroy {
   }
 
   public changePaymentPlan() {
+    const dialogWidth = this.config?.uiCustomization?.dialogWidth?.large || '800px';
     const dialogRef = this.dialog.open(LeafPlanSelectorDialogComponent, {
+      width: dialogWidth,
+      maxWidth: dialogWidth,
       data: this.planViewerConfig
     });
 

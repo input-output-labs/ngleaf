@@ -1,7 +1,9 @@
-import { Component, Input, Output, EventEmitter} from '@angular/core';
+import { Component, Input, Output, EventEmitter, Inject} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { LeafAccountModel } from '../../../../api/models/leaf-account.model';
 import { SponsoringCodeUpdateDialogComponent } from '../sponsoring-code-update-dialog/sponsoring-code-update-dialog.component';
+import { LeafConfigServiceToken } from '../../../../services/leaf-config.module';
+import { LeafConfig } from '../../../../models';
 
 @Component({
   standalone: false,
@@ -16,11 +18,16 @@ export class SponsoringCodeUpdateWidgetComponent {
   @Output()
   public onChanged: EventEmitter<void> = new EventEmitter<void>();
 
-  constructor(private dialog: MatDialog) {}
+  constructor(
+    private dialog: MatDialog,
+    @Inject(LeafConfigServiceToken) private config: LeafConfig
+  ) {}
 
   public openSponsorCodeUpdateDialog() {
+    const dialogWidth = this.config?.uiCustomization?.dialogWidth?.small || '400px';
     const dialogRef = this.dialog.open(SponsoringCodeUpdateDialogComponent, {
-      maxWidth: "400px",
+      width: dialogWidth,
+      maxWidth: dialogWidth,
       data: {
         account: this.account
       }

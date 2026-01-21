@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { Observable, Subscription, combineLatest, debounce, interval, filter, map, startWith } from 'rxjs';
 import { Store, select } from '@ngrx/store';
@@ -7,6 +7,8 @@ import { selectCurrentAccountData, listOrganizationUsers, selectCurrentOrganizat
 import { MatDialog } from '@angular/material/dialog';
 import { OrganizationInvitationsComponent } from '../organization-invitations';
 import { OrganizationCandidaturesComponent } from '../organization-candidatures';
+import { LeafConfigServiceToken } from '../../../../services/leaf-config.module';
+import { LeafConfig } from '../../../../models';
 
 @Component({
   standalone: false,
@@ -30,7 +32,12 @@ export class OrganizationMembersComponent implements OnInit, OnDestroy {
 
   private subscriptions: Subscription[] = [];
 
-  constructor(fb: FormBuilder, private store: Store, private dialog: MatDialog) {
+  constructor(
+    fb: FormBuilder,
+    private store: Store,
+    private dialog: MatDialog,
+    @Inject(LeafConfigServiceToken) private config: LeafConfig
+  ) {
     this.currentAccount$ = this.store.select(selectCurrentAccountData);
     this.eligibilities$ = this.store.select(selectEligibilities);
     this.searchFormControl = fb.control('');
@@ -101,13 +108,18 @@ export class OrganizationMembersComponent implements OnInit, OnDestroy {
   }
 
   public openInvationDialog() {
-    this.dialog.open(OrganizationInvitationsComponent);
+    const dialogWidth = this.config?.uiCustomization?.dialogWidth?.medium || '600px';
+    this.dialog.open(OrganizationInvitationsComponent, {
+      width: dialogWidth,
+      maxWidth: dialogWidth
+    });
   }
 
   public openCandidatureDialog() {
+    const dialogWidth = this.config?.uiCustomization?.dialogWidth?.medium || '600px';
     this.dialog.open(OrganizationCandidaturesComponent, {
-      width: '600px',
-      maxWidth: '90vw',
+      width: dialogWidth,
+      maxWidth: dialogWidth,
       maxHeight: '80vh'
     });
   }

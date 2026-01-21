@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
@@ -9,6 +9,8 @@ import { selectCurrentAccountData } from '../../../store/core/session/session.se
 import { LeafAccountModel } from '../../../api/models/leaf-account.model';
 import { deleteService, updateService } from '../../../store/payment/payment.actions';
 import { LeafConfirmDialogComponent, ConfirmDialogModel } from '../../../components/common/confirm-dialog/confirm-dialog.component';
+import { LeafConfigServiceToken } from '../../../services/leaf-config.module';
+import { LeafConfig } from '../../../models';
 
 @Component({
   standalone: false,
@@ -27,7 +29,8 @@ export class LeafServiceItemComponent implements OnInit {
     private store: Store,
     private dialog: MatDialog,
     private translate: TranslateService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    @Inject(LeafConfigServiceToken) private config: LeafConfig
   ) {
     this.currentAccount$ = this.store.select(selectCurrentAccountData);
     this.editForm = this.formBuilder.group({
@@ -170,9 +173,11 @@ export class LeafServiceItemComponent implements OnInit {
 
     const title = this.translate.instant('leaf.payment.service-item.deleteConfirmTitle');
     const message = this.translate.instant('leaf.payment.service-item.deleteConfirmMessage');
+    const dialogWidth = this.config?.uiCustomization?.dialogWidth?.small || '400px';
 
     const dialogRef = this.dialog.open(LeafConfirmDialogComponent, {
-      width: '400px',
+      width: dialogWidth,
+      maxWidth: dialogWidth,
       data: new ConfirmDialogModel(title, message)
     });
 
