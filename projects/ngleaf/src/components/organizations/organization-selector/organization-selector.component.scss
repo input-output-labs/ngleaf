@@ -88,5 +88,17 @@
       }
     }
   }
+
+  @media (max-width: 768px) {
+    .organization-picker-card {
+      padding: 0.25rem 0.5rem;
+
+      .header {
+        .image {
+          display: none;
+        }
+      }
+    }
+  }
 }
 
