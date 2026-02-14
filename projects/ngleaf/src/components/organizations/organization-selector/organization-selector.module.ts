@@ -12,6 +12,7 @@ import { MatCardModule } from '@angular/material/card';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { OrganizationsApiClientModule } from '../../../api/clients/organizations-api-client/organizations-api-client.module';
 
 @NgModule({
   imports: [
@@ -21,6 +22,7 @@ import { MatInputModule } from '@angular/material/input';
     ReactiveFormsModule,
     /* Leaf deps */
     LeafOrganizationStoreModule,
+    OrganizationsApiClientModule,
     /* Material deps */
     MatButtonModule,
     MatMenuModule,

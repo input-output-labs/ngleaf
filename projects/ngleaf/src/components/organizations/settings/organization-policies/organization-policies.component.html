@@ -39,44 +39,48 @@
         {{ 'leaf.organization-policies.roleDeleteButtonLabel' | translate}}
       </button>
     </div>
-    <mat-list role="list" class="role-configuration-policies">
-      <ng-container *ngFor="let right of role.rights;">
-        <mat-list-item role="listitem" class="role-list-item">
-          <div class="role-configuration-policy">
-            <div class="name-and-value-line">
-              <span class="role-name">
-                {{ ("leaf.organization-policies.policies." + right.name + ".name") | translate }}
-              </span>
-              <span class="role-value" [ngSwitch]="right.type">
-                  <ng-container *ngSwitchCase="'boolean'">
-                    <mat-slide-toggle
-                      [checked]="right.value === 'true'"
-                      (change)="onRightValueChange(right.name, $event)"
-                      [disabled]="!(eligibilities$ | async).managePolicies.eligible || (eligibilities$ | async)[right.name] && !(eligibilities$ | async)[right.name].eligible"></mat-slide-toggle>
-                  </ng-container>
-                  <ng-container *ngSwitchCase="'number'">
-                    <button mat-mini-fab class="dense" (click)="addtoNumberRight(right.name, -1)">
-                      <mat-icon>remove</mat-icon>
-                    </button>
-                    <mat-form-field class="dense" style="margin-left: -0.75rem; margin-right: -0.75rem; width: 100px;" appearance="outline" subscriptSizing="dynamic">
-                      <input matInput type="number" [value]="right.value" (change)="onNumberRightValueChange(right.name, $event.target.value)">
-                    </mat-form-field>
-                    <button mat-mini-fab class="dense" (click)="addtoNumberRight(right.name, 1)">
-                      <mat-icon>add</mat-icon>
-                    </button>
-                  </ng-container>
-                  <ng-container *ngSwitchDefault>
-                    other ...
-                  </ng-container>
+
+    <ng-container *ngFor="let category of classifyRights(role.rights);">
+      <h3 *ngIf="category.category">{{ ("leaf.organization-policies.categories." + category.category) | translate }}</h3>
+      <mat-list role="list" class="role-configuration-policies">
+        <ng-container *ngFor="let right of category.rights;">
+          <mat-list-item role="listitem" class="role-list-item">
+            <div class="role-configuration-policy">
+              <div class="name-and-value-line">
+                <span class="role-name">
+                  {{ ("leaf.organization-policies.policies." + right.name + ".name") | translate }}
+                </span>
+                <span class="role-value" [ngSwitch]="right.type">
+                    <ng-container *ngSwitchCase="'boolean'">
+                      <mat-slide-toggle
+                        [checked]="right.value === 'true'"
+                        (change)="onRightValueChange(right.name, $event)"
+                        [disabled]="!(eligibilities$ | async).managePolicies.eligible || (eligibilities$ | async)[right.name] && !(eligibilities$ | async)[right.name].eligible"></mat-slide-toggle>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'number'">
+                      <button mat-mini-fab class="dense" (click)="addtoNumberRight(right.name, -1)">
+                        <mat-icon>remove</mat-icon>
+                      </button>
+                      <mat-form-field class="dense" style="margin-left: -0.75rem; margin-right: -0.75rem; width: 100px;" appearance="outline" subscriptSizing="dynamic">
+                        <input matInput type="number" [value]="right.value" (change)="onNumberRightValueChange(right.name, $event.target.value)">
+                      </mat-form-field>
+                      <button mat-mini-fab class="dense" (click)="addtoNumberRight(right.name, 1)">
+                        <mat-icon>add</mat-icon>
+                      </button>
+                    </ng-container>
+                    <ng-container *ngSwitchDefault>
+                      other ...
+                    </ng-container>
+                </span>
+              </div>
+              <span class="role-description">
+                {{ ("leaf.organization-policies.policies." + right.name + ".description") | translate }}
               </span>
             </div>
-            <span class="role-description">
-              {{ ("leaf.organization-policies.policies." + right.name + ".description") | translate }}
-            </span>
-          </div>
-        </mat-list-item>
-        <mat-divider class="separator"></mat-divider>
-      </ng-container>
-    </mat-list>
+          </mat-list-item>
+          <mat-divider class="separator"></mat-divider>
+        </ng-container>
+      </mat-list>
+    </ng-container>
   </div>
 </div>

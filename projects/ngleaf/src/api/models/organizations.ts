@@ -39,6 +39,7 @@ export interface OrganizationCandidatureData {
 }
 
 export interface OrganizationPolicy {
+  category: string;
   order: number;
   name: string;
   type: string;

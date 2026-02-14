@@ -36,6 +36,16 @@
         <mat-list-item role="listitem" *ngFor="let organization of filteredOrganizations$ | async" >
           <button mat-menu-item (click)="selectOrganization(organization)">{{ organization.name }}</button>
         </mat-list-item>
+
+        <ng-container *ngIf="(adminOnlyOrganizations$ | async)?.length;">
+          <mat-divider></mat-divider>
+          <mat-list-item role="listitem" *ngFor="let organization of adminOnlyOrganizations$ | async" >
+            <button mat-menu-item (click)="selectOrganization(organization)">
+              <mat-icon>admin_panel_settings</mat-icon>
+              {{ organization.name }}
+            </button>
+          </mat-list-item>
+        </ng-container>
       </mat-list>
     </div>
   </mat-menu>

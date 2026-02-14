@@ -329,6 +329,9 @@
       "roleSaveButtonLabel": "Save role's updates",
       "roleDeleteButtonLabel": "Delete role",
       "defaultNewRoleName": "New role",
+      "categories": {
+        "organizations": "Organization"
+      },
       "policies": {
         "seeOrganization": {
           "name": "See organization",

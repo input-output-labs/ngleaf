@@ -10,7 +10,7 @@ import {
   take,
   Subject,
 } from "rxjs";
-import { LeafEligibilities, LeafOrganization, OrganizationRole } from "../../../../api";
+import { LeafEligibilities, LeafOrganization, OrganizationPolicy, OrganizationRole } from "../../../../api";
 import {
   selectCurrentOrganization,
   createRole,
@@ -25,6 +25,11 @@ import {
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import { MatSlideToggleChange } from "@angular/material/slide-toggle";
+
+export interface ClassifiedRights {
+  category: string;
+  rights: OrganizationPolicy[];
+}
 
 @Component({
   standalone: false,
@@ -63,9 +68,20 @@ export class OrganizationPoliciesComponent implements OnDestroy {
         map(([organization, params]) => {
           const routeRole = params.get("role");
           const defaultRole = organization.policies.roles[0].name;
-          const foundRole = organization.policies.roles.find(
-            (role) => role.name === routeRole
-          );
+          const foundRole = {
+            ...organization.policies.roles.find(
+              (role) => role.name === routeRole
+              )
+          };
+
+          foundRole.rights = (foundRole.rights ?? []).map((right) => {
+            const policy = organization.policies.policies.find((policy) => policy.name === right.name);
+            return {
+              ...right,
+              category: policy?.category ?? undefined,
+            };
+          });
+          
           return [routeRole, defaultRole, foundRole];
         })
       );
@@ -111,6 +127,21 @@ export class OrganizationPoliciesComponent implements OnDestroy {
     this.subscriptions.forEach((subscription: Subscription) =>
       subscription.unsubscribe()
     );
+  }
+
+  public classifyRights(rights: OrganizationPolicy[]): ClassifiedRights[] {
+    const classifiedRights = rights.reduce((acc, right) => {
+      const category = right.category ?? undefined;
+      if (!acc[category]) {
+        acc[category] = {
+          category: category,
+          rights: [],
+        };
+      }
+      acc[category].rights.push(right);
+      return acc;
+    }, {});
+    return Object.values(classifiedRights);
   }
 
   public createRole() {

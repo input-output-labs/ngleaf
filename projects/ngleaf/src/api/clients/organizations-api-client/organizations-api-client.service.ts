@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { HttpParams } from '@angular/common/http';
 import { LeafAuthHttpClient } from '../auth-http-client/leaf-auth-http-client.service';
 import { LeafApiClientConfig, LeafApiClientConfigServiceToken } from '../api-client-config.module';
 import { LeafOrganization, OrganizationInvitationData, OrganizationRole, OrganizationCandidatureData } from '../../models/organizations';
@@ -12,8 +13,15 @@ export class OrganizationsApiClientService {
     public authHttp: LeafAuthHttpClient
     ) {}
 
-    public listAllOrganizations(): Observable<LeafOrganization[]> {
-      return this.authHttp.get<LeafOrganization[]>(`${this.config.serverUrl}/organizations`);
+    public listAllOrganizations(options?: { nameFilter?: string; limit?: number }): Observable<LeafOrganization[]> {
+      let params = new HttpParams();
+      if (options?.nameFilter) {
+        params = params.set('nameFilter', options.nameFilter);
+      }
+      if (options?.limit != null) {
+        params = params.set('limit', options.limit.toString());
+      }
+      return this.authHttp.get<LeafOrganization[]>(`${this.config.serverUrl}/organizations`, { params });
     }
 
     public listMyOrganizations(): Observable<LeafOrganization[]> {

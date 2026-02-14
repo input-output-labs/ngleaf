@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { LeafAccountModel, LeafOrganization } from '../../../api';
-import { combineLatest, map, Observable, startWith } from 'rxjs';
+import { LeafAccountModel, LeafOrganization, OrganizationsApiClientService } from '../../../api';
+import { combineLatest, map, Observable, of, startWith, switchMap } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { listMyOrganizations, selectCurrentOrganization, selectMyOrganizationsData, setCurrentOrganizationId } from '../../../store/core/organizations';
 import { selectCurrentAccountData } from '../../../store';
@@ -32,6 +32,9 @@ export class OrganizationSelectorComponent implements OnInit {
   @Input()
   public fetchOnInit: boolean = false;
 
+  @Input()
+  public adminCompleteMode: "always" | "search" | "never" = "search";
+
   @Output()
   public onSelect: EventEmitter<LeafOrganization> = new EventEmitter<LeafOrganization>();
   
@@ -41,10 +44,11 @@ export class OrganizationSelectorComponent implements OnInit {
   public currentAccount$: Observable<LeafAccountModel>;
   public organizations$: Observable<LeafOrganization[]>;
   public filteredOrganizations$: Observable<LeafOrganization[]>;
+  public adminOnlyOrganizations$: Observable<LeafOrganization[]>;
   public currentOrganization$: Observable<LeafOrganization>;
   public searchField: FormControl = new FormControl('');
 
-  constructor(private store: Store) {
+  constructor(private store: Store, private organizationsApiClient: OrganizationsApiClientService) {
     this.organizations$ = this.store.pipe(
       select(selectMyOrganizationsData)
     );
@@ -62,6 +66,21 @@ export class OrganizationSelectorComponent implements OnInit {
       select(selectCurrentOrganization)
     );
     this.currentAccount$ = this.store.select(selectCurrentAccountData);
+
+    this.adminOnlyOrganizations$ = combineLatest([
+      this.currentAccount$,
+      this.searchField.valueChanges.pipe(startWith(''))
+    ]).pipe(
+      switchMap(([account, search]) => {
+        if (account.admin) {
+          const searched = search.trim() !== '';
+          if (this.adminCompleteMode === "always" || (this.adminCompleteMode === "search" && searched)) {
+            return this.organizationsApiClient.listAllOrganizations({ nameFilter: search, limit: 15 });
+          }
+        }
+        return of([]);
+      })
+    );
   }
 
   ngOnInit(): void {
