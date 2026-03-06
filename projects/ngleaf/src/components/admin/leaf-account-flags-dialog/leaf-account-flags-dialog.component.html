@@ -1,0 +1,32 @@
+<h2 mat-dialog-title>Update user flags</h2>
+
+<mat-dialog-content>
+  <p class="subtitle">{{ data.email }}</p>
+
+  <div class="flags-section">
+    <mat-chip-listbox>
+      <mat-chip *ngFor="let flag of flags" [selectable]="false" [removable]="true" (removed)="removeFlag(flag)">
+        {{ flag }}
+        <button matChipRemove>
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </mat-chip>
+    </mat-chip-listbox>
+  </div>
+
+  <div class="add-flag-row">
+    <mat-form-field appearance="outline" subscriptSizing="dynamic">
+      <mat-label>New flag</mat-label>
+      <input matInput [(ngModel)]="newFlag" (keyup.enter)="addFlag()" placeholder="example: internal-user">
+    </mat-form-field>
+    <button mat-flat-button color="primary" (click)="addFlag()">
+      <mat-icon>add</mat-icon>
+      Add
+    </button>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-flat-button color="primary" (click)="save()">Save</button>
+</mat-dialog-actions>

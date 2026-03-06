@@ -71,6 +71,22 @@
       </td>
     </ng-container>
 
+    <ng-container matColumnDef="flags">
+      <th mat-header-cell *matHeaderCellDef> Flags </th>
+      <td mat-cell *matCellDef="let element">
+        <div class="flags-cell">
+          <mat-chip-listbox>
+            <mat-chip *ngFor="let flag of (element.flags || [])" [selectable]="false">
+              {{ flag }}
+            </mat-chip>
+          </mat-chip-listbox>
+          <button mat-icon-button matTooltip="Update flags" (click)="openFlagsDialog(element)">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </div>
+      </td>
+    </ng-container>
+
     <ng-container matColumnDef="extraData" *ngIf="!!extraDataTemplate">
       <th mat-header-cell *matHeaderCellDef> Extra </th>
       <td mat-cell *matCellDef="let element">

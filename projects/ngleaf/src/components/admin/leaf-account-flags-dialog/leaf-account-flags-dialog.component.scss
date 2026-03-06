@@ -1,0 +1,18 @@
+.subtitle {
+  margin: 0 0 1rem 0;
+  opacity: 0.7;
+}
+
+.flags-section {
+  margin-bottom: 1rem;
+}
+
+.add-flag-row {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+
+  .mat-mdc-form-field {
+    flex: 1;
+  }
+}

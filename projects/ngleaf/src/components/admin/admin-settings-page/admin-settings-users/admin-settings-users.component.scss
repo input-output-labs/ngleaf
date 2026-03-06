@@ -74,6 +74,12 @@ table {
     gap: 0.25rem;
   }
 
+  .flags-cell {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
   .row {
     width: 100%;
     display: flex;

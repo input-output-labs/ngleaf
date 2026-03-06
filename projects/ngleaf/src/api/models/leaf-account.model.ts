@@ -39,6 +39,7 @@ export interface LeafAccountModel {
   authentication: LeafAccountAuthentication;
   profile: LeafAccountProfile;
   admin?: boolean;
+  flags?: string[];
   modules?: {[moduleName: string]: any};
   metadata?: ResourceMetadata;
   genericData?: {

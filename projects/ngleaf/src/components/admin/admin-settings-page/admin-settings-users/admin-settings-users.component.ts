@@ -10,6 +10,7 @@ import { LeafConfirmDialogComponent, ConfirmDialogModel } from '../../../common/
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 import { LeafGenericDataDialogComponent } from '../../leaf-generic-data-dialog/leaf-generic-data-dialog.component';
+import { LeafAccountFlagsDialogComponent } from '../../leaf-account-flags-dialog/leaf-account-flags-dialog.component';
 import { LeafConfigServiceToken } from '../../../../services/leaf-config.module';
 import { LeafConfig } from '../../../../models';
 
@@ -133,7 +134,7 @@ export class AdminSettingsUsersComponent implements OnInit {
 
   getColumnsToDisplay() {
     return [
-      ...['id', 'email', 'profile', 'registrationDate'],
+      ...['id', 'email', 'profile', 'registrationDate', 'flags'],
       ...!!this.extraDataTemplate ? ['extraData']: [],
       ...!!this.showGenericDataHelper ? ['genericDataHelper']: [],
       ...['isAdmin', 'actions']
@@ -176,6 +177,25 @@ export class AdminSettingsUsersComponent implements OnInit {
         targetType: "account",
         targetId: element.id,
         expectedGenericDataKeys: this.expectedGenericDataKeys,
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.adminService.fetchUsers();
+      }
+    });
+  }
+
+  public openFlagsDialog(element: LeafAccountModel) {
+    const dialogWidth = this.config?.uiCustomization?.dialogWidth?.small || '500px';
+    const dialogRef = this.dialog.open(LeafAccountFlagsDialogComponent, {
+      width: dialogWidth,
+      maxWidth: dialogWidth,
+      data: {
+        accountId: element.id,
+        email: element.email,
+        flags: element.flags || []
       }
     });
 

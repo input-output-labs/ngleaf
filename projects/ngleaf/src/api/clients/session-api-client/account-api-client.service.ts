@@ -143,4 +143,11 @@ export class AccountApiClient {
       genericData
     );
   }
+
+  public updateFlags(targetId: string, flags: string[]): Observable<LeafAccountModel> {
+    return this.authHttp.post<LeafAccountModel>(
+      this.config.serverUrl + "/account/" + targetId + "/flags",
+      flags
+    );
+  }
 }

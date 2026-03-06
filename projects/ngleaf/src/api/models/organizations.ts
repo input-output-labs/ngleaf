@@ -72,6 +72,7 @@ export interface LeafOrganization {
   id?: string;
   name: string;
   profile?: LeafAccountProfile;
+  flags?: string[];
   metadata?: any;
   members?: OrganizationMembership[];
   invitations?: OrganizationInvitation[];
