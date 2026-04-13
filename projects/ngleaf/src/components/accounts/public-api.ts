@@ -9,4 +9,5 @@ export * from './password/index';
 export * from './phone-number-form-field/index';
 export * from './register/index';
 export * from './settings/index';
+export * from './social-login/index';
 

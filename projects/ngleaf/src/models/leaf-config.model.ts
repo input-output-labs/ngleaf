@@ -35,6 +35,15 @@ export interface LeafUICustomizationConfig {
   dialogWidth: LeafDialogWidthConfig;
 }
 
+export interface LeafOAuthProviderConfig {
+  clientId: string;
+}
+
+export interface LeafOAuthConfig {
+  google?: LeafOAuthProviderConfig;
+  apple?: LeafOAuthProviderConfig;
+}
+
 export interface LeafConfig {
   serverUrl: string;
   serverWSBrokerUrl: string;
@@ -43,4 +52,5 @@ export interface LeafConfig {
   featureActivation?: LeafFeatureActivation,
   setupConfig: LeafSetupConfig;
   uiCustomization?: LeafUICustomizationConfig;
+  oauth?: LeafOAuthConfig;
 }

@@ -206,6 +206,20 @@ export class LeafSessionService {
     this.executePostLoginActions(options);
   }
 
+  public loginWithOAuth(
+    provider: string,
+    idToken: string,
+    options?: { name?: string; onSuccess?: () => void; onFailure?: () => void; skipRedirect?: boolean }
+  ) {
+    const call = this.accountApiClient.oauthLogin({
+      provider,
+      idToken,
+      name: options?.name,
+    });
+    this.store.dispatch(setSessionTokenCall({ call }));
+    this.executePostLoginActions(options);
+  }
+
   public executePostLoginActions(options?: {onSuccess?: () => void, onFailure?: () => void, skipRedirect?: boolean}) {
     if (!options || !options.skipRedirect) {
       this.store.pipe(

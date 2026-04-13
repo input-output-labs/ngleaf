@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoginPageComponent } from './login-page.component';
-import { LeafLoginModule } from '@input-output-labs/ngleaf';
+import { LeafLoginModule, LeafSocialLoginModule } from '@input-output-labs/ngleaf';
 import { MatDividerModule } from '@angular/material/divider';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -16,6 +16,7 @@ import { TranslateModule } from '@ngx-translate/core';
     MatDividerModule,
     /* Leaf deps */
     LeafLoginModule,
+    LeafSocialLoginModule,
   ],
   declarations: [LoginPageComponent],
   exports: [LoginPageComponent]

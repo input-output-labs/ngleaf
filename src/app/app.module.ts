@@ -77,6 +77,14 @@ const leafConfig: LeafConfig = {
       medium: '600px',
       large: '800px'
     }
+  },
+  oauth: {
+    google: {
+      clientId: environment.OAUTH_GOOGLE_CLIENT_ID
+    },
+    apple: {
+      clientId: environment.OAUTH_APPLE_CLIENT_ID
+    }
   }
 };
 

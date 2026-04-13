@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { catchError, map, Observable, of } from 'rxjs';
 
 import { LeafAuthHttpClient } from '../auth-http-client/leaf-auth-http-client.service';
-import { AccountSearchCriteria, AccountSearchResponse, JWTModel, LeafAccountModel, LeafAccountProfile, LoginModel, PasswordChangingModel, PasswordResettingModel, RegistrationModel } from '../../models/index';
+import { AccountSearchCriteria, AccountSearchResponse, JWTModel, LeafAccountModel, LeafAccountProfile, LoginModel, OAuthLoginModel, PasswordChangingModel, PasswordResettingModel, RegistrationModel } from '../../models/index';
 
 import { LeafApiClientConfig, LeafApiClientConfigServiceToken } from '../api-client-config.module';
 import { HttpParams } from '@angular/common/http';
@@ -39,6 +39,13 @@ export class AccountApiClient {
     return this.authHttp.post<JWTModel>(
       this.config.serverUrl + "/account/login",
       login
+    );
+  }
+
+  public oauthLogin(oauthLogin: OAuthLoginModel): Observable<JWTModel> {
+    return this.authHttp.post<JWTModel>(
+      `${this.config.serverUrl}/account/oauth/${oauthLogin.provider}`,
+      oauthLogin
     );
   }
 
