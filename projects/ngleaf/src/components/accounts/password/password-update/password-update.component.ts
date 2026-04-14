@@ -25,6 +25,7 @@ function passwordMatchValidator(): ValidatorFn {
 export class PasswordUpdateComponent implements OnInit {
   public changePasswordForm: UntypedFormGroup;
 
+  public showOldPassword: boolean = false;
   public showPassword: boolean = false;
   public showPasswordValidation: boolean = false;
 
