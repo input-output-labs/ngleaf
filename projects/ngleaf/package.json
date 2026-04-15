@@ -1,11 +1,26 @@
 {
   "name": "@input-output-labs/ngleaf",
-  "version": "2.20.21",
+  "version": "2.20.22",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
   "dependencies": {
+    "@swimlane/ngx-charts": "^20.1.0",
+    "awesome-phonenumber": "^7.2.0",
+    "lodash.merge": "^4.6.2",
     "tslib": "^2.0.0"
+  },
+  "peerDependencies": {
+    "@angular/cdk": "^19.2.15",
+    "@angular/common": "^19.2.15",
+    "@angular/core": "^19.2.15",
+    "@angular/forms": "^19.2.15",
+    "@angular/material": "^19.2.15",
+    "@angular/router": "^19.2.15",
+    "@ngrx/effects": "^19.2.1",
+    "@ngrx/store": "^19.2.1",
+    "@ngx-translate/core": "^15.0.0",
+    "rxjs": "^7.5.0"
   },
   "scripts": {
     "publish": "npm publish --access public",
