@@ -1,6 +1,6 @@
 {
   "name": "@input-output-labs/ngleaf",
-  "version": "2.20.22",
+  "version": "2.20.23",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
@@ -8,7 +8,8 @@
     "@swimlane/ngx-charts": "^20.1.0",
     "awesome-phonenumber": "^7.2.0",
     "lodash.merge": "^4.6.2",
-    "tslib": "^2.0.0"
+    "tslib": "^2.0.0",
+    "@stomp/rx-stomp": "^2.0.0"
   },
   "peerDependencies": {
     "@angular/cdk": "^19.2.15",
