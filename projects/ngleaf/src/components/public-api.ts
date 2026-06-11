@@ -14,3 +14,4 @@ export * from './payment/index';
 export * from './redirections/index';
 export * from './sponsoring/index';
 export * from './statistics/index';
+export * from './odoo/index';

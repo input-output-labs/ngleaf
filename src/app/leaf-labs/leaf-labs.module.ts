@@ -20,6 +20,8 @@ import { PaymentComponent } from "./payment/payment.component";
 import { PaymentModule } from "./payment/payment.module";
 import { RedirectionComponent } from "./redirection/redirection.component";
 import { RedirectionModule } from "./redirection/redirection.module";
+import { OdooComponent } from "./odoo/odoo.component";
+import { OdooModule } from "./odoo/odoo.module";
 
 const routes: Routes = [
   {
@@ -57,6 +59,10 @@ const routes: Routes = [
         path: "redirection",
         component: RedirectionComponent,
       },
+      {
+        path: "odoo",
+        component: OdooComponent,
+      },
     ],
   },
 ];
@@ -72,6 +78,7 @@ const routes: Routes = [
     LeafSponsorCodeInterceptorGuardModule,
     PaymentModule,
     RedirectionModule,
+    OdooModule,
     LeafServicesListComponentModule,
     /* App deps */
     LeafLabsLayoutModule,

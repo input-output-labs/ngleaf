@@ -50,7 +50,21 @@
         "sponsoringLinkLabel": "Parrainage",
         "statisticsLinkLabel": "Statistiques",
         "paymentLinkLabel": "Paiement",
-        "redirectionLinkLabel": "Redirection"
+        "redirectionLinkLabel": "Redirection",
+        "odooLinkLabel": "Odoo"
+      },
+      "odoo": {
+        "title": "Intégration Odoo",
+        "intro": "Démonstration des sélecteurs Odoo branchés sur l'API Leaf (/api/odoo). Une configuration Odoo valide doit être disponible côté serveur.",
+        "contactTitle": "Sélecteur de contact",
+        "contactLabel": "Contact Odoo",
+        "contactPlaceholder": "Rechercher un contact...",
+        "opportunityTitle": "Sélecteur d'opportunité",
+        "opportunityLabel": "Opportunité Odoo",
+        "opportunityPlaceholder": "Rechercher une opportunité...",
+        "valuesTitle": "Valeurs du formulaire",
+        "contactValueLabel": "ID contact sélectionné",
+        "opportunityValueLabel": "ID opportunité sélectionnée"
       }
     }
   },

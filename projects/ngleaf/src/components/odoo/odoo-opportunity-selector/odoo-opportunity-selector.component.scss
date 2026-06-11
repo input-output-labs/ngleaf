@@ -1,0 +1,37 @@
+.leaf-odoo-opportunity-selector {
+  width: 100%;
+}
+
+.opportunity-main {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  font-weight: 500;
+}
+
+.opportunity-id {
+  color: #94a3b8;
+  font-size: 0.85em;
+}
+
+.opportunity-revenue {
+  margin-left: auto;
+  color: #0f766e;
+  font-size: 0.85em;
+  font-weight: 600;
+}
+
+.opportunity-sub {
+  color: #94a3b8;
+  font-size: 0.8em;
+
+  &--missing {
+    font-style: italic;
+  }
+}
+
+.no-results,
+.loading-text {
+  color: #94a3b8;
+  font-style: italic;
+}

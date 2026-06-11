@@ -1,0 +1,45 @@
+.odoo-labs__intro {
+  margin: 0 0 1rem;
+  color: #64748b;
+  max-width: 52rem;
+}
+
+.odoo-labs__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.odoo-labs__section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 36rem;
+
+  h2 {
+    margin: 0;
+    font-size: 1.1rem;
+  }
+}
+
+.odoo-labs__values {
+  max-width: 36rem;
+
+  dl {
+    margin: 0;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.5rem 1rem;
+  }
+
+  dt {
+    font-weight: 600;
+    color: #475569;
+  }
+
+  dd {
+    margin: 0;
+    font-family: monospace;
+  }
+}

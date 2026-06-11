@@ -1,0 +1,40 @@
+<mat-form-field appearance="outline" class="leaf-odoo-contact-selector">
+  <mat-label>{{ label }}</mat-label>
+  <input
+    matInput
+    [formControl]="searchControl"
+    [matAutocomplete]="auto"
+    [placeholder]="placeholder"
+    (focus)="onInputFocus()"
+    (blur)="onBlur()">
+  <mat-icon matPrefix>contacts</mat-icon>
+  <button
+    *ngIf="selectedContact"
+    mat-icon-button
+    matSuffix
+    type="button"
+    (click)="onClear($event)"
+    tabindex="-1">
+    <mat-icon>close</mat-icon>
+  </button>
+
+  <mat-autocomplete
+    #auto="matAutocomplete"
+    [displayWith]="displayFn"
+    (optionSelected)="onOptionSelected($event.option.value)">
+    <mat-option *ngIf="loading" disabled>
+      <span class="loading-text">Chargement des contacts...</span>
+    </mat-option>
+    <mat-option *ngFor="let contact of filteredContacts$ | async" [value]="contact">
+      <div class="contact-main">
+        {{ contact.name || 'Contact' }}
+        <span class="contact-id" *ngIf="contact.id">({{ contact.id }})</span>
+      </div>
+      <div class="contact-sub" *ngIf="!isEmailMissing(contact)">{{ getEmailDisplay(contact) }}</div>
+      <div class="contact-sub contact-sub--missing" *ngIf="isEmailMissing(contact)">E-mail manquant</div>
+    </mat-option>
+    <mat-option *ngIf="!loading && (filteredContacts$ | async)?.length === 0" disabled>
+      <span class="no-results">Aucun contact trouvé</span>
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>

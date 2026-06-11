@@ -13,3 +13,4 @@ export * from './session-api-client/index';
 export * from './statistics-api-client/index';
 export * from './sponsoring-api-client/index';
 export * from './services-api-client/index';
+export * from './odoo-api-client/index';

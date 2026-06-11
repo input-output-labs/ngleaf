@@ -49,7 +49,22 @@
         "messengerLinkLabel": "Messenger",
         "sponsoringLinkLabel": "Sponsoring",
         "statisticsLinkLabel": "Statistics",
-        "paymentLinkLabel": "Payment"
+        "paymentLinkLabel": "Payment",
+        "redirectionLinkLabel": "Redirection",
+        "odooLinkLabel": "Odoo"
+      },
+      "odoo": {
+        "title": "Odoo integration",
+        "intro": "Demonstration of Odoo selectors wired to the Leaf API (/api/odoo). A valid Odoo configuration must be available on the server.",
+        "contactTitle": "Contact selector",
+        "contactLabel": "Odoo contact",
+        "contactPlaceholder": "Search for a contact...",
+        "opportunityTitle": "Opportunity selector",
+        "opportunityLabel": "Odoo opportunity",
+        "opportunityPlaceholder": "Search for an opportunity...",
+        "valuesTitle": "Form values",
+        "contactValueLabel": "Selected contact ID",
+        "opportunityValueLabel": "Selected opportunity ID"
       }
     }
   },

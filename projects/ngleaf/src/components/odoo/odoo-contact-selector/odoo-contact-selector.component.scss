@@ -1,0 +1,28 @@
+.leaf-odoo-contact-selector {
+  width: 100%;
+}
+
+.contact-main {
+  font-weight: 500;
+}
+
+.contact-id {
+  margin-left: 0.35rem;
+  color: #94a3b8;
+  font-size: 0.85em;
+}
+
+.contact-sub {
+  color: #94a3b8;
+  font-size: 0.8em;
+
+  &--missing {
+    font-style: italic;
+  }
+}
+
+.no-results,
+.loading-text {
+  color: #94a3b8;
+  font-style: italic;
+}

@@ -1,0 +1,36 @@
+<h1>{{ 'app.leaf-labs.odoo.title' | translate }}</h1>
+<p class="odoo-labs__intro">{{ 'app.leaf-labs.odoo.intro' | translate }}</p>
+
+<mat-divider></mat-divider>
+
+<form [formGroup]="form" class="odoo-labs__form">
+  <section class="odoo-labs__section">
+    <h2>{{ 'app.leaf-labs.odoo.contactTitle' | translate }}</h2>
+    <leaf-odoo-contact-selector
+      formControlName="odooContactId"
+      [label]="'app.leaf-labs.odoo.contactLabel' | translate"
+      [placeholder]="'app.leaf-labs.odoo.contactPlaceholder' | translate">
+    </leaf-odoo-contact-selector>
+  </section>
+
+  <section class="odoo-labs__section">
+    <h2>{{ 'app.leaf-labs.odoo.opportunityTitle' | translate }}</h2>
+    <leaf-odoo-opportunity-selector
+      formControlName="odooOpportunityId"
+      [label]="'app.leaf-labs.odoo.opportunityLabel' | translate"
+      [placeholder]="'app.leaf-labs.odoo.opportunityPlaceholder' | translate">
+    </leaf-odoo-opportunity-selector>
+  </section>
+
+  <mat-card class="odoo-labs__values">
+    <mat-card-title>{{ 'app.leaf-labs.odoo.valuesTitle' | translate }}</mat-card-title>
+    <mat-card-content>
+      <dl>
+        <dt>{{ 'app.leaf-labs.odoo.contactValueLabel' | translate }}</dt>
+        <dd>{{ form.value.odooContactId || '—' }}</dd>
+        <dt>{{ 'app.leaf-labs.odoo.opportunityValueLabel' | translate }}</dt>
+        <dd>{{ form.value.odooOpportunityId || '—' }}</dd>
+      </dl>
+    </mat-card-content>
+  </mat-card>
+</form>

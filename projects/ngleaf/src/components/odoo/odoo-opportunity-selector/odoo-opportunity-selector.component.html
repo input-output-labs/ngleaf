@@ -1,0 +1,41 @@
+<mat-form-field appearance="outline" class="leaf-odoo-opportunity-selector">
+  <mat-label>{{ label }}</mat-label>
+  <input
+    matInput
+    [formControl]="searchControl"
+    [matAutocomplete]="auto"
+    [placeholder]="placeholder"
+    (focus)="onInputFocus()"
+    (blur)="onBlur()">
+  <mat-icon matPrefix>trending_up</mat-icon>
+  <button
+    *ngIf="selectedOpportunity"
+    mat-icon-button
+    matSuffix
+    type="button"
+    (click)="onClear($event)"
+    tabindex="-1">
+    <mat-icon>close</mat-icon>
+  </button>
+
+  <mat-autocomplete
+    #auto="matAutocomplete"
+    [displayWith]="displayFn"
+    (optionSelected)="onOptionSelected($event.option.value)">
+    <mat-option *ngIf="loading" disabled>
+      <span class="loading-text">Chargement des opportunités...</span>
+    </mat-option>
+    <mat-option *ngFor="let opportunity of filteredOpportunities$ | async" [value]="opportunity">
+      <div class="opportunity-main">
+        {{ opportunity.name || 'Opportunité' }}
+        <span class="opportunity-id" *ngIf="opportunity.id">({{ opportunity.id }})</span>
+        <span class="opportunity-revenue" *ngIf="formatRevenue(opportunity) as revenue">{{ revenue }}</span>
+      </div>
+      <div class="opportunity-sub" *ngIf="getSubtitle(opportunity) as subtitle">{{ subtitle }}</div>
+      <div class="opportunity-sub opportunity-sub--missing" *ngIf="!getSubtitle(opportunity)">Aucune information contact</div>
+    </mat-option>
+    <mat-option *ngIf="!loading && (filteredOpportunities$ | async)?.length === 0" disabled>
+      <span class="no-results">Aucune opportunité trouvée</span>
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>

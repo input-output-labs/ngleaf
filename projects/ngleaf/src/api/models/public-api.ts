@@ -18,3 +18,4 @@ export * from './leaf-setup.model';
 export * from './sponsoring.model';
 export * from './leaf-eligilibities';
 export * from './services';
+export * from './odoo/index';

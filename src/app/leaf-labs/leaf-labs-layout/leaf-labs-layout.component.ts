@@ -42,6 +42,11 @@ export class LeafLabsLayoutComponent implements OnInit {
         link: "./redirection",
         index: 5,
       },
+      {
+        labelKey: "app.leaf-labs.layout.odooLinkLabel",
+        link: "./odoo",
+        index: 6,
+      },
     ];
   }
 
