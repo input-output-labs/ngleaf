@@ -29,9 +29,11 @@
       <div class="opportunity-main">
         {{ opportunity.name || 'Opportunité' }}
         <span class="opportunity-id" *ngIf="opportunity.id">({{ opportunity.id }})</span>
+        <span class="opportunity-stage" *ngIf="opportunity.stageName">{{ opportunity.stageName }}</span>
         <span class="opportunity-revenue" *ngIf="formatRevenue(opportunity) as revenue">{{ revenue }}</span>
       </div>
       <div class="opportunity-sub" *ngIf="getSubtitle(opportunity) as subtitle">{{ subtitle }}</div>
+      <div class="opportunity-sub opportunity-sub--tags" *ngIf="formatTags(opportunity) as tags">{{ tags }}</div>
       <div class="opportunity-sub opportunity-sub--missing" *ngIf="!getSubtitle(opportunity)">Aucune information contact</div>
     </mat-option>
     <mat-option *ngIf="!loading && (filteredOpportunities$ | async)?.length === 0" disabled>

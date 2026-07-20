@@ -14,6 +14,12 @@
   font-size: 0.85em;
 }
 
+.opportunity-stage {
+  color: #6366f1;
+  font-size: 0.8em;
+  font-weight: 600;
+}
+
 .opportunity-revenue {
   margin-left: auto;
   color: #0f766e;
@@ -27,6 +33,10 @@
 
   &--missing {
     font-style: italic;
+  }
+
+  &--tags {
+    color: #64748b;
   }
 }
 

@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpParams } from '@angular/common/http';
 import { LeafAuthHttpClient } from '../auth-http-client/leaf-auth-http-client.service';
 import { LeafApiClientConfig, LeafApiClientConfigServiceToken } from '../api-client-config.module';
-import { LeafOrganization, OrganizationInvitationData, OrganizationRole, OrganizationCandidatureData } from '../../models/organizations';
+import { LeafOrganization, OrganizationInvitationData, OrganizationRole, OrganizationCandidatureData, OrganizationSearchCriteria, OrganizationSearchResponse } from '../../models/organizations';
 import { LeafAccountModel, LeafAccountProfile } from '../../models/leaf-account.model';
 
 @Injectable()
@@ -22,6 +22,13 @@ export class OrganizationsApiClientService {
         params = params.set('limit', options.limit.toString());
       }
       return this.authHttp.get<LeafOrganization[]>(`${this.config.serverUrl}/organizations`, { params });
+    }
+
+    public searchOrganizations(criteria: OrganizationSearchCriteria): Observable<OrganizationSearchResponse> {
+      return this.authHttp.post<OrganizationSearchResponse>(
+        `${this.config.serverUrl}/organizations/search`,
+        criteria
+      );
     }
 
     public listMyOrganizations(): Observable<LeafOrganization[]> {

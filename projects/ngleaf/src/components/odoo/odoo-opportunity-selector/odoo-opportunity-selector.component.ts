@@ -23,7 +23,7 @@ export class OdooOpportunitySelectorComponent implements ControlValueAccessor, O
 
   @Input() label = 'Opportunité Odoo';
   @Input() placeholder = 'Rechercher une opportunité...';
-  @Input() limit = 200;
+  @Input() limit?: number;
 
   @ViewChild(MatAutocompleteTrigger)
   private autocompleteTrigger?: MatAutocompleteTrigger;
@@ -44,7 +44,10 @@ export class OdooOpportunitySelectorComponent implements ControlValueAccessor, O
 
   ngOnInit(): void {
     this.loading = true;
-    this.odooApiClient.listOpportunities(this.limit).pipe(
+    const opportunities$ = this.limit != null
+      ? this.odooApiClient.listOpportunities(this.limit)
+      : this.odooApiClient.listAllOpportunities();
+    opportunities$.pipe(
       takeUntil(this.destroy$),
       catchError(() => of([]))
     ).subscribe(opportunities => {
@@ -94,7 +97,9 @@ export class OdooOpportunitySelectorComponent implements ControlValueAccessor, O
       String(o.id || '').includes(q) ||
       (o.contactName || '').toLowerCase().includes(q) ||
       (o.email || '').toLowerCase().includes(q) ||
-      (o.partnerName || '').toLowerCase().includes(q)
+      (o.partnerName || '').toLowerCase().includes(q) ||
+      (o.stageName || '').toLowerCase().includes(q) ||
+      (o.tags || []).some(tag => tag.toLowerCase().includes(q))
     );
   }
 
@@ -136,6 +141,14 @@ export class OdooOpportunitySelectorComponent implements ControlValueAccessor, O
       return '';
     }
     return value;
+  }
+
+  formatTags(opportunity: OdooOpportunity): string | null {
+    const tags = (opportunity.tags || []).filter(tag => !!tag?.trim());
+    if (tags.length === 0) {
+      return null;
+    }
+    return tags.join(', ');
   }
 
   formatRevenue(opportunity: OdooOpportunity): string | null {
@@ -193,6 +206,10 @@ export class OdooOpportunitySelectorComponent implements ControlValueAccessor, O
         phone: null,
         expectedRevenue: null,
         partnerName: null,
+        stageId: null,
+        stageName: null,
+        tags: [],
+        createdAt: null,
       };
       this.searchControl.setValue(value, { emitEvent: false });
     }

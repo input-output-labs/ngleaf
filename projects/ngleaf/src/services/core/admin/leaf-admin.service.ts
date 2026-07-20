@@ -1,8 +1,9 @@
 import { Injectable, Inject } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
 // import { LeafAccountModel, LeafAuthorizedEmailModel } from '../../../models/index';
-import { LeafAccountModel, LeafAuthorizedEmailModel } from '../../../api/models/index';
+import { AccountSearchCriteria, AccountSearchResponse, LeafAccountModel, LeafAuthorizedEmailModel } from '../../../api/models/index';
 import { LeafAuthHttpClient } from '../../../api/clients/index';
 import { LeafConfigServiceToken } from '../../leaf-config.module';
 import { setAdministrators, setAuthorizedEmails, setUsers } from '../../../store/core/administration/administration.actions';
@@ -52,12 +53,15 @@ export class LeafAdminService {
       });
   }
 
-  public deleteAccount(id: any) {
-    this.authHttp
-      .delete<void>(this.config.serverUrl + '/account/' + id)
-      .subscribe(() => {
-        this.fetchUsers();
-      });
+  public searchUsers(criteria: AccountSearchCriteria): Observable<AccountSearchResponse> {
+    return this.authHttp.post<AccountSearchResponse>(
+      this.config.serverUrl + '/account/search',
+      criteria
+    );
+  }
+
+  public deleteAccount(id: any): Observable<void> {
+    return this.authHttp.delete<void>(this.config.serverUrl + '/account/' + id);
   }
 
   public addAdmin(newAdminId: string) {

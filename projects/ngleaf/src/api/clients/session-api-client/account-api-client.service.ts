@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { catchError, map, Observable, of } from 'rxjs';
 
 import { LeafAuthHttpClient } from '../auth-http-client/leaf-auth-http-client.service';
-import { JWTModel, LeafAccountModel, LeafAccountProfile, LoginModel, PasswordChangingModel, PasswordResettingModel, RegistrationModel } from '../../models/index';
+import { AccountSearchCriteria, AccountSearchResponse, JWTModel, LeafAccountModel, LeafAccountProfile, LoginModel, PasswordChangingModel, PasswordResettingModel, RegistrationModel } from '../../models/index';
 
 import { LeafApiClientConfig, LeafApiClientConfigServiceToken } from '../api-client-config.module';
 import { HttpParams } from '@angular/common/http';
@@ -95,6 +95,13 @@ export class AccountApiClient {
     return this.authHttp.get<LeafAccountModel[]>(
       this.config.serverUrl + "/account/autocomplete",
       { params }
+    );
+  }
+
+  public searchAccounts(criteria: AccountSearchCriteria): Observable<AccountSearchResponse> {
+    return this.authHttp.post<AccountSearchResponse>(
+      this.config.serverUrl + "/account/search",
+      criteria
     );
   }
 

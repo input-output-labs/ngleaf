@@ -1,10 +1,9 @@
-import { Component, Input, OnInit, TemplateRef, Inject } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Component, DestroyRef, inject, Input, TemplateRef, Inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import { LeafAdminService } from '../../../../services/core/admin/leaf-admin.service';
-import { LeafAccountModel } from '../../../../api/models/index';
-import { selectUsers } from '../../../../store/core/administration/administration.selectors';
-import { BehaviorSubject, Observable, combineLatest, debounceTime, map, startWith } from 'rxjs';
+import { AccountSearchOrder, AccountSearchResponse, LeafAccountModel } from '../../../../api/models/index';
+import { BehaviorSubject, Observable, combineLatest, debounceTime, distinctUntilChanged, map, startWith, switchMap } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { LeafConfirmDialogComponent, ConfirmDialogModel } from '../../../common/confirm-dialog/confirm-dialog.component';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -15,7 +14,7 @@ import { LeafConfigServiceToken } from '../../../../services/leaf-config.module'
 import { LeafConfig } from '../../../../models';
 
 interface SortOption {
-  value: string;
+  value: AccountSearchOrder;
   viewValue: string;
 }
 
@@ -25,21 +24,23 @@ interface SortOption {
   templateUrl: './admin-settings-users.component.html',
   styleUrls: ['./admin-settings-users.component.scss']
 })
-export class AdminSettingsUsersComponent implements OnInit {
+export class AdminSettingsUsersComponent {
+  private readonly destroyRef = inject(DestroyRef);
+
   sortOptions: SortOption[] = [
-    {value: 'registerAsc', viewValue: 'First registered'},
-    {value: 'registerDesc', viewValue: 'Last registered'},
-    {value: 'email', viewValue: 'Email'},
-    {value: 'admin', viewValue: 'Admin'},
+    {value: 'FIRST_REGISTERED', viewValue: 'First registered'},
+    {value: 'LAST_REGISTERED', viewValue: 'Last registered'},
+    {value: 'EMAIL', viewValue: 'Email'},
+    {value: 'ADMIN', viewValue: 'Admin'},
   ];
 
-  public users$: Observable<LeafAccountModel[]>;
-  public searchedUsers$: Observable<LeafAccountModel[]>;
+  public searchResult$: Observable<AccountSearchResponse>;
   public shownUsers$: Observable<LeafAccountModel[]>;
+  public searchedUsersCount$: Observable<number>;
 
   public pageSize$: BehaviorSubject<number> = new BehaviorSubject(10);
   public pageIndex$: BehaviorSubject<number> = new BehaviorSubject(0);
-  public searchedUsersCount$: Observable<number>;
+  private readonly refresh$ = new BehaviorSubject<void>(undefined);
 
   @Input()
   extraDataTemplate?: TemplateRef<any>;
@@ -56,7 +57,6 @@ export class AdminSettingsUsersComponent implements OnInit {
   public searchFormGroup: FormGroup;
 
   constructor(
-    private store: Store,
     private adminService: LeafAdminService,
     public dialog: MatDialog,
     fb: FormBuilder,
@@ -67,70 +67,50 @@ export class AdminSettingsUsersComponent implements OnInit {
         sortBy: [this.sortOptions[0].value],
       });
 
-      this.users$ = this.store.select(selectUsers);
-
-      const emailFilter$ = this.searchFormGroup.controls.emailFilter.valueChanges.pipe(startWith(this.searchFormGroup.controls.emailFilter.value), debounceTime(500));
-      const sortBy$ = this.searchFormGroup.controls.sortBy.valueChanges.pipe(startWith(this.searchFormGroup.controls.sortBy.value));
-
-      this.searchedUsers$ = combineLatest([
-        this.users$,
-        emailFilter$,
-        sortBy$,
-      ]).pipe(
-        map(([users, emailFilter, sortBy]) => {
-          return users
-            .filter((user) => !emailFilter.trim() || user.email.toLowerCase().includes(emailFilter.trim().toLowerCase()))
-            .sort((a, b) => {
-              switch(sortBy) {
-                case "email":
-                  if (a.email < b.email) {
-                    return -1;
-                  }
-                  if (a.email > b.email) {
-                    return 1;
-                  }
-                  return 0;
-                case "admin":
-                  if (!a.admin && b.admin) {
-                    return 1;
-                  } else if (a.admin && !b.admin) {
-                    return -1;
-                  }
-                  return 0;
-                case "registerAsc":
-                case "registerDesc":
-                  const dA = new Date(a.metadata.creationDate);
-                  const dB = new Date(b.metadata.creationDate);
-                  if (sortBy === "registerAsc") {
-                    return dA.getTime() - dB.getTime();
-                  } else {
-                    return dB.getTime() - dA.getTime();
-                  }
-              }
-            });
-        })
+      const emailFilter$ = this.searchFormGroup.controls.emailFilter.valueChanges.pipe(
+        startWith(this.searchFormGroup.controls.emailFilter.value),
+        debounceTime(500),
+        distinctUntilChanged()
+      );
+      const sortBy$ = this.searchFormGroup.controls.sortBy.valueChanges.pipe(
+        startWith(this.searchFormGroup.controls.sortBy.value),
+        distinctUntilChanged()
       );
 
-      this.searchedUsersCount$ = this.searchedUsers$.pipe(map(searchedUsers => searchedUsers.length));
+      const filters$ = combineLatest([emailFilter$, sortBy$]);
+      filters$.pipe(
+        takeUntilDestroyed(this.destroyRef)
+      ).subscribe(() => this.pageIndex$.next(0));
 
-      this.shownUsers$ = combineLatest([
-        this.searchedUsers$,
+      this.searchResult$ = combineLatest([
+        filters$,
         this.pageSize$,
-        this.pageIndex$
+        this.pageIndex$,
+        this.refresh$,
       ]).pipe(
-        map(([searchedUsers, pageSize, pageIndex]) => {
-            const start = pageIndex * pageSize;
-            const end = start + pageSize;
-            return searchedUsers.slice(pageIndex * pageSize, end);
-          }
+        debounceTime(0),
+        switchMap(([[emailFilter, sortBy], pageSize, pageIndex]) =>
+          this.adminService.searchUsers({
+            email: emailFilter?.trim() || undefined,
+            orderBy: sortBy,
+            page: pageIndex,
+            pageSize,
+          })
         )
       );
+
+      this.searchedUsersCount$ = this.searchResult$.pipe(map(result => result.totalCount));
+      this.shownUsers$ = this.searchResult$.pipe(map(result => result.accounts));
     }
 
-    public onPageEvent(pageEvent: PageEvent) {
-      this.pageSize$.next(pageEvent.pageSize);
-      this.pageIndex$.next(pageEvent.pageIndex);
-    }
+  public onPageEvent(pageEvent: PageEvent) {
+    this.pageSize$.next(pageEvent.pageSize);
+    this.pageIndex$.next(pageEvent.pageIndex);
+  }
+
+  private refreshSearch() {
+    this.refresh$.next();
+  }
 
   getColumnsToDisplay() {
     return [
@@ -139,10 +119,6 @@ export class AdminSettingsUsersComponent implements OnInit {
       ...!!this.showGenericDataHelper ? ['genericDataHelper']: [],
       ...['isAdmin', 'actions']
     ];
-  }
-
-  ngOnInit() {
-    this.adminService.fetchUsers();
   }
 
   public deleteAccount(account) {
@@ -155,9 +131,13 @@ export class AdminSettingsUsersComponent implements OnInit {
       data: dialogData
     });
 
-    dialogRef.afterClosed().subscribe(confirmed => {
+    dialogRef.afterClosed().pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe(confirmed => {
       if (confirmed) {
-        this.adminService.deleteAccount(account.id);
+        this.adminService.deleteAccount(account.id).pipe(
+          takeUntilDestroyed(this.destroyRef)
+        ).subscribe(() => this.refreshSearch());
       }
     });
   }
@@ -180,9 +160,11 @@ export class AdminSettingsUsersComponent implements OnInit {
       }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe(result => {
       if (result) {
-        this.adminService.fetchUsers();
+        this.refreshSearch();
       }
     });
   }
@@ -199,9 +181,11 @@ export class AdminSettingsUsersComponent implements OnInit {
       }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe(result => {
       if (result) {
-        this.adminService.fetchUsers();
+        this.refreshSearch();
       }
     });
   }

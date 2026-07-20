@@ -20,4 +20,8 @@ export interface OdooOpportunity {
   phone: string | null;
   expectedRevenue: number | null;
   partnerName: string | null;
+  stageId: number | null;
+  stageName: string | null;
+  tags: string[];
+  createdAt: string | null;
 }

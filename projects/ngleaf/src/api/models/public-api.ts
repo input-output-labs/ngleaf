@@ -2,6 +2,7 @@
 export * from './jwt.model';
 export * from './login.model';
 export * from './leaf-account.model';
+export * from './account-search.model';
 export * from './leaf-file.model';
 export * from './leaf-authorized-email.model';
 export * from './emailing/leaf-emailing-category.model';

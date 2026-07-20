@@ -83,3 +83,19 @@ export interface LeafOrganization {
     [key: string]: string;
   };
 }
+
+export type OrganizationSearchOrder = 'CREATION_DATE' | 'NAME';
+
+export interface OrganizationSearchCriteria {
+  name?: string;
+  orderBy?: OrganizationSearchOrder;
+  page?: number;
+  pageSize?: number;
+}
+
+export interface OrganizationSearchResponse {
+  organizations: LeafOrganization[];
+  totalCount: number;
+  pageCount: number;
+  currentPage: number;
+}
