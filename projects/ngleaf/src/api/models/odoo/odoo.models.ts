@@ -24,4 +24,5 @@ export interface OdooOpportunity {
   stageName: string | null;
   tags: string[];
   createdAt: string | null;
+  priority?: number | null;
 }
