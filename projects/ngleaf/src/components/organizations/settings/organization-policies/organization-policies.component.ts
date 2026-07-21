@@ -4,6 +4,7 @@ import { Store, select } from "@ngrx/store";
 import {
   Observable,
   combineLatest,
+  distinctUntilChanged,
   filter,
   map,
   Subscription,
@@ -40,7 +41,7 @@ export interface ClassifiedRights {
 export class OrganizationPoliciesComponent implements OnDestroy {
   public eligibilities$: Observable<LeafEligibilities>;
   public organization$: Observable<LeafOrganization>;
-  public role$: Observable<OrganizationRole>;
+  public role$: Observable<OrganizationRole | null>;
   public unmodifiedRole: string;
   public role: OrganizationRole;
   public roleName: string;
@@ -48,6 +49,7 @@ export class OrganizationPoliciesComponent implements OnDestroy {
   public routingCheckTrigger$: Subject<void> = new Subject<void>();
   public roleUpdated: boolean;
   public roleNameForm: FormControl;
+  public classifiedRights: ClassifiedRights[] = [];
 
   constructor(
     private store: Store,
@@ -63,40 +65,57 @@ export class OrganizationPoliciesComponent implements OnDestroy {
       filter((organization) => !!organization)
     );
 
-    const roleAnalysis$: Observable<[string, string, OrganizationRole | null]> =
-      combineLatest([this.organization$, activatedRoute.paramMap]).pipe(
-        map(([organization, params]) => {
+    const roleAnalysis$ = combineLatest([this.organization$, activatedRoute.paramMap]).pipe(
+        map(([organization, params]): [string | null, string | null, OrganizationRole | null] => {
           const routeRole = params.get("role");
-          const defaultRole = organization.policies.roles[0].name;
-          const foundRole = {
-            ...organization.policies.roles.find(
-              (role) => role.name === routeRole
-              )
-          };
+          const defaultRole = organization.policies?.roles[0]?.name ?? null;
+          const matchedRole = routeRole
+            ? organization.policies?.roles.find((role) => role.name === routeRole)
+            : null;
+          const foundRole = matchedRole
+            ? {
+                ...matchedRole,
+                rights: (matchedRole.rights ?? []).map((right) => {
+                  const policy = organization.policies?.policies.find(
+                    (policy) => policy.name === right.name
+                  );
+                  return {
+                    ...right,
+                    category: policy?.category ?? undefined,
+                  };
+                }),
+              }
+            : null;
 
-          foundRole.rights = (foundRole.rights ?? []).map((right) => {
-            const policy = organization.policies.policies.find((policy) => policy.name === right.name);
-            return {
-              ...right,
-              category: policy?.category ?? undefined,
-            };
-          });
-          
           return [routeRole, defaultRole, foundRole];
-        })
+        }),
+        distinctUntilChanged(
+          (
+            [routeRoleA, defaultRoleA, foundRoleA],
+            [routeRoleB, defaultRoleB, foundRoleB]
+          ) =>
+            routeRoleA === routeRoleB &&
+            defaultRoleA === defaultRoleB &&
+            foundRoleA?.name === foundRoleB?.name
+        )
       );
 
     this.subscriptions.push(
       combineLatest([roleAnalysis$, this.routingCheckTrigger$])
         .pipe(map(([roleAnalysis]) => roleAnalysis))
         .subscribe(([routeRole, defaultRole, foundRole]) => {
+          if (!defaultRole) {
+            return;
+          }
           if (!routeRole) {
             router.navigate([".", defaultRole], {
               relativeTo: activatedRoute,
+              replaceUrl: true,
             });
           } else if (!foundRole) {
             router.navigate(["..", defaultRole], {
               relativeTo: activatedRoute,
+              replaceUrl: true,
             });
           }
         })
@@ -104,22 +123,26 @@ export class OrganizationPoliciesComponent implements OnDestroy {
     this.routingCheckTrigger$.next();
 
     this.role$ = roleAnalysis$.pipe(
-      map(([_routeRole, _defaultRole, foundRole]) => {
-        return foundRole;
-      })
+      map(([_routeRole, _defaultRole, foundRole]) => foundRole)
     );
-    this.role$.subscribe((role) => {
-      if (role) {
+    this.subscriptions.push(
+      this.role$.subscribe((role) => {
+        if (!role?.name) {
+          return;
+        }
         this.role = JSON.parse(JSON.stringify(role));
         this.roleName = role.name;
         this.role.rights.sort((a, b) => a.order - b.order);
-        this.roleNameForm.setValue(this.role.name);
+        this.classifiedRights = this.classifyRights(this.role.rights);
+        this.roleNameForm.setValue(this.role.name, { emitEvent: false });
         this.roleUpdated = false;
-      }
-    });
+      })
+    );
 
-    this.roleNameForm.valueChanges.subscribe((nameChanged) =>
-      this.onNameChange(nameChanged)
+    this.subscriptions.push(
+      this.roleNameForm.valueChanges.subscribe((nameChanged) =>
+        this.onNameChange(nameChanged)
+      )
     );
   }
 
