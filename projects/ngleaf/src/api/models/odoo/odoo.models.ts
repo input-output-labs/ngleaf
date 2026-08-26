@@ -32,5 +32,6 @@ export interface OdooProduct {
   name: string | null;
   defaultCode: string | null;
   standardPrice: number | null;
+  listPrice?: number | null;
   imageUrl: string | null;
 }

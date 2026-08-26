@@ -123,13 +123,14 @@ export class OdooProductSelectorComponent implements ControlValueAccessor, OnIni
   }
 
   formatPrice(product: OdooProduct): string | null {
-    if (product.standardPrice == null) {
+    const price = product.listPrice ?? product.standardPrice;
+    if (price == null) {
       return null;
     }
     return new Intl.NumberFormat('fr-FR', {
       style: 'currency',
       currency: 'EUR',
-    }).format(product.standardPrice);
+    }).format(price);
   }
 
   hasDisplayableImage(product: OdooProduct | null): boolean {
