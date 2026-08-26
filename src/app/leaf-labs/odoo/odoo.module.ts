@@ -7,6 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import {
   OdooContactSelectorModule,
   OdooOpportunitySelectorModule,
+  OdooProductSelectorModule,
 } from '../../../../projects/ngleaf/src/public-api';
 import { OdooComponent } from './odoo.component';
 
@@ -19,6 +20,7 @@ import { OdooComponent } from './odoo.component';
     MatCardModule,
     OdooContactSelectorModule,
     OdooOpportunitySelectorModule,
+    OdooProductSelectorModule,
   ],
   declarations: [OdooComponent],
   exports: [OdooComponent],

@@ -26,3 +26,11 @@ export interface OdooOpportunity {
   createdAt: string | null;
   priority?: number | null;
 }
+
+export interface OdooProduct {
+  id: number | null;
+  name: string | null;
+  defaultCode: string | null;
+  standardPrice: number | null;
+  imageUrl: string | null;
+}

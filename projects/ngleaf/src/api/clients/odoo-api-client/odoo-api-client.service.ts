@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { EMPTY, Observable, expand, reduce } from 'rxjs';
-import { OdooContact, OdooOpportunity } from '../../models/odoo/odoo.models';
+import { OdooContact, OdooOpportunity, OdooProduct } from '../../models/odoo/odoo.models';
 import { LeafApiClientConfig, LeafApiClientConfigServiceToken } from '../api-client-config.module';
 import { LeafAuthHttpClient } from '../auth-http-client/leaf-auth-http-client.service';
 
@@ -29,6 +29,11 @@ export class OdooApiClientService {
     }
     const query = params.toString() ? `?${params.toString()}` : '';
     return this.http.get<OdooOpportunity[]>(this.config.serverUrl + '/odoo/opportunities' + query);
+  }
+
+  public listProducts(limit?: number): Observable<OdooProduct[]> {
+    const query = limit != null ? `?limit=${limit}` : '';
+    return this.http.get<OdooProduct[]>(this.config.serverUrl + '/odoo/products' + query);
   }
 
   public listAllOpportunities(pageSize = DEFAULT_OPPORTUNITY_PAGE_SIZE): Observable<OdooOpportunity[]> {

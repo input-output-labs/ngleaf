@@ -14,6 +14,7 @@ export class OdooComponent {
     this.form = this.formBuilder.group({
       odooContactId: [''],
       odooOpportunityId: [''],
+      odooProductId: [''],
     });
   }
 }

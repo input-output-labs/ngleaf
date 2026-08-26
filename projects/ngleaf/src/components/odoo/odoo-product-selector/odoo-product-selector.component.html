@@ -1,0 +1,59 @@
+<mat-form-field appearance="outline" class="leaf-odoo-product-selector">
+  <mat-label>{{ label }}</mat-label>
+  <input
+    matInput
+    [formControl]="searchControl"
+    [matAutocomplete]="auto"
+    [placeholder]="placeholder"
+    (focus)="onInputFocus()"
+    (blur)="onBlur()">
+  <img
+    *ngIf="hasDisplayableImage(selectedProduct)"
+    matPrefix
+    class="product-thumb product-thumb--prefix"
+    [src]="selectedProduct?.imageUrl"
+    alt=""
+    (error)="onImageError(selectedProduct, $event)">
+  <mat-icon *ngIf="!hasDisplayableImage(selectedProduct)" matPrefix>inventory_2</mat-icon>
+  <button
+    *ngIf="selectedProduct"
+    mat-icon-button
+    matSuffix
+    type="button"
+    (click)="onClear($event)"
+    tabindex="-1">
+    <mat-icon>close</mat-icon>
+  </button>
+
+  <mat-autocomplete
+    #auto="matAutocomplete"
+    [displayWith]="displayFn"
+    (optionSelected)="onOptionSelected($event.option.value)">
+    <mat-option *ngIf="loading" disabled>
+      <span class="loading-text">Chargement des produits...</span>
+    </mat-option>
+    <mat-option *ngFor="let product of filteredProducts$ | async" [value]="product">
+      <div class="product-option">
+        <img
+          *ngIf="hasDisplayableImage(product)"
+          class="product-thumb"
+          [src]="product.imageUrl"
+          alt=""
+          (error)="onImageError(product, $event)">
+        <div class="product-thumb product-thumb--placeholder" *ngIf="!hasDisplayableImage(product)">
+          <mat-icon>inventory_2</mat-icon>
+        </div>
+        <div class="product-texts">
+          <div class="product-main">
+            {{ product.name || 'Produit' }}
+            <span class="product-id" *ngIf="product.id">({{ product.id }})</span>
+          </div>
+          <div class="product-sub" *ngIf="getSubtitle(product) as subtitle">{{ subtitle }}</div>
+        </div>
+      </div>
+    </mat-option>
+    <mat-option *ngIf="!loading && (filteredProducts$ | async)?.length === 0" disabled>
+      <span class="no-results">Aucun produit trouvé</span>
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>

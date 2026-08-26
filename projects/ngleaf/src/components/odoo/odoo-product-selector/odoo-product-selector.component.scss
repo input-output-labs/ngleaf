@@ -1,0 +1,62 @@
+.leaf-odoo-product-selector {
+  width: 100%;
+}
+
+.product-option {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 40px;
+}
+
+.product-thumb {
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  object-fit: cover;
+  flex-shrink: 0;
+  background: #f1f5f9;
+
+  &--prefix {
+    width: 24px;
+    height: 24px;
+  }
+
+  &--placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #94a3b8;
+
+    mat-icon {
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
+
+.product-texts {
+  min-width: 0;
+}
+
+.product-main {
+  font-weight: 500;
+}
+
+.product-id {
+  margin-left: 0.35rem;
+  color: #94a3b8;
+  font-size: 0.85em;
+}
+
+.product-sub {
+  color: #94a3b8;
+  font-size: 0.8em;
+}
+
+.no-results,
+.loading-text {
+  color: #94a3b8;
+  font-style: italic;
+}

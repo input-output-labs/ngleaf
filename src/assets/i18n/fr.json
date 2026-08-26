@@ -62,9 +62,13 @@
         "opportunityTitle": "Sélecteur d'opportunité",
         "opportunityLabel": "Opportunité Odoo",
         "opportunityPlaceholder": "Rechercher une opportunité...",
+        "productTitle": "Sélecteur de produit",
+        "productLabel": "Produit Odoo",
+        "productPlaceholder": "Rechercher un produit...",
         "valuesTitle": "Valeurs du formulaire",
         "contactValueLabel": "ID contact sélectionné",
-        "opportunityValueLabel": "ID opportunité sélectionnée"
+        "opportunityValueLabel": "ID opportunité sélectionnée",
+        "productValueLabel": "ID produit sélectionné"
       }
     }
   },
