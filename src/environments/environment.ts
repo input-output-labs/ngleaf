@@ -13,9 +13,11 @@ export const environment = {
     ? "http://localhost:8080/api"
     : "https://uat.rechargeplus.fr/api",
   API_KEY_PIXABAY: "21558043-ea93c1b6a6e88758325a9fcb2",
-  OAUTH_APPLE_CLIENT_ID: "com.example.signin.test.with.apple.identifier",
-  // OAUTH_GOOGLE_CLIENT_ID: "1234567890-debug.apps.googleusercontent.com",
-  OAUTH_GOOGLE_CLIENT_ID: "460244896659-57msoqv8kr6d2bg3o4vds1l74ro356t0.apps.googleusercontent.com",
+  // Social sign-in. Leave empty to hide the corresponding button.
+  // Apple: the Services ID declared in the Apple developer console.
+  OAUTH_APPLE_CLIENT_ID: "",
+  // Google: the OAuth 2.0 Web client ID declared in the Google Cloud console.
+  OAUTH_GOOGLE_CLIENT_ID: "",
 };
 
 /*

@@ -1,11 +1,47 @@
 .leaf-social-login-container {
+  width: 100%;
+}
+
+.leaf-social-login-separator {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-top: 12px;
+  color: rgba(0, 0, 0, 0.54);
+  font-size: 0.85em;
+
+  &::before,
+  &::after {
+    content: '';
+    flex: 1;
+    border-top: solid 1px rgba(0, 0, 0, 0.12);
+  }
+}
+
+.leaf-social-login-buttons {
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 20px;
   padding-top: 12px;
 }
 
+.leaf-social-login-btn {
+  display: flex;
+  align-items: center;
+}
+
 .apple-btn {
   height: 40px;
+  width: 40px;
   cursor: pointer;
+}
+
+// Google draws its button with `width: 18px; padding: 10px` on the logo wrapper and
+// relies on the browser default `box-sizing: content-box`. Host applications very
+// often reset `* { box-sizing: border-box }`, which turns that wrapper into a zero
+// sized content box and makes the "G" logo vanish. The markup is injected by the
+// Google SDK (no Angular encapsulation attribute), hence ::ng-deep.
+.google-btn ::ng-deep * {
+  box-sizing: content-box;
 }

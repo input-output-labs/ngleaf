@@ -1,14 +1,30 @@
 {
   "name": "@input-output-labs/ngleaf",
-  "version": "2.20.25",
+  "version": "2.21.0",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
   "dependencies": {
-    "tslib": "^2.0.0"
+    "tslib": "^2.0.0",
+    "lodash.merge": "^4.6.2"
   },
   "scripts": {
     "publish": "npm publish --access public",
     "login": "npm login --registry=https://nexus.io-labs.fr/repository/npm-public/ --scope=@input-output-labs"
+  },
+  "peerDependencies": {
+    "@angular/common": ">=19.0.0",
+    "@angular/core": ">=19.0.0",
+    "@angular/forms": ">=19.0.0",
+    "@angular/router": ">=19.0.0",
+    "@angular/material": ">=19.0.0",
+    "@angular/cdk": ">=19.0.0",
+    "@ngrx/store": ">=19.0.0",
+    "@ngrx/effects": ">=19.0.0",
+    "@ngx-translate/core": ">=15.0.0",
+    "@stomp/rx-stomp": ">=2.0.0",
+    "@swimlane/ngx-charts": ">=20.0.0",
+    "awesome-phonenumber": ">=7.0.0",
+    "rxjs": ">=7.0.0"
   }
 }

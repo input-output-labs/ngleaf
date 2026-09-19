@@ -83,7 +83,8 @@ const leafConfig: LeafConfig = {
       clientId: environment.OAUTH_GOOGLE_CLIENT_ID
     },
     apple: {
-      clientId: environment.OAUTH_APPLE_CLIENT_ID
+      clientId: environment.OAUTH_APPLE_CLIENT_ID,
+      locale: 'en_US'
     }
   }
 };

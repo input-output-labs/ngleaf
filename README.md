@@ -22,6 +22,47 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
+## OAuth (social sign-in)
+
+Declare the provider client ids in the `LeafConfig` given to `LeafModule`. They must
+match the ones configured on the Leaf back-end (`leaf.oauth.*.clientId`). A provider
+left empty is simply not offered:
+
+```ts
+const leafConfig: LeafConfig = {
+  // ...
+  oauth: {
+    google: { clientId: environment.OAUTH_GOOGLE_CLIENT_ID },
+    apple: { clientId: environment.OAUTH_APPLE_CLIENT_ID, locale: 'en_US' },
+  },
+};
+```
+
+`LeafSocialLoginModule` then exposes `<leaf-social-login>`, which loads the provider
+SDKs on demand and renders their official buttons:
+
+```html
+<leaf-social-login></leaf-social-login>
+```
+
+| Input                  | Default                            | Description                                              |
+| ---------------------- | ---------------------------------- | -------------------------------------------------------- |
+| `mode`                 | `login`                            | `login` signs in, `link` only emits `onCredential`        |
+| `skipRedirect`         | `false`                            | Do not navigate after a successful sign-in                |
+| `showGoogle`           | `true`                             | Hide the Google button when false                         |
+| `showApple`            | `true`                             | Hide the Apple button when false                          |
+| `showSeparator`        | `true`                             | Draw the "or continue with" separator                     |
+| `separatorLabel`       | `leaf.social-login.separatorLabel` | Translation key of the separator label                    |
+| `googleButtonOptions`  | icon / outline / large             | Forwarded to `google.accounts.id.renderButton`            |
+
+Outputs: `onSuccess` (provider), `onFailure` (`{ provider, error }`) and `onCredential`
+(the provider credential, emitted in `link` mode instead of signing in).
+
+`AccountSettingsConnectedAccountsModule` provides the settings page letting a user list,
+link and unlink their social identities. Unlinking is refused while it is the only way
+left to sign in — an account created through a social sign-in has no password until the
+user defines one through the "forgotten password" flow.
+
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).

@@ -32,7 +32,8 @@
         "pseudoLinkLabel": "Pseudo",
         "avatarLinkLabel": "Avatar",
         "passwordLinkLabel": "Mot de passe",
-        "emailVerificationLinkLabel": "Vérification email"
+        "emailVerificationLinkLabel": "Vérification email",
+        "connectedAccountsLinkLabel": "Comptes associés"
       }
     },
     "organization-settings": {
@@ -140,6 +141,26 @@
       "passwordValidationLabel": "Validation du nouveau mot de passe",
       "passwordValidationPlaceholder": "Confirmer le nouveau mot de passe",
       "resendLinkLabel": "Renvoyer l'email"
+    },
+    "social-login": {
+      "separatorLabel": "ou continuer avec"
+    },
+    "connected-accounts": {
+      "title": "COMPTES ASSOCIÉS",
+      "description": "Associez un compte social pour vous connecter sans saisir votre mot de passe.",
+      "loading": "Chargement de vos comptes associés...",
+      "noneLinked": "Aucun compte social n'est encore associé à votre compte.",
+      "linkTitle": "Associer un nouveau compte",
+      "linkedAt": "Associé le",
+      "unlinkLabel": "Dissocier",
+      "lastMethodWarning": "C'est votre seul moyen de connexion. Définissez un mot de passe avant de le dissocier.",
+      "loadError": "Vos comptes associés n'ont pas pu être chargés, veuillez réessayer plus tard.",
+      "linkError": "Ce compte n'a pas pu être associé. Il est peut-être déjà associé à un autre compte.",
+      "unlinkError": "Ce compte n'a pas pu être dissocié, veuillez réessayer plus tard.",
+      "providers": {
+        "google": "Google",
+        "apple": "Apple"
+      }
     },
     "image-upload": {
       "drop-zone-label": "Glissez-déposez un fichier ici ou cliquez"

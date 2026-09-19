@@ -37,6 +37,11 @@ export class AccountSettingsLayoutComponent implements OnInit {
         link: "./email-verification",
         index: 4,
       },
+      {
+        labelKey: "app.account-settings.layout.connectedAccountsLinkLabel",
+        link: "./connected-accounts",
+        index: 5,
+      },
     ];
   }
 

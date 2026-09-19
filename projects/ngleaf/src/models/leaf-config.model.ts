@@ -36,12 +36,26 @@ export interface LeafUICustomizationConfig {
 }
 
 export interface LeafOAuthProviderConfig {
+  /** Leave empty to disable the provider. */
   clientId: string;
+}
+
+export interface LeafAppleOAuthConfig extends LeafOAuthProviderConfig {
+  /**
+   * Locale of the "Sign in with Apple" script, e.g. `en_US` or `fr_FR`.
+   * Defaults to `en_US`.
+   */
+  locale?: string;
+  /**
+   * URI Apple redirects to. Must be declared in the Apple developer console.
+   * Defaults to the current origin.
+   */
+  redirectUri?: string;
 }
 
 export interface LeafOAuthConfig {
   google?: LeafOAuthProviderConfig;
-  apple?: LeafOAuthProviderConfig;
+  apple?: LeafAppleOAuthConfig;
 }
 
 export interface LeafConfig {

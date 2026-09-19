@@ -1,0 +1,62 @@
+<div class="header-line">
+  <div class="title">
+    <h2>{{ 'leaf.connected-accounts.title' | translate }}</h2>
+  </div>
+</div>
+
+<mat-divider></mat-divider>
+
+<div class="container-spacer">
+  {{ 'leaf.connected-accounts.description' | translate }}
+</div>
+
+<div class="container-spacer" *ngIf="errorKey">
+  <span class="warn">{{ errorKey | translate }}</span>
+</div>
+
+<mat-divider></mat-divider>
+
+<div class="container-spacer" *ngIf="loading">
+  {{ 'leaf.connected-accounts.loading' | translate }}
+</div>
+
+<div class="container-spacer" *ngIf="!loading">
+  <div class="empty" *ngIf="identities.length === 0">
+    {{ 'leaf.connected-accounts.noneLinked' | translate }}
+  </div>
+
+  <div class="identity" *ngFor="let identity of identities">
+    <div class="identity-description">
+      <span class="provider">{{ 'leaf.connected-accounts.providers.' + identity.provider | translate }}</span>
+      <span class="email" *ngIf="identity.email">{{ identity.email }}</span>
+      <span class="linked-at" *ngIf="identity.linkedAt">
+        {{ 'leaf.connected-accounts.linkedAt' | translate }} {{ identity.linkedAt | date:'mediumDate' }}
+      </span>
+    </div>
+    <button mat-raised-button
+      color="warn"
+      [disabled]="pending || !canUnlink(currentAccount$ | async)"
+      (click)="unlink(identity.provider)">
+      {{ 'leaf.connected-accounts.unlinkLabel' | translate }}
+    </button>
+  </div>
+
+  <div class="last-method-warning" *ngIf="identities.length > 0 && !canUnlink(currentAccount$ | async)">
+    {{ 'leaf.connected-accounts.lastMethodWarning' | translate }}
+  </div>
+</div>
+
+<ng-container *ngIf="!loading && linkableProviders.length > 0">
+  <mat-divider></mat-divider>
+
+  <div class="container-spacer">
+    <h5>{{ 'leaf.connected-accounts.linkTitle' | translate }}</h5>
+    <leaf-social-login
+      mode="link"
+      [showSeparator]="false"
+      [showGoogle]="!isLinked('google')"
+      [showApple]="!isLinked('apple')"
+      (onCredential)="onCredential($event)">
+    </leaf-social-login>
+  </div>
+</ng-container>

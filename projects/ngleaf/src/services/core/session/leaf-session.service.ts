@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { Observable, ReplaySubject, Subject, filter, map, shareReplay, take } from 'rxjs';
+import { Observable, ReplaySubject, Subject, filter, map, shareReplay, take, withLatestFrom } from 'rxjs';
 
 import { LeafAuthHttpClient, AccountApiClient, SponsoringApiClientService } from '../../../api/clients/index';
 
@@ -12,8 +12,18 @@ import { fetchNotificationsCall } from '../../../store/core/notifications/notifi
 import { listMyOrganizationsCall } from '../../../store/core/organizations/organizations.actions';
 import { fetchEligibilitesCall } from '../../../store/core/eligibilities/eligibilities.actions';
 import { AsyncType } from '../../../store/common/index';
-import { JWTModel, LeafAccountModel, LeafEligibilities, LeafNotificationModel, LeafOrganization, LeafSetupResponse } from '../../../api/models/index';
+import { JWTModel, LeafAccountModel, LeafEligibilities, LeafNotificationModel, LeafOrganization, LeafSetupResponse, OAuthIdentityModel, OAuthLoginResponse, OAuthProvider } from '../../../api/models/index';
 import { selectSponsorCode, setSetSponsorCall, setSponsorCode } from '../../../store/sponsoring/index';
+
+export interface LeafOAuthLoginOptions {
+  /** Display name forwarded to the back-end, only available on the first Apple sign-in. */
+  name?: string;
+  firstname?: string;
+  lastname?: string;
+  onSuccess?: () => void;
+  onFailure?: () => void;
+  skipRedirect?: boolean;
+}
 
 @Injectable()
 export class LeafSessionService {
@@ -206,18 +216,75 @@ export class LeafSessionService {
     this.executePostLoginActions(options);
   }
 
+  /**
+   * Signs in with an ID token obtained from a social provider SDK. The very same
+   * call registers the account when the provider identity is unknown, so the
+   * post-login actions are chosen depending on what the back-end actually did.
+   */
   public loginWithOAuth(
-    provider: string,
+    provider: OAuthProvider,
     idToken: string,
-    options?: { name?: string; onSuccess?: () => void; onFailure?: () => void; skipRedirect?: boolean }
+    options?: LeafOAuthLoginOptions
   ) {
     const call = this.accountApiClient.oauthLogin({
       provider,
       idToken,
       name: options?.name,
+      firstname: options?.firstname,
+      lastname: options?.lastname,
     });
     this.store.dispatch(setSessionTokenCall({ call }));
-    this.executePostLoginActions(options);
+
+    if (!options || !options.skipRedirect) {
+      this.store.pipe(
+        select(selectCurrentAccount),
+        filter((currentAccount: AsyncType<LeafAccountModel>) => !currentAccount.status.pending && !!currentAccount.data),
+        take(1),
+        withLatestFrom(this.store.pipe(select(selectSessionToken)))
+      ).subscribe(([, sessionToken]) => {
+        const created = !!(sessionToken.data as OAuthLoginResponse)?.created;
+        if (created) {
+          this.addSponsorIfPossible();
+        }
+        const defaultRedirect = created
+          ? this.config.navigation.registerSuccessRedirect
+          : this.config.navigation.loginSuccessRedirect;
+        const returnTo = this.activeRoute.snapshot.queryParams.return || defaultRedirect || '/';
+        this.returnTo(returnTo);
+      });
+    }
+
+    this.notifySessionTokenOutcome(options);
+  }
+
+  /**
+   * Attaches a social identity to the account currently signed in.
+   */
+  public linkOAuthProvider(
+    provider: OAuthProvider,
+    idToken: string,
+    options?: { name?: string; firstname?: string; lastname?: string }
+  ): Observable<OAuthIdentityModel[]> {
+    return this.accountApiClient.linkOAuthProvider({
+      provider,
+      idToken,
+      name: options?.name,
+      firstname: options?.firstname,
+      lastname: options?.lastname,
+    });
+  }
+
+  public unlinkOAuthProvider(provider: OAuthProvider): Observable<OAuthIdentityModel[]> {
+    return this.accountApiClient.unlinkOAuthProvider(provider);
+  }
+
+  public listOAuthIdentities(): Observable<OAuthIdentityModel[]> {
+    return this.accountApiClient.listOAuthIdentities();
+  }
+
+  /** Providers the back-end is configured for, and can therefore be signed in with. */
+  public listOAuthProviders(): Observable<OAuthProvider[]> {
+    return this.accountApiClient.listOAuthProviders();
   }
 
   public executePostLoginActions(options?: {onSuccess?: () => void, onFailure?: () => void, skipRedirect?: boolean}) {
@@ -232,6 +299,10 @@ export class LeafSessionService {
       });
     }
 
+    this.notifySessionTokenOutcome(options);
+  }
+
+  private notifySessionTokenOutcome(options?: {onSuccess?: () => void, onFailure?: () => void}) {
     if (options && (options.onSuccess || options.onFailure)) {
       this.store.pipe(
         select(selectSessionToken),

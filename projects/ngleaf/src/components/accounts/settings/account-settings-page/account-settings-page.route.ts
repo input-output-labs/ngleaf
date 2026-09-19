@@ -7,6 +7,7 @@ import { AccountSettingsAvatarComponent } from './account-settings-avatar/accoun
 import { AccountSettingsPasswordComponent } from './account-settings-password/account-settings-password.component';
 import { AccountSettingsPageComponent } from './account-settings-page.component';
 import { AccountSettingsAccessTokensComponent } from './account-settings-access-tokens/account-settings-access-tokens.component';
+import { AccountSettingsConnectedAccountsComponent } from './account-settings-connected-accounts/account-settings-connected-accounts.component';
 
 export const accountSettingsPageRoutes: Route[] = [
   {
@@ -30,6 +31,10 @@ export const accountSettingsPageRoutes: Route[] = [
       {
         path: 'password',
         component: AccountSettingsPasswordComponent,
+      },
+      {
+        path: 'connectedaccounts',
+        component: AccountSettingsConnectedAccountsComponent,
       },
       {
         path: 'accesstokens',

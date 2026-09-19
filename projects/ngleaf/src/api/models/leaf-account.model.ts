@@ -10,6 +10,11 @@ export interface LeafPrivateTokenModel {
 export interface LeafAccountAuthentication {
   password?: string;
   privateTokens?: LeafPrivateTokenModel[];
+  /**
+   * True when the account only holds a generated password: it was created
+   * through a social sign-in and the user never chose a password.
+   */
+  passwordless?: boolean;
 }
 
 export interface LeafAddress {

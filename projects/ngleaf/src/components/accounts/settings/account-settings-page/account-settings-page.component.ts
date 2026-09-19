@@ -27,6 +27,10 @@ export class AccountSettingsPageComponent implements OnInit {
       name: 'Password',
     },
     {
+      link: 'connectedaccounts',
+      name: 'Connected Accounts',
+    },
+    {
       link: 'accesstokens',
       name: 'Access Tokens',
     },

@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { catchError, map, Observable, of } from 'rxjs';
 
 import { LeafAuthHttpClient } from '../auth-http-client/leaf-auth-http-client.service';
-import { AccountSearchCriteria, AccountSearchResponse, JWTModel, LeafAccountModel, LeafAccountProfile, LoginModel, OAuthLoginModel, PasswordChangingModel, PasswordResettingModel, RegistrationModel } from '../../models/index';
+import { AccountSearchCriteria, AccountSearchResponse, JWTModel, LeafAccountModel, LeafAccountProfile, LoginModel, OAuthIdentityModel, OAuthLoginModel, OAuthLoginResponse, OAuthProvider, PasswordChangingModel, PasswordResettingModel, RegistrationModel } from '../../models/index';
 
 import { LeafApiClientConfig, LeafApiClientConfigServiceToken } from '../api-client-config.module';
 import { HttpParams } from '@angular/common/http';
@@ -42,10 +42,36 @@ export class AccountApiClient {
     );
   }
 
-  public oauthLogin(oauthLogin: OAuthLoginModel): Observable<JWTModel> {
-    return this.authHttp.post<JWTModel>(
+  public oauthLogin(oauthLogin: OAuthLoginModel): Observable<OAuthLoginResponse> {
+    return this.authHttp.post<OAuthLoginResponse>(
       `${this.config.serverUrl}/account/oauth/${oauthLogin.provider}`,
       oauthLogin
+    );
+  }
+
+  /** Providers the back-end is configured for. */
+  public listOAuthProviders(): Observable<OAuthProvider[]> {
+    return this.authHttp.get<OAuthProvider[]>(
+      `${this.config.serverUrl}/account/oauth/providers`
+    );
+  }
+
+  public listOAuthIdentities(): Observable<OAuthIdentityModel[]> {
+    return this.authHttp.get<OAuthIdentityModel[]>(
+      `${this.config.serverUrl}/account/oauth/me`
+    );
+  }
+
+  public linkOAuthProvider(oauthLogin: OAuthLoginModel): Observable<OAuthIdentityModel[]> {
+    return this.authHttp.post<OAuthIdentityModel[]>(
+      `${this.config.serverUrl}/account/oauth/me/${oauthLogin.provider}`,
+      oauthLogin
+    );
+  }
+
+  public unlinkOAuthProvider(provider: OAuthProvider): Observable<OAuthIdentityModel[]> {
+    return this.authHttp.delete<OAuthIdentityModel[]>(
+      `${this.config.serverUrl}/account/oauth/me/${provider}`
     );
   }
 

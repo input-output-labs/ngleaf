@@ -1,4 +1,5 @@
 export * from './account-settings-avatar/index';
+export * from './account-settings-connected-accounts/index';
 export * from './account-settings-general/index';
 export * from './account-settings-password/index';
 export * from './account-settings-profile/index';

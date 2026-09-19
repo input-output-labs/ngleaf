@@ -1,11 +1,16 @@
 <div class="leaf-social-login-container" *ngIf="googleEnabled || appleEnabled">
-  <div *ngIf="googleEnabled" [id]="getGoogleButtonId()" class="leaf-social-login-btn google-btn"></div>
-  <div *ngIf="appleEnabled"
-    id="appleid-signin"
-    class="leaf-social-login-btn apple-btn"
-    data-color="black"
-    data-border="true"
-    data-type="sign-in"
-    data-mode="logo-only">
+  <div class="leaf-social-login-separator" *ngIf="showSeparator">
+    <span>{{ separatorLabel | translate }}</span>
+  </div>
+  <div class="leaf-social-login-buttons">
+    <div *ngIf="googleEnabled" [id]="googleButtonId" class="leaf-social-login-btn google-btn"></div>
+    <div *ngIf="appleEnabled"
+      [id]="appleButtonId"
+      class="leaf-social-login-btn apple-btn"
+      data-color="black"
+      data-border="true"
+      data-type="sign-in"
+      data-mode="logo-only">
+    </div>
   </div>
 </div>

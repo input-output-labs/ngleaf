@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { AccountSettingsPageComponent } from './account-settings-page.component';
 import { AccountSettingsAccessTokensModule } from './account-settings-access-tokens/index';
 import { AccountSettingsAvatarModule } from './account-settings-avatar/index';
+import { AccountSettingsConnectedAccountsModule } from './account-settings-connected-accounts/index';
 import { AccountSettingsGeneralModule } from './account-settings-general/index';
 
 @NgModule({
@@ -19,6 +20,7 @@ import { AccountSettingsGeneralModule } from './account-settings-general/index';
     /* Leaf deps*/
     AccountSettingsAccessTokensModule,
     AccountSettingsAvatarModule,
+    AccountSettingsConnectedAccountsModule,
     AccountSettingsGeneralModule,
   ],
   exports: [AccountSettingsPageComponent]
