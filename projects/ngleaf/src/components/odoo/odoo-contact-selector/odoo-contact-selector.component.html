@@ -23,18 +23,19 @@
     [displayWith]="displayFn"
     (optionSelected)="onOptionSelected($event.option.value)">
     <mat-option *ngIf="loading" disabled>
-      <span class="loading-text">Chargement des contacts...</span>
+      <span class="loading-text">{{ loadingLabel }}</span>
     </mat-option>
     <mat-option *ngFor="let contact of filteredContacts$ | async" [value]="contact">
       <div class="contact-main">
         {{ contact.name || 'Contact' }}
         <span class="contact-id" *ngIf="contact.id">({{ contact.id }})</span>
       </div>
+      <div class="contact-sub" *ngIf="getCompanyDisplay(contact)">{{ getCompanyDisplay(contact) }}</div>
       <div class="contact-sub" *ngIf="!isEmailMissing(contact)">{{ getEmailDisplay(contact) }}</div>
       <div class="contact-sub contact-sub--missing" *ngIf="isEmailMissing(contact)">E-mail manquant</div>
     </mat-option>
     <mat-option *ngIf="!loading && (filteredContacts$ | async)?.length === 0" disabled>
-      <span class="no-results">Aucun contact trouvé</span>
+      <span class="no-results">{{ emptyLabel }}</span>
     </mat-option>
   </mat-autocomplete>
 </mat-form-field>

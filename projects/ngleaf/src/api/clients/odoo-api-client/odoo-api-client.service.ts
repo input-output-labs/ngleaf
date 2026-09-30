@@ -14,9 +14,19 @@ export class OdooApiClientService {
     public http: LeafAuthHttpClient,
   ) {}
 
-  public listContacts(limit?: number): Observable<OdooContact[]> {
-    const query = limit != null ? `?limit=${limit}` : '';
-    return this.http.get<OdooContact[]>(this.config.serverUrl + '/odoo/contacts' + query);
+  public listContacts(limit?: number, query?: string): Observable<OdooContact[]> {
+    const params = new URLSearchParams();
+    if (limit != null) {
+      params.set('limit', String(limit));
+    }
+    const trimmedQuery = query?.trim();
+    if (trimmedQuery) {
+      params.set('q', trimmedQuery);
+    }
+    const queryString = params.toString();
+    return this.http.get<OdooContact[]>(
+      this.config.serverUrl + '/odoo/contacts' + (queryString ? `?${queryString}` : ''),
+    );
   }
 
   public listOpportunities(limit?: number, offset?: number): Observable<OdooOpportunity[]> {

@@ -1,8 +1,19 @@
 import { Component, forwardRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
-import { BehaviorSubject, combineLatest, Observable, of, Subject } from 'rxjs';
-import { catchError, debounceTime, map, startWith, takeUntil } from 'rxjs/operators';
+import { BehaviorSubject, EMPTY, Observable, of, Subject } from 'rxjs';
+import {
+  catchError,
+  debounceTime,
+  distinctUntilChanged,
+  finalize,
+  map,
+  shareReplay,
+  startWith,
+  switchMap,
+  takeUntil,
+  tap,
+} from 'rxjs/operators';
 import { OdooApiClientService } from '../../../api/clients/odoo-api-client/odoo-api-client.service';
 import { OdooContact } from '../../../api/models/odoo/odoo.models';
 
@@ -21,6 +32,9 @@ import { OdooContact } from '../../../api/models/odoo/odoo.models';
 })
 export class OdooContactSelectorComponent implements ControlValueAccessor, OnInit, OnDestroy {
 
+  private static readonly MIN_SEARCH_LENGTH = 2;
+  private static readonly SEARCH_RESULT_LIMIT = 40;
+
   @Input() label = 'Contact Odoo';
   @Input() placeholder = 'Rechercher un contact...';
   @Input() limit = 200;
@@ -29,50 +43,47 @@ export class OdooContactSelectorComponent implements ControlValueAccessor, OnIni
   private autocompleteTrigger?: MatAutocompleteTrigger;
 
   searchControl = new FormControl('');
-  filteredContacts$: Observable<OdooContact[]>;
+  filteredContacts$ = new BehaviorSubject<OdooContact[]>([]);
   allContacts: OdooContact[] = [];
   selectedContact: OdooContact | null = null;
   disabled = false;
   loading = false;
+  currentQuery = '';
 
-  private readonly contacts$ = new BehaviorSubject<OdooContact[]>([]);
+  private defaultContacts: OdooContact[] | null = null;
+  private defaultContactsRequest: Observable<OdooContact[]> | null = null;
+  private requestSeq = 0;
   private destroy$ = new Subject<void>();
   private onChange: (value: string) => void = () => {};
   private onTouched: () => void = () => {};
 
   constructor(private odooApiClient: OdooApiClientService) {}
 
-  ngOnInit(): void {
-    this.loading = true;
-    this.odooApiClient.listContacts(this.limit).pipe(
-      takeUntil(this.destroy$),
-      catchError(() => of([]))
-    ).subscribe(contacts => {
-      this.loading = false;
-      this.allContacts = contacts;
-      this.contacts$.next(contacts);
-      if (this.selectedContact) {
-        const match = contacts.find(c => String(c.id) === String(this.selectedContact?.id));
-        if (match) {
-          this.selectedContact = match;
-          this.searchControl.setValue(this.displayFn(match), { emitEvent: false });
-        }
-      }
-    });
+  get loadingLabel(): string {
+    return this.currentQuery.length >= OdooContactSelectorComponent.MIN_SEARCH_LENGTH
+      ? 'Recherche...'
+      : 'Chargement des contacts...';
+  }
 
-    this.filteredContacts$ = combineLatest([
-      this.searchControl.valueChanges.pipe(startWith(this.searchControl.value ?? '')),
-      this.contacts$,
-    ]).pipe(
-      debounceTime(150),
-      map(([value, contacts]) => {
-        if (typeof value !== 'string') {
-          return contacts;
-        }
-        return this.filterContacts(value, contacts);
-      }),
+  get emptyLabel(): string {
+    return this.currentQuery.length > 0 && this.currentQuery.length < OdooContactSelectorComponent.MIN_SEARCH_LENGTH
+      ? 'Saisissez au moins 2 caractères'
+      : 'Aucun contact trouvé';
+  }
+
+  ngOnInit(): void {
+    this.searchControl.valueChanges.pipe(
+      startWith(this.searchControl.value ?? ''),
+      map(value => this.toSearchQuery(value)),
+      debounceTime(250),
+      distinctUntilChanged(),
+      switchMap(query => this.resolveContacts(query)),
       takeUntil(this.destroy$),
-    );
+    ).subscribe(contacts => {
+      this.allContacts = contacts;
+      this.filteredContacts$.next(contacts);
+      this.syncSelectedContact(contacts);
+    });
   }
 
   ngOnDestroy(): void {
@@ -84,6 +95,82 @@ export class OdooContactSelectorComponent implements ControlValueAccessor, OnIni
     queueMicrotask(() => this.autocompleteTrigger?.openPanel());
   }
 
+  private toSearchQuery(value: unknown): string | null {
+    if (typeof value !== 'string') {
+      return null;
+    }
+    return value.trim();
+  }
+
+  private resolveContacts(query: string | null): Observable<OdooContact[]> {
+    if (query === null) {
+      return EMPTY;
+    }
+    this.currentQuery = query;
+    if (query.length < OdooContactSelectorComponent.MIN_SEARCH_LENGTH) {
+      return this.ensureDefaultContacts().pipe(
+        map(contacts => this.filterContacts(query, contacts)),
+      );
+    }
+
+    const requestId = ++this.requestSeq;
+    this.loading = true;
+    this.filteredContacts$.next([]);
+    return this.odooApiClient.listContacts(OdooContactSelectorComponent.SEARCH_RESULT_LIMIT, query).pipe(
+      catchError(() => of([] as OdooContact[])),
+      finalize(() => {
+        if (requestId === this.requestSeq) {
+          this.loading = false;
+        }
+      }),
+    );
+  }
+
+  private ensureDefaultContacts(): Observable<OdooContact[]> {
+    if (this.defaultContacts) {
+      this.loading = false;
+      return of(this.defaultContacts);
+    }
+    this.loading = true;
+    if (!this.defaultContactsRequest) {
+      this.defaultContactsRequest = this.odooApiClient.listContacts(this.limit).pipe(
+        tap(contacts => {
+          this.defaultContacts = contacts;
+        }),
+        catchError(() => {
+          this.defaultContactsRequest = null;
+          return of([] as OdooContact[]);
+        }),
+        shareReplay({ bufferSize: 1, refCount: false }),
+      );
+    }
+    return this.defaultContactsRequest.pipe(
+      finalize(() => {
+        this.loading = false;
+      }),
+    );
+  }
+
+  private syncSelectedContact(contacts: OdooContact[]): void {
+    if (!this.selectedContact) {
+      return;
+    }
+    const match = contacts.find(contact => String(contact.id) === String(this.selectedContact?.id));
+    if (!match) {
+      return;
+    }
+    const currentValue = this.searchControl.value;
+    const canReplace =
+      currentValue == null ||
+      currentValue === '' ||
+      currentValue === String(match.id) ||
+      currentValue === this.selectedContact.name;
+    this.selectedContact = match;
+    if (canReplace) {
+      this.searchControl.setValue(this.displayFn(match), { emitEvent: false });
+    }
+  }
+
   private filterContacts(query: string, contacts: OdooContact[] = this.allContacts): OdooContact[] {
     if (!query || query.trim().length === 0) {
       return contacts;
@@ -93,6 +180,8 @@ export class OdooContactSelectorComponent implements ControlValueAccessor, OnIni
       (c.name || '').toLowerCase().includes(q) ||
       String(c.id || '').includes(q) ||
       (c.email || '').toLowerCase().includes(q) ||
+      (c.phone || '').toLowerCase().includes(q) ||
+      (c.mobile || '').toLowerCase().includes(q) ||
       (c.companyName || '').toLowerCase().includes(q)
     );
   }
@@ -102,7 +191,7 @@ export class OdooContactSelectorComponent implements ControlValueAccessor, OnIni
       return '';
     }
     if (typeof contact === 'string') {
-      const match = this.allContacts.find(c => String(c.id) === contact);
+      const match = this.findKnownContact(contact);
       return match ? this.displayFn(match) : contact;
     }
     const name = contact.name || 'Contact';
@@ -126,6 +215,22 @@ export class OdooContactSelectorComponent implements ControlValueAccessor, OnIni
     return this.getEmailDisplay(contact).length === 0;
   }
 
+  getCompanyDisplay(contact: OdooContact): string {
+    const raw = contact?.companyName;
+    if (raw == null) {
+      return '';
+    }
+    const value = String(raw).trim();
+    if (!value || value.toLowerCase() === 'false' || value.toLowerCase() === 'null') {
+      return '';
+    }
+    return value;
+  }
+
+  private findKnownContact(id: string): OdooContact | undefined {
+    return [...this.allContacts, ...(this.defaultContacts ?? [])].find(contact => String(contact.id) === id);
+  }
+
   onOptionSelected(contact: OdooContact): void {
     this.selectedContact = contact;
     this.onChange(contact.id != null ? String(contact.id) : '');
@@ -138,7 +243,12 @@ export class OdooContactSelectorComponent implements ControlValueAccessor, OnIni
     if (typeof currentText === 'string' && this.selectedContact) {
       const expected = this.displayFn(this.selectedContact);
       if (currentText !== expected) {
+        this.currentQuery = '';
         this.searchControl.setValue(expected, { emitEvent: false });
+        if (this.defaultContacts) {
+          this.allContacts = this.defaultContacts;
+          this.filteredContacts$.next(this.defaultContacts);
+        }
       }
     }
   }
@@ -157,7 +267,7 @@ export class OdooContactSelectorComponent implements ControlValueAccessor, OnIni
       this.searchControl.setValue('', { emitEvent: false });
       return;
     }
-    const match = this.allContacts.find(c => String(c.id) === value);
+    const match = this.findKnownContact(value);
     if (match) {
       this.selectedContact = match;
       this.searchControl.setValue(this.displayFn(match), { emitEvent: false });
