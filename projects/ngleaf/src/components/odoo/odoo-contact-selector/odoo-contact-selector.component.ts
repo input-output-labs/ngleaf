@@ -52,6 +52,8 @@ export class OdooContactSelectorComponent implements ControlValueAccessor, OnIni
 
   private defaultContacts: OdooContact[] | null = null;
   private defaultContactsRequest: Observable<OdooContact[]> | null = null;
+  private readonly contactsById = new Map<string, OdooContact>();
+  private pinnedContactId: string | null = null;
   private requestSeq = 0;
   private destroy$ = new Subject<void>();
   private onChange: (value: string) => void = () => {};
@@ -99,7 +101,11 @@ export class OdooContactSelectorComponent implements ControlValueAccessor, OnIni
     if (typeof value !== 'string') {
       return null;
     }
-    return value.trim();
+    const query = value.trim();
+    if (this.pinnedContactId && query === this.pinnedContactId) {
+      return '';
+    }
+    return query;
   }
 
   private resolveContacts(query: string | null): Observable<OdooContact[]> {
@@ -228,10 +234,40 @@ export class OdooContactSelectorComponent implements ControlValueAccessor, OnIni
   }
 
   private findKnownContact(id: string): OdooContact | undefined {
-    return [...this.allContacts, ...(this.defaultContacts ?? [])].find(contact => String(contact.id) === id);
+    return this.contactsById.get(id)
+      ?? [...this.allContacts, ...(this.defaultContacts ?? [])].find(contact => String(contact.id) === id);
+  }
+
+  private rememberContact(contact: OdooContact): void {
+    if (contact.id == null) {
+      return;
+    }
+    this.contactsById.set(String(contact.id), contact);
+    if (this.defaultContacts && !this.defaultContacts.some(item => String(item.id) === String(contact.id))) {
+      this.defaultContacts = [contact, ...this.defaultContacts];
+    }
+  }
+
+  private loadPinnedContact(contactId: string): void {
+    this.odooApiClient.getContact(contactId).pipe(
+      takeUntil(this.destroy$),
+      catchError(() => of(null)),
+    ).subscribe(contact => {
+      if (!contact?.id || this.pinnedContactId !== contactId) {
+        return;
+      }
+      this.rememberContact(contact);
+      this.selectedContact = contact;
+      const currentValue = this.searchControl.value;
+      if (currentValue == null || currentValue === '' || currentValue === contactId) {
+        this.searchControl.setValue(this.displayFn(contact), { emitEvent: false });
+      }
+    });
   }
 
   onOptionSelected(contact: OdooContact): void {
+    this.rememberContact(contact);
+    this.pinnedContactId = contact.id != null ? String(contact.id) : null;
     this.selectedContact = contact;
     this.onChange(contact.id != null ? String(contact.id) : '');
     this.onTouched();
@@ -255,6 +291,7 @@ export class OdooContactSelectorComponent implements ControlValueAccessor, OnIni
 
   onClear(event: Event): void {
     event.stopPropagation();
+    this.pinnedContactId = null;
     this.selectedContact = null;
     this.searchControl.setValue('', { emitEvent: true });
     this.onChange('');
@@ -262,26 +299,29 @@ export class OdooContactSelectorComponent implements ControlValueAccessor, OnIni
   }
 
   writeValue(value: string): void {
-    if (!value) {
+    const contactId = value?.trim() ?? '';
+    this.pinnedContactId = contactId || null;
+    if (!contactId) {
       this.selectedContact = null;
       this.searchControl.setValue('', { emitEvent: false });
       return;
     }
-    const match = this.findKnownContact(value);
-    if (match) {
+    const match = this.findKnownContact(contactId);
+    if (match && match.name !== contactId) {
       this.selectedContact = match;
       this.searchControl.setValue(this.displayFn(match), { emitEvent: false });
-    } else {
-      this.selectedContact = {
-        id: Number(value) || null,
-        name: value,
-        email: null,
-        phone: null,
-        mobile: null,
-        companyName: null,
-      };
-      this.searchControl.setValue(value, { emitEvent: false });
+      return;
     }
+    this.selectedContact = {
+      id: Number(contactId) || null,
+      name: contactId,
+      email: null,
+      phone: null,
+      mobile: null,
+      companyName: null,
+    };
+    this.searchControl.setValue(contactId, { emitEvent: false });
+    this.loadPinnedContact(contactId);
   }
 
   registerOnChange(fn: (value: string) => void): void {

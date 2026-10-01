@@ -29,6 +29,12 @@ export class OdooApiClientService {
     );
   }
 
+  public getContact(contactId: string): Observable<OdooContact> {
+    return this.http.get<OdooContact>(
+      this.config.serverUrl + '/odoo/contacts/' + encodeURIComponent(contactId),
+    );
+  }
+
   public listOpportunities(limit?: number, offset?: number): Observable<OdooOpportunity[]> {
     const params = new URLSearchParams();
     if (limit != null) {
