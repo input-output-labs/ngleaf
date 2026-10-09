@@ -67,18 +67,27 @@ export class OrganizationSelectorComponent implements OnInit {
     );
     this.currentAccount$ = this.store.select(selectCurrentAccountData);
 
-    this.adminOnlyOrganizations$ = combineLatest([
+    const adminOrganizations$ = combineLatest([
       this.currentAccount$,
       this.searchField.valueChanges.pipe(startWith(''))
     ]).pipe(
       switchMap(([account, search]) => {
-        if (account.admin) {
+        if (account?.admin) {
           const searched = search.trim() !== '';
           if (this.adminCompleteMode === "always" || (this.adminCompleteMode === "search" && searched)) {
             return this.organizationsApiClient.listAllOrganizations({ nameFilter: search, limit: 15 });
           }
         }
         return of([]);
+      })
+    );
+    this.adminOnlyOrganizations$ = combineLatest([
+      adminOrganizations$,
+      this.organizations$
+    ]).pipe(
+      map(([adminOrganizations, personalOrganizations]) => {
+        const personalIds = new Set((personalOrganizations ?? []).map(organization => organization.id));
+        return (adminOrganizations ?? []).filter(organization => !personalIds.has(organization.id));
       })
     );
   }

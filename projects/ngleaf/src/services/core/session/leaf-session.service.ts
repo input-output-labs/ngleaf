@@ -12,7 +12,7 @@ import { fetchNotificationsCall } from '../../../store/core/notifications/notifi
 import { listMyOrganizationsCall } from '../../../store/core/organizations/organizations.actions';
 import { fetchEligibilitesCall } from '../../../store/core/eligibilities/eligibilities.actions';
 import { AsyncType } from '../../../store/common/index';
-import { JWTModel, LeafAccountModel, LeafEligibilities, LeafNotificationModel, LeafOrganization, LeafSetupResponse } from '../../../api/models/index';
+import { JWTModel, LeafAccountModel, LeafEligibilities, LeafNotificationModel, LeafOrganization, LeafSetupResponse, RegistrationModel } from '../../../api/models/index';
 import { selectSponsorCode, setSetSponsorCall, setSponsorCode } from '../../../store/sponsoring/index';
 
 @Injectable()
@@ -154,10 +154,14 @@ export class LeafSessionService {
   }
 
   public register(email, password, options?: {onSuccess?: () => void, onFailure?: () => void, skipRedirect?: boolean}) {
-    const account = {
+    const account: RegistrationModel = {
       email,
-      password
+      password,
     };
+
+    if (this.config.legalNotice?.enable) {
+      account.legalNoticeApproved = true;
+    }
 
     const call = this.accountApiClient.register(account);
     this.store.dispatch(setSessionTokenCall({call}));

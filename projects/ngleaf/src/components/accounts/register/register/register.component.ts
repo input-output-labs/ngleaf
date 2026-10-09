@@ -1,7 +1,8 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 
-import { LeafSessionService } from '../../../../services/index';
+import { LeafConfig } from '../../../../models';
+import { LeafConfigServiceToken, LeafSessionService } from '../../../../services/index';
 import { LeafPasswordSecurityLevel, LeafPasswordSecurityService } from '../../../common/password-security';
 
 export type LeafRegisterError = {
@@ -59,8 +60,17 @@ export class LeafRegisterComponent implements OnInit {
   constructor(
     private formBuilder: UntypedFormBuilder,
     private leafSessionService: LeafSessionService,
-    private passwordSecurityService: LeafPasswordSecurityService
+    private passwordSecurityService: LeafPasswordSecurityService,
+    @Inject(LeafConfigServiceToken) private config: LeafConfig,
   ) {}
+
+  public get legalNoticeEnabled(): boolean {
+    return !!this.config.legalNotice?.enable;
+  }
+
+  public get legalNoticeLink(): string | undefined {
+    return this.config.legalNotice?.legalNoticeLink;
+  }
 
   ngOnInit() {
     // Build password validators array

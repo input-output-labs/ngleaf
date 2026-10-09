@@ -4,4 +4,5 @@ export interface RegistrationModel {
   username?: string;
   avatarUrl?: string;
   isTemporary?: boolean;
+  legalNoticeApproved?: boolean;
 }

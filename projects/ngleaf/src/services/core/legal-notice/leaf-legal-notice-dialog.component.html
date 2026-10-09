@@ -1,0 +1,37 @@
+<div class="leaf-legal-notice-dialog">
+  <img
+    *ngIf="data.illustrationUrl"
+    class="leaf-legal-notice-dialog__illustration"
+    [src]="data.illustrationUrl"
+    alt="" />
+
+  <h2 mat-dialog-title class="leaf-legal-notice-dialog__title">
+    <span class="leaf-legal-notice-dialog__title-text">{{ 'leaf.legalNoticeDialog.title' | translate }}</span>
+    <button
+      mat-icon-button
+      type="button"
+      class="leaf-legal-notice-dialog__close"
+      (click)="dismiss()"
+      [disabled]="accepting"
+      [attr.aria-label]="'leaf.legalNoticeDialog.close' | translate">
+      <mat-icon>close</mat-icon>
+    </button>
+  </h2>
+
+  <mat-dialog-content class="leaf-legal-notice-dialog__content">
+    <p class="leaf-legal-notice-dialog__lead">
+      {{ 'leaf.legalNoticeDialog.beforeLink' | translate }}<a *ngIf="data.legalNoticeLink" class="leaf-legal-notice-dialog__link" [href]="data.legalNoticeLink" target="_blank" rel="noopener noreferrer">{{ 'leaf.legalNoticeDialog.linkLabel' | translate }}</a><ng-container *ngIf="!data.legalNoticeLink">{{ 'leaf.legalNoticeDialog.linkLabel' | translate }}</ng-container>{{ 'leaf.legalNoticeDialog.afterLink' | translate }}
+    </p>
+    <p class="leaf-legal-notice-dialog__body">{{ 'leaf.legalNoticeDialog.body' | translate }}</p>
+    <p class="leaf-legal-notice-dialog__error" *ngIf="acceptError">{{ 'leaf.legalNoticeDialog.error' | translate }}</p>
+  </mat-dialog-content>
+
+  <mat-dialog-actions class="leaf-legal-notice-dialog__actions" align="end">
+    <button mat-button type="button" class="leaf-legal-notice-dialog__later" (click)="dismiss()" [disabled]="accepting">
+      {{ 'leaf.legalNoticeDialog.later' | translate }}
+    </button>
+    <button mat-flat-button color="primary" type="button" class="leaf-legal-notice-dialog__accept" (click)="accept()" [disabled]="accepting">
+      {{ 'leaf.legalNoticeDialog.accept' | translate }}
+    </button>
+  </mat-dialog-actions>
+</div>

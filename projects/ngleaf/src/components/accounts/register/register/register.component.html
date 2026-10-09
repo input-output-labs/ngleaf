@@ -36,6 +36,12 @@
         <mat-icon>{{ showPassword ? 'visibility' : 'visibility_off'}}</mat-icon>
       </button>
     </mat-form-field>
+    <p class="legal-notice-disclaimer" *ngIf="legalNoticeEnabled">
+      {{ 'leaf.register.legalNotice.beforeLink' | translate }}
+      <a *ngIf="legalNoticeLink" [href]="legalNoticeLink" target="_blank" rel="noopener noreferrer">{{ 'leaf.register.legalNotice.linkLabel' | translate }}</a>
+      <ng-container *ngIf="!legalNoticeLink">{{ 'leaf.register.legalNotice.linkLabel' | translate }}</ng-container>
+      {{ 'leaf.register.legalNotice.afterLink' | translate }}
+    </p>
     <button mat-stroked-button (click)="register($event)" [disabled]="registerForm.invalid">{{ 'leaf.register.submitLabel' | translate }}</button>
   </ng-container>
   <ng-container *ngIf="variant === 'vanilla'">
@@ -77,6 +83,12 @@
         <i [ngClass]="passwordCheckClasses.show"></i>
       </div>
     </div>
+    <p class="legal-notice-disclaimer" *ngIf="legalNoticeEnabled">
+      {{ 'leaf.register.legalNotice.beforeLink' | translate }}
+      <a *ngIf="legalNoticeLink" [href]="legalNoticeLink" target="_blank" rel="noopener noreferrer">{{ 'leaf.register.legalNotice.linkLabel' | translate }}</a>
+      <ng-container *ngIf="!legalNoticeLink">{{ 'leaf.register.legalNotice.linkLabel' | translate }}</ng-container>
+      {{ 'leaf.register.legalNotice.afterLink' | translate }}
+    </p>
     <button (click)="register($event)" [disabled]="registerForm.invalid">{{ 'leaf.register.submitLabel' | translate }}</button>
   </ng-container>
 </form>

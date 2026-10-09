@@ -45,4 +45,5 @@ export interface LeafAccountModel {
   genericData?: {
     [key: string]: string;
   };
+  legalNoticeApprovedAt?: string;
 }

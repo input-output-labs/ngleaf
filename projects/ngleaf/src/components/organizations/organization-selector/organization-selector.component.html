@@ -11,14 +11,17 @@
       </a>
       <button mat-button [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger" class="full-width menu-item-link" *ngIf="!reduced">
         <mat-icon>sync_alt</mat-icon>
-        <span *ngIf="(currentOrganization$ | async) as currentOrganization; else noCurrentOrganization">
+        <span
+          class="organization-name"
+          *ngIf="(currentOrganization$ | async) as currentOrganization; else noCurrentOrganization"
+          [attr.title]="currentOrganization.name">
           {{currentOrganization.name}}
         </span>
       </button>
     </div>
   </div>
 
-  <mat-menu #menu="matMenu" [xPosition]="menuXPosition" [yPosition]="menuYPosition">
+  <mat-menu #menu="matMenu" class="leaf-organization-selector-panel" [xPosition]="menuXPosition" [yPosition]="menuYPosition">
     <div class="organization-selector-menu" (click)="$event.stopPropagation()">
       <div class="search-container">
         <mat-form-field class="full-width" subscriptSizing="dynamic" appearance="outline">
@@ -34,15 +37,17 @@
       </div>
       <mat-list role="list" class="organization-list" *ngIf="(filteredOrganizations$ | async)?.length; else noOrganizations">
         <mat-list-item role="listitem" *ngFor="let organization of filteredOrganizations$ | async" >
-          <button mat-menu-item (click)="selectOrganization(organization)">{{ organization.name }}</button>
+          <button mat-menu-item class="organization-option" (click)="selectOrganization(organization)" [attr.title]="organization.name">
+            <span class="organization-name">{{ organization.name }}</span>
+          </button>
         </mat-list-item>
 
         <ng-container *ngIf="(adminOnlyOrganizations$ | async)?.length;">
           <mat-divider></mat-divider>
           <mat-list-item role="listitem" *ngFor="let organization of adminOnlyOrganizations$ | async" >
-            <button mat-menu-item (click)="selectOrganization(organization)">
+            <button mat-menu-item class="organization-option" (click)="selectOrganization(organization)" [attr.title]="organization.name">
               <mat-icon>admin_panel_settings</mat-icon>
-              {{ organization.name }}
+              <span class="organization-name">{{ organization.name }}</span>
             </button>
           </mat-list-item>
         </ng-container>

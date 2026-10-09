@@ -1,10 +1,11 @@
 {
   "name": "@input-output-labs/ngleaf",
-  "version": "2.20.29",
+  "version": "2.20.31",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
   "dependencies": {
+    "lodash.merge": "^4.6.2",
     "tslib": "^2.0.0"
   },
   "scripts": {

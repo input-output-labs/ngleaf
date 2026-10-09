@@ -83,6 +83,11 @@
       "loginLabel": "Email or login",
       "passwordLabel": "Password",
       "passwordValidationLabel": "Repeat Password",
+      "legalNotice": {
+        "beforeLink": "By creating your account, you accept this site's ",
+        "linkLabel": "legal notices",
+        "afterLink": "."
+      },
       "passwordSecurity": {
         "weak": "Weak",
         "medium": "Medium",
@@ -98,6 +103,17 @@
           "specialChars": "special characters"
         }
       }
+    },
+    "legalNoticeDialog": {
+      "title": "Accept Terms and Conditions",
+      "beforeLink": "To proceed, please accept our ",
+      "linkLabel": "Terms and Conditions",
+      "afterLink": ".",
+      "body": "It's important that you read and understand them before continuing to use our services.",
+      "later": "Maybe later",
+      "accept": "Accept",
+      "close": "Close",
+      "error": "Your acceptance could not be saved. Please try again."
     },
     "password-forgotten": {
       "vanilla": {

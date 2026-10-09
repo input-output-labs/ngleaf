@@ -104,6 +104,11 @@
       "loginLabel": "Email ou login",
       "passwordLabel": "Mot de passe",
       "passwordValidationLabel": "Répéter le mot de passe",
+      "legalNotice": {
+        "beforeLink": "En créant votre compte, vous acceptez les ",
+        "linkLabel": "mentions légales",
+        "afterLink": " de ce site."
+      },
       "passwordSecurity": {
         "weak": "Faible",
         "medium": "Moyen",
@@ -119,6 +124,17 @@
           "specialChars": "des caractères spéciaux"
         }
       }
+    },
+    "legalNoticeDialog": {
+      "title": "Accepter les mentions légales",
+      "beforeLink": "Pour continuer, veuillez accepter nos ",
+      "linkLabel": "mentions légales",
+      "afterLink": ".",
+      "body": "Il est important de les lire et de les comprendre avant de continuer à utiliser nos services.",
+      "later": "Peut-être plus tard",
+      "accept": "Accepter",
+      "close": "Fermer",
+      "error": "L'acceptation n'a pas pu être enregistrée. Réessayez."
     },
     "password-forgotten": {
       "vanilla": {

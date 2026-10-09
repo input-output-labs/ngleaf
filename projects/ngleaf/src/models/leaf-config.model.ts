@@ -35,6 +35,16 @@ export interface LeafUICustomizationConfig {
   dialogWidth: LeafDialogWidthConfig;
 }
 
+export interface LeafLegalNoticeConfig {
+  enable: boolean;
+  legalNoticeLink: string;
+  /** ISO-8601. An acceptance older than this instant must be renewed. */
+  requiredApprovalAt: string;
+  illustrationUrl?: string;
+  panelClass?: string | string[];
+  width?: string;
+}
+
 export interface LeafConfig {
   serverUrl: string;
   serverWSBrokerUrl: string;
@@ -43,4 +53,5 @@ export interface LeafConfig {
   featureActivation?: LeafFeatureActivation,
   setupConfig: LeafSetupConfig;
   uiCustomization?: LeafUICustomizationConfig;
+  legalNotice?: LeafLegalNoticeConfig;
 }

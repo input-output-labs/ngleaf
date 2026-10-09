@@ -28,6 +28,13 @@ export class AccountApiClient {
     );
   }
 
+  public acceptLegalNotice(): Observable<LeafAccountModel> {
+    return this.authHttp.post<LeafAccountModel>(
+      this.config.serverUrl + "/account/me/legal-notice",
+      {}
+    );
+  }
+
   public register(registration: RegistrationModel): Observable<JWTModel> {
     return this.authHttp.post<JWTModel>(
       this.config.serverUrl + "/account",
