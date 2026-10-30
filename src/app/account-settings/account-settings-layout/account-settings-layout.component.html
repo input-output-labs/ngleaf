@@ -1,16 +1,20 @@
-<div class="account-settings">
-  <h1>{{ 'app.account-settings.layout.title' | translate }}</h1>
-  <nav mat-tab-nav-bar [tabPanel]="tabPanel">
-    <a
-      mat-tab-link
-      *ngFor="let link of navLinks"
-      [routerLink]="link.link"
-      routerLinkActive
-      #rla="routerLinkActive"
-      [active]="rla.isActive"
-      >{{ link.labelKey | translate }}</a>
-  </nav>
-  <mat-tab-nav-panel #tabPanel class="account-settings-content">
-    <router-outlet></router-outlet>
-  </mat-tab-nav-panel>
-</div>
+<app-layout
+  [eyebrow]="'app.account-settings.layout.eyebrow' | translate"
+  [title]="'app.account-settings.layout.title' | translate"
+  [baseline]="'app.account-settings.layout.baseline' | translate">
+  <div layoutMain>
+    <nav mat-tab-nav-bar [tabPanel]="tabPanel">
+      <a
+        mat-tab-link
+        *ngFor="let link of navLinks"
+        [routerLink]="link.link"
+        routerLinkActive
+        #rla="routerLinkActive"
+        [active]="rla.isActive"
+        >{{ link.labelKey | translate }}</a>
+    </nav>
+    <mat-tab-nav-panel #tabPanel class="account-settings-content">
+      <router-outlet></router-outlet>
+    </mat-tab-nav-panel>
+  </div>
+</app-layout>

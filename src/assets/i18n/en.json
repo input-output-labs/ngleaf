@@ -3,7 +3,13 @@
     "welcome": {
       "login-page": {
         "passwordForgottenLinkLabel": "Forgot Password ?",
-        "registerLinkLabel": "Create Account"
+        "registerLinkLabel": "Create Account",
+        "cguLinkLabel": "Terms of use"
+      },
+      "cgu-page": {
+        "title": "Terms of use",
+        "backLinkLabel": "Back to login",
+        "body": "Replace this text with your application's terms of use."
       },
       "password-page": {
         "loginLinkLabel": "< Back to login"
@@ -23,11 +29,21 @@
       "settingsLinkLabel": "My account",
       "logoutButtonLabel": "Logout",
       "reduceButtonLabel": "Reduce menu",
-      "expandButtonLabel": "Expand menu"
+      "expandButtonLabel": "Expand menu",
+      "sections": {
+        "application": "Application",
+        "organization": "Organization"
+      }
+    },
+    "dashboard": {
+      "eyebrow": "Home",
+      "baseline": "Entry point of the application."
     },
     "account-settings": {
       "layout": {
+        "eyebrow": "Account",
         "title": "Account settings",
+        "baseline": "Profile, access and preferences of the signed-in account.",
         "profileLinkLabel": "Profile",
         "pseudoLinkLabel": "Pseudo",
         "avatarLinkLabel": "Avatar",
@@ -36,7 +52,9 @@
     },
     "organization-settings": {
       "layout": {
+        "eyebrow": "Organization",
         "title": "Organization",
+        "baseline": "Members, profile and policies of the selected organization.",
         "membersLinkLabel": "Members",
         "profileLinkLabel": "Profile",
         "policiesLinkLabel": "Policies"
@@ -44,7 +62,9 @@
     },
     "leaf-labs": {
       "layout": {
+        "eyebrow": "Demo",
         "title": "Leaf labs",
+        "baseline": "Library components, used as they are.",
         "templatesLinkLabel": "Templates",
         "messengerLinkLabel": "Messenger",
         "sponsoringLinkLabel": "Sponsoring",

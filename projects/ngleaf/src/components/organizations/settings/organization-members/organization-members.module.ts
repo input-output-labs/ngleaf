@@ -54,7 +54,7 @@ import { TranslatedMatPaginatorIntl } from './translated-mat-paginator-intl.serv
     LeafConfirmDialogModule,
   ],
   declarations: [OrganizationMembersComponent, OrganizationCandidaturesComponent],
-  exports: [OrganizationMembersComponent],
+  exports: [OrganizationMembersComponent, OrganizationCandidaturesComponent],
   providers: [
     {
       provide: MatPaginatorIntl,

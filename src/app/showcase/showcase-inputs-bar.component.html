@@ -1,0 +1,53 @@
+<label class="demo-inputs__field" *ngFor="let field of fields" [class.demo-inputs__field--wide]="field.wide || field.kind === 'json'">
+  <span class="demo-inputs__name">{{ field.name }}</span>
+
+  <ng-container [ngSwitch]="field.kind">
+    <input *ngSwitchCase="'boolean'" type="checkbox"
+           [ngModel]="field.value"
+           (ngModelChange)="field.value = $event; commit(true)">
+
+    <input *ngSwitchCase="'string'" type="text" autocomplete="off"
+           [(ngModel)]="field.value"
+           (change)="commit(true)">
+
+    <input *ngSwitchCase="'number'" type="number"
+           [ngModel]="field.value"
+           (ngModelChange)="field.value = $event"
+           (change)="commit(true)">
+
+    <select *ngSwitchCase="'select'"
+            [ngModel]="field.value"
+            (ngModelChange)="field.value = $event; commit(true)">
+      <option *ngFor="let option of field.options" [ngValue]="option.value">{{ option.label }}</option>
+    </select>
+
+    <select *ngSwitchCase="'validators'"
+            [ngModel]="field.value"
+            (ngModelChange)="field.value = $event; commit(true)">
+      <option *ngFor="let option of field.options" [ngValue]="option.value">{{ option.label }}</option>
+    </select>
+
+    <input *ngSwitchCase="'list'" type="text" autocomplete="off"
+           [(ngModel)]="field.value"
+           (change)="commit(true)"
+           placeholder="a, b, c">
+
+    <input *ngSwitchCase="'control'" type="text" autocomplete="off"
+           [(ngModel)]="field.value"
+           (ngModelChange)="onControl(field)">
+
+    <input *ngSwitchCase="'template'" type="checkbox"
+           [ngModel]="field.value"
+           (ngModelChange)="field.value = $event; commit(true)">
+
+    <button *ngSwitchCase="'trigger'" type="button" class="demo-inputs__trigger" (click)="fire(field)">
+      Émettre
+    </button>
+
+    <textarea *ngSwitchCase="'json'" rows="3" spellcheck="false"
+              [(ngModel)]="context.jsonText[field.name]"
+              (change)="applyJson(field)"></textarea>
+  </ng-container>
+
+  <span class="demo-inputs__error" *ngIf="context.jsonError[field.name]">{{ context.jsonError[field.name] }}</span>
+</label>

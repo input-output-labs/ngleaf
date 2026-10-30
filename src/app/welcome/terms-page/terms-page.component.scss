@@ -1,0 +1,64 @@
+$ink: #111111;
+$muted: #6b6b6b;
+$border: #e6e6e6;
+
+:host {
+    display: block;
+    min-height: 100%;
+}
+
+.terms-page {
+    min-height: 100%;
+    background: #ffffff;
+    padding: 2.5rem 1.25rem 4rem;
+}
+
+.terms-page__column {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 42rem;
+}
+
+.terms-page__back {
+    display: inline-block;
+    margin-bottom: 1.5rem;
+    color: $muted;
+    font-size: 0.875rem;
+    text-decoration: none;
+
+    &:hover {
+        color: $ink;
+        text-decoration: underline;
+    }
+}
+
+.terms-page__logo {
+    display: block;
+    height: 72px;
+    width: auto;
+    margin: 0 auto 1.5rem;
+    filter: grayscale(1);
+}
+
+.terms-page__card {
+    background: #ffffff;
+    border: 1px solid $border;
+    border-radius: 1.25rem;
+    padding: 2rem 1.75rem;
+    text-align: left;
+    color: $ink;
+
+    h1 {
+        margin: 0 0 1.25rem;
+        font-size: 1.5rem;
+        font-weight: 600;
+        line-height: 1.3;
+    }
+}
+
+.terms-page__body {
+    white-space: pre-line;
+    font-size: 0.975rem;
+    line-height: 1.65;
+    color: #333333;
+}

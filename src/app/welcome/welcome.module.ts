@@ -13,6 +13,8 @@ import { PasswordPageComponent } from './password-page/password-page.component';
 import { PasswordPageModule } from './password-page/password-page.module';
 import { OrganizationInvitationPageModule } from './organization-invitation-page/organization-invitation-page.module';
 import { OrganizationInvitationPageComponent } from './organization-invitation-page/organization-invitation-page.component';
+import { TermsPageComponent } from './terms-page/terms-page.component';
+import { TermsPageModule } from './terms-page/terms-page.module';
 
 const routes: Routes = [
   {
@@ -42,6 +44,10 @@ const routes: Routes = [
         component: OrganizationInvitationPageComponent,
       },
     ]
+  },
+  {
+    path: 'cgu',
+    component: TermsPageComponent,
   }
 ];
 
@@ -53,6 +59,7 @@ const routes: Routes = [
     PasswordPageModule,
     RegisterPageModule,
     OrganizationInvitationPageModule,
+    TermsPageModule,
     WelcomeLayoutModule,
     LeafAuthGuardModule,
   ],

@@ -1,0 +1,20 @@
+<div class="layout" [class.layout--loading]="loading">
+  <header class="layout__header">
+    <div>
+      <p class="eyebrow" *ngIf="eyebrow">{{ eyebrow }}</p>
+      <h1 *ngIf="title">{{ title }}</h1>
+      <p class="baseline" *ngIf="baseline">{{ baseline }}</p>
+    </div>
+    <div class="layout__actions">
+      <ng-content select="[layoutActions]"></ng-content>
+    </div>
+  </header>
+
+  <div class="layout__main">
+    <ng-content select="[layoutMain]"></ng-content>
+  </div>
+
+  <div class="layout__loading" *ngIf="loading" aria-busy="true" aria-live="polite">
+    <div class="loader" role="status" aria-label="Chargement en cours"></div>
+  </div>
+</div>

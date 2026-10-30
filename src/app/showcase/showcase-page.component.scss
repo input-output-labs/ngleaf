@@ -1,0 +1,19 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  height: 100%;
+}
+
+.showcase-missing {
+  margin: 2rem;
+  color: #6b6b6b;
+}
+
+.showcase-sample {
+  padding: 0.5rem 0.75rem;
+  background: #f3f3f3;
+  color: #111111;
+  font-size: 0.8rem;
+}

@@ -1,0 +1,154 @@
+$ink: #111111;
+$muted: #6b6b6b;
+$border: #e6e6e6;
+$surface: #ffffff;
+$stage: #f6f6f6;
+
+:host {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  height: 100%;
+}
+
+.demo-frame {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  height: 100%;
+  background: $surface;
+  border: 1px solid $border;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.demo-frame__bar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid $border;
+  background: $surface;
+  flex-shrink: 0;
+}
+
+.demo-frame__identity {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.demo-frame__selector {
+  font-size: 0.85rem;
+  color: $ink;
+}
+
+.demo-frame__role {
+  color: $muted;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.demo-frame__controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+}
+
+.demo-frame__group {
+  display: flex;
+  border: 1px solid $border;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.demo-frame__choice {
+  appearance: none;
+  border: 0;
+  background: $surface;
+  color: $ink;
+  font: inherit;
+  font-size: 0.75rem;
+  padding: 0.35rem 0.6rem;
+  cursor: pointer;
+  border-right: 1px solid $border;
+
+  &:last-child {
+    border-right: 0;
+  }
+
+  &:hover {
+    background: #f3f3f3;
+  }
+
+  &--active {
+    background: $ink;
+    color: $surface;
+  }
+}
+
+.demo-frame__size {
+  font-size: 0.75rem;
+  color: $muted;
+  font-variant-numeric: tabular-nums;
+}
+
+.demo-frame__custom,
+.demo-frame__auto {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.75rem;
+  color: $muted;
+}
+
+.demo-frame__custom input {
+  width: 5rem;
+  border: 1px solid $border;
+  border-radius: 0.35rem;
+  padding: 0.3rem 0.4rem;
+  font: inherit;
+  color: $ink;
+}
+
+.demo-frame__inputs {
+  max-height: 16rem;
+  overflow: auto;
+  padding: 0.7rem 1rem;
+  border-bottom: 1px solid $border;
+  background: #fafafa;
+  flex-shrink: 0;
+}
+
+.demo-frame__stage {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  overflow: auto;
+  padding: 1.25rem;
+  background: $stage;
+  box-sizing: border-box;
+
+  &--full {
+    padding: 0;
+  }
+}
+
+.demo-frame__viewport {
+  background: $surface;
+  border: 1px solid $border;
+  overflow: auto;
+  box-sizing: border-box;
+  flex: 0 0 auto;
+}
+
+.demo-frame__stage--full .demo-frame__viewport {
+  border: 0;
+  flex: 1 1 auto;
+}

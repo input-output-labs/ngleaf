@@ -23,6 +23,6 @@ import { LeafAccountPopoverContentComponent } from './account-popover-content';
     MatTooltipModule,
     /* Leaf deps*/
   ],
-  exports: [LeafHeaderAccountComponent]
+  exports: [LeafHeaderAccountComponent, LeafAccountPopoverContentComponent]
 })
 export class LeafHeaderAccountModule { }

@@ -15,6 +15,7 @@ import {
 } from '@input-output-labs/ngleaf';
 import { MainLayoutComponent } from '../components/main-layout/main-layout.component';
 import { MainLayoutModule } from '../components/main-layout/main-layout.module';
+import { SHOWCASE_HOME } from './showcase/showcase.catalog';
 
 const routes: Route[] = [
   {
@@ -28,8 +29,12 @@ const routes: Route[] = [
     children: [
       {
         path: '',
-        redirectTo: '/dashboard',
+        redirectTo: SHOWCASE_HOME,
         pathMatch: 'full',
+      },
+      {
+        path: 'demo',
+        loadChildren: () => import('./showcase/showcase.module').then(m => m.ShowcaseModule),
       },
       {
         path: 'dashboard',

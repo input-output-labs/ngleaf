@@ -1,13 +1,27 @@
 .main-layout {
   width: 100%;
   height: 100%;
+  display: flex;
+  flex-direction: row;
+  background: #ffffff;
 
   .menu {
     height: 100%;
   }
 
   .content {
-    height: calc(100% - 2rem);
+    flex: 1;
+    height: 100%;
     padding: 1rem;
+    background: #ffffff;
+    box-sizing: border-box;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .content.mat-drawer-content {
+    transition: none;
   }
 }

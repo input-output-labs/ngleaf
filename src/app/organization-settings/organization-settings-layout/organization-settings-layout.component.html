@@ -1,19 +1,23 @@
-<div class="organization-settings">
-  <h1>{{ 'app.organization-settings.layout.title' | translate }}</h1>
-  <nav mat-tab-nav-bar [tabPanel]="tabPanel">
-    <a
-      mat-tab-link
-      *ngFor="let link of navLinks"
-      [routerLink]="link.link"
-      routerLinkActive
-      #rla="routerLinkActive"
-      [active]="rla.isActive"
-      [disabled]="link.disabled"
-      >{{ link.labelKey | translate }}</a>
-  </nav>
-  <mat-tab-nav-panel #tabPanel>
-    <div class="organization-settings-content">
-      <router-outlet></router-outlet>
-    </div>
-  </mat-tab-nav-panel>
-</div>
+<app-layout
+  [eyebrow]="'app.organization-settings.layout.eyebrow' | translate"
+  [title]="'app.organization-settings.layout.title' | translate"
+  [baseline]="'app.organization-settings.layout.baseline' | translate">
+  <div layoutMain>
+    <nav mat-tab-nav-bar [tabPanel]="tabPanel">
+      <a
+        mat-tab-link
+        *ngFor="let link of navLinks"
+        [routerLink]="link.link"
+        routerLinkActive
+        #rla="routerLinkActive"
+        [active]="rla.isActive"
+        [disabled]="link.disabled"
+        >{{ link.labelKey | translate }}</a>
+    </nav>
+    <mat-tab-nav-panel #tabPanel>
+      <div class="organization-settings-content">
+        <router-outlet></router-outlet>
+      </div>
+    </mat-tab-nav-panel>
+  </div>
+</app-layout>

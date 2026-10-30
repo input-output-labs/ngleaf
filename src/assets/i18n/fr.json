@@ -3,7 +3,13 @@
     "welcome": {
       "login-page": {
         "passwordForgottenLinkLabel": "Mot de passe oublié ?",
-        "registerLinkLabel": "Créer un compte"
+        "registerLinkLabel": "Créer un compte",
+        "cguLinkLabel": "Conditions générales d'utilisation"
+      },
+      "cgu-page": {
+        "title": "Conditions générales d'utilisation",
+        "backLinkLabel": "Retour à la connexion",
+        "body": "Remplacez ce texte par les conditions d'utilisation de votre application."
       },
       "password-page": {
         "loginLinkLabel": "< Retour à la connexion"
@@ -23,11 +29,21 @@
       "settingsLinkLabel": "Mon compte",
       "logoutButtonLabel": "Déconnexion",
       "reduceButtonLabel": "Réduire le menu",
-      "expandButtonLabel": "Étendre le menu"
+      "expandButtonLabel": "Étendre le menu",
+      "sections": {
+        "application": "Application",
+        "organization": "Organisation"
+      }
+    },
+    "dashboard": {
+      "eyebrow": "Accueil",
+      "baseline": "Point d'entrée de l'application."
     },
     "account-settings": {
       "layout": {
+        "eyebrow": "Compte",
         "title": "Paramètres du compte",
+        "baseline": "Profil, accès et préférences du compte connecté.",
         "profileLinkLabel": "Profil",
         "pseudoLinkLabel": "Pseudo",
         "avatarLinkLabel": "Avatar",
@@ -37,14 +53,18 @@
     },
     "organization-settings": {
       "layout": {
+        "eyebrow": "Organisation",
         "title": "Organisation",
+        "baseline": "Membres, profil et politiques de l'organisation sélectionnée.",
         "membersLinkLabel": "Membres",
         "policiesLinkLabel": "Politiques"
       }
     },
     "leaf-labs": {
       "layout": {
+        "eyebrow": "Démonstration",
         "title": "Leaf Labs",
+        "baseline": "Composants de la librairie, branchés tels quels.",
         "templatesLinkLabel": "Modèles",
         "messengerLinkLabel": "Messager",
         "sponsoringLinkLabel": "Parrainage",

@@ -1,0 +1,65 @@
+<div class="demo-frame">
+  <header class="demo-frame__bar">
+    <div class="demo-frame__identity">
+      <code class="demo-frame__selector">{{ selector }}</code>
+      <span class="demo-frame__role" *ngIf="role">{{ role }}</span>
+    </div>
+
+    <div class="demo-frame__controls">
+      <div class="demo-frame__group" role="group" aria-label="Taille">
+        <button type="button"
+                *ngFor="let option of presets"
+                class="demo-frame__choice"
+                [class.demo-frame__choice--active]="preset === option.id"
+                (click)="setPreset(option.id)">
+          {{ option.label }}
+        </button>
+      </div>
+
+      <div class="demo-frame__group" role="group" aria-label="Alignement horizontal">
+        <button type="button"
+                *ngFor="let option of alignXOptions"
+                class="demo-frame__choice"
+                [class.demo-frame__choice--active]="alignX === option.id"
+                (click)="alignX = option.id">
+          {{ option.label }}
+        </button>
+      </div>
+
+      <div class="demo-frame__group" role="group" aria-label="Alignement vertical">
+        <button type="button"
+                *ngFor="let option of alignYOptions"
+                class="demo-frame__choice"
+                [class.demo-frame__choice--active]="alignY === option.id"
+                (click)="alignY = option.id">
+          {{ option.label }}
+        </button>
+      </div>
+
+      <span class="demo-frame__size">{{ sizeLabel }}</span>
+
+      <label class="demo-frame__custom" *ngIf="preset === 'custom'">
+        <span>L</span>
+        <input type="number" min="80" [value]="customWidth" (change)="onCustomWidth($any($event.target).value)">
+      </label>
+      <label class="demo-frame__custom" *ngIf="preset === 'custom'">
+        <span>H</span>
+        <input type="number" min="80" [value]="customHeight" (change)="onCustomHeight($any($event.target).value)" [disabled]="autoHeight">
+      </label>
+      <label class="demo-frame__auto" *ngIf="preset === 'custom'">
+        <input type="checkbox" [checked]="autoHeight" (change)="autoHeight = $any($event.target).checked">
+        Hauteur au contenu
+      </label>
+    </div>
+  </header>
+
+  <div class="demo-frame__inputs" *ngIf="showInputs">
+    <ng-content select="[demo-inputs]"></ng-content>
+  </div>
+
+  <div class="demo-frame__stage" [class.demo-frame__stage--full]="preset === 'full'" [ngStyle]="stageStyle">
+    <div class="demo-frame__viewport" [ngStyle]="viewportStyle">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>

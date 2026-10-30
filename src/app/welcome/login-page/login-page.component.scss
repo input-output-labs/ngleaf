@@ -1,5 +1,14 @@
+$ink: #111111;
+$muted: #6b6b6b;
+
+.login-page {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
 .divider {
-    margin: 1rem 0;
+    margin: 0;
 }
 
 .other-actions {
@@ -7,8 +16,23 @@
     justify-content: space-evenly;
 
     .link {
-        color: rgb(66, 90, 112);
-        text-decoration-color: rgb(66, 90, 112);
+        color: $muted;
+        text-decoration-color: $muted;
         font-size: 0.8rem;
+
+        &:hover {
+            color: $ink;
+        }
+    }
+}
+
+.terms-link {
+    align-self: center;
+    color: $muted;
+    font-size: 0.8rem;
+    text-decoration-color: $muted;
+
+    &:hover {
+        color: $ink;
     }
 }

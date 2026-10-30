@@ -1,6 +1,6 @@
-<mat-drawer-container class="main-layout" autosize>
-  <mat-drawer mode="side" opened class="drawer">
-    <app-menu class="menu"></app-menu>
+<mat-drawer-container class="main-layout">
+  <mat-drawer mode="side" opened>
+    <app-menu class="menu" (collapsedChange)="onMenuCollapsed()"></app-menu>
   </mat-drawer>
   <mat-drawer-content class="content">
     <router-outlet></router-outlet>

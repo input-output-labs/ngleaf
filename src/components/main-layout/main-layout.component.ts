@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { MatDrawerContainer } from '@angular/material/sidenav';
 
 @Component({
   standalone: false,
@@ -6,11 +7,22 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './main-layout.component.html',
   styleUrls: ['./main-layout.component.scss']
 })
-export class MainLayoutComponent implements OnInit {
+export class MainLayoutComponent {
+  @ViewChild(MatDrawerContainer) private drawerContainer?: MatDrawerContainer;
+  private drawerSync = 0;
 
-  constructor() { }
-
-  ngOnInit() {
+  onMenuCollapsed(): void {
+    const generation = ++this.drawerSync;
+    const start = performance.now();
+    const tick = () => {
+      if (generation !== this.drawerSync) {
+        return;
+      }
+      this.drawerContainer?.updateContentMargins();
+      if (performance.now() - start < 240) {
+        requestAnimationFrame(tick);
+      }
+    };
+    tick();
   }
-
 }

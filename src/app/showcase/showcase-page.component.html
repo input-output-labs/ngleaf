@@ -1,0 +1,18 @@
+<app-demo-frame *ngIf="entry && context" [selector]="entry.id" [role]="entry.role" [showInputs]="fields.length > 0">
+  <app-showcase-inputs-bar demo-inputs
+                           *ngIf="fields.length"
+                           [fields]="fields"
+                           [context]="context"
+                           (inputsChange)="onInputs($event)">
+  </app-showcase-inputs-bar>
+
+  <ng-container *ngFor="let token of renderSlot">
+    <ng-container *ngComponentOutlet="entry.component; inputs: renderedInputs; injector: outletInjector"></ng-container>
+  </ng-container>
+</app-demo-frame>
+
+<ng-template #sampleTpl>
+  <div class="showcase-sample">Exemple</div>
+</ng-template>
+
+<p class="showcase-missing" *ngIf="!entry">Ce composant n'est pas dans le catalogue.</p>
