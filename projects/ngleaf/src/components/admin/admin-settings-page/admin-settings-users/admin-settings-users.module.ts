@@ -21,9 +21,12 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { LeafGenericDataDialogComponent } from '../../leaf-generic-data-dialog/leaf-generic-data-dialog.component';
 
+import { LeafMatFieldModule } from '../../../../directives/mat-field/leaf-mat-field.module';
+
 @NgModule({
   declarations: [AdminSettingsUsersComponent],
   imports: [
+    LeafMatFieldModule,
     /* Code deps */
     CommonModule,
     ReactiveFormsModule,

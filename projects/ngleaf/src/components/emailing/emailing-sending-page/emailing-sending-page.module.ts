@@ -14,8 +14,11 @@ import { MatInputModule } from "@angular/material/input";
 import { EmailingApiClientModule } from "../../../api/clients/emailing-api-client/emailing-api-client.module";
 import { EmailingSendingPageComponent } from "./emailing-sending-page.component";
 
+import { LeafMatFieldModule } from '../../../directives/mat-field/leaf-mat-field.module';
+
 @NgModule({
   imports: [
+    LeafMatFieldModule,
     /* Common deps */
     CommonModule,
     ReactiveFormsModule,

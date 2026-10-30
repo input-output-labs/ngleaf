@@ -9,8 +9,11 @@ import { MatAutocompleteModule } from "@angular/material/autocomplete";
 import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
 
+import { LeafMatFieldModule } from '../../../directives/mat-field/leaf-mat-field.module';
+
 @NgModule({
   imports: [
+    LeafMatFieldModule,
     CommonModule,
     ReactiveFormsModule,
     /* Material */

@@ -31,8 +31,20 @@ export interface LeafDialogWidthConfig {
   large: string;
 }
 
+export interface LeafMatFieldCustomization {
+  appearance?: 'fill' | 'outline';
+  subscriptSizing?: 'fixed' | 'dynamic';
+  floatLabel?: 'always' | 'auto';
+  extraClass?: string;
+}
+
+export interface LeafMaterialCustomization {
+  'mat-field'?: LeafMatFieldCustomization;
+}
+
 export interface LeafUICustomizationConfig {
   dialogWidth: LeafDialogWidthConfig;
+  material?: LeafMaterialCustomization;
 }
 
 export interface LeafLegalNoticeConfig {

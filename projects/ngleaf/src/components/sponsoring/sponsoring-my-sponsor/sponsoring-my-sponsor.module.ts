@@ -10,8 +10,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SponsoringApiClientModule } from '../../../api/clients/index';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { LeafMatFieldModule } from '../../../directives/mat-field/leaf-mat-field.module';
+
 @NgModule({
   imports: [
+    LeafMatFieldModule,
     /* Core deps */
     CommonModule,
     ReactiveFormsModule,

@@ -29,7 +29,7 @@ export class PhoneNumberFormFieldComponent implements OnChanges, ControlValueAcc
   }));
 
   @Input()
-  public appearance: MatFormFieldAppearance = "fill";
+  public appearance?: MatFormFieldAppearance;
 
   @Input()
   public alignHorizontally = true;

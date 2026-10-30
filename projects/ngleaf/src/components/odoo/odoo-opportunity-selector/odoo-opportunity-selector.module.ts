@@ -9,8 +9,11 @@ import { MatInputModule } from '@angular/material/input';
 import { OdooApiClientModule } from '../../../api/clients/odoo-api-client/odoo-api-client.module';
 import { OdooOpportunitySelectorComponent } from './odoo-opportunity-selector.component';
 
+import { LeafMatFieldModule } from '../../../directives/mat-field/leaf-mat-field.module';
+
 @NgModule({
   imports: [
+    LeafMatFieldModule,
     CommonModule,
     ReactiveFormsModule,
     MatFormFieldModule,

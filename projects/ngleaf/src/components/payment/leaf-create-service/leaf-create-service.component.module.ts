@@ -13,11 +13,14 @@ import { PaymentStoreModule } from '../../../store';
 import { LeafIconInputModule } from '../../common';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
+import { LeafMatFieldModule } from '../../../directives/mat-field/leaf-mat-field.module';
+
 @NgModule({
   declarations: [
     LeafCreateServiceComponent
   ],
   imports: [
+    LeafMatFieldModule,
     /* Core deps */
     CommonModule,
     ReactiveFormsModule,

@@ -1,6 +1,6 @@
 <form class="profile" [formGroup]="profileForm">
   <div formGroupName="phone" class="form-wrapper" [ngClass]="{'column': !alignHorizontally, 'row': alignHorizontally}">
-      <mat-form-field class="phone_country" subscriptSizing="dynamic" [appearance]="appearance">
+      <mat-form-field class="phone_country" subscriptSizing="dynamic" [leafMatFieldAppearance]="appearance">
           <mat-label>{{ 'leaf.phone-number-form-field.countryLabel' | translate }}</mat-label>
           <mat-select formControlName="country" (selectionChange)="formatNumber()">
               <mat-option *ngFor="let countryCode of (availableCountryCode$ | async)" [value]="countryCode.code">
@@ -8,7 +8,7 @@
               </mat-option>
           </mat-select>
       </mat-form-field>
-      <mat-form-field class="phone_number" subscriptSizing="dynamic" [appearance]="appearance">
+      <mat-form-field class="phone_number" subscriptSizing="dynamic" [leafMatFieldAppearance]="appearance">
           <mat-label>{{ 'leaf.phone-number-form-field.numberLabel' | translate }}</mat-label>
           <input formControlName="number"
                  type="tel"

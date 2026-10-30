@@ -18,8 +18,11 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { PaymentApiClientModule } from '../../../api/clients/payment-api-client';
 
+import { LeafMatFieldModule } from '../../../directives/mat-field/leaf-mat-field.module';
+
 @NgModule({
   imports: [
+    LeafMatFieldModule,
     /* Core deps */
     CommonModule,
     TranslateModule,

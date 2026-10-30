@@ -11,9 +11,12 @@ import { LeafWebImagesSeekerService } from './leaf-web-images-seeker.service';
 import { LeafWebImagesSeekerDialogComponent } from './web-images-seeker-dialog/leaf-web-images-seeker-dialog.component';
 
 
+import { LeafMatFieldModule } from '../../directives/mat-field/leaf-mat-field.module';
+
 @NgModule({
   declarations: [LeafWebImagesSeekerDialogComponent],
   imports: [
+    LeafMatFieldModule,
     CommonModule,
     ReactiveFormsModule,
     FormsModule,

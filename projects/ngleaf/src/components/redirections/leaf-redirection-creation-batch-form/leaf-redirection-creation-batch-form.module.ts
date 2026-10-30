@@ -8,8 +8,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { RedirectionApiClientModule } from '../../../api';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
+import { LeafMatFieldModule } from '../../../directives/mat-field/leaf-mat-field.module';
+
 @NgModule({
   imports: [
+    LeafMatFieldModule,
     CommonModule,
     ReactiveFormsModule,
     MatInputModule,

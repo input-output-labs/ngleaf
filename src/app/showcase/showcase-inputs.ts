@@ -38,6 +38,7 @@ export interface ShowcaseInputContext {
 }
 
 const appearance: ShowcaseInputOption[] = [
+  { label: 'config', value: '' },
   { label: 'fill', value: 'fill' },
   { label: 'outline', value: 'outline' },
 ];
@@ -152,7 +153,7 @@ const planViewerConfig = {
 
 const genericConfig = {
   titleKey: 'Démo',
-  inputs: [{ id: 'label', type: 'input', labelKey: 'Libellé', appearance: 'outline' }],
+  inputs: [{ id: 'label', type: 'input', labelKey: 'Libellé' }],
 };
 
 const languages = {
@@ -181,16 +182,16 @@ export const SHOWCASE_INPUTS: Record<string, ShowcaseInputField[]> = {
     input('formGroup', 'json', { label: 'Démo' }, { wide: true }),
   ],
   'leaf-icon-input': [
-    input('fieldAppearance', 'select', 'fill', { options: appearance }),
+    input('fieldAppearance', 'select', '', { options: appearance }),
     input('placeholder', 'string', 'Select an icon'),
     input('required', 'boolean', false),
   ],
   'leaf-address-form': [
-    input('fieldAppearance', 'select', 'fill', { options: appearance }),
+    input('fieldAppearance', 'select', '', { options: appearance }),
   ],
   'leaf-phone-number-form-field': [
     input('countryCodes', 'list', '', { nullable: true }),
-    input('appearance', 'select', 'fill', { options: appearance }),
+    input('appearance', 'select', '', { options: appearance }),
     input('alignHorizontally', 'boolean', true),
   ],
   'leaf-password-security-indicator': [
@@ -262,7 +263,7 @@ export const SHOWCASE_INPUTS: Record<string, ShowcaseInputField[]> = {
         { label: 'profil fourni', value: 'profile' },
       ],
     }),
-    input('fieldAppearance', 'select', 'fill', { options: appearance }),
+    input('fieldAppearance', 'select', '', { options: appearance }),
     input('separateColumnForAvatar', 'boolean', true),
     input('hideGroupTitles', 'boolean', false),
     input('fields', 'list', profileFields, { wide: true }),

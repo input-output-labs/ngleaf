@@ -9,11 +9,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { AccountApiClient, OrganizationsApiClientService } from '../../../api/clients/index';
 
+import { LeafMatFieldModule } from '../../../directives/mat-field/leaf-mat-field.module';
+
 @Component({
     selector: 'app-leaf-generic-data-dialog',
     templateUrl: './leaf-generic-data-dialog.component.html',
     styleUrls: ['./leaf-generic-data-dialog.component.scss'],
     imports: [
+    LeafMatFieldModule,
         CommonModule,
         MatDialogModule,
         MatFormFieldModule,

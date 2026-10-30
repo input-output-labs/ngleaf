@@ -3,6 +3,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { EMPTY } from 'rxjs';
+import { DemoUiConfigService } from '../ui-config/demo-ui-config.service';
 import { ShowcaseEntry, findShowcaseEntry } from './showcase.catalog';
 import {
   ShowcaseInputContext,
@@ -45,7 +46,12 @@ export class ShowcasePageComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private injector: Injector,
-  ) {}
+    uiConfig: DemoUiConfigService,
+  ) {
+    uiConfig.changes$.pipe(takeUntilDestroyed()).subscribe(() => {
+      this.renderSlot = [this.renderSlot[0] + 1];
+    });
+  }
 
   ngOnInit(): void {
     this.route.paramMap.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((params) => {

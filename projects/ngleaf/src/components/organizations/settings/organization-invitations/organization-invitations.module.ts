@@ -14,8 +14,11 @@ import { OrganizationSelectorModule } from '../../organization-selector';
 import { MatTableModule } from '@angular/material/table';
 import { MatChipsModule } from '@angular/material/chips';
 
+import { LeafMatFieldModule } from '../../../../directives/mat-field/leaf-mat-field.module';
+
 @NgModule({
   imports: [
+    LeafMatFieldModule,
     /* Core deps */
     CommonModule,
     TranslateModule,

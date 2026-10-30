@@ -35,7 +35,7 @@ const CUSTOM_VALUE_ACCESSOR: any = {
 })
 export class LeafIconInputComponent implements ControlValueAccessor, OnInit, OnDestroy {
   @Input()
-  public fieldAppearance: MatFormFieldAppearance = "fill";
+  public fieldAppearance?: MatFormFieldAppearance;
 
   @Input()
   public placeholder: string = "Select an icon";

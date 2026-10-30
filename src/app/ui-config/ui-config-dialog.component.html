@@ -1,0 +1,41 @@
+<h2 class="ui-config__title">Apparence Material</h2>
+<p class="ui-config__hint">Réglage global des champs <code>mat-field</code>. Une option vide ne force rien. Un input local du composant reste prioritaire.</p>
+
+<label class="ui-config__field">
+  <span>appearance</span>
+  <select [(ngModel)]="draft.appearance">
+    <option value="">non défini</option>
+    <option value="fill">fill</option>
+    <option value="outline">outline</option>
+  </select>
+</label>
+
+<label class="ui-config__field">
+  <span>subscriptSizing</span>
+  <select [(ngModel)]="draft.subscriptSizing">
+    <option value="">non défini</option>
+    <option value="fixed">fixed</option>
+    <option value="dynamic">dynamic</option>
+  </select>
+</label>
+
+<label class="ui-config__field">
+  <span>floatLabel</span>
+  <select [(ngModel)]="draft.floatLabel">
+    <option value="">non défini</option>
+    <option value="auto">auto</option>
+    <option value="always">always</option>
+  </select>
+</label>
+
+<label class="ui-config__field">
+  <span>extraClass</span>
+  <input type="text" [(ngModel)]="draft.extraClass" autocomplete="off" placeholder="leaf-mat-field">
+</label>
+
+<div class="ui-config__actions">
+  <button type="button" class="ui-config__button" (click)="reset()">Réinitialiser</button>
+  <span class="ui-config__spacer"></span>
+  <button type="button" class="ui-config__button" (click)="cancel()">Annuler</button>
+  <button type="button" class="ui-config__button ui-config__button--primary" (click)="apply()">Appliquer</button>
+</div>

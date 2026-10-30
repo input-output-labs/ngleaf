@@ -15,11 +15,14 @@ import { LeafServiceItemComponent } from './leaf-service-item.component';
 import { LeafConfirmDialogComponent } from '../../common/confirm-dialog/confirm-dialog.component';
 import { LeafIconInputModule } from '../../common';
 
+import { LeafMatFieldModule } from '../../../directives/mat-field/leaf-mat-field.module';
+
 @NgModule({
   declarations: [
     LeafServiceItemComponent
   ],
   imports: [
+    LeafMatFieldModule,
     /* Core deps */
     CommonModule,
     ReactiveFormsModule,

@@ -11,8 +11,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { LeafPasswordSecurityModule } from '../../../common/password-security';
 
+import { LeafMatFieldModule } from '../../../../directives/mat-field/leaf-mat-field.module';
+
 @NgModule({
   imports: [
+    LeafMatFieldModule,
     CommonModule,
     ReactiveFormsModule,
     LeafSessionModule,

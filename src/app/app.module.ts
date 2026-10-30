@@ -47,7 +47,6 @@ import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-transla
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { EffectsModule } from '@ngrx/effects';
 import { DateAdapter, MatNativeDateModule, NativeDateAdapter } from '@angular/material/core';
-import { Platform } from '@angular/cdk/platform';
 import { FormsModule } from '@angular/forms';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
@@ -76,7 +75,13 @@ const leafConfig: LeafConfig = {
       small: '400px',
       medium: '600px',
       large: '800px'
-    }
+    },
+    material: {
+      'mat-field': {
+        appearance: 'outline',
+        extraClass: 'leaf-mat-field',
+      },
+    },
   }
 };
 

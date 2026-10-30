@@ -2,7 +2,7 @@
   <div class="form-part fields-form-part">
     <ng-container *ngIf="fields.includes('companyName')">
       <div class="form-group-title" *ngIf="!hideGroupTitles">{{ 'leaf.profile-update.companyName-form-group-title' | translate }}</div>
-      <mat-form-field subscriptSizing="dynamic" [appearance]="fieldAppearance">
+      <mat-form-field subscriptSizing="dynamic" [leafMatFieldAppearance]="fieldAppearance">
         <mat-label>{{ 'leaf.profile-update.companyName-input-placeholder' | translate }}</mat-label>
         <input
           matInput
@@ -22,7 +22,7 @@
     </ng-container>
     <ng-container *ngIf="fields.includes('username')">
       <div class="form-group-title" *ngIf="!hideGroupTitles">{{ 'leaf.profile-update.username-form-group-title' | translate }}</div>
-      <mat-form-field subscriptSizing="dynamic" [appearance]="fieldAppearance">
+      <mat-form-field subscriptSizing="dynamic" [leafMatFieldAppearance]="fieldAppearance">
         <mat-label>{{ 'leaf.profile-update.username-input-placeholder' | translate }}</mat-label>
         <input
           matInput
@@ -47,6 +47,7 @@
       <mat-form-field
         *ngIf="fields.includes('firstname')"
         subscriptSizing="dynamic"
+        [leafMatFieldAppearance]="fieldAppearance"
       >
         <mat-label>{{ 'leaf.profile-update.firstname-input-placeholder' | translate }}</mat-label>
         <input
@@ -67,6 +68,7 @@
       <mat-form-field
         *ngIf="fields.includes('lastname')"
         subscriptSizing="dynamic"
+        [leafMatFieldAppearance]="fieldAppearance"
       >
       <mat-label>{{ 'leaf.profile-update.lastname-input-placeholder' | translate }}</mat-label>
         <input
@@ -94,7 +96,7 @@
     </ng-container>
     <ng-container *ngIf="fields.includes('billingEmail')">
       <div class="form-group-title" *ngIf="!hideGroupTitles">{{ 'leaf.profile-update.billingEmail-form-group-title' | translate }}</div>
-      <mat-form-field subscriptSizing="dynamic" [appearance]="fieldAppearance">
+      <mat-form-field subscriptSizing="dynamic" [leafMatFieldAppearance]="fieldAppearance">
         <mat-label>{{ 'leaf.profile-update.billingEmail-input-placeholder' | translate }}</mat-label>
         <input
           matInput
@@ -114,12 +116,12 @@
     </ng-container>
     <ng-container *ngIf="fields.includes('address')">
       <div class="form-group-title" *ngIf="!hideGroupTitles">{{ 'leaf.profile-update.address-form-group-title' | translate }}</div>
-      <leaf-address-form formControlName="address" [appearance]="fieldAppearance"></leaf-address-form>
+      <leaf-address-form formControlName="address" [fieldAppearance]="fieldAppearance"></leaf-address-form>
     </ng-container>
     <ng-container *ngIf="fields.includes('corporate') || fields.includes('taxId')">
       <div class="form-group-title" *ngIf="!hideGroupTitles">{{ 'leaf.profile-update.corporate-form-group-title' | translate }}</div>
       <mat-checkbox formControlName="corporate" *ngIf="fields.includes('corporate')">{{ 'leaf.profile-update.corporate-input-placeholder' | translate }}</mat-checkbox>
-      <mat-form-field subscriptSizing="dynamic" [appearance]="fieldAppearance" *ngIf="fields.includes('taxId') && (profileFormGroup.controls.corporate.value || !fields.includes('corporate'))">
+      <mat-form-field subscriptSizing="dynamic" [leafMatFieldAppearance]="fieldAppearance" *ngIf="fields.includes('taxId') && (profileFormGroup.controls.corporate.value || !fields.includes('corporate'))">
         <mat-label>{{ 'leaf.profile-update.taxId-input-placeholder' | translate }}</mat-label>
         <input
           matInput
@@ -136,7 +138,7 @@
           {{ "leaf.profile-update.requiredError" | translate }}
         </mat-error>
       </mat-form-field>
-      <mat-form-field subscriptSizing="dynamic" [appearance]="fieldAppearance" *ngIf="fields.includes('registrationNumber') && (profileFormGroup.controls.corporate.value || !fields.includes('corporate'))">
+      <mat-form-field subscriptSizing="dynamic" [leafMatFieldAppearance]="fieldAppearance" *ngIf="fields.includes('registrationNumber') && (profileFormGroup.controls.corporate.value || !fields.includes('corporate'))">
         <mat-label>{{ 'leaf.profile-update.registrationNumber-input-placeholder' | translate }}</mat-label>
         <input
           matInput

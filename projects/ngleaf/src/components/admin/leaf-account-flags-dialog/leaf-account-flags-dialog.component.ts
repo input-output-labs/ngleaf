@@ -8,6 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { AccountApiClient } from '../../../api/clients';
+import { LeafMatFieldModule } from '../../../directives/mat-field/leaf-mat-field.module';
 
 interface AccountFlagsDialogData {
   accountId: string;
@@ -20,6 +21,7 @@ interface AccountFlagsDialogData {
   templateUrl: './leaf-account-flags-dialog.component.html',
   styleUrls: ['./leaf-account-flags-dialog.component.scss'],
   imports: [
+    LeafMatFieldModule,
     CommonModule,
     FormsModule,
     MatDialogModule,

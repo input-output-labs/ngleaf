@@ -11,9 +11,12 @@ import { MatInputModule } from '@angular/material/input';
 import { AdminSettingsWhitelistComponent } from './admin-settings-whitelist.component';
 import { LeafAdminModule } from '../../../../services/index';
 
+import { LeafMatFieldModule } from '../../../../directives/mat-field/leaf-mat-field.module';
+
 @NgModule({
   declarations: [AdminSettingsWhitelistComponent],
   imports: [
+    LeafMatFieldModule,
     /* Code deps */
     CommonModule,
     FormsModule,

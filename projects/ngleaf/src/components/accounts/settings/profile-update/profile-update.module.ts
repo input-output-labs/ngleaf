@@ -12,8 +12,11 @@ import { LeafAddressFormModule } from '../../../common';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { PhoneNumberFormFieldModule } from '../../phone-number-form-field/phone-number-form-field.module';
 
+import { LeafMatFieldModule } from '../../../../directives/mat-field/leaf-mat-field.module';
+
 @NgModule({
   imports: [
+    LeafMatFieldModule,
     /* Core deps*/
     CommonModule,
     ReactiveFormsModule,

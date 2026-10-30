@@ -14,8 +14,11 @@ import {MatSelectModule} from '@angular/material/select';
 
 import { UserSelectorModule } from '../../admin/user-selector/user-selector.module';
 
+import { LeafMatFieldModule } from '../../../directives/mat-field/leaf-mat-field.module';
+
 @NgModule({
   imports: [
+    LeafMatFieldModule,
     /* Common deps */
     CommonModule,
     TranslateModule,

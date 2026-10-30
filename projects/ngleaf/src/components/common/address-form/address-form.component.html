@@ -1,5 +1,5 @@
 <form [formGroup]="addressFormGroup" class="address-form">
-  <mat-form-field subscriptSizing="dynamic" [appearance]="fieldAppearance">
+  <mat-form-field subscriptSizing="dynamic" [leafMatFieldAppearance]="fieldAppearance">
     <mat-label>{{ 'leaf.address-form.address-input-placeholder' | translate }}</mat-label>
     <input
       matInput
@@ -13,7 +13,7 @@
     </mat-error>
   </mat-form-field>
   <div class="line">
-    <mat-form-field subscriptSizing="dynamic" [appearance]="fieldAppearance">
+    <mat-form-field subscriptSizing="dynamic" [leafMatFieldAppearance]="fieldAppearance">
       <mat-label>{{ 'leaf.address-form.postalCode-input-placeholder' | translate }}</mat-label>
       <input
         matInput
@@ -30,7 +30,7 @@
         {{ "leaf.address-form.requiredError" | translate }}
       </mat-error>
     </mat-form-field>
-    <mat-form-field subscriptSizing="dynamic" [appearance]="fieldAppearance">
+    <mat-form-field subscriptSizing="dynamic" [leafMatFieldAppearance]="fieldAppearance">
       <mat-label>{{ 'leaf.address-form.city-input-placeholder' | translate }}</mat-label>
       <input
         matInput
@@ -45,7 +45,7 @@
     </mat-form-field>
   </div>
   <div class="line">
-    <mat-form-field subscriptSizing="dynamic" [appearance]="fieldAppearance">
+    <mat-form-field subscriptSizing="dynamic" [leafMatFieldAppearance]="fieldAppearance">
       <mat-label>{{ 'leaf.address-form.country-input-placeholder' | translate }}</mat-label>
       <mat-select
         id="country"

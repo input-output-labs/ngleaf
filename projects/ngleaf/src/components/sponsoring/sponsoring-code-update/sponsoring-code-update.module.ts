@@ -13,8 +13,11 @@ import { SponsoringCodeUpdateComponent } from './sponsoring-code-update/sponsori
 import { SponsoringCodeUpdateWidgetComponent } from './sponsoring-code-update-widget/sponsoring-code-update-widget.component';
 import { SponsoringCodeUpdateDialogComponent } from './sponsoring-code-update-dialog/sponsoring-code-update-dialog.component';
 
+import { LeafMatFieldModule } from '../../../directives/mat-field/leaf-mat-field.module';
+
 @NgModule({
   imports: [
+    LeafMatFieldModule,
     /* Core deps */
     CommonModule,
     ReactiveFormsModule,

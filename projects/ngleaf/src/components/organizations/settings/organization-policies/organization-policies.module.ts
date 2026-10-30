@@ -12,8 +12,11 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { OrganizationPoliciesComponent } from './organization-policies.component';
 import { LeafOrganizationStoreModule } from '../../../../store/core/organizations/index';
 
+import { LeafMatFieldModule } from '../../../../directives/mat-field/leaf-mat-field.module';
+
 @NgModule({
   imports: [
+    LeafMatFieldModule,
     /* Core deps */
     CommonModule,
     TranslateModule,

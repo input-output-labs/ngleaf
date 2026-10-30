@@ -10,8 +10,11 @@ import { MatIconModule } from '@angular/material/icon';
 
 import { AccountApiClientModule } from '../../../api/index';
 
+import { LeafMatFieldModule } from '../../../directives/mat-field/leaf-mat-field.module';
+
 @NgModule({
   imports: [
+    LeafMatFieldModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,

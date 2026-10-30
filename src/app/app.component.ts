@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DemoUiConfigService } from './ui-config/demo-ui-config.service';
 
 @Component({
   standalone: false,
@@ -7,6 +8,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  constructor() {}
+  constructor(uiConfig: DemoUiConfigService) {
+    void uiConfig;
+  }
 }
 

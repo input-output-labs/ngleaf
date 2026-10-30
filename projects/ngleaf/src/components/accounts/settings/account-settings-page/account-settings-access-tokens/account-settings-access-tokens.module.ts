@@ -11,9 +11,12 @@ import { MatTableModule } from '@angular/material/table';
 import { LeafSessionModule } from '../../../../../services/index';
 import { MatInputModule } from '@angular/material/input';
 
+import { LeafMatFieldModule } from '../../../../../directives/mat-field/leaf-mat-field.module';
+
 @NgModule({
   declarations: [AccountSettingsAccessTokensComponent],
   imports: [
+    LeafMatFieldModule,
     /* Code deps */
     CommonModule,
     ReactiveFormsModule,

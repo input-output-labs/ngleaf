@@ -8,8 +8,11 @@ import { TranslateModule } from '@ngx-translate/core';
 import { EmailVerificationComponent } from './email-verification.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
+import { LeafMatFieldModule } from '../../../directives/mat-field/leaf-mat-field.module';
+
 @NgModule({
   imports: [
+    LeafMatFieldModule,
     /* Core deps*/
     CommonModule,
     TranslateModule,

@@ -26,7 +26,7 @@ export class LeafAddressFormComponent implements ControlValueAccessor {
   public readonly countries: string[] = ["CH", "FR", "BE", "LU"];
 
   @Input()
-  public fieldAppearance: MatFormFieldAppearance = "fill";
+  public fieldAppearance?: MatFormFieldAppearance;
 
   // Form control field
   private onChange = (_: any) => {};

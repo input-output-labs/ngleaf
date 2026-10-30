@@ -40,6 +40,13 @@
   </nav>
 
   <div class="menu__footer">
+    <button type="button" mat-button class="navigation-link" (click)="openUiConfig()"
+            [matTooltip]="collapsed ? 'Apparence' : ''"
+            matTooltipPosition="right">
+      <mat-icon>tune</mat-icon>
+      <span>Apparence</span>
+    </button>
+
     <a mat-button routerLink="/settings"
        routerLinkActive="active"
        class="navigation-link"

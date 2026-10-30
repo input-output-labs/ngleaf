@@ -25,8 +25,11 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { TranslatedMatPaginatorIntl } from './translated-mat-paginator-intl.service';
 
+import { LeafMatFieldModule } from '../../../../directives/mat-field/leaf-mat-field.module';
+
 @NgModule({
   imports: [
+    LeafMatFieldModule,
     /* Core deps*/
     CommonModule,
     FormsModule,

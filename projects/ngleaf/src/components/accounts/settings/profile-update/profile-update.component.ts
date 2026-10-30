@@ -32,7 +32,7 @@ export class ProfileUpdateComponent implements OnChanges, OnDestroy {
   public separateColumnForAvatar: boolean = true;
 
   @Input()
-  public fieldAppearance: MatFormFieldAppearance = "fill";
+  public fieldAppearance?: MatFormFieldAppearance;
 
   @Input()
   public hideGroupTitles: boolean = false;
