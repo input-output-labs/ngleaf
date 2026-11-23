@@ -30,6 +30,11 @@ export const setMyOrganizationsFailure = createAction(
     props<{error: any}>()
 );
 
+export const upsertMyOrganization = createAction(
+    '[Organizations store] Upsert my organization',
+    props<{organizations: LeafOrganization[]}>()
+);
+
 export const setCurrentOrganizationId = createAction(
   '[Organizations store] Set current organization id',
   props<{selectedOrganizationId?: string}>()

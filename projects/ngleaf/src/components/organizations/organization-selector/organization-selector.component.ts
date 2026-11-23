@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angu
 import { LeafAccountModel, LeafOrganization, OrganizationsApiClientService } from '../../../api';
 import { combineLatest, map, Observable, of, startWith, switchMap } from 'rxjs';
 import { Store, select } from '@ngrx/store';
-import { listMyOrganizations, selectCurrentOrganization, selectMyOrganizationsData, setCurrentOrganizationId } from '../../../store/core/organizations';
+import { listMyOrganizations, selectCurrentOrganization, selectMyOrganizationsData, setCurrentOrganizationId, upsertMyOrganization } from '../../../store/core/organizations';
 import { selectCurrentAccountData } from '../../../store';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
@@ -99,7 +99,8 @@ export class OrganizationSelectorComponent implements OnInit {
   }
 
   public selectOrganization(organization) {
-    this.store.dispatch(setCurrentOrganizationId({selectedOrganizationId: organization.id}));
+    this.store.dispatch(upsertMyOrganization({ organizations: [organization] }));
+    this.store.dispatch(setCurrentOrganizationId({ selectedOrganizationId: organization.id }));
     if (this.menuTrigger) {
       this.menuTrigger.closeMenu();
     }

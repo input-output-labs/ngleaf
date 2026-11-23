@@ -385,7 +385,9 @@
       "roleDeleteButtonLabel": "Delete role",
       "defaultNewRoleName": "New role",
       "categories": {
-        "organizations": "Organization"
+        "organizations": "Organization",
+        "pro": "Pro",
+        "charge": "Charging"
       },
       "policies": {
         "seeOrganization": {

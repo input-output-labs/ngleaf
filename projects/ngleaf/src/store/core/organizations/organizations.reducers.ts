@@ -74,6 +74,16 @@ export function organizationsReducer(reducerState, action): OrganizationsState {
         myOrganizations: asyncTypeFailure(state.myOrganizations, error),
       })
     ),
+    on(
+      Actions.upsertMyOrganization,
+      (state: OrganizationsState, {organizations}) => ({
+        ...state,
+        myOrganizations: (organizations || []).reduce(
+          (myOrganizations, organization) => asyncUpsert(organization, myOrganizations),
+          state.myOrganizations
+        ),
+      })
+    ),
     /* Current organization */
     on(
       Actions.setCurrentOrganizationId,
